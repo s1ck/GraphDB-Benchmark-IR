@@ -19,6 +19,7 @@ import org.neo4j.graphdb.index.Index;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 import de.uni.leipzig.IR15.Connectors.MySQLConnector;
+import de.uni.leipzig.IR15.Support.Configuration;
 
 public class Neo4JImporter {
 
@@ -29,12 +30,10 @@ public class Neo4JImporter {
 	}
 	
 	private static Index<Node> nodeIndex;
-
 	private static Integer operationsPerTx;
-	
-	private static Properties mySQLProps;
-	
-	private static Properties neo4jProps;
+	private static Configuration mySQLConfiguration;
+	private static Configuration neo4jConfiguration;
+
 	/**
 	 * @param args
 	 * @throws IOException 
@@ -42,29 +41,27 @@ public class Neo4JImporter {
 	 */
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		// load properties
-		neo4jProps = new Properties();
-		neo4jProps.load(new FileReader("src/main/resources/neo4j.properties"));
-		mySQLProps = new Properties();
-		mySQLProps.load(new FileReader("src/main/resources/mysql.properties"));
+		mySQLConfiguration = Configuration.getInstance("mysql");
+		neo4jConfiguration = Configuration.getInstance("neo4j");
 		
-		operationsPerTx = Integer.parseInt(neo4jProps.get("operations_per_transaction").toString());
+		operationsPerTx = neo4jConfiguration.getPropertyAsInteger("operations_per_transaction");
 		
 		// connect to mysql
 		String database = "jdbc:mysql://" 
-		+ mySQLProps.getProperty("host") 
-		+ ":" + mySQLProps.getProperty("port") 
-		+ "/" + mySQLProps.getProperty("database");
+		+ mySQLConfiguration.getPropertyAsString("host") 
+		+ ":" + mySQLConfiguration.getPropertyAsString("port") 
+		+ "/" + mySQLConfiguration.getPropertyAsString("database");
 		
 		MySQLConnector mySQLConnector = new MySQLConnector(database, 
-				mySQLProps.getProperty("username"), 
-				mySQLProps.getProperty("password")
+				mySQLConfiguration.getPropertyAsString("username"), 
+				mySQLConfiguration.getPropertyAsString("password")
 				);
 		
 		Connection mySQL = mySQLConnector.createConnection();
 		
 		// connect to neo4j and create an index on the nodes
 		
-		GraphDatabaseService neo4j = new EmbeddedGraphDatabase(neo4jProps.getProperty("location"));
+		GraphDatabaseService neo4j = new EmbeddedGraphDatabase(neo4jConfiguration.getPropertyAsString("location"));
 		nodeIndex = neo4j.index().forNodes("words");
 			
 				
