@@ -17,7 +17,7 @@ import org.neo4j.kernel.EmbeddedGraphDatabase;
 import de.uni.leipzig.IR15.Connectors.MySQLConnector;
 import de.uni.leipzig.IR15.Support.Configuration;
 
-public class Neo4JImporter implements Importer {
+public class Neo4JImporter extends Importer {
 
 	private static enum RelTypes implements RelationshipType
 	{
@@ -28,7 +28,6 @@ public class Neo4JImporter implements Importer {
 	private static Index<Node> nodeIndex;
 	private static Integer operationsPerTx;
 	private static Configuration mySQLConfiguration;
-	private static Configuration neo4jConfiguration;
 	private static Connection mySQL;
 	private static GraphDatabaseService neo4j;
 	private static MySQLConnector mySQLConnector;
@@ -37,9 +36,11 @@ public class Neo4JImporter implements Importer {
 	public void setUp() {
 		// load properties
 		mySQLConfiguration = Configuration.getInstance("mysql");
-		neo4jConfiguration = Configuration.getInstance("neo4j");
-		
-		operationsPerTx = neo4jConfiguration.getPropertyAsInteger("operations_per_transaction");
+		graphConfiguration = Configuration.getInstance("neo4j");
+
+		reset();
+
+		operationsPerTx = graphConfiguration.getPropertyAsInteger("operations_per_transaction");
 		
 		// connect to mysql
 		String database = "jdbc:mysql://" 
@@ -56,7 +57,7 @@ public class Neo4JImporter implements Importer {
 		
 		// connect to neo4j and create an index on the nodes
 		
-		neo4j = new EmbeddedGraphDatabase(neo4jConfiguration.getPropertyAsString("location"));
+		neo4j = new EmbeddedGraphDatabase(graphConfiguration.getPropertyAsString("location"));
 		nodeIndex = neo4j.index().forNodes("words");
 		
 		registerShutdownHook(neo4j);
@@ -66,7 +67,9 @@ public class Neo4JImporter implements Importer {
 	public void tearDown() {
 		// shutdown the connections
 		neo4j.shutdown();
-		mySQLConnector.destroyConnection();		
+		mySQLConnector.destroyConnection();
+		
+		reset();
 	}
 	
 	/**
