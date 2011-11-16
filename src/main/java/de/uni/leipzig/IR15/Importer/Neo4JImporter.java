@@ -72,13 +72,12 @@ public class Neo4JImporter implements Importer {
 	/**
 	 * @param args
 	 */
-	public void importData() {													
+	public void importData() {
 		// transfer the data from mysql to neo4j		
-		transferData(neo4j, mySQL);											
+		transferData(neo4j, mySQL);
 	}
 	
-	private void transferData(GraphDatabaseService neo4j, Connection mySQL)
-	{		
+	private void transferData(GraphDatabaseService neo4j, Connection mySQL) {		
 		importWords(mySQL, neo4j);
 		importCooccurrences(mySQL, neo4j, RelTypes.CO_N);
 		importCooccurrences(mySQL, neo4j, RelTypes.CO_S);
