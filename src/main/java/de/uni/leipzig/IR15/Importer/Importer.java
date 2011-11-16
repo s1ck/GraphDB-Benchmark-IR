@@ -14,7 +14,7 @@ import de.uni.leipzig.IR15.Support.Configuration;
 public abstract class Importer {
 	protected static Configuration graphConfiguration;
 	protected static Configuration mySQLConfiguration;
-	protected static Connection mySQL;
+	protected static Connection mySQLConnection;
 	protected static MySQLConnector mySQLConnector;
 	
 	protected static Logger log = Logger.getLogger(Importer.class);
@@ -48,7 +48,7 @@ public abstract class Importer {
 				mySQLConfiguration.getPropertyAsString("password")
 				);
 		
-		mySQL = mySQLConnector.createConnection();
+		mySQLConnection = mySQLConnector.createConnection();
 
 		reset();
 	}
@@ -72,12 +72,11 @@ public abstract class Importer {
 	    }
 	    path.delete();
 	}
-
-	protected Integer getMysqlRowCount(Connection sqlConnection, String table) {
+	protected Integer getMysqlRowCount(String table) {
 	    String query = "SELECT COUNT(*) FROM " + table;
 	    Integer count = null;
 	    try {
-	      Statement st = sqlConnection.createStatement();
+	      Statement st = mySQLConnection.createStatement();
 	      ResultSet rs = st.executeQuery(query);
 	      
 	      while (rs.next()) {

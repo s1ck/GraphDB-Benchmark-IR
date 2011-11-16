@@ -53,15 +53,30 @@ public class Neo4JImporter extends Importer {
 		transferData();		
 	}
 	
-	private void transferData()	{
-		importWords(mySQL, neo4j);
-		importCooccurrences(mySQL, neo4j, RelTypes.CO_N);
-		importCooccurrences(mySQL, neo4j, RelTypes.CO_S);
-	}		
+	private void transferData()
+	{		
+		importWords(mySQLConnection, neo4j);
+		importCooccurrences(mySQLConnection, neo4j, RelTypes.CO_N);
+		importCooccurrences(mySQLConnection, neo4j, RelTypes.CO_S);
+	}
+	
+	private void registerShutdownHook( final GraphDatabaseService graphDb ) {
+	    // Registers a shutdown hook for the Neo4j instance so that it
+	    // shuts down nicely when the VM exits (even if you "Ctrl-C" the
+	    // running example before it's completed)
+	    Runtime.getRuntime().addShutdownHook( new Thread()
+	    {
+	        @Override
+	        public void run()
+	        {
+	            graphDb.shutdown();
+	        }
+	    } );
+	}
 	
 	private void importCooccurrences(Connection mySQL, GraphDatabaseService neo4j, RelationshipType relType) {
 		String table = relType.toString().toLowerCase();
-		Integer count = getMysqlRowCount(mySQL, table);
+		Integer count = getMysqlRowCount(table);
 		System.out.println("Importing " + count + " cooccurrences (" + table + ")");
 		Integer step  = 0;
 		

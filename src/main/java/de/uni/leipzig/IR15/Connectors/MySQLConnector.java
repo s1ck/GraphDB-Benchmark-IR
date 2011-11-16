@@ -4,7 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
+import de.uni.leipzig.IR15.Importer.DEXImporter;
+
 public class MySQLConnector {
+	protected static Logger log = Logger.getLogger(MySQLConnector.class);
+	
 	private String database;	
 	private String username;
 	private String password;

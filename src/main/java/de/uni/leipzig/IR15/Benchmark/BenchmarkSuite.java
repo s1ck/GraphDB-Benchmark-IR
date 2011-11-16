@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import de.uni.leipzig.IR15.Benchmark.neo4j.GetNeighboursBenchmark;
+import de.uni.leipzig.IR15.Importer.DEXImporter;
 import de.uni.leipzig.IR15.Importer.Neo4JImporter;
 import de.uni.leipzig.IR15.Importer.Neo4JImporter.RelTypes;
 
@@ -24,12 +25,17 @@ public class BenchmarkSuite {
 		neo4jImportBench.setRuns(1);
 		benchmarks.add(neo4jImportBench);
 		
-		Benchmark neo4jNeighbours = new GetNeighboursBenchmark(
-				new Neo4JImporter(), 5, RelTypes.CO_N, 137);
-		neo4jNeighbours.setRuns(100);
-		neo4jNeighbours.setWarmups(10);
-		
-		benchmarks.add(neo4jNeighbours);
+
+		Benchmark dexImportBench = new ImportBenchmark(new DEXImporter());
+		dexImportBench.setWarmups(0);
+		dexImportBench.setRuns(1);
+		benchmarks.add(dexImportBench);
+
+//		Benchmark neo4jNeighbours = new GetNeighboursBenchmark(
+//				new Neo4JImporter(), 5, RelTypes.CO_N, 137);
+//		neo4jNeighbours.setRuns(100);
+//		neo4jNeighbours.setWarmups(10);
+//		benchmarks.add(neo4jNeighbours);
 		
 		runBenchmarks(benchmarks);
 	}
