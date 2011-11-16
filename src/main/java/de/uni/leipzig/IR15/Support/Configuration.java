@@ -8,8 +8,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 public class Configuration {
-	private static HashMap<String,Configuration> instances = new HashMap<String,Configuration>();
-	
+	private static HashMap<String, Configuration> instances = new HashMap<String, Configuration>();
 	private Properties properties = null;
 	
 	private Configuration(String file) {
@@ -21,11 +20,11 @@ public class Configuration {
 			stream.close();
 		} catch (FileNotFoundException e) {
 			properties = null;
-			System.out.println("Configuration not found Ñ please copy, customize and save the existing config/application.properties.example as config/application.properties");
+			System.out.println("Configuration not found â€” please copy, customize and save the existing config/application.properties.example as config/application.properties");
 			e.printStackTrace();
 		} catch (IOException e) {
 			properties = null;
-			System.out.println("Configuration read error Ñ please check your config/application.properties");
+			System.out.println("Configuration read error â€” please check your config/application.properties");
 			e.printStackTrace();
 		}
 	}
@@ -49,7 +48,6 @@ public class Configuration {
 			instances.put(file, new Configuration(file));
 			return instances.get(file);  
 		}
-
 		return instances.get(file);
 	}
 }
