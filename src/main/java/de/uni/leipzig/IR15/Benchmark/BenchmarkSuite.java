@@ -1,8 +1,7 @@
 package de.uni.leipzig.IR15.Benchmark;
 
-import de.uni.leipzig.IR15.Importer.Importer;
-import de.uni.leipzig.IR15.Importer.Neo4JImporter;
-import de.uni.leipzig.IR15.Importer.OrientDBImporter;
+
+import de.uni.leipzig.IR15.Importer.*;
 
 public class BenchmarkSuite {
 
@@ -11,10 +10,13 @@ public class BenchmarkSuite {
 	 */
 	public static void main(String[] args) {
 		Importer neo4jImport = new Neo4JImporter();
-		// OrientDBImporter();
-		Benchmark importBench = new ImportBenchmark(neo4jImport);
+		Importer dexImport = new DEXImporter();
 		
-		importBench.run();
+		Benchmark neo4jImportBench = new ImportBenchmark(neo4jImport);
+		neo4jImportBench.run();
+		
+		Benchmark dexImportBench = new ImportBenchmark(dexImport);
+		dexImportBench.run();
 	}
 
 }
