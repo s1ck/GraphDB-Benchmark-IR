@@ -5,9 +5,9 @@ target
 .project
 .classpath
 .settings
+.properties
 *.iws
 *.ipr
 *.iml
 .idea
 out/*
-src/main/resources/*

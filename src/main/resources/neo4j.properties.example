@@ -1,0 +1,2 @@
+location=out/neo4j
+operations_per_transaction=20000

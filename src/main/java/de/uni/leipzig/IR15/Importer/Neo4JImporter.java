@@ -1,13 +1,9 @@
 package de.uni.leipzig.IR15.Importer;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
 
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.GraphDatabaseService;
@@ -21,7 +17,7 @@ import org.neo4j.kernel.EmbeddedGraphDatabase;
 import de.uni.leipzig.IR15.Connectors.MySQLConnector;
 import de.uni.leipzig.IR15.Support.Configuration;
 
-public class Neo4JImporter {
+public class Neo4JImporter implements Importer {
 
 	private static enum RelTypes implements RelationshipType
 	{
@@ -33,13 +29,12 @@ public class Neo4JImporter {
 	private static Integer operationsPerTx;
 	private static Configuration mySQLConfiguration;
 	private static Configuration neo4jConfiguration;
+	private static Connection mySQL;
+	private static GraphDatabaseService neo4j;
+	private static MySQLConnector mySQLConnector;
 
-	/**
-	 * @param args
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
-	 */
-	public static void main(String[] args) throws FileNotFoundException, IOException {
+	@Override
+	public void setUp() {
 		// load properties
 		mySQLConfiguration = Configuration.getInstance("mysql");
 		neo4jConfiguration = Configuration.getInstance("neo4j");
@@ -57,47 +52,39 @@ public class Neo4JImporter {
 				mySQLConfiguration.getPropertyAsString("password")
 				);
 		
-		Connection mySQL = mySQLConnector.createConnection();
+		mySQL = mySQLConnector.createConnection();
 		
 		// connect to neo4j and create an index on the nodes
 		
-		GraphDatabaseService neo4j = new EmbeddedGraphDatabase(neo4jConfiguration.getPropertyAsString("location"));
+		neo4j = new EmbeddedGraphDatabase(neo4jConfiguration.getPropertyAsString("location"));
 		nodeIndex = neo4j.index().forNodes("words");
-			
-				
+		
 		registerShutdownHook(neo4j);
-		
-		// transfer the data from mysql to neo4j
-		long start = System.currentTimeMillis();
-		transferData(neo4j, mySQL);
-		long diff = System.currentTimeMillis() - start;
-		
-		// count
-		int n = 0;
-		int m = 0;
-		for (Node node : neo4j.getAllNodes())
-		{
-			n++;
-			for(Relationship edge : node.getRelationships(Direction.OUTGOING))
-			{
-				m++;
-			}
-		}		
-		System.out.printf("transfered %d nodes and %d edges. these are %d objects / second\n", n, m, (n+m) / (diff / 1000));
-		
+	}
+
+	@Override
+	public void tearDown() {
 		// shutdown the connections
 		neo4j.shutdown();
-		mySQLConnector.destroyConnection();
+		mySQLConnector.destroyConnection();		
 	}
 	
-	private static void transferData(GraphDatabaseService neo4j, Connection mySQL)
+	/**
+	 * @param args
+	 */
+	public void importData() {													
+		// transfer the data from mysql to neo4j		
+		transferData(neo4j, mySQL);											
+	}
+	
+	private void transferData(GraphDatabaseService neo4j, Connection mySQL)
 	{		
 		importWords(mySQL, neo4j);
 		importCooccurrences(mySQL, neo4j, RelTypes.CO_N);
 		importCooccurrences(mySQL, neo4j, RelTypes.CO_S);
 	}
 	
-	private static void registerShutdownHook( final GraphDatabaseService graphDb ) {
+	private void registerShutdownHook( final GraphDatabaseService graphDb ) {
 	    // Registers a shutdown hook for the Neo4j instance so that it
 	    // shuts down nicely when the VM exits (even if you "Ctrl-C" the
 	    // running example before it's completed)
@@ -111,7 +98,7 @@ public class Neo4JImporter {
 	    } );
 	}
 	
-	private static void importCooccurrences(Connection mySQL, GraphDatabaseService neo4j, RelationshipType relType) {
+	private void importCooccurrences(Connection mySQL, GraphDatabaseService neo4j, RelationshipType relType) {
 		String table = relType.toString().toLowerCase();
 		Integer count = getRowCount(mySQL, table);
 		System.out.println("Importing " + count + " cooccurrences (" + table + ")");
@@ -160,11 +147,7 @@ public class Neo4JImporter {
 	    }
 	}
 	
-	private static void importWords(Connection mySQL, GraphDatabaseService neo4j) {
-		Integer count = getRowCount(mySQL, "words");
-		System.out.println("Importing " + count + " words");
-		Integer step = 0;
-		
+	private void importWords(Connection mySQL, GraphDatabaseService neo4j) {		
 	    String query = "SELECT * FROM words";
 	    Transaction tx = neo4j.beginTx();
 	    try {
@@ -191,9 +174,7 @@ public class Neo4JImporter {
 	        	tx.finish();
 	        	tx = neo4j.beginTx();
 	        	System.out.println(".");
-	        }
-	        
-	        step++;	        
+	        }        
 	      }
 	      tx.success();
 	    } catch (SQLException ex) {
@@ -204,7 +185,7 @@ public class Neo4JImporter {
 	    }
 	}
 	
-	private static Integer getRowCount(Connection sqlConnection, String table) {
+	private Integer getRowCount(Connection sqlConnection, String table) {
 	    String query = "SELECT COUNT(*) FROM " + table;
 	    Integer count = null;
 	    try {
@@ -219,5 +200,7 @@ public class Neo4JImporter {
 	      System.err.println(ex.getMessage());
 	    }
 	    return count;
-	}	
+	}
+
+	
 }
