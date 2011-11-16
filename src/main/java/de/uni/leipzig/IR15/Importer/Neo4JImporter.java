@@ -48,7 +48,7 @@ public class Neo4JImporter extends Importer {
 		+ ":" + mySQLConfiguration.getPropertyAsString("port") 
 		+ "/" + mySQLConfiguration.getPropertyAsString("database");
 		
-		MySQLConnector mySQLConnector = new MySQLConnector(database, 
+		mySQLConnector = new MySQLConnector(database, 
 				mySQLConfiguration.getPropertyAsString("username"), 
 				mySQLConfiguration.getPropertyAsString("password")
 				);
