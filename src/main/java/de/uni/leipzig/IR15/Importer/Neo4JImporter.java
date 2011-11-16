@@ -77,7 +77,7 @@ public class Neo4JImporter extends Importer {
 	private void importCooccurrences(Connection mySQL, GraphDatabaseService neo4j, RelationshipType relType) {
 		String table = relType.toString().toLowerCase();
 		Integer count = getMysqlRowCount(table);
-		System.out.println("Importing " + count + " cooccurrences (" + table + ")");
+		log.info("Importing " + count + " cooccurrences (" + table + ")");
 		Integer step  = 0;
 		
 	    String query = "SELECT * FROM " + table;
@@ -109,8 +109,7 @@ public class Neo4JImporter extends Importer {
 	        	// commit
 	        	tx.success();
 	        	tx.finish();
-	        	tx = neo4j.beginTx();
-	        	System.out.println(".");
+	        	tx = neo4j.beginTx();	        	
 	        }
 	        
 	        step++;	       
@@ -148,8 +147,7 @@ public class Neo4JImporter extends Importer {
 	        	// commit
 	        	tx.success();
 	        	tx.finish();
-	        	tx = neo4j.beginTx();
-	        	System.out.println(".");
+	        	tx = neo4j.beginTx();	        	
 	        }        
 	      }
 	      tx.success();

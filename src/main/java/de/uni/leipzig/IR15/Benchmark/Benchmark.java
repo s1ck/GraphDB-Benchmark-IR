@@ -1,5 +1,7 @@
 package de.uni.leipzig.IR15.Benchmark;
 
+import java.util.Hashtable;
+
 import org.apache.log4j.Logger;
 
 
@@ -7,19 +9,14 @@ public abstract class Benchmark {
 	
 	protected static Logger log = Logger.getLogger(Benchmark.class);
 	
+	/*
+	 * number of warmups runs
+	 */
 	private int warmups = 10;
-	
-	private int runs = 100;	
-	
-	/**
-	 * start timestamp (unix)
+	/*
+	 * number of test runs
 	 */
-	private long start;
-	
-	/**
-	 * stop timestamp (unix)
-	 */
-	private long diff;
+	private int runs = 100;			
 	
 	public void setWarmups(int warmups) {
 		this.warmups = warmups;
@@ -35,52 +32,22 @@ public abstract class Benchmark {
 	
 	public int getRuns() {
 		return this.runs;
-	}
+	}		
 	
-	/**
-	 * starts the timer
-	 * @return unix timestamp
+	/*
+	 * Preparation before benchmark
 	 */
-	protected long startTimer() {		
-		start = System.currentTimeMillis();
-		return start;
-	}
-	
-	/**
-	 * stops the timer
-	 * @return unix timestamp
-	 */
-	protected long stopTimer() {
-		diff = System.currentTimeMillis() - start;	
-		return diff;
-	}
-	
-	/**
-	 * logs some information about the running benchmark
-	 */
-	protected void logStart() {
-		log.info(String.format("Starting Benchmark: %s", getName()));
-	}
-	
-	/**
-	 * logs some information about the running benchmark
-	 */
-	protected void logStop() {
-		log.info(String.format("Finished Benchmark: %s", getName()));
-	}
-	
-	
 	public abstract void setUp();
 	/**
 	 * runs the benchmark
 	 */
 	public abstract void run();
 	/*
-	 * 	
+	 * 	Cleanup after benchmark
 	 */
 	public abstract void tearDown();
 	/*
-	 * 
+	 * Reset the benchmark state (in case of multiple run calls)
 	 */
 	public abstract void reset();
 	/**
@@ -89,4 +56,35 @@ public abstract class Benchmark {
 	 * @return The name of the benchmark
 	 */
 	public abstract String getName();
+	
+	/**
+	 * Builds a result string with. This method can
+	 * be overriden to print benchmark specific results.
+	 * 
+	 * @param runtimes
+	 * @return hashtable wih results
+	 */
+	public Hashtable<String, Object> getResults(long[] runtimes) {
+		Hashtable<String, Object> results = new Hashtable<String, Object>();
+		
+		// average
+		long sum = 0L;
+		for (int i = 0; i < runtimes.length; i++) {
+			sum += runtimes[i];
+		}
+		long avg = sum / runtimes.length;
+		
+		results.put("average", avg);
+		
+		// stdev		
+		long tmp = 0;
+		for (int i = 0; i < runtimes.length; i++) {
+			tmp += Math.pow((runtimes[i] - avg), 2);
+		}
+		double stdev = new Double(tmp) / (runtimes.length);
+		
+		results.put("stdev", stdev);
+		
+		return results;
+	}
 }

@@ -3,6 +3,8 @@ package de.uni.leipzig.IR15.Benchmark;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
@@ -24,18 +26,23 @@ public class BenchmarkSuite {
 		neo4jImportBench.setWarmups(0);
 		neo4jImportBench.setRuns(1);
 		benchmarks.add(neo4jImportBench);
-		
 
+		Benchmark neo4jNeighbours = new GetNeighboursBenchmark(
+				new Neo4JImporter(), 5, RelTypes.CO_N, 137);
+		neo4jNeighbours.setRuns(100);
+		neo4jNeighbours.setWarmups(10);
+		benchmarks.add(neo4jNeighbours);
+		
 		Benchmark dexImportBench = new ImportBenchmark(new DEXImporter());
 		dexImportBench.setWarmups(0);
 		dexImportBench.setRuns(1);
 		benchmarks.add(dexImportBench);
 
-//		Benchmark neo4jNeighbours = new GetNeighboursBenchmark(
-//				new Neo4JImporter(), 5, RelTypes.CO_N, 137);
-//		neo4jNeighbours.setRuns(100);
-//		neo4jNeighbours.setWarmups(10);
-//		benchmarks.add(neo4jNeighbours);
+		Benchmark dexNeighbours = new de.uni.leipzig.IR15.Benchmark.dex.GetNeighboursBenchmark(
+				new DEXImporter(), 5, DEXImporter.RelTypes.CO_N, 137);
+		dexNeighbours.setRuns(100);
+		dexNeighbours.setWarmups(10);
+		benchmarks.add(dexNeighbours);
 		
 		runBenchmarks(benchmarks);
 	}
@@ -56,17 +63,16 @@ public class BenchmarkSuite {
 		long[] results = new long[runs];
 		
 		log.info(String.format("Starting Benchmark: %s with %d warmups and %d runs", benchmark.getName(), warmups, runs));
-		
-		// do warmup
+				
 		benchmark.setUp();
+		
+		// do warmup		
 		for (int i = 0; i < warmups; i++) {
 			benchmark.run();
 			benchmark.reset();
 		}
-		benchmark.tearDown();
 		
-		// do measurement
-		benchmark.setUp();
+		// do measurement		
 		for (int i = 0; i < runs; i++) {
 			
 			start = System.currentTimeMillis();
@@ -81,10 +87,11 @@ public class BenchmarkSuite {
 		for (int i = 0; i < results.length; i++) {
 			sum += results[i];
 		}
-		
-		long avg = sum / results.length;
-		
-		log.info(String.format("Benchmark: %s Average: %d", benchmark.getName(), avg));
+					
+		for(Entry<String, Object> e : benchmark.getResults(results).entrySet()) {
+			log.info(String.format("%s = %s", e.getKey(), e.getValue().toString()));
+		}		
+		log.info(String.format("Finished Benchmark: %s", benchmark.getName()));
 	}
 
 }

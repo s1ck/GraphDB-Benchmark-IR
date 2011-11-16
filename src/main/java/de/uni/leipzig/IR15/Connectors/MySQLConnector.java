@@ -6,10 +6,8 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import de.uni.leipzig.IR15.Importer.DEXImporter;
-
 public class MySQLConnector {
-	protected static Logger log = Logger.getLogger(MySQLConnector.class);
+	private static Logger log = Logger.getLogger(MySQLConnector.class);
 	
 	private String database;	
 	private String username;
@@ -41,7 +39,7 @@ public class MySQLConnector {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			System.out.println("Missing JDBC driver");
+			log.error("Missing JDBC driver");
 			e.printStackTrace();
 			return null;
 		}
@@ -49,15 +47,15 @@ public class MySQLConnector {
 		try {
 			connection = DriverManager.getConnection(database, username, password);
  		} catch (SQLException e) {
-			System.out.println("Create connection failed");
+ 			log.error("MySQL Create connection failed");
 			e.printStackTrace();
 			return null;
 		}
  
 		if (connection != null) {
-			System.out.println("Create connection successful");
+			log.info("MySQL Create connection successful");
 		} else {
-			System.out.println("Create connection failed");
+			log.error("MySQL Create connection failed");
 		}	
 		return connection;
 	}
@@ -65,9 +63,9 @@ public class MySQLConnector {
 	public void destroyConnection() {
 		try {
 			connection.close();
-			System.out.println("Destroy connection successful");
+			log.info("Destroy connection successful");
 		} catch (SQLException e) {
-			System.out.println("Destroy connection failed");
+			log.error("Destroy connection failed");
 			e.printStackTrace();
 		}
 	}

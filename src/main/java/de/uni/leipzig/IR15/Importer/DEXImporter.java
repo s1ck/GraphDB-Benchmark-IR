@@ -1,13 +1,11 @@
 package de.uni.leipzig.IR15.Importer;
 
 import java.io.FileNotFoundException;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.apache.log4j.Logger;
-import org.neo4j.graphdb.RelationshipType;
 
 import com.sparsity.dex.gdb.AttributeKind;
 import com.sparsity.dex.gdb.DataType;
@@ -21,7 +19,7 @@ import com.sparsity.dex.gdb.Value;
 public class DEXImporter extends Importer {
 	protected static Logger log = Logger.getLogger(DEXImporter.class);
 	
-	static enum RelTypes
+	public static enum RelTypes
 	{
 		CO_S,
 		CO_N

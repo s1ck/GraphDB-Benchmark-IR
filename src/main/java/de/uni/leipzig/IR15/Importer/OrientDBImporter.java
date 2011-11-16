@@ -98,7 +98,7 @@ public class OrientDBImporter extends Importer {
 	    String query = "SELECT * FROM words";
 	    
 	    Integer count = getRowCount(mySQL, "words");
-		System.out.println("Importing " + count + " words ");
+		log.info("Importing " + count + " words ");
 	    
 	    try {
 	      Statement st = mySQL.createStatement();
@@ -127,7 +127,7 @@ public class OrientDBImporter extends Importer {
 	private void importCooccurrences(Connection mySQL, OGraphDatabase orientdb, RelTypes relType) {
 		String table = relType.toString().toLowerCase();
 		Integer count = getRowCount(mySQL, table);
-		System.out.println("Importing " + count + " cooccurrences (" + table + ")");
+		log.info("Importing " + count + " cooccurrences (" + table + ")");
 		Integer step  = 0;
 		
 	    String query = "SELECT * FROM " + table;
