@@ -72,7 +72,7 @@ public abstract class Benchmark {
 		for (int i = 0; i < runtimes.length; i++) {
 			sum += runtimes[i];
 		}
-		long avg = sum / runtimes.length;
+		double avg = new Double(sum) / runtimes.length;
 		
 		results.put("average", avg);
 		

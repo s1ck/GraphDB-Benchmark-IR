@@ -21,14 +21,14 @@ public class BenchmarkSuite {
 	public static void main(String[] args) {
 		List<Benchmark> benchmarks = new ArrayList<Benchmark>();
 				
-		Benchmark neo4jImportBench = new ImportBenchmark(new Neo4JImporter());
-		neo4jImportBench.setWarmups(0);
-		neo4jImportBench.setRuns(1);
-		benchmarks.add(neo4jImportBench);
+//		Benchmark neo4jImportBench = new ImportBenchmark(new Neo4JImporter());
+//		neo4jImportBench.setWarmups(0);
+//		neo4jImportBench.setRuns(1);
+//		benchmarks.add(neo4jImportBench);
 		
 		Benchmark neo4jNeighbours = new GetNeighboursBenchmark(
-				new Neo4JImporter(), 5, RelTypes.CO_N, 137);
-		neo4jNeighbours.setRuns(100);
+				new Neo4JImporter(), 5, RelTypes.CO_S);
+		neo4jNeighbours.setRuns(10000);
 		neo4jNeighbours.setWarmups(10);
 		
 		benchmarks.add(neo4jNeighbours);
@@ -71,12 +71,7 @@ public class BenchmarkSuite {
 			benchmark.reset();
 		}
 		benchmark.tearDown();
-		
-		long sum = 0L;
-		for (int i = 0; i < results.length; i++) {
-			sum += results[i];
-		}
-					
+				
 		for(Entry<String, Object> e : benchmark.getResults(results).entrySet()) {
 			log.info(String.format("%s = %s", e.getKey(), e.getValue().toString()));
 		}		
