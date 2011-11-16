@@ -30,10 +30,10 @@
   		<version>1.5.M02</version>
   	</dependency>
 	<dependency>
-		<groupId>edu.upc.dama</groupId>
-		<artifactId>jdex</artifactId>
-		<version>4.2.0</version>
-	</dependency>  	
+  		<groupId>com.sparsity</groupId>
+  		<artifactId>dexjava</artifactId>
+  		<version>4.2.0</version>
+	</dependency> 	
   	<dependency>
 		<groupId>log4j</groupId>
 		<artifactId>log4j</artifactId>

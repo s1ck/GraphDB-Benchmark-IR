@@ -41,9 +41,7 @@ public class Neo4JImporter extends Importer {
 	public void tearDown() {
 		// shutdown the connections
 		neo4j.shutdown();
-		mySQLConnector.destroyConnection();
-		
-		reset();
+		super.tearDown();
 	}
 	
 	/**
