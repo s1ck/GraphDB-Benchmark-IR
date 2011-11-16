@@ -11,7 +11,7 @@ public class ImportBenchmark extends Benchmark {
 	}
 	
 	@Override
-	public void run() {
+	public void run() {		
 		importer.setUp();
 		
 		long start = System.currentTimeMillis();
