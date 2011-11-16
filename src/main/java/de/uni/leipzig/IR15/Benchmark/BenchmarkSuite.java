@@ -1,21 +1,83 @@
 package de.uni.leipzig.IR15.Benchmark;
 
-import de.uni.leipzig.IR15.Importer.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import de.uni.leipzig.IR15.Benchmark.neo4j.GetNeighboursBenchmark;
+import de.uni.leipzig.IR15.Importer.Neo4JImporter;
+import de.uni.leipzig.IR15.Importer.Neo4JImporter.RelTypes;
 
 public class BenchmarkSuite {
-
+	
+	public static Logger log = Logger.getLogger(BenchmarkSuite.class);
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Importer neo4jImport = new Neo4JImporter();
-		Importer dexImport = new DEXImporter();
+		List<Benchmark> benchmarks = new ArrayList<Benchmark>();
+				
+		Benchmark neo4jImportBench = new ImportBenchmark(new Neo4JImporter());
+		neo4jImportBench.setWarmups(0);
+		neo4jImportBench.setRuns(1);
+		benchmarks.add(neo4jImportBench);
 		
-		Benchmark neo4jImportBench = new ImportBenchmark(neo4jImport);
-		neo4jImportBench.run();
+		Benchmark neo4jNeighbours = new GetNeighboursBenchmark(
+				new Neo4JImporter(), 5, RelTypes.CO_N, 137);
+		neo4jNeighbours.setRuns(100);
+		neo4jNeighbours.setWarmups(10);
 		
-		Benchmark dexImportBench = new ImportBenchmark(dexImport);
-		dexImportBench.run();
+		benchmarks.add(neo4jNeighbours);
+		
+		runBenchmarks(benchmarks);
+	}
+	
+	public static void runBenchmarks(List<Benchmark> benchmarks) {
+		for(Benchmark bm : benchmarks) {
+			runBenchmark(bm);
+		}		
+	}
+	
+	public static void runBenchmark(Benchmark benchmark) {
+		int warmups = benchmark.getWarmups();
+		int runs = benchmark.getRuns();
+		
+		long start;
+		long diff;
+
+		long[] results = new long[runs];
+		
+		log.info(String.format("Starting Benchmark: %s with %d warmups and %d runs", benchmark.getName(), warmups, runs));
+		
+		// do warmup
+		benchmark.setUp();
+		for (int i = 0; i < warmups; i++) {
+			benchmark.run();
+			benchmark.reset();
+		}
+		benchmark.tearDown();
+		
+		// do measurement
+		benchmark.setUp();
+		for (int i = 0; i < runs; i++) {
+			
+			start = System.currentTimeMillis();
+			benchmark.run();
+			diff = System.currentTimeMillis() - start;
+			results[i] = diff;
+			benchmark.reset();
+		}
+		benchmark.tearDown();
+		
+		long sum = 0L;
+		for (int i = 0; i < results.length; i++) {
+			sum += results[i];
+		}
+		
+		long avg = sum / results.length;
+		
+		log.info(String.format("Benchmark: %s Average: %d", benchmark.getName(), avg));
 	}
 
 }

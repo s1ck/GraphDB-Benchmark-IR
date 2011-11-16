@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.neo4j.graphdb.RelationshipType;
+import org.apache.log4j.Logger;
 
 import de.uni.leipzig.IR15.Connectors.MySQLConnector;
 import de.uni.leipzig.IR15.Support.Configuration;
@@ -16,8 +16,10 @@ public abstract class Importer {
 	protected static Configuration mySQLConfiguration;
 	protected static Connection mySQL;
 	protected static MySQLConnector mySQLConnector;
+	
+	protected static Logger log = Logger.getLogger(Importer.class);
 
-	protected void reset() {
+	public void reset() {
 		File location = new File(graphConfiguration.getPropertyAsString("location"));
 		if (location.exists()) {
 			if (location.isDirectory()) {
@@ -49,11 +51,13 @@ public abstract class Importer {
 		mySQL = mySQLConnector.createConnection();
 
 		reset();
-	};
+	}
 	
 	public abstract void setUp();
 	public abstract void tearDown();
-	public abstract void importData();
+	public abstract void importData();	
+	public abstract String getName();
+	public abstract Object getDatabaseInstance();
 	
 	private void recursiveDeleteDirectory(File path) {
 		for (File file : path.listFiles()) {
@@ -63,8 +67,7 @@ public abstract class Importer {
 	    }
 	    path.delete();
 	}
-	
-	
+		
 	protected Integer getMysqlRowCount(Connection sqlConnection, String table) {
 	    String query = "SELECT COUNT(*) FROM " + table;
 	    Integer count = null;

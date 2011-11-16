@@ -11,22 +11,31 @@ public class ImportBenchmark extends Benchmark {
 	}
 	
 	@Override
-	public void run() {	
-		log.info(String.format("Starting: %s", getName()));
+	public void setUp() {
 		importer.setUp();
+	}
+	
+	@Override
+	public void run() {			
+		importer.importData();					
+	}
+	
+	@Override
+	public void tearDown() {
+		// close connection
+		importer.tearDown();		
+		// remove data
+		importer.reset();
+	}
+	
+	@Override 
+	public void reset() {
 		
-		startTimer();
-		importer.importData();
-		long duration = stopTimer();
-		
-		importer.tearDown();
-		
-		log.debug(String.format("Finished: %s Took %d [ms]", getName(), duration));
 	}
 
 	@Override
 	public String getName() {
-		return String.format("Import Benchmark using importer: %s", importer.toString());
+		return String.format("Importer [%s]", importer.getName());
 	}
 
 }

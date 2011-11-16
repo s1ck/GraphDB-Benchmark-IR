@@ -54,6 +54,10 @@ public class DEXImporter extends Importer {
 		transferData();											
 	}
 	
+	public Object getDatabaseInstance() {
+		return dex;
+	}
+	
 	private void transferData()
 	{		
 		importWords(mySQL, dex);
@@ -167,5 +171,10 @@ public class DEXImporter extends Importer {
 	    	tx.finish();
 	    }
 	    */
+	}
+
+	@Override
+	public String getName() {		
+		return "dex";
 	}
 }
