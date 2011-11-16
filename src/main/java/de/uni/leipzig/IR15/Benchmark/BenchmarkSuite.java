@@ -3,6 +3,8 @@ package de.uni.leipzig.IR15.Benchmark;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
@@ -50,17 +52,16 @@ public class BenchmarkSuite {
 		long[] results = new long[runs];
 		
 		log.info(String.format("Starting Benchmark: %s with %d warmups and %d runs", benchmark.getName(), warmups, runs));
-		
-		// do warmup
+				
 		benchmark.setUp();
+		
+		// do warmup		
 		for (int i = 0; i < warmups; i++) {
 			benchmark.run();
 			benchmark.reset();
 		}
-		benchmark.tearDown();
 		
-		// do measurement
-		benchmark.setUp();
+		// do measurement		
 		for (int i = 0; i < runs; i++) {
 			
 			start = System.currentTimeMillis();
@@ -75,10 +76,11 @@ public class BenchmarkSuite {
 		for (int i = 0; i < results.length; i++) {
 			sum += results[i];
 		}
-		
-		long avg = sum / results.length;
-		
-		log.info(String.format("Benchmark: %s Average: %d", benchmark.getName(), avg));
+					
+		for(Entry<String, Object> e : benchmark.getResults(results).entrySet()) {
+			log.info(String.format("%s = %s", e.getKey(), e.getValue().toString()));
+		}		
+		log.info(String.format("Finished Benchmark: %s", benchmark.getName()));
 	}
 
 }
