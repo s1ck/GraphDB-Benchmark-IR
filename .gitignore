@@ -5,7 +5,7 @@ target
 .project
 .classpath
 .settings
-.properties
+src/main/resources/*.properties
 *.iws
 *.ipr
 *.iml
@@ -13,3 +13,4 @@ target
 out/*
 diff.html
 jdex.log
+dex.log

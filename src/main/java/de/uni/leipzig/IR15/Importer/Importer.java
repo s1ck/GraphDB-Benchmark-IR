@@ -53,12 +53,17 @@ public abstract class Importer {
 		reset();
 	}
 	
-	public abstract void setUp();
-	public abstract void tearDown();
+	public abstract void setUp();	
 	public abstract void importData();	
 	public abstract String getName();
 	public abstract Object getDatabaseInstance();
+
 	
+	public void tearDown() {
+		mySQLConnector.destroyConnection();
+		reset();
+	}
+		
 	private void recursiveDeleteDirectory(File path) {
 		for (File file : path.listFiles()) {
 			if (file.isDirectory())
@@ -67,7 +72,7 @@ public abstract class Importer {
 	    }
 	    path.delete();
 	}
-		
+
 	protected Integer getMysqlRowCount(Connection sqlConnection, String table) {
 	    String query = "SELECT COUNT(*) FROM " + table;
 	    Integer count = null;

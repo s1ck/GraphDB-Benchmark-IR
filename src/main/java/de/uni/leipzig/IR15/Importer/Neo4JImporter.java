@@ -38,8 +38,8 @@ public class Neo4JImporter extends Importer {
 	public void tearDown() {
 		// shutdown the connections
 		Neo4JConnector.destroyConnection();
-		mySQLConnector.destroyConnection();				
-	}		
+		super.tearDown();
+	}
 	
 	public Object getDatabaseInstance() {
 		return neo4j;

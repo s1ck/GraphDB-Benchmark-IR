@@ -6,28 +6,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.log4j.Logger;
 import org.neo4j.graphdb.RelationshipType;
 
-import edu.upc.dama.dex.core.DEX;
-import edu.upc.dama.dex.core.GraphPool;
+import com.sparsity.dex.gdb.AttributeKind;
+import com.sparsity.dex.gdb.DataType;
+import com.sparsity.dex.gdb.Database;
+import com.sparsity.dex.gdb.Dex;
+import com.sparsity.dex.gdb.DexConfig;
+import com.sparsity.dex.gdb.Graph;
+import com.sparsity.dex.gdb.Session;
+import com.sparsity.dex.gdb.Value;
 
 public class DEXImporter extends Importer {
+	protected static Logger log = Logger.getLogger(DEXImporter.class);
+	
 	static enum RelTypes
 	{
 		CO_S,
 		CO_N
 	}
 
-	private DEX dexConnector;
-	private GraphPool dex;
+	private Dex dexConnector;
+	private Database dex;
+	private Integer operationsPerTx;
 
 	@Override
 	public void setUp() {
 		super.setUp("dex");
 		
-		dexConnector = new DEX();
+		operationsPerTx = graphConfiguration.getPropertyAsInteger("operations_per_transaction");
+		dexConnector = new Dex(new DexConfig());
+		
 		try {
-			dex = dexConnector.create(graphConfiguration.getPropertyAsString("location"));
+			dex = dexConnector.create(graphConfiguration.getPropertyAsString("location"), "dex");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,9 +53,7 @@ public class DEXImporter extends Importer {
 		// shutdown the connections
 		dex.close();
 	    dexConnector.close();
-		mySQLConnector.destroyConnection();
-		
-		reset();
+		super.tearDown();
 	}
 	
 	/**
@@ -60,9 +70,9 @@ public class DEXImporter extends Importer {
 	
 	private void transferData()
 	{		
-		importWords(mySQL, dex);
-		importCooccurrences(mySQL, dex, RelTypes.CO_N);
-		importCooccurrences(mySQL, dex, RelTypes.CO_S);
+		importWords();
+		importCooccurrences(RelTypes.CO_N);
+		importCooccurrences(RelTypes.CO_S);
 	}
 	
 	private void registerShutdownHook() {
@@ -80,10 +90,10 @@ public class DEXImporter extends Importer {
 	    } );
 	}
 	
-	private void importCooccurrences(Connection mySQL, GraphPool dex, RelTypes relType) {
+	private void importCooccurrences(RelTypes relType) {
 		String table = relType.toString().toLowerCase();
 		Integer count = getMysqlRowCount(mySQL, table);
-		System.out.println("Importing " + count + " cooccurrences (" + table + ")");
+		log.info(String.format("Importing %d cooccurences from mysql table %s", count, table));
 		Integer step  = 0;
 		
 	    String query = "SELECT * FROM " + table;
@@ -132,9 +142,46 @@ public class DEXImporter extends Importer {
 	    */
 	}
 	
-	private void importWords(Connection mySQL, GraphPool dex) {		
+	private void importWords() {		
 	    String query = "SELECT * FROM words";
 	    
+	    Session session = dex.newSession();
+	    
+	    session.begin();
+	    try {
+	    	Statement st = mySQL.createStatement();
+	    	st.setFetchSize(Integer.MIN_VALUE);
+	    	ResultSet rs = st.executeQuery(query);
+	    	
+	    	int i = 0;
+	    	
+	    	Graph graph = session.getGraph();
+	    	int wordNodeType = graph.newNodeType("word");
+	    	int wordIdAttribute = graph.newAttribute(wordNodeType, "w_id", DataType.Integer, AttributeKind.Indexed);
+	    	int wordAttribute = graph.newAttribute(wordNodeType, "word", DataType.String, AttributeKind.Basic);
+	    	
+	    	while (rs.next()) {
+	    		String word 	= rs.getString("word");
+	    		Integer word_id = rs.getInt("w_id");
+	    		
+	    		long node = graph.newNode(wordNodeType);
+	    		
+	    		graph.setAttribute(node, wordIdAttribute, new Value().setInteger(word_id));
+	    		graph.setAttribute(node, wordAttribute, new Value().setString(word));
+
+	    		if(++i % operationsPerTx == 0) {
+		        	// commit
+		        	session.commit();
+		        	System.out.println(".");
+		        }        
+	    	}
+	    	session.commit();	    	
+	    	
+	    } catch (SQLException ex) {
+		      System.err.println(ex.getMessage());
+		} finally {
+	    	session.close();
+	    }
 	    /*
 	    Transaction tx = neo4j.beginTx();
 	    try {
