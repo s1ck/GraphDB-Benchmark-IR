@@ -22,16 +22,16 @@ public class BenchmarkSuite {
 	public static void main(String[] args) {
 		List<Benchmark> benchmarks = new ArrayList<Benchmark>();
 				
-		Benchmark neo4jImportBench = new ImportBenchmark(new Neo4JImporter());
-		neo4jImportBench.setWarmups(0);
-		neo4jImportBench.setRuns(1);
-		benchmarks.add(neo4jImportBench);
-
-		Benchmark neo4jNeighbours = new GetNeighboursBenchmark(
-				new Neo4JImporter(), 5, RelTypes.CO_N, 137);
-		neo4jNeighbours.setRuns(100);
-		neo4jNeighbours.setWarmups(10);
-		benchmarks.add(neo4jNeighbours);
+//		Benchmark neo4jImportBench = new ImportBenchmark(new Neo4JImporter());
+//		neo4jImportBench.setWarmups(0);
+//		neo4jImportBench.setRuns(1);
+//		benchmarks.add(neo4jImportBench);
+//
+//		Benchmark neo4jNeighbours = new de.uni.leipzig.IR15.Benchmark.neo4j.GetNeighboursBenchmark(
+//				new Neo4JImporter(), 5, Neo4JImporter.RelTypes.CO_S);
+//		neo4jNeighbours.setRuns(10000);
+//		neo4jNeighbours.setWarmups(10);
+//		benchmarks.add(neo4jNeighbours);
 		
 		Benchmark dexImportBench = new ImportBenchmark(new DEXImporter());
 		dexImportBench.setWarmups(0);
@@ -39,7 +39,7 @@ public class BenchmarkSuite {
 		benchmarks.add(dexImportBench);
 
 		Benchmark dexNeighbours = new de.uni.leipzig.IR15.Benchmark.dex.GetNeighboursBenchmark(
-				new DEXImporter(), 5, DEXImporter.RelTypes.CO_N, 137);
+				new DEXImporter(), 5, DEXImporter.RelTypes.CO_S, 137);
 		dexNeighbours.setRuns(100);
 		dexNeighbours.setWarmups(10);
 		benchmarks.add(dexNeighbours);
@@ -82,12 +82,7 @@ public class BenchmarkSuite {
 			benchmark.reset();
 		}
 		benchmark.tearDown();
-		
-		long sum = 0L;
-		for (int i = 0; i < results.length; i++) {
-			sum += results[i];
-		}
-					
+				
 		for(Entry<String, Object> e : benchmark.getResults(results).entrySet()) {
 			log.info(String.format("%s = %s", e.getKey(), e.getValue().toString()));
 		}		

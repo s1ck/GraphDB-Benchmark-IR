@@ -2,6 +2,7 @@ package de.uni.leipzig.IR15.Benchmark.neo4j;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.GraphDatabaseService;
@@ -13,50 +14,26 @@ import de.uni.leipzig.IR15.Importer.Neo4JImporter;
 import de.uni.leipzig.IR15.Importer.Neo4JImporter.RelTypes;
 
 public class GetNeighboursBenchmark extends Neo4jBenchmark {
-	
-	private Index<Node> index;
+		
 	private int maxDepth;
-	private RelTypes relType;
-	private int startWordID; 
-	private Node startNode;
-
+	
+	private RelTypes relType;	
+	
 	public GetNeighboursBenchmark(Neo4JImporter importer, int maxDepth,
-			RelTypes relType,
-			int startWID) {
+			RelTypes relType) {
 		this.importer = importer;
 		this.maxDepth = maxDepth;
 		this.relType = relType;
-		this.startWordID = startWID;
 	}
 	
 	@Override
-	public void setUp() {
-		// open connection
-		importer.setUp();
-		// read data
-		importer.importData();
-		neo4j = (GraphDatabaseService) importer.getDatabaseInstance();
-		index = neo4j.index().forNodes("words");	
-		startNode = index.get("w_id", startWordID).getSingle();
-	}
-
-	@Override
-	public void run() {	
+	public void run() {		
 		doBFS(startNode);		
 	}
-	
-	@Override
-	public void tearDown() {
-		// close connection
-		importer.tearDown();
-
-		// remove data
-		importer.reset();
-	}
-
-	@Override 
-	public void reset() {
 		
+	@Override 
+	public void reset() {		
+		startNode = getRandomNode();
 	}
 	
 	private void doBFS(Node startNode) {
@@ -69,7 +46,7 @@ public class GetNeighboursBenchmark extends Neo4jBenchmark {
 		while (q.size() > 0 && currentDepth <= maxDepth) {
 			currentDepth++;
 			v = q.remove();
-			for (Relationship e : v.getRelationships(relType, Direction.OUTGOING)) {
+			for (Relationship e : v.getRelationships(relType, Direction.BOTH)) {				
 				// load neighbour node
 				q.add(e.getEndNode());
 			}				

@@ -9,7 +9,6 @@ import de.uni.leipzig.IR15.Importer.DEXImporter.RelTypes;
 import com.sparsity.dex.gdb.Database;
 import com.sparsity.dex.gdb.EdgesDirection;
 import com.sparsity.dex.gdb.Objects;
-import com.sparsity.dex.gdb.Session;
 import com.sparsity.dex.gdb.Value;
 
 public class GetNeighboursBenchmark extends DEXBenchmark {

@@ -120,7 +120,6 @@ public class DEXImporter extends Importer {
 		        long edge = graph.newEdge(edgeType, sourceNode, targetNode);
 		        graph.setAttribute(edge, edgeSigAttribute, new Value().setInteger(sig));
 		        graph.setAttribute(edge, edgeFreqAttribute, new Value().setInteger(freq));
-		        
 	    	}
 	    	session.commit();	    	
 	    } catch (SQLException ex) {
