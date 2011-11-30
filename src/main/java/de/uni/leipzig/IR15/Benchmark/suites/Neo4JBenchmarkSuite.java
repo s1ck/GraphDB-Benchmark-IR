@@ -3,7 +3,6 @@ package de.uni.leipzig.IR15.Benchmark.suites;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.uni.leipzig.IR15.Benchmark.AbstractBenchmarkSuite;
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Benchmark.ImportBenchmark;
 import de.uni.leipzig.IR15.Importer.Neo4JImporter;

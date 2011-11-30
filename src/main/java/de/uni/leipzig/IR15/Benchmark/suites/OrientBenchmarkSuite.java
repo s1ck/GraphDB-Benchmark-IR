@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import de.uni.leipzig.IR15.Benchmark.AbstractBenchmarkSuite;
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 
 public class OrientBenchmarkSuite extends AbstractBenchmarkSuite  {

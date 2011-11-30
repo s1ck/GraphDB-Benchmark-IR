@@ -1,12 +1,15 @@
 package de.uni.leipzig.IR15.Connectors;
 
+import java.sql.SQLException;
+
+import org.apache.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 import de.uni.leipzig.IR15.Support.Configuration;
 
 public class Neo4JConnector {
-	
+	private static Logger log = Logger.getLogger(Neo4JConnector.class);	
 	private static GraphDatabaseService neo4j;
 	
 	public static GraphDatabaseService getConnection() {
@@ -14,14 +17,24 @@ public class Neo4JConnector {
 		
 		// connect to neo4j and create an index on the nodes
 		neo4j = new EmbeddedGraphDatabase(config.getPropertyAsString("location"));		
-		
+		if (neo4j != null) {
+			log.info("Create connection successful");
+		} else {
+			log.error("Create connection failed");
+		}
 		registerShutdownHook(neo4j);
 		
 		return neo4j;
 	}
 	
 	public static void destroyConnection() {
-		neo4j.shutdown();
+		try {
+			neo4j.shutdown();
+			log.info("Destroy connection successful");
+		} catch (Exception e) {
+			log.error("Destroy connection failed");
+			e.printStackTrace();
+		}
 	}
 	
 	private static void registerShutdownHook( final GraphDatabaseService graphDb ) {
@@ -33,7 +46,7 @@ public class Neo4JConnector {
 	        @Override
 	        public void run()
 	        {
-	            graphDb.shutdown();
+	            Neo4JConnector.destroyConnection();
 	        }
 	    } );
 	}

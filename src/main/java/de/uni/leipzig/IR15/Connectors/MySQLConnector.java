@@ -6,36 +6,23 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
+import de.uni.leipzig.IR15.Support.Configuration;
+
 public class MySQLConnector {
 	private static Logger log = Logger.getLogger(MySQLConnector.class);
+	private static Connection connection;
 	
-	private String database;	
-	private String username;
-	private String password;
-	
-	private Connection connection;
-	
-	public MySQLConnector(String database, String username, String password) {
-		setupConnection(database, username, password);
-	}
-	
-	public Connection getConnection() {
-		return connection;
-	}
-
-	public void setupConnection(String database, String username, String password) {
-		this.database = database;
-		this.password = password;
-		this.username = username;
-	}
-
-	public boolean testConnection() {
-		connection = createConnection();
-		boolean successful = connection == null ? false : true;
-		destroyConnection();
-		return successful;	} 
-
-	public Connection createConnection() {
+	public static Connection getConnection() {
+		Configuration mySQLConfiguration = Configuration.getInstance("mysql");
+		
+		String database = "jdbc:mysql://" 
+				+ mySQLConfiguration.getPropertyAsString("host") 
+				+ ":" + mySQLConfiguration.getPropertyAsString("port") 
+				+ "/" + mySQLConfiguration.getPropertyAsString("database");	
+		
+		String username = mySQLConfiguration.getPropertyAsString("username");
+		String password = mySQLConfiguration.getPropertyAsString("password");
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -47,20 +34,20 @@ public class MySQLConnector {
 		try {
 			connection = DriverManager.getConnection(database, username, password);
  		} catch (SQLException e) {
- 			log.error("MySQL Create connection failed");
+ 			log.error("Create connection failed");
 			e.printStackTrace();
 			return null;
 		}
  
 		if (connection != null) {
-			log.info("MySQL Create connection successful");
+			log.info("Create connection successful");
 		} else {
-			log.error("MySQL Create connection failed");
+			log.error("Create connection failed");
 		}	
 		return connection;
 	}
 	
-	public void destroyConnection() {
+	public static void destroyConnection() {
 		try {
 			connection.close();
 			log.info("Destroy connection successful");

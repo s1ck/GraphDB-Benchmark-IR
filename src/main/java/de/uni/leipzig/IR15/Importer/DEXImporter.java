@@ -16,6 +16,8 @@ import com.sparsity.dex.gdb.Graph;
 import com.sparsity.dex.gdb.Session;
 import com.sparsity.dex.gdb.Value;
 
+import de.uni.leipzig.IR15.Connectors.DEXConnector;
+
 public class DEXImporter extends Importer {
 	protected static Logger log = Logger.getLogger(DEXImporter.class);
 	
@@ -25,30 +27,21 @@ public class DEXImporter extends Importer {
 		CO_N
 	}
 
-	private Dex dexConnector;
 	private Database dex;
 
 	@Override
 	public void setUp() {
 		super.setUp("dex");
+		// clean up database dir
+		reset();
 		
-		dexConnector = new Dex(new DexConfig());
-		
-		try {
-			dex = dexConnector.create(graphConfiguration.getPropertyAsString("location"), "dex");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		registerShutdownHook();
+		dex = DEXConnector.getConnection();
 	}
 
 	@Override
 	public void tearDown() {
 		// shutdown the connections
-		dex.close();
-	    dexConnector.close();
+		DEXConnector.destroyConnection();
 		super.tearDown();
 	}
 	
@@ -69,21 +62,6 @@ public class DEXImporter extends Importer {
 		importWords();
 		importCooccurrences(RelTypes.CO_N);
 		importCooccurrences(RelTypes.CO_S);
-	}
-	
-	private void registerShutdownHook() {
-	    // Registers a shutdown hook for the Neo4j instance so that it
-	    // shuts down nicely when the VM exits (even if you "Ctrl-C" the
-	    // running example before it's completed)
-	    Runtime.getRuntime().addShutdownHook( new Thread()
-	    {
-	        @Override
-	        public void run()
-	        {
-	        	dex.close();
-	            dexConnector.close();
-	        }
-	    } );
 	}
 	
 	private void importCooccurrences(RelTypes relType) {
@@ -127,49 +105,6 @@ public class DEXImporter extends Importer {
 		} finally {
 	    	session.close();
 	    }
-	    
-	    /*
-	    // start transaction
-	    Transaction tx = neo4j.beginTx();	    
-	    try {	    	
-	      Statement st = mySQL.createStatement();
-	      st.setFetchSize(Integer.MIN_VALUE);
-	      ResultSet rs = st.executeQuery(query);
-	      
-	      int i = 0;
-	      
-	      while (rs.next()) {
-	        Integer w1_id 	= rs.getInt("w1_id");
-	        Integer w2_id 	= rs.getInt("w2_id");
-	        Integer sig 	= rs.getInt("sig");
-	        Integer freq 	= rs.getInt("freq");
-	        
-	        
-	        Node source = nodeIndex.get("w_id", w1_id).getSingle();
-	        Node target = nodeIndex.get("w_id", w2_id).getSingle();
-	        Relationship edge = source.createRelationshipTo(target, relType);
-	        	      	        
-	        edge.setProperty("freq", freq);
-	        edge.setProperty("sig", sig);
-	        
-	        if(++i % operationsPerTx == 0)
-	        {
-	        	// commit
-	        	tx.success();
-	        	tx.finish();
-	        	tx = neo4j.beginTx();
-	        	System.out.println(".");
-	        }
-	        
-	        step++;	       
-	      }
-	      tx.success();
-	    } catch (SQLException ex) {
-	      System.err.println(ex.getMessage());
-	    } finally {
-	    	tx.finish();
-	    }
-	    */
 	}
 	
 	private void importWords() {		

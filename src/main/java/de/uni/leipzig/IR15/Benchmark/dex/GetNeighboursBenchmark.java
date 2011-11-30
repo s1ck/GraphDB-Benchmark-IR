@@ -17,52 +17,18 @@ public class GetNeighboursBenchmark extends DEXBenchmark {
 	
 	private int maxDepth;
 	private RelTypes relType;
-	private int startWordID; 
-	private long startNode;
 
-	public GetNeighboursBenchmark(DEXImporter importer, int maxDepth,
+	public GetNeighboursBenchmark(int maxDepth,
 			RelTypes relType,
 			int startWID) {
-		this.importer = importer;
 		this.maxDepth = maxDepth;
 		this.relType = relType;
 		this.startWordID = startWID;
 	}
 	
 	@Override
-	public void setUp() {
-		// open connection
-		importer.setUp();
-		// read data
-		importer.importData();
-		dex = (Database) importer.getDatabaseInstance();
-	    session = dex.newSession();
-	    session.begin();		
-	    graph = session.getGraph();
-	    
-	    int wordNodeType = graph.findType("word");
-	    int wordIdAttribute = graph.findAttribute(wordNodeType, "w_id");
-	    
-		startNode = graph.findObject(wordIdAttribute, new Value().setInteger(startWordID));
-	}
-
-	@Override
 	public void run() {	
 		doBFS(startNode);		
-	}
-	
-	@Override
-	public void tearDown() {
-		// close connection
-		importer.tearDown();
-
-		// remove data
-		importer.reset();
-	}
-
-	@Override 
-	public void reset() {
-		
 	}
 	
 	private void doBFS(long startNode) {
@@ -91,7 +57,12 @@ public class GetNeighboursBenchmark extends DEXBenchmark {
 
 	@Override
 	public String getName() {
-		return String.format("neo4j getNeighbours maxDepth = %d", maxDepth);
+		return String.format("DEX getNeighbours maxDepth = %d", maxDepth);
+	}
+
+	@Override
+	public void reset() {
+		//startNode = getRandomNode();
 	}
 
 }
