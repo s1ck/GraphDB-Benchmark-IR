@@ -48,9 +48,7 @@ public abstract class Importer {
 				mySQLConfiguration.getPropertyAsString("password")
 				);
 		
-		mySQLConnection = mySQLConnector.createConnection();
-
-		
+		mySQLConnection = mySQLConnector.createConnection();		
 	}
 	
 	public abstract void setUp();	

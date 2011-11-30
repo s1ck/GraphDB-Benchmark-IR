@@ -24,11 +24,11 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 		neo4jImportBench.setRuns(1);
 		benchmarks.add(neo4jImportBench);
 
-		Benchmark neo4jNeighbours = new de.uni.leipzig.IR15.Benchmark.neo4j.GetNeighboursBenchmark(
-				5, Neo4JImporter.RelTypes.CO_S);
-		neo4jNeighbours.setRuns(10000);
-		neo4jNeighbours.setWarmups(10);
-		benchmarks.add(neo4jNeighbours);
+//		Benchmark neo4jNeighbours = new de.uni.leipzig.IR15.Benchmark.neo4j.GetNeighboursBenchmark(
+//				5, Neo4JImporter.RelTypes.CO_S);
+//		neo4jNeighbours.setRuns(10000);
+//		neo4jNeighbours.setWarmups(10);
+//		benchmarks.add(neo4jNeighbours);
 
 		runBenchmarks(benchmarks);		
 	}

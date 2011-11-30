@@ -11,7 +11,7 @@ public class ImportBenchmark extends Benchmark {
 	}
 	
 	@Override
-	public void setUp() {
+	public void setUp() {		
 		importer.setUp();
 	}
 	
@@ -23,9 +23,7 @@ public class ImportBenchmark extends Benchmark {
 	@Override
 	public void tearDown() {
 		// close connection
-		importer.tearDown();		
-		// remove data
-		importer.reset();
+		importer.tearDown();
 	}
 	
 	@Override 

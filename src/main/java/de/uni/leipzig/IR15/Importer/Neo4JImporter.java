@@ -27,7 +27,10 @@ public class Neo4JImporter extends Importer {
 
 	@Override
 	public void setUp() {
-		super.setUp("neo4j");		
+		super.setUp("neo4j");
+		// clean up database dir
+		reset();
+		
 		operationsPerTx = graphConfiguration.getPropertyAsInteger("operations_per_transaction");		
 		// connect to neo4j and create an index on the nodes
 		neo4j = Neo4JConnector.getConnection();
@@ -49,7 +52,7 @@ public class Neo4JImporter extends Importer {
 	 * @param args
 	 */
 	public void importData() {		
-		reset();
+		
 		// transfer the data from mysql to neo4j		
 		transferData();		
 	}
