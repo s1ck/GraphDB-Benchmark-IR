@@ -49,6 +49,7 @@ public class Neo4JImporter extends Importer {
 	 * @param args
 	 */
 	public void importData() {		
+		reset();
 		// transfer the data from mysql to neo4j		
 		transferData();		
 	}

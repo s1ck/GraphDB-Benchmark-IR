@@ -1,7 +1,9 @@
 package de.uni.leipzig.IR15.Benchmark.dex;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Set;
 
 import de.uni.leipzig.IR15.Importer.DEXImporter;
 import de.uni.leipzig.IR15.Importer.DEXImporter.RelTypes;
@@ -64,19 +66,25 @@ public class GetNeighboursBenchmark extends DEXBenchmark {
 	}
 	
 	private void doBFS(long startNode) {
-		Queue<Long> q = new LinkedList<Long>();
+		Queue<Long> queue = new LinkedList<Long>();
+		Set<Long> visited = new HashSet<Long>();
+		
 		int currentDepth = 0;
-		q.add(startNode);
+		queue.add(startNode);
+		visited.add(startNode);
 
 		long v;
 		int edgeType = graph.findType(relType.toString());
 		
-		while (q.size() > 0 && currentDepth <= maxDepth) {
+		while (queue.size() > 0 && currentDepth <= maxDepth) {
 			currentDepth++;
-			v = q.remove();
+			v = queue.remove();
 			Objects neighbors = graph.neighbors(v, edgeType, EdgesDirection.Any);
 			for (long h : neighbors) {
-				q.add(h);
+				if(!visited.contains(h)) {
+					queue.add(h);
+					visited.add(h);
+				}
 			}				
 		}
 	}

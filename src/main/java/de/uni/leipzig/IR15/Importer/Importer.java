@@ -15,7 +15,7 @@ public abstract class Importer {
 	protected static Configuration graphConfiguration;
 	protected static Configuration mySQLConfiguration;
 	protected static Connection mySQLConnection;
-	protected static MySQLConnector mySQLConnector;
+	protected static MySQLConnector mySQLConnector;	
 	
 	protected static Logger log = Logger.getLogger(Importer.class);
 
@@ -50,18 +50,17 @@ public abstract class Importer {
 		
 		mySQLConnection = mySQLConnector.createConnection();
 
-		reset();
+		
 	}
 	
 	public abstract void setUp();	
-	public abstract void importData();	
+	public abstract void importData();
 	public abstract String getName();
 	public abstract Object getDatabaseInstance();
 
 	
 	public void tearDown() {
-		mySQLConnector.destroyConnection();
-		reset();
+		mySQLConnector.destroyConnection();		
 	}
 		
 	private void recursiveDeleteDirectory(File path) {
