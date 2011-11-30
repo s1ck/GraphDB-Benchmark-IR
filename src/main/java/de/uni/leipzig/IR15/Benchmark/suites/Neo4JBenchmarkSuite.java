@@ -41,6 +41,11 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 		query_3.setWarmups(10);
 		benchmarks.add(query_3);
 		
+		Benchmark query_4 = new de.uni.leipzig.IR15.Benchmark.neo4j.Query4_Benchmark();
+		query_4.setRuns(100);
+		query_4.setWarmups(10);
+		benchmarks.add(query_4);
+		
 		runBenchmarks(benchmarks);		
 	}
 }
