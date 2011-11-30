@@ -15,13 +15,10 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 	public static void main(String[] args) {
 		List<Benchmark> benchmarks = new ArrayList<Benchmark>();
 
-		// importer
-		Neo4JImporter importer = new Neo4JImporter();
-
-//		Benchmark neo4jImportBench = new ImportBenchmark(importer);
-//		neo4jImportBench.setWarmups(0);
-//		neo4jImportBench.setRuns(1);
-//		benchmarks.add(neo4jImportBench);
+		Benchmark neo4jImportBench = new ImportBenchmark(new Neo4JImporter());
+		neo4jImportBench.setWarmups(0);
+		neo4jImportBench.setRuns(1);
+		benchmarks.add(neo4jImportBench);
 
 		Benchmark neo4jNeighbours = new de.uni.leipzig.IR15.Benchmark.neo4j.BFS_Benchmark(
 				5, Neo4JImporter.RelTypes.CO_S);
