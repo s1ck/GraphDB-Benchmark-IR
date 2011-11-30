@@ -1,14 +1,14 @@
-0. Benchmarksuite überarbeiten (Martin)
+0. Benchmarksuite überarbeiten (Martin und Robert) -done
 
 1. MySQL evaluieren (Robert)
 	- Queries testen
 	- Zeitmessung (average / min / max / stdev)
 	- Code-Doku
 	
-2. Neo4j (Martin)
-	- Cypher Abfragen formulieren
-	- Benchmarks mit Cypher Abfragen
-	- Zeitmessung (average / min / max / stdev)
+2. Neo4j (Martin) 
+	- Cypher Abfragen formulieren -done
+	- Benchmarks mit Cypher Abfragen -done
+	- Zeitmessung (average / min / max / stdev) -done
 	- Bericht
 	- Code-Doku
 			
