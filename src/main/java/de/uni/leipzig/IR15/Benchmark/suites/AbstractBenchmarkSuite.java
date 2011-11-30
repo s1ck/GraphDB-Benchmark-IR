@@ -1,11 +1,11 @@
-package de.uni.leipzig.IR15.Benchmark;
+package de.uni.leipzig.IR15.Benchmark.suites;
 
 import java.util.List;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
-import de.uni.leipzig.IR15.Benchmark.suites.Neo4JBenchmarkSuite;
+import de.uni.leipzig.IR15.Benchmark.Benchmark;
 
 public class AbstractBenchmarkSuite {
 	

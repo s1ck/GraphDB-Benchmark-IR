@@ -35,19 +35,8 @@ public class OrientDBImporter extends Importer {
 		// delete existing db
 		reset();
 		
-		// connect to mysql
-		String database = "jdbc:mysql://" 
-		+ mySQLConfiguration.getPropertyAsString("host") 
-		+ ":" + mySQLConfiguration.getPropertyAsString("port") 
-		+ "/" + mySQLConfiguration.getPropertyAsString("database");
 		
-		mySQLConnector = new MySQLConnector(database, 
-				mySQLConfiguration.getPropertyAsString("username"), 
-				mySQLConfiguration.getPropertyAsString("password")
-				);
-		
-		mySQL = mySQLConnector.createConnection();
-		
+		mySQL = mySQLConnector.getConnection();
 		
 		// specify that the filesystem is used
 		String url2db = "local:" + graphConfiguration.getPropertyAsString("location");

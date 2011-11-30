@@ -15,7 +15,6 @@ public abstract class Importer {
 	protected static Configuration graphConfiguration;
 	protected static Configuration mySQLConfiguration;
 	protected static Connection mySQLConnection;
-	protected static MySQLConnector mySQLConnector;	
 	
 	protected static Logger log = Logger.getLogger(Importer.class);
 
@@ -34,31 +33,17 @@ public abstract class Importer {
 	
 	public void setUp(String graphDBName) {
 		// load properties
-		mySQLConfiguration = Configuration.getInstance("mysql");
 		graphConfiguration = Configuration.getInstance(graphDBName);
-
-		// connect to mysql
-		String database = "jdbc:mysql://" 
-		+ mySQLConfiguration.getPropertyAsString("host") 
-		+ ":" + mySQLConfiguration.getPropertyAsString("port") 
-		+ "/" + mySQLConfiguration.getPropertyAsString("database");
-		
-		mySQLConnector = new MySQLConnector(database, 
-				mySQLConfiguration.getPropertyAsString("username"), 
-				mySQLConfiguration.getPropertyAsString("password")
-				);
-		
-		mySQLConnection = mySQLConnector.createConnection();		
+		mySQLConnection = MySQLConnector.getConnection();
 	}
 	
 	public abstract void setUp();	
 	public abstract void importData();
 	public abstract String getName();
 	public abstract Object getDatabaseInstance();
-
 	
 	public void tearDown() {
-		mySQLConnector.destroyConnection();		
+		MySQLConnector.destroyConnection();		
 	}
 		
 	private void recursiveDeleteDirectory(File path) {
@@ -69,6 +54,7 @@ public abstract class Importer {
 	    }
 	    path.delete();
 	}
+
 	protected Integer getMysqlRowCount(String table) {
 	    String query = "SELECT COUNT(*) FROM " + table;
 	    Integer count = null;
