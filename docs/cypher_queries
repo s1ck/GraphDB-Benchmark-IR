@@ -1,0 +1,30 @@
+1 alle Nachbarn für ein Wort finden
+
+SQL:
+select w1.w2_id from co_s w1 where w1.w1_id=137;
+
+Cypher:
+// "words" ist der index, welcher die SQL wort ID auf die neo4j ID mappt
+START n=node:words(w_id = "137") MATCH n-[:CO_S]->m return m
+
+2 alle Kanten der Nachbarn
+
+SQL:
+select w1.w1_id,w1.w2_id,w1.freq,w1.sig from co_s w1 where w1.w1_id in (select w2.w2_id from co_s w2 where w2.w1_id=137);
+
+Cypher:
+
+START n=node:words(w_id = "137") MATCH n-[:CO_S]->t-[r:CO_S]-> m return t.w_id, m.w_id, r.sig, r.freq
+
+3 nur die Kanten zwischen den Nachbarn
+
+SQL:
+select w1.w1_id,w1.w2_id,w1.freq,w1.sig from co_s w1 
+where 
+	w1.w1_id in (select w2.w2_id from co_s w2 where w2.w1_id=137) 
+and 
+	w1.w2_id in (select w3.w2_id from co_s w3 where w3.w1_id=137); 
+
+Cypher:
+
+START n=node:words(w_id = "137") MATCH n-[:CO_S]->m, n-[:CO_S]-> t, m-[r:CO_S]-> t return m.w_id, t.w_id, r.sig, r.freq

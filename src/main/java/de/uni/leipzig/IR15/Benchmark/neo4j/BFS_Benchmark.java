@@ -11,13 +11,21 @@ import org.neo4j.graphdb.Relationship;
 
 import de.uni.leipzig.IR15.Importer.Neo4JImporter.RelTypes;
 
-public class GetNeighboursBenchmark extends Neo4jBenchmark {
+/**
+ * This Benchmark selects all neighbours up to a given depth of a word using the
+ * sentence co-occurrence relation. The query itself is implemented using the
+ * native neo4J API.
+ * 
+ * @author s1ck
+ *
+ */
+public class BFS_Benchmark extends Neo4jBenchmark {
 
 	private int maxDepth;
 
 	private RelTypes relType;
 
-	public GetNeighboursBenchmark(int maxDepth,
+	public BFS_Benchmark(int maxDepth,
 			RelTypes relType) {		
 		this.maxDepth = maxDepth;
 		this.relType = relType;

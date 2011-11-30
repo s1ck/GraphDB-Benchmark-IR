@@ -19,17 +19,32 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 		// importer
 		Neo4JImporter importer = new Neo4JImporter();
 
-		Benchmark neo4jImportBench = new ImportBenchmark(importer);
-		neo4jImportBench.setWarmups(0);
-		neo4jImportBench.setRuns(1);
-		benchmarks.add(neo4jImportBench);
+//		Benchmark neo4jImportBench = new ImportBenchmark(importer);
+//		neo4jImportBench.setWarmups(0);
+//		neo4jImportBench.setRuns(1);
+//		benchmarks.add(neo4jImportBench);
 
-//		Benchmark neo4jNeighbours = new de.uni.leipzig.IR15.Benchmark.neo4j.GetNeighboursBenchmark(
-//				5, Neo4JImporter.RelTypes.CO_S);
-//		neo4jNeighbours.setRuns(10000);
-//		neo4jNeighbours.setWarmups(10);
-//		benchmarks.add(neo4jNeighbours);
-
+		Benchmark neo4jNeighbours = new de.uni.leipzig.IR15.Benchmark.neo4j.BFS_Benchmark(
+				5, Neo4JImporter.RelTypes.CO_S);
+		neo4jNeighbours.setRuns(10000);
+		neo4jNeighbours.setWarmups(10);
+		benchmarks.add(neo4jNeighbours);
+		
+		Benchmark query_1 = new de.uni.leipzig.IR15.Benchmark.neo4j.Query1_Benchmark();
+		query_1.setRuns(100);
+		query_1.setWarmups(10);
+		benchmarks.add(query_1);
+		
+		Benchmark query_2 = new de.uni.leipzig.IR15.Benchmark.neo4j.Query2_Benchmark();
+		query_2.setRuns(100);
+		query_2.setWarmups(10);
+		benchmarks.add(query_2);
+		
+		Benchmark query_3 = new de.uni.leipzig.IR15.Benchmark.neo4j.Query3_Benchmark();
+		query_3.setRuns(100);
+		query_3.setWarmups(10);
+		benchmarks.add(query_3);
+		
 		runBenchmarks(benchmarks);		
 	}
 }

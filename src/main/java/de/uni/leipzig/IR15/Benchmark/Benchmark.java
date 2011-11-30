@@ -74,7 +74,7 @@ public abstract class Benchmark {
 		}
 		double avg = new Double(sum) / runtimes.length;
 		
-		results.put("average", avg);
+		results.put("average [ms]", avg);
 		
 		// stdev		
 		long tmp = 0;
@@ -83,7 +83,7 @@ public abstract class Benchmark {
 		}
 		double stdev = new Double(tmp) / (runtimes.length);
 		
-		results.put("stdev", stdev);
+		results.put("stdev [ms]", stdev);
 		
 		return results;
 	}

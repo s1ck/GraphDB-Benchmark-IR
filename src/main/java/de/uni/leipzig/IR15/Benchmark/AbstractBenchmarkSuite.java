@@ -52,5 +52,4 @@ public class AbstractBenchmarkSuite {
 		}		
 		log.info(String.format("Finished Benchmark: %s", benchmark.getName()));
 	}
-
 }
