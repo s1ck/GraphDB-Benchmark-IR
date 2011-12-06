@@ -5,20 +5,17 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
-import de.uni.leipzig.IR15.Importer.DEXImporter;
 import de.uni.leipzig.IR15.Importer.DEXImporter.RelTypes;
 
-import com.sparsity.dex.gdb.Database;
 import com.sparsity.dex.gdb.EdgesDirection;
 import com.sparsity.dex.gdb.Objects;
-import com.sparsity.dex.gdb.Value;
 
-public class GetNeighboursBenchmark extends DEXBenchmark {
+public class BFS_Benchmark extends DEXBenchmark {
 	
 	private int maxDepth;
 	private RelTypes relType;
 
-	public GetNeighboursBenchmark(int maxDepth,
+	public BFS_Benchmark(int maxDepth,
 			RelTypes relType,
 			int startWID) {
 		this.maxDepth = maxDepth;

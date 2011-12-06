@@ -1,7 +1,5 @@
 package de.uni.leipzig.IR15.Connectors;
 
-import java.sql.SQLException;
-
 import org.apache.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.kernel.EmbeddedGraphDatabase;

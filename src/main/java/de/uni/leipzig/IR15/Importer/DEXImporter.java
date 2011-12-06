@@ -1,6 +1,5 @@
 package de.uni.leipzig.IR15.Importer;
 
-import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,8 +9,6 @@ import org.apache.log4j.Logger;
 import com.sparsity.dex.gdb.AttributeKind;
 import com.sparsity.dex.gdb.DataType;
 import com.sparsity.dex.gdb.Database;
-import com.sparsity.dex.gdb.Dex;
-import com.sparsity.dex.gdb.DexConfig;
 import com.sparsity.dex.gdb.Graph;
 import com.sparsity.dex.gdb.Session;
 import com.sparsity.dex.gdb.Value;

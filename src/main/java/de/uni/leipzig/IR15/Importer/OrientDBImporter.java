@@ -21,9 +21,7 @@ public class OrientDBImporter extends Importer {
 		CO_N
 	}
 	
-	private static Configuration mySQLConfiguration;
 	private static Connection mySQL;
-	private static MySQLConnector mySQLConnector;
 	private static OGraphDatabase orientdb;
 	
 	@Override
@@ -36,7 +34,7 @@ public class OrientDBImporter extends Importer {
 		reset();
 		
 		
-		mySQL = mySQLConnector.getConnection();
+		mySQL = MySQLConnector.getConnection();
 		
 		// specify that the filesystem is used
 		String url2db = "local:" + graphConfiguration.getPropertyAsString("location");
@@ -61,7 +59,7 @@ public class OrientDBImporter extends Importer {
 	public void tearDown() {
 		// shutdown the connections
 		orientdb.close();
-		mySQLConnector.destroyConnection();
+		MySQLConnector.destroyConnection();
 		
 		reset();
 	}
