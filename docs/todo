@@ -1,13 +1,14 @@
 0. Benchmarksuite überarbeiten (Martin und Robert) -done
 
-1. MySQL evaluieren (Robert)
-	- Queries testen
+1. MySQL evaluieren (Martin)
+	- Queries testen - done
 	- Zeitmessung (average / min / max / stdev)
 	- Code-Doku
 	
 2. Neo4j (Martin) 
 	- Cypher Abfragen formulieren -done
 	- Benchmarks mit Cypher Abfragen -done
+	- Benchmarks mit Traverser API
 	- Zeitmessung (average / min / max / stdev) -done
 	- Bericht
 	- Code-Doku
@@ -24,13 +25,14 @@
 	- Bericht
 	- Code-Doku
 
-5. Bericht (DB-spezifisch)
+5. Bericht (DB-spezifisch) (Martin / Robert / Sascha)
+	- Fakten zur DB (evtl. auch Community Support)
 	- Datenmodell
-	- Abfrage
-	- Vor- / Nachteile
-	- Community
-	
-6. Zusammenfassendes Dokument (Alle)
+	- Abfragemöglichkeiten
+	- Benchmarks
+	- Vor- / Nachteile (Fazit)
+		
+6. Zusammenfassendes Dokument (Martin / Robert / Sascha)
 
 
 	
