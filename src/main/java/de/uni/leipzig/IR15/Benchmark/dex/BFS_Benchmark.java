@@ -58,7 +58,7 @@ public class BFS_Benchmark extends DEXBenchmark {
 	}
 
 	@Override
-	public void reset() {
+	public void beforeRun() {
 		//startNode = getRandomNode();
 	}
 

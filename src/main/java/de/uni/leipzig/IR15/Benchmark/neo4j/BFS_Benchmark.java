@@ -34,12 +34,7 @@ public class BFS_Benchmark extends Neo4jBenchmark {
 	@Override
 	public void run() {
 		doBFS(startNode);
-	}
-
-	@Override
-	public void reset() {
-		startNode = getRandomNode();
-	}
+	}	
 
 	private void doBFS(Node startNode) {
 		Queue<Node> q = new LinkedList<Node>();
@@ -66,7 +61,7 @@ public class BFS_Benchmark extends Neo4jBenchmark {
 
 	@Override
 	public String getName() {
-		return String.format("neo4j getNeighbours maxDepth = %d", maxDepth);
+		return "neo4j BFS";
 	}
 
 }

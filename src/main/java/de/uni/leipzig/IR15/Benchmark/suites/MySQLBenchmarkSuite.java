@@ -25,6 +25,6 @@ public class MySQLBenchmarkSuite extends AbstractBenchmarkSuite {
 		query_1.setWarmups(10);
 		benchmarks.add(query_3);
 		
-		runBenchmarks(benchmarks);
+		runBenchmarks(benchmarks, true);
 	}
 }

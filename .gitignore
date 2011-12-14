@@ -1,6 +1,7 @@
 *~
 \#*
 target
+dumps
 *.swp
 .project
 .classpath

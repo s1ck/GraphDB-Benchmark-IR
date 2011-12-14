@@ -22,7 +22,7 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 
 		Benchmark neo4jNeighbours = new de.uni.leipzig.IR15.Benchmark.neo4j.BFS_Benchmark(
 				5, Neo4JImporter.RelTypes.CO_S);
-		neo4jNeighbours.setRuns(10000);
+		neo4jNeighbours.setRuns(100);
 		neo4jNeighbours.setWarmups(10);
 		benchmarks.add(neo4jNeighbours);
 		
@@ -39,13 +39,8 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 		Benchmark query_3 = new de.uni.leipzig.IR15.Benchmark.neo4j.Query3_Benchmark();
 		query_3.setRuns(100);
 		query_3.setWarmups(10);
-		benchmarks.add(query_3);
+		benchmarks.add(query_3);		
 		
-		Benchmark query_4 = new de.uni.leipzig.IR15.Benchmark.neo4j.Query4_Benchmark();
-		query_4.setRuns(100);
-		query_4.setWarmups(10);
-		benchmarks.add(query_4);
-		
-		runBenchmarks(benchmarks);		
+		runBenchmarks(benchmarks, true);		
 	}
 }

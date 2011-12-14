@@ -18,7 +18,13 @@ public class Query2_Benchmark extends CypherBenchmark {
 	@Override
 	public void setUp() {
 		super.setUp();
-		CYPHER_QUERY = new CypherParser().parse("START n=node:words(w_id = '137') MATCH n-[:CO_S]->t-[r:CO_S]-> m return t.w_id, m.w_id, r.sig, r.freq");
+		CYPHER_QUERY = new CypherParser().parse(String.format("START n=node(%d) MATCH n-[:CO_S]->t-[r:CO_S]-> m return t.w_id, m.w_id, r.sig, r.freq", startNode.getId()));
+	}
+	
+	@Override
+	public void beforeRun() {
+		super.beforeRun();
+		CYPHER_QUERY = new CypherParser().parse(String.format("START n=node(%d) MATCH n-[:CO_S]->t-[r:CO_S]-> m return t.w_id, m.w_id, r.sig, r.freq", startNode.getId()));
 	}
 
 	@Override

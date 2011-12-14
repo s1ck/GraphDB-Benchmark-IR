@@ -1,4 +1,4 @@
-0. Benchmarksuite überarbeiten (Martin und Robert) -done
+0. Benchmarksuite ï¿½berarbeiten (Martin und Robert) -done
 
 1. MySQL evaluieren (Martin)
 	- Queries testen - done
@@ -28,7 +28,7 @@
 5. Bericht (DB-spezifisch) (Martin / Robert / Sascha)
 	- Fakten zur DB (evtl. auch Community Support)
 	- Datenmodell
-	- Abfragemöglichkeiten
+	- AbfragemÃ¶glichkeiten
 	- Benchmarks
 	- Vor- / Nachteile (Fazit)
 		

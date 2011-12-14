@@ -1,9 +1,5 @@
 package de.uni.leipzig.IR15.Benchmark.dex;
 
-import java.util.Random;
-
-import org.neo4j.graphdb.Node;
-
 import com.sparsity.dex.gdb.Database;
 import com.sparsity.dex.gdb.Graph;
 import com.sparsity.dex.gdb.Session;
@@ -36,5 +32,5 @@ public abstract class DEXBenchmark extends Benchmark {
 	@Override
 	public void tearDown() {
 		DEXConnector.destroyConnection();
-	}
+	}	
 }

@@ -16,10 +16,5 @@ public abstract class CypherBenchmark extends Neo4jBenchmark {
 	@Override
 	public void run() {
 		engine.execute(CYPHER_QUERY).size();
-	}
-	
-	@Override
-	public void reset() {		
-		
-	}
+	}	
 }
