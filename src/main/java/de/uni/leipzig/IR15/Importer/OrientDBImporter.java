@@ -5,95 +5,57 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
 import com.orientechnologies.orient.core.db.graph.OGraphDatabase;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 
 import de.uni.leipzig.IR15.Connectors.MySQLConnector;
-import de.uni.leipzig.IR15.Support.Configuration;
+import de.uni.leipzig.IR15.Connectors.OrientDBConnector;
+
 
 public class OrientDBImporter extends Importer {
-
-	private static enum RelTypes {
-		CO_S, CO_N
-	}
-
-//	private static Connection mySQL;
+	
 	private static OGraphDatabase orientdb;
-
+	private static enum RelTypes { CO_S, CO_N }
+	
+	
 	public OGraphDatabase getDB() {
 		return orientdb;
 	}
 
-	public OGraphDatabase onlyLoadDB() {
-		graphConfiguration = Configuration.getInstance("orientdb");
-		// specify that the filesystem is used
-		String url2db = "local:"
-				+ graphConfiguration.getPropertyAsString("location");
-		// create an OrientDB-Database
-		orientdb = new OGraphDatabase(url2db);
-		// connect to it
-		orientdb.open("admin", "admin");
-
-		return orientdb;
-	}
-
+	
 	@Override
 	public void setUp() {
-		// load properties
-		mySQLConfiguration = Configuration.getInstance("mysql");
-		graphConfiguration = Configuration.getInstance("orientdb");
-
-		// delete existing db
+		
+		// connect to OrientDB and to MySQL		
+		super.setUp("orientdb");
+		// clean up database dir
 		reset();
-
+		orientdb = OrientDBConnector.getConnection();
 		mySQLConnection = MySQLConnector.getConnection();
-
-		// specify that the filesystem is used
-		String url2db = "local:"
-				+ graphConfiguration.getPropertyAsString("location");
-		// create an OrientDB-Database
-		ODatabaseDocumentTx db = new ODatabaseDocumentTx(url2db).create();
-		// Java-Object for DB
-		orientdb = new OGraphDatabase(url2db);
-		// connect to it
-		orientdb.open("admin", "admin");
-
-		// make sure that DB is closed properly
-		registerShutdownHook(orientdb);
-
+		
 		// @TODO
 		// create an index on the nodes
 		// nodeIndex = neo4j.index().forNodes("words");
+		
 	}
-
+	
+	
 	@Override
 	public void tearDown() {
 		// shutdown the connections
-		orientdb.close();
-		try {
-			mySQLConnection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		reset();
+		OrientDBConnector.destroyConnection();
+		super.tearDown();
 	}
-
-	/**
-	 * @param args
-	 */
+	
+	
 	public void importData() {
 		// transfer the data from mysql to orientdb
-		transferData(orientdb, mySQLConnection);
+		importWords(mySQLConnection, orientdb);
+		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_N);
+		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_S);
 	}
-
-	private void transferData(OGraphDatabase neo4j, Connection mySQL) {
-		importWords(mySQL, orientdb);
-		importCooccurrences(mySQL, neo4j, RelTypes.CO_N);
-		importCooccurrences(mySQL, neo4j, RelTypes.CO_S);
-	}
-
+	
+	
 	private void importWords(Connection mySQL, OGraphDatabase orientdb) {
 		String query = "SELECT * FROM words";
 
@@ -120,7 +82,7 @@ public class OrientDBImporter extends Importer {
 
 			}
 		} catch (SQLException ex) {
-			System.err.println(ex.getMessage());
+			log.error(ex.getMessage());
 		}
 	}
 
@@ -163,19 +125,8 @@ public class OrientDBImporter extends Importer {
 			System.err.println(ex.getMessage());
 		}
 	}
-
-	private void registerShutdownHook(final OGraphDatabase graphDb) {
-		// Registers a shutdown hook for the OrientDB instance so that it
-		// shuts down nicely when the VM exits (even if you "Ctrl-C" the
-		// running example before it's completed)
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			@Override
-			public void run() {
-				graphDb.close();
-			}
-		});
-	}
-
+	
+	
 	private Integer getRowCount(Connection sqlConnection, String table) {
 		String query = "SELECT COUNT(*) FROM " + table;
 		Integer count = null;

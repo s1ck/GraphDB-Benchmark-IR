@@ -41,7 +41,7 @@ public class MySQLConnector {
 		}
 
 		if (connection != null) {
-			log.info("Create connection successful");
+			log.info("Create MySQL-connection successful");
 		} else {
 			log.error("Create connection failed");
 		}

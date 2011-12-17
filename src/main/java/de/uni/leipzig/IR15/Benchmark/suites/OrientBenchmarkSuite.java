@@ -34,11 +34,11 @@ public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 		List<ODocument> result;
 		OrientDBImporter OrientImport = new OrientDBImporter();
 
-		 OrientImport.setUp();
-		 OrientImport.importData();
+		OrientImport.setUp();
+		OrientImport.importData();
 
-		OGraphDatabase orientdb = OrientImport.onlyLoadDB();
-
+		OGraphDatabase orientdb = OrientImport.getDB();
+		
 		String q1 = "SELECT FROM OGraphVertex WHERE w_id = 4560";
 		result = orientdb.query(new OSQLSynchQuery<ODocument>(q1));
 		for (ODocument v : result)
