@@ -34,8 +34,8 @@ public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 		List<ODocument> result;
 		OrientDBImporter OrientImport = new OrientDBImporter();
 
-		// OrientImport.setUp();
-		// OrientImport.importData();
+		 OrientImport.setUp();
+		 OrientImport.importData();
 
 		OGraphDatabase orientdb = OrientImport.onlyLoadDB();
 

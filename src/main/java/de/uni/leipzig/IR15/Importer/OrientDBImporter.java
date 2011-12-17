@@ -18,7 +18,7 @@ public class OrientDBImporter extends Importer {
 		CO_S, CO_N
 	}
 
-	private static Connection mySQL;
+//	private static Connection mySQL;
 	private static OGraphDatabase orientdb;
 
 	public OGraphDatabase getDB() {
@@ -47,7 +47,7 @@ public class OrientDBImporter extends Importer {
 		// delete existing db
 		reset();
 
-		mySQL = MySQLConnector.getConnection();
+		mySQLConnection = MySQLConnector.getConnection();
 
 		// specify that the filesystem is used
 		String url2db = "local:"
@@ -85,7 +85,7 @@ public class OrientDBImporter extends Importer {
 	 */
 	public void importData() {
 		// transfer the data from mysql to orientdb
-		transferData(orientdb, mySQL);
+		transferData(orientdb, mySQLConnection);
 	}
 
 	private void transferData(OGraphDatabase neo4j, Connection mySQL) {
