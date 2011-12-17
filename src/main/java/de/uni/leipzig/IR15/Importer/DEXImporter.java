@@ -49,11 +49,7 @@ public class DEXImporter extends Importer {
 		// transfer the data from mysql to neo4j		
 		transferData();											
 	}
-	
-	public Object getDatabaseInstance() {
-		return dex;
-	}
-	
+
 	private void transferData()
 	{		
 		importWords();

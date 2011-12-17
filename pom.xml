@@ -1,66 +1,67 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>de.uni-leipzig</groupId>
-  <artifactId>IR_15</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>IR_15</name>
-  <description>Information Retrieval Praktikum</description>
-  
-  <repositories>
-  	<repository>
- 		<id>orientechnologies-repository</id>
- 		<name>Orient Technologies Maven2 Repository</name>
-	 	<url>http://www.orientechnologies.com/listing/m2</url>
-	  	<snapshots>
-	    	<enabled>true</enabled>
-	    	<updatePolicy>always</updatePolicy>
-	  	</snapshots>
-	</repository>
-  </repositories>
-  
-  <dependencies>
-  	<dependency>
-  		<groupId>mysql</groupId>
-  		<artifactId>mysql-connector-java</artifactId>
-  		<version>5.1.18</version>
-  	</dependency>  	
-  	<dependency>  	
-  		<groupId>org.neo4j</groupId>
-  		<artifactId>neo4j</artifactId>
-  		<version>1.6.M01</version>
-  	</dependency>
-	<dependency>
-  		<groupId>com.sparsity</groupId>
-  		<artifactId>dexjava</artifactId>
-  		<version>4.2.0</version>
-	</dependency> 	
-  	<dependency>
-		<groupId>log4j</groupId>
-		<artifactId>log4j</artifactId>
-		<version>1.2.16</version>
-	</dependency> 
-	<dependency>
-  		<groupId>com.orientechnologies</groupId>
- 		<artifactId>orient-commons</artifactId>
-  		<version>1.0rc6</version>
-	</dependency>
-	<dependency>
-	  	<groupId>com.orientechnologies</groupId>
-	  	<artifactId>orientdb-core</artifactId>
-	  	<version>1.0rc6</version>
-	</dependency>		 
-  </dependencies>  
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.uni-leipzig</groupId>
+	<artifactId>IR_15</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>IR_15</name>
+	<description>Information Retrieval Praktikum</description>
+
+	<repositories>
+		<repository>
+			<id>orientechnologies-repository</id>
+			<name>Orient Technologies Maven2 Repository</name>
+			<url>http://www.orientechnologies.com/listing/m2</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.18</version>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j</artifactId>
+			<version>1.6.M01</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sparsity</groupId>
+			<artifactId>dexjava</artifactId>
+			<version>4.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+		</dependency>
+		<dependency>
+			<groupId>com.orientechnologies</groupId>
+			<artifactId>orient-commons</artifactId>
+			<version>1.0rc6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.orientechnologies</groupId>
+			<artifactId>orientdb-core</artifactId>
+			<version>1.0rc6</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

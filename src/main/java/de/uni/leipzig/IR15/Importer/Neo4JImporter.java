@@ -42,11 +42,7 @@ public class Neo4JImporter extends Importer {
 		// shutdown the connections
 		Neo4JConnector.destroyConnection();
 		super.tearDown();
-	}
-	
-	public Object getDatabaseInstance() {
-		return neo4j;
-	}
+	}		
 		
 	/**
 	 * @param args
