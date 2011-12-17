@@ -8,6 +8,7 @@ import java.sql.Statement;
 import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
 import com.orientechnologies.orient.core.db.graph.OGraphDatabase;
 import com.orientechnologies.orient.core.db.graph.OGraphDatabasePool;
+import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 
 import de.uni.leipzig.IR15.Connectors.MySQLConnector;
@@ -25,6 +26,24 @@ public class OrientDBImporter extends Importer {
 	private static Connection mySQL;
 	private static MySQLConnector mySQLConnector;
 	private static OGraphDatabase orientdb;
+	
+	public OGraphDatabase getDB()
+	{
+		return orientdb;
+	}
+	
+	public OGraphDatabase onlyLoadDB()
+	{
+		graphConfiguration = Configuration.getInstance("orientdb");
+		// specify that the filesystem is used
+		String url2db = "local:" + graphConfiguration.getPropertyAsString("location");
+		// create an OrientDB-Database 
+		orientdb = new OGraphDatabase(url2db);
+		// connect to it
+		orientdb.open("admin", "admin");
+		
+		return orientdb;
+	}
 	
 	@Override
 	public void setUp() {
@@ -64,17 +83,16 @@ public class OrientDBImporter extends Importer {
 		//@TODO
 		// create an index on the nodes
 		// nodeIndex = neo4j.index().forNodes("words");
-		
-		System.out.println("Ende SetUp OrientDB");
 	}
 
 	@Override
 	public void tearDown() {
 		// shutdown the connections
 		orientdb.close();
-		mySQLConnector.destroyConnection();
-		
-		reset();
+		try{
+			mySQLConnector.destroyConnection();
+		}
+		catch (Exception e) {}
 	}
 
 	
@@ -104,7 +122,7 @@ public class OrientDBImporter extends Importer {
 	      Statement st = mySQL.createStatement();
 	      st.setFetchSize(Integer.MIN_VALUE);
 	      ResultSet rs = st.executeQuery(query);
-	      
+	      // v-type
 	      while (rs.next()) {
 	        String  word 	= rs.getString("word");
 	        Integer word_id = rs.getInt("w_id");
@@ -128,11 +146,12 @@ public class OrientDBImporter extends Importer {
 		String table = relType.toString().toLowerCase();
 		Integer count = getRowCount(mySQL, table);
 		System.out.println("Importing " + count + " cooccurrences (" + table + ")");
-		Integer step  = 0;
+		
+		orientdb.createEdgeType(table);
 		
 	    String query = "SELECT * FROM " + table;
-	        
-	    try {	    	
+	    
+	    try {
 	      Statement st = mySQL.createStatement();
 	      st.setFetchSize(Integer.MIN_VALUE);
 	      ResultSet rs = st.executeQuery(query);
@@ -147,11 +166,10 @@ public class OrientDBImporter extends Importer {
 	        ODocument source = orientdb.getRoot(w1_id.toString());
 	        ODocument target = orientdb.getRoot(w2_id.toString());
 	        
-	        ODocument edge = orientdb.createEdge( source, target );
+	        ODocument edge = orientdb.createEdge( source, target, table ); // table = co_n or co_s
 				edge.field("freq", freq);
 				edge.field("sig", sig);
 				edge.save();
-	        step++;	       
 	      }
 	     
 	    } catch (SQLException ex) {
