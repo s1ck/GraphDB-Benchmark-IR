@@ -22,9 +22,7 @@ public class OrientDBImporter extends Importer {
 		CO_N
 	}
 	
-	private static Configuration mySQLConfiguration;
 	private static Connection mySQL;
-	private static MySQLConnector mySQLConnector;
 	private static OGraphDatabase orientdb;
 	
 	public OGraphDatabase getDB()
@@ -54,19 +52,8 @@ public class OrientDBImporter extends Importer {
 		// delete existing db
 		reset();
 		
-		// connect to mysql
-		String database = "jdbc:mysql://" 
-		+ mySQLConfiguration.getPropertyAsString("host") 
-		+ ":" + mySQLConfiguration.getPropertyAsString("port") 
-		+ "/" + mySQLConfiguration.getPropertyAsString("database");
 		
-		mySQLConnector = new MySQLConnector(database, 
-				mySQLConfiguration.getPropertyAsString("username"), 
-				mySQLConfiguration.getPropertyAsString("password")
-				);
-		
-		mySQL = mySQLConnector.createConnection();
-		
+		mySQL = MySQLConnector.getConnection();
 		
 		// specify that the filesystem is used
 		String url2db = "local:" + graphConfiguration.getPropertyAsString("location");
@@ -93,6 +80,7 @@ public class OrientDBImporter extends Importer {
 			mySQLConnector.destroyConnection();
 		}
 		catch (Exception e) {}
+		reset();
 	}
 
 	
@@ -116,7 +104,7 @@ public class OrientDBImporter extends Importer {
 	    String query = "SELECT * FROM words";
 	    
 	    Integer count = getRowCount(mySQL, "words");
-		System.out.println("Importing " + count + " words ");
+		log.info("Importing " + count + " words ");
 	    
 	    try {
 	      Statement st = mySQL.createStatement();
@@ -145,9 +133,11 @@ public class OrientDBImporter extends Importer {
 	private void importCooccurrences(Connection mySQL, OGraphDatabase orientdb, RelTypes relType) {
 		String table = relType.toString().toLowerCase();
 		Integer count = getRowCount(mySQL, table);
-		System.out.println("Importing " + count + " cooccurrences (" + table + ")");
-		
+
 		orientdb.createEdgeType(table);
+		log.info("Importing " + count + " cooccurrences (" + table + ")");
+		Integer step  = 0;
+
 		
 	    String query = "SELECT * FROM " + table;
 	    
@@ -207,6 +197,16 @@ public class OrientDBImporter extends Importer {
 	      System.err.println(ex.getMessage());
 	    }
 	    return count;
+	}
+
+	@Override
+	public String getName() {
+		return "orientdb";
+	}
+
+	@Override
+	public Object getDatabaseInstance() {
+		return orientdb;
 	}
 
 	

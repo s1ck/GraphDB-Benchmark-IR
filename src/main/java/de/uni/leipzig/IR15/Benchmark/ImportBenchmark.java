@@ -5,28 +5,35 @@ import de.uni.leipzig.IR15.Importer.Importer;
 public class ImportBenchmark extends Benchmark {
 
 	private Importer importer;
-	
+
 	public ImportBenchmark(Importer importer) {
 		this.importer = importer;
 	}
-	
+
 	@Override
-	public void run() {	
-		log.info(String.format("Starting: %s", getName()));
+	public void setUp() {
 		importer.setUp();
-		
-		startTimer();
+	}
+
+	@Override
+	public void run() {
 		importer.importData();
-		long duration = stopTimer();
-		
+	}
+
+	@Override
+	public void tearDown() {
+		// close connection
 		importer.tearDown();
-		
-		log.debug(String.format("Finished: %s Took %d [ms]", getName(), duration));
+	}
+
+	@Override
+	public void beforeRun() {
+
 	}
 
 	@Override
 	public String getName() {
-		return String.format("Import Benchmark using importer: %s", importer.toString());
+		return String.format("%s Import", importer.getName());
 	}
 
 }

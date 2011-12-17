@@ -1,11 +1,12 @@
 *~
 \#*
 target
+dumps
 *.swp
 .project
 .classpath
 .settings
-.properties
+src/main/resources/*.properties
 *.iws
 *.ipr
 *.iml

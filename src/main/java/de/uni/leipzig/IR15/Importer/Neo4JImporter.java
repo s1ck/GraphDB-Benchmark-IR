@@ -11,10 +11,11 @@ import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.index.Index;
-import org.neo4j.kernel.EmbeddedGraphDatabase;
+
+import de.uni.leipzig.IR15.Connectors.Neo4JConnector;
 
 public class Neo4JImporter extends Importer {
-	static enum RelTypes implements RelationshipType
+	public static enum RelTypes implements RelationshipType
 	{
 		CO_S,
 		CO_N
@@ -27,56 +28,46 @@ public class Neo4JImporter extends Importer {
 	@Override
 	public void setUp() {
 		super.setUp("neo4j");
+		// clean up database dir
+		reset();
 		
-		operationsPerTx = graphConfiguration.getPropertyAsInteger("operations_per_transaction");
-		
+		operationsPerTx = graphConfiguration.getPropertyAsInteger("operations_per_transaction");		
 		// connect to neo4j and create an index on the nodes
-		neo4j = new EmbeddedGraphDatabase(graphConfiguration.getPropertyAsString("location"));
-		nodeIndex = neo4j.index().forNodes("words");
-		
-		registerShutdownHook(neo4j);
+		neo4j = Neo4JConnector.getConnection();
+		nodeIndex = neo4j.index().forNodes("words");				
 	}
 
 	@Override
 	public void tearDown() {
 		// shutdown the connections
-		neo4j.shutdown();
+		Neo4JConnector.destroyConnection();
 		super.tearDown();
 	}
 	
+	public Object getDatabaseInstance() {
+		return neo4j;
+	}
+		
 	/**
 	 * @param args
 	 */
-	public void importData() {
+	public void importData() {		
+		
 		// transfer the data from mysql to neo4j		
-		transferData();											
+		transferData();		
 	}
 	
 	private void transferData()
 	{		
-		importWords(mySQL, neo4j);
-		importCooccurrences(mySQL, neo4j, RelTypes.CO_N);
-		importCooccurrences(mySQL, neo4j, RelTypes.CO_S);
-	}
-	
-	private void registerShutdownHook( final GraphDatabaseService graphDb ) {
-	    // Registers a shutdown hook for the Neo4j instance so that it
-	    // shuts down nicely when the VM exits (even if you "Ctrl-C" the
-	    // running example before it's completed)
-	    Runtime.getRuntime().addShutdownHook( new Thread()
-	    {
-	        @Override
-	        public void run()
-	        {
-	            graphDb.shutdown();
-	        }
-	    } );
+		importWords(mySQLConnection, neo4j);
+		importCooccurrences(mySQLConnection, neo4j, RelTypes.CO_N);
+		importCooccurrences(mySQLConnection, neo4j, RelTypes.CO_S);
 	}
 	
 	private void importCooccurrences(Connection mySQL, GraphDatabaseService neo4j, RelationshipType relType) {
 		String table = relType.toString().toLowerCase();
-		Integer count = getMysqlRowCount(mySQL, table);
-		System.out.println("Importing " + count + " cooccurrences (" + table + ")");
+		Integer count = getMysqlRowCount(table);
+		log.info("Importing " + count + " cooccurrences (" + table + ")");
 		Integer step  = 0;
 		
 	    String query = "SELECT * FROM " + table;
@@ -108,8 +99,7 @@ public class Neo4JImporter extends Importer {
 	        	// commit
 	        	tx.success();
 	        	tx.finish();
-	        	tx = neo4j.beginTx();
-	        	System.out.println(".");
+	        	tx = neo4j.beginTx();	        	
 	        }
 	        
 	        step++;	       
@@ -147,8 +137,7 @@ public class Neo4JImporter extends Importer {
 	        	// commit
 	        	tx.success();
 	        	tx.finish();
-	        	tx = neo4j.beginTx();
-	        	System.out.println(".");
+	        	tx = neo4j.beginTx();	        	
 	        }        
 	      }
 	      tx.success();
@@ -158,5 +147,10 @@ public class Neo4JImporter extends Importer {
 	    finally {
 	    	tx.finish();
 	    }
+	}
+
+	@Override
+	public String getName() {		
+		return "neo4j";
 	}
 }

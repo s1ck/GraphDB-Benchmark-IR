@@ -1,0 +1,38 @@
+0. Benchmarksuite �berarbeiten (Martin und Robert) -done
+
+1. MySQL evaluieren (Martin)
+	- Queries testen - done
+	- Zeitmessung (average / min / max / stdev)
+	- Code-Doku
+	
+2. Neo4j (Martin) 
+	- Cypher Abfragen formulieren -done
+	- Benchmarks mit Cypher Abfragen -done
+	- Benchmarks mit Traverser API
+	- Zeitmessung (average / min / max / stdev) -done
+	- Bericht
+	- Code-Doku
+			
+3. Dex (Robert)
+	- Abfragen via Native API
+	- Bericht
+	- Code-Doku
+	
+4. OrientDB (Sascha)
+	- OrientConnector implementieren und verwenden! (siehe neo4j und DexConnector)
+	- Abfragen via SQL http://code.google.com/p/orient/wiki/SQL
+	- Zeitmessung (average / min / max / stdev)
+	- Bericht
+	- Code-Doku
+
+5. Bericht (DB-spezifisch) (Martin / Robert / Sascha)
+	- Fakten zur DB (evtl. auch Community Support)
+	- Datenmodell
+	- Abfragemöglichkeiten
+	- Benchmarks
+	- Vor- / Nachteile (Fazit)
+		
+6. Zusammenfassendes Dokument (Martin / Robert / Sascha)
+
+
+	
