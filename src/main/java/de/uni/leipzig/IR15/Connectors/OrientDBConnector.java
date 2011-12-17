@@ -21,7 +21,7 @@ public class OrientDBConnector {
 		// get OrientDB connection-configuration from property-file
 		Configuration config = Configuration.getInstance("orientdb");
 		
-		// specify that the filesystem is used
+		// specify that the file system is used
 		String url2db = "local:"
 				+ config.getPropertyAsString("location");
 		
@@ -31,11 +31,25 @@ public class OrientDBConnector {
 			loc.mkdir();
 		}
 		
-		// create an OrientDB-Database
-		new ODatabaseDocumentTx(url2db).create();
+		// try to open. If error, create DB first
+		try 
+		{
+			// create an OrientDB-Database-Object from the specified location
+			orientdb = new OGraphDatabase(url2db);
+			orientdb.open("admin", "admin");
+			log.info("OrientDB is already on filesystem. Opened it!");
+		}
+		catch (Exception e)
+		{
+			// create an OrientDB-Database
+			new ODatabaseDocumentTx(url2db).create();
+			log.info("OrientDB is NOT on filesystem. Created it!");
+			// create an OrientDB-Database-Object from the specified location
+			orientdb = new OGraphDatabase(url2db);
+			orientdb.open("admin", "admin");
+			log.info("freshly created OrientDB was opened!");
+		}
 		
-		// create an OrientDB-Database-Object from the specified location
-		orientdb = new OGraphDatabase(url2db);
 		
 		// check, if creation was successful
 		if (orientdb != null) {
@@ -43,10 +57,8 @@ public class OrientDBConnector {
 		} else {
 			log.error("Create connection failed");
 		}
-		registerShutdownHook(orientdb);
 		
-		// connect to DB
-		orientdb.open("admin", "admin");
+		registerShutdownHook(orientdb);
 		
 		return orientdb;
 	}

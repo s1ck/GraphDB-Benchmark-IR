@@ -1,5 +1,6 @@
 package de.uni.leipzig.IR15.Importer;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,17 +27,21 @@ public class OrientDBImporter extends Importer {
 	@Override
 	public void setUp() {
 		
-		// connect to OrientDB and to MySQL		
 		super.setUp("orientdb");
-		// clean up database dir
+		
+		// clean up database directory
+		// create folder if not existent
+		File loc = new File(graphConfiguration.getPropertyAsString("location"));
+		if (loc.exists() == false) {
+			loc.mkdir();
+		}
 		reset();
+		
+		// connect (create) to OrientDB 
 		orientdb = OrientDBConnector.getConnection();
+		
+		// and to MySQL	
 		mySQLConnection = MySQLConnector.getConnection();
-		
-		// @TODO
-		// create an index on the nodes
-		// nodeIndex = neo4j.index().forNodes("words");
-		
 	}
 	
 	
@@ -51,6 +56,11 @@ public class OrientDBImporter extends Importer {
 	public void importData() {
 		// transfer the data from mysql to orientdb
 		importWords(mySQLConnection, orientdb);
+		
+		// create an index on the nodes for Word_ID 
+		// String q1 = "CREATE INDEX WordIds ON OGRAPHVERTEX (W_ID) UNIQUE";
+		// List<ODocument> result = orientdb.query(new OSQLSynchQuery<ODocument>(q1));
+		
 		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_N);
 		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_S);
 	}
@@ -76,8 +86,7 @@ public class OrientDBImporter extends Importer {
 				vertex.field("word", word);
 				vertex.save(); // make it persistent
 
-				// @TODO: DIRTY!!! Is this procedure really safe for finding
-				// vertices by w_id?
+				// @TODO: mayber better solution for getting vertices by id later on?!
 				orientdb.setRoot(word_id.toString(), vertex);
 
 			}
@@ -108,9 +117,9 @@ public class OrientDBImporter extends Importer {
 				Integer freq = rs.getInt("freq");
 
 				// @TODO Dirty, maybe better solution for bigger Graphs
+				// but not with queries. One query takes 0.25s to return 1 vertex
 				ODocument source = orientdb.getRoot(w1_id.toString());
 				ODocument target = orientdb.getRoot(w2_id.toString());
-
 				ODocument edge = orientdb.createEdge(source, target, table); // table
 																				// =
 																				// co_n

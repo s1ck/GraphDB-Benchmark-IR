@@ -136,7 +136,7 @@ public abstract class Benchmark {
 			if (runtimes[i] > max)
 				max = runtimes[i];
 		}
-		double stdev = new Double(tmp) / (runtimes.length);
+		double stdev = Math.sqrt( new Double(tmp) / (runtimes.length) );
 
 		results.put("Stdev [ms]", stdev);
 		results.put("Min [ms]", min);
