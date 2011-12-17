@@ -114,6 +114,7 @@ public class Neo4JImporter extends Importer {
 	
 	private void importWords(Connection mySQL, GraphDatabaseService neo4j) {		
 	    String query = "SELECT * FROM words";
+	    log.info("Importing " + getMysqlRowCount("words") + " words");
 	    Transaction tx = neo4j.beginTx();
 	    try {
 	      Statement st = mySQL.createStatement();

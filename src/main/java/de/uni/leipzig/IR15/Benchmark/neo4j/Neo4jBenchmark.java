@@ -1,7 +1,5 @@
 package de.uni.leipzig.IR15.Benchmark.neo4j;
 
-import java.util.Random;
-
 import org.neo4j.cypher.ExecutionEngine;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
@@ -32,12 +30,13 @@ public abstract class Neo4jBenchmark extends Benchmark {
 		engine = new ExecutionEngine(neo4j);
 		// get index
 		index = neo4j.index().forNodes("words");
-		n = 0;
+		// neo4j always has one node, so we start at -1 to get the exact count.
+		// This is important for the Random instance
+		n = -1;
 
 		for (Node v : GlobalGraphOperations.at(neo4j).getAllNodes()) {
 			n++;
-		}
-		startNode = getRandomNode();
+		}		
 	}
 
 	@Override
@@ -48,18 +47,21 @@ public abstract class Neo4jBenchmark extends Benchmark {
 	@Override
 	public void tearDown() {
 		Neo4JConnector.destroyConnection();
-	}	
+	}
 
+	/**
+	 * creates random id until a matching db entity is found
+	 * 
+	 * @return
+	 */
 	protected Node getRandomNode() {
 		Node v = null;
-		int id;
-		Random r = new Random();
+		int id = 0;
 
 		while (v == null) {
 			id = r.nextInt(n);
-			v = neo4j.getNodeById(id);
+			v = index.get("w_id", id).getSingle();
 		}
-
 		return v;
 	}
 }

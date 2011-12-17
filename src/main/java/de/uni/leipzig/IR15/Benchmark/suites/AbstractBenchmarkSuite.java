@@ -44,22 +44,21 @@ public class AbstractBenchmarkSuite {
 		
 		// do warmup		
 		for (int i = 0; i < warmups; i++) {
+			benchmark.beforeRun();
 			start = System.currentTimeMillis();
 			benchmark.run();
 			diff = System.currentTimeMillis() - start;			
-			totalResults[i] = diff;
-			benchmark.beforeRun();
+			totalResults[i] = diff;			
 		}
 		
 		// do measurement		
-		for (int i = 0; i < runs; i++) {
-			
+		for (int i = 0; i < runs; i++) {			
+			benchmark.beforeRun();
 			start = System.currentTimeMillis();
 			benchmark.run();
 			diff = System.currentTimeMillis() - start;
 			results[i] = diff;
-			totalResults[warmups + i] = diff;
-			benchmark.beforeRun();
+			totalResults[warmups + i] = diff;			
 		}
 		benchmark.tearDown();
 				

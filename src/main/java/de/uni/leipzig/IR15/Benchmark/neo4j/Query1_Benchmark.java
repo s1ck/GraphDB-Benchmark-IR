@@ -13,12 +13,6 @@ import org.neo4j.cypher.parser.CypherParser;
  *
  */
 public class Query1_Benchmark extends CypherBenchmark {
-
-	@Override
-	public void setUp() {
-		super.setUp();		
-		CYPHER_QUERY = new CypherParser().parse(String.format("START n=node(%d) MATCH n-[:CO_S]->m return m.w_id", startNode.getId()));
-	}
 	
 	@Override
 	public void beforeRun() {

@@ -19,12 +19,6 @@ import org.neo4j.cypher.parser.CypherParser;
  *
  */
 public class Query3_Benchmark extends CypherBenchmark {
-
-	@Override
-	public void setUp() {
-		super.setUp();
-		CYPHER_QUERY = new CypherParser().parse(String.format("START n=node(%d) MATCH n-[:CO_S]->m, n-[:CO_S]-> t, m-[r:CO_S]-> t return m.w_id, t.w_id, r.sig, r.freq", startNode.getId()));
-	}
 	
 	@Override
 	public void beforeRun() {

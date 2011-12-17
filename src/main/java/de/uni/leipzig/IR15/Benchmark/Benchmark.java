@@ -1,6 +1,9 @@
 package de.uni.leipzig.IR15.Benchmark;
 
 import java.util.Hashtable;
+import java.util.Map;
+import java.util.Random;
+import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 
@@ -17,6 +20,11 @@ public abstract class Benchmark {
 	 */
 	private int runs = 100;
 
+	/*
+	 * constant seed for same random IDs for each benchmark
+	 */
+	protected Random r = new Random(13374223);
+	
 	public void setWarmups(int warmups) {
 		this.warmups = warmups;
 	}
@@ -67,8 +75,8 @@ public abstract class Benchmark {
 	 * @param runtimes
 	 * @return hashtable wih results
 	 */
-	public Hashtable<String, Object> getResults(long[] runtimes) {
-		Hashtable<String, Object> results = new Hashtable<String, Object>();
+	public Map<String, Object> getResults(long[] runtimes) {
+		Map<String, Object> results = new TreeMap<String, Object>();
 
 		// average
 		long sum = 0L;
@@ -77,17 +85,25 @@ public abstract class Benchmark {
 		}
 		double avg = new Double(sum) / runtimes.length;
 
-		results.put("average [ms]", avg);
+		results.put("Average [ms]", avg);
 
-		// stdev
+		// stdev, min, max
 		long tmp = 0;
+		long min = Long.MAX_VALUE;
+		long max = Long.MIN_VALUE;
 		for (int i = 0; i < runtimes.length; i++) {
 			tmp += Math.pow((runtimes[i] - avg), 2);
+			// min
+			if(runtimes[i] < min) min = runtimes[i];
+			// max
+			if(runtimes[i] > max) max = runtimes[i];
 		}
 		double stdev = new Double(tmp) / (runtimes.length);
 
-		results.put("stdev [ms]", stdev);
-
+		results.put("Stdev [ms]", stdev);
+		results.put("Min [ms]", min);
+		results.put("Max [ms]", max);
+		
 		return results;
 	}
 }
