@@ -71,7 +71,8 @@ public class OrientDBImporter extends Importer {
 
 		Integer count = getRowCount(mySQL, "words");
 		log.info("Importing " + count + " words ");
-
+		orientdb.createVertexType("Word");
+		
 		try {
 			Statement st = mySQL.createStatement();
 			st.setFetchSize(Integer.MIN_VALUE);
@@ -81,7 +82,9 @@ public class OrientDBImporter extends Importer {
 				String word = rs.getString("word");
 				Integer word_id = rs.getInt("w_id");
 
-				ODocument vertex = orientdb.createVertex();
+				ODocument vertex = orientdb.createVertex("Word");
+				//ODocument vertex = new ODocument(orientdb, "Word");
+				
 				vertex.field("w_id", word_id);
 				vertex.field("word", word);
 				vertex.save(); // make it persistent
@@ -127,6 +130,7 @@ public class OrientDBImporter extends Importer {
 																				// co_s
 				edge.field("freq", freq);
 				edge.field("sig", sig);
+				edge.field("type", table);
 				edge.save();
 			}
 

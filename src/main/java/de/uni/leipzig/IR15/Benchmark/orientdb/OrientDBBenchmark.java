@@ -9,18 +9,18 @@ public abstract class OrientDBBenchmark extends Benchmark {
 	
 	protected long startWordID;
 	protected OGraphDatabase orientdb;
-	protected long numVertices;
-	
+	protected int numVertices;
 	
 	@Override
 	public void setUp() {
 		orientdb = OrientDBConnector.getConnection();
 		// numVertices
+		numVertices = (int) orientdb.countVertexes();
 	}
 	
 	@Override
 	public void beforeRun() {
-		startWordID = r.nextInt((int) orientdb.countVertexes());
+		startWordID = r.nextInt(numVertices);
 	}
 
 	@Override
