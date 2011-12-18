@@ -19,7 +19,9 @@ public class DEXConnector {
 	public static Database getConnection() {
 		Configuration config = Configuration.getInstance("dex");
 		
-		dexConnector = new Dex(new DexConfig());
+		DexConfig dexConfig = new DexConfig();
+		dexConfig.setLicense("B7QWC-18YV7-GVDVD-VJZHH");
+		dexConnector = new Dex(dexConfig);
 		
 		try {
 			File location = new File(config.getPropertyAsString("location"));

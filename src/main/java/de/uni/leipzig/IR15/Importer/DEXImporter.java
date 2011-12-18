@@ -76,7 +76,7 @@ public class DEXImporter extends Importer {
 	    	int wordIdAttribute = graph.findAttribute(wordNodeType, "w_id");
 
 	    	int edgeType = graph.newEdgeType(relType.toString(), true, true);
-	    	int edgeSigAttribute = graph.newAttribute(edgeType, "sig", DataType.Integer, AttributeKind.Indexed);
+	    	int edgeSigAttribute = graph.newAttribute(edgeType, "sig", DataType.Double, AttributeKind.Indexed);
 	    	int edgeFreqAttribute = graph.newAttribute(edgeType, "freq", DataType.Integer, AttributeKind.Indexed);
 	    	
 	    	while (rs.next()) {

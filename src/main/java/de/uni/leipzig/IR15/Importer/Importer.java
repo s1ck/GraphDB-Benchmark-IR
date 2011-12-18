@@ -34,8 +34,7 @@ public abstract class Importer {
 				location.delete();
 			}
 		} else {
-			throw new InvalidParameterException(String.format(
-					"location %s does not exist", location));
+			log.info("Database storage location does not exist, no need to reset.");
 		}
 	}
 

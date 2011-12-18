@@ -1,1 +1,3 @@
 location=out/dex
+operations_per_transaction=20000
+license=XXXXX-XXXXX-XXXXX-XXXXX
