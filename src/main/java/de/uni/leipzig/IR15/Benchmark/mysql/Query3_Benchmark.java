@@ -1,8 +1,15 @@
 package de.uni.leipzig.IR15.Benchmark.mysql;
 
+/**
+ * Query 3 selects all sentence co-occurences (co_s) between two words which are
+ * sentence co-occurences of a given word.
+ * 
+ * @author Martin 's1ck' Junghanns
+ * 
+ */
 public class Query3_Benchmark extends MySQLBenchmark {
 
-	@Override 
+	@Override
 	public void beforeRun() {
 		start_WordID = getRandomStartNode();
 		query = String
@@ -10,7 +17,7 @@ public class Query3_Benchmark extends MySQLBenchmark {
 						start_WordID, start_WordID);
 		super.beforeRun();
 	}
-	
+
 	@Override
 	public String getName() {
 		return "MySQL query 3";

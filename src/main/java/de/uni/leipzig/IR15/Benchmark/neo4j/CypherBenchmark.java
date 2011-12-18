@@ -6,7 +6,7 @@ import org.neo4j.cypher.commands.Query;
  * Abstract Base Class for all Cypher-based benchmarks. It just executes the 
  * query and counts the rows in the result to avoid paging effects.
  * 
- * @author s1ck
+ * @author Martin 's1ck' Junghanns
  *
  */
 public abstract class CypherBenchmark extends Neo4jBenchmark {

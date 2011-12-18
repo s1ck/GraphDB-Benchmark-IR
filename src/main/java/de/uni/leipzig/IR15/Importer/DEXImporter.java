@@ -82,14 +82,14 @@ public class DEXImporter extends Importer {
 	    	while (rs.next()) {
 		        Integer w1_id 	= rs.getInt("w1_id");
 		        Integer w2_id 	= rs.getInt("w2_id");
-		        Integer sig 	= rs.getInt("sig");
+		        Double sig 		= rs.getDouble("sig");
 		        Integer freq 	= rs.getInt("freq");
 		        
 		        long sourceNode = graph.findObject(wordIdAttribute, new Value().setInteger(w1_id));
 		        long targetNode = graph.findObject(wordIdAttribute, new Value().setInteger(w2_id));
 		        
 		        long edge = graph.newEdge(edgeType, sourceNode, targetNode);
-		        graph.setAttribute(edge, edgeSigAttribute, new Value().setInteger(sig));
+		        graph.setAttribute(edge, edgeSigAttribute, new Value().setDouble(sig));
 		        graph.setAttribute(edge, edgeFreqAttribute, new Value().setInteger(freq));
 	    	}
 	    	session.commit();	    	

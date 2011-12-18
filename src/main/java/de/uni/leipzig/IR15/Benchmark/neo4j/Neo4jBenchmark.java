@@ -9,6 +9,14 @@ import org.neo4j.tooling.GlobalGraphOperations;
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Connectors.Neo4JConnector;
 
+/**
+ * Abstract Base Class for all benchmarks running on neo4j graph database. It
+ * holds a reference to the database and the word index, it also cares about
+ * generating random (and existing) node ids.
+ * 
+ * @author Martin 's1ck' Junghanns
+ * 
+ */
 public abstract class Neo4jBenchmark extends Benchmark {
 
 	protected Index<Node> index;
@@ -36,7 +44,7 @@ public abstract class Neo4jBenchmark extends Benchmark {
 
 		for (Node v : GlobalGraphOperations.at(neo4j).getAllNodes()) {
 			n++;
-		}		
+		}
 	}
 
 	@Override

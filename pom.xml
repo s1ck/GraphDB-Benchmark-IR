@@ -29,7 +29,7 @@
 			<groupId>org.neo4j</groupId>
 			<artifactId>neo4j</artifactId>
 			<version>1.6.M01</version>
-		</dependency>
+		</dependency>		
 		<dependency>
 			<groupId>com.sparsity</groupId>
 			<artifactId>dexjava</artifactId>

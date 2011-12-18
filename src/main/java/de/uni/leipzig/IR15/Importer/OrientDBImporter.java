@@ -113,7 +113,7 @@ public class OrientDBImporter extends Importer {
 			while (rs.next()) {
 				Integer w1_id = rs.getInt("w1_id");
 				Integer w2_id = rs.getInt("w2_id");
-				Integer sig = rs.getInt("sig");
+				Double sig = rs.getDouble("sig");
 				Integer freq = rs.getInt("freq");
 
 				// @TODO Dirty, maybe better solution for bigger Graphs

@@ -9,10 +9,10 @@ import org.neo4j.cypher.parser.CypherParser;
  * 
  * select w1.w2_id from co_s w1 where w1.w1_id=137;
  * 
- * @author s1ck
+ * @author Martin 's1ck' Junghanns
  *
  */
-public class Query1_Benchmark extends CypherBenchmark {
+public class Query1_Cypher_Benchmark extends CypherBenchmark {
 	
 	@Override
 	public void beforeRun() {
@@ -22,6 +22,6 @@ public class Query1_Benchmark extends CypherBenchmark {
 
 	@Override
 	public String getName() {		
-		return "neo4j Query 1";
+		return "neo4j Query 1 (Cypher)";
 	}
 }

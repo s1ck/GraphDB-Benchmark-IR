@@ -8,12 +8,12 @@ import org.neo4j.cypher.parser.CypherParser;
  * 
  * In SQL this is the following query:
  * 
- * START n=node:words(w_id = "137") MATCH n-[:CO_S]->t-[r:CO_S]-> m return t.w_id, m.w_id, r.sig, r.freq
+ * select w1.w1_id,w1.w2_id,w1.freq,w1.sig from co_s w1 where w1.w1_id in (select w2.w2_id from co_s w2 where w2.w1_id=137)
  * 
  * @author s1ck
  *
  */
-public class Query2_Benchmark extends CypherBenchmark {
+public class Query2_Cypher_Benchmark extends CypherBenchmark {
 	
 	@Override
 	public void beforeRun() {
@@ -23,6 +23,6 @@ public class Query2_Benchmark extends CypherBenchmark {
 
 	@Override
 	public String getName() {		
-		return "neo4j Query 2";
+		return "neo4j Query 2 (Cypher)";
 	}
 }

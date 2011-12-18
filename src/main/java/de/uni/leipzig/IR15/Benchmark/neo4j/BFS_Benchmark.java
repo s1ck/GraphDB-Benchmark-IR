@@ -16,7 +16,7 @@ import de.uni.leipzig.IR15.Importer.Neo4JImporter.RelTypes;
  * sentence co-occurrence relation. The query itself is implemented using the
  * native neo4J API.
  * 
- * @author s1ck
+ * @author Martin 's1ck' Junghanns
  *
  */
 public class BFS_Benchmark extends Neo4jBenchmark {
