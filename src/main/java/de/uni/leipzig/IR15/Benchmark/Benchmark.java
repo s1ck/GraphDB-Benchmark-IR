@@ -32,7 +32,8 @@ public abstract class Benchmark {
 	/**
 	 * constant seed for same random IDs for each benchmark
 	 */
-	protected Random r = new Random(13374223);
+	protected Random r = new Random(13003); // 13374223 
+											// 13003 --> first int for 10k DB = 137
 
 	/**
 	 * Sets the warmup runs for the benchmark

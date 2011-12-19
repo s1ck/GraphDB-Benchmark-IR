@@ -31,7 +31,6 @@ public class OrientDBConnector {
 			loc.mkdir();
 		}
 		
-		// try to open. If error, create DB first
 		try 
 		{
 			// create an OrientDB-Database-Object from the specified location
