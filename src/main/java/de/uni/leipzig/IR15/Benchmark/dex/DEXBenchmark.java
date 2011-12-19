@@ -63,7 +63,7 @@ public abstract class DEXBenchmark extends Benchmark {
 		Objects neighbors;
 
 		while (true) {
-			node = graph.findObject(wordIdAttribute, new Value().setInteger(137));
+			node = graph.findObject(wordIdAttribute, new Value().setInteger(r.nextInt(maxWordID)));
 			if (node != 0) {
 				neighbors = graph.neighbors(node, coSEdgeType, EdgesDirection.Outgoing);
 				if (neighbors.size() >= outDegree) {
