@@ -10,7 +10,7 @@ public class Query1_Benchmark extends DEXBenchmark {
 	    Session session = dex.newSession();
 	    session.begin();
 
-	    Objects neighbours = graph.neighbors(startNode, coSEdgeType, EdgesDirection.Any);
+	    Objects neighbours = graph.neighbors(startNodeID, coSEdgeType, EdgesDirection.Any);
 
 		session.commit();
     	session.close();

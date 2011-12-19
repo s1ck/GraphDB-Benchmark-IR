@@ -9,9 +9,9 @@ import org.apache.log4j.Logger;
 /**
  * This abstract base class must be extended by any benchmark in the suite. It
  * defines some simple methods which are used during benchmark processing.
- * 
+ *
  * @author s1ck
- * 
+ *
  */
 public abstract class Benchmark {
 
@@ -19,7 +19,7 @@ public abstract class Benchmark {
 
 	/**
 	 * Number of warmups runs
-	 * 
+	 *
 	 * Warmup runs are not included in the final results.
 	 */
 
@@ -37,7 +37,7 @@ public abstract class Benchmark {
 
 	/**
 	 * Sets the warmup runs for the benchmark
-	 * 
+	 *
 	 * @param warmups
 	 *            number of warmups
 	 */
@@ -47,16 +47,16 @@ public abstract class Benchmark {
 
 	/**
 	 * Returns the number of warmups
-	 * 
+	 *
 	 * @return number of warmups
 	 */
 	public int getWarmups() {
-		return this.warmups;
+		return warmups;
 	}
 
 	/**
 	 * Sets the number of benchmarks to run
-	 * 
+	 *
 	 * @param runs
 	 *            number of benchmarks
 	 */
@@ -66,11 +66,11 @@ public abstract class Benchmark {
 
 	/**
 	 * Returns the number of benchmarks to run
-	 * 
+	 *
 	 * @return number of benchmarks
 	 */
 	public int getRuns() {
-		return this.runs;
+		return runs;
 	}
 
 	/**
@@ -96,7 +96,7 @@ public abstract class Benchmark {
 
 	/**
 	 * Returns the Benchmarks name
-	 * 
+	 *
 	 * @return name of the benchmark
 	 */
 	public abstract String getName();
@@ -104,9 +104,9 @@ public abstract class Benchmark {
 	/**
 	 * This method calculates some default measurement results: average,
 	 * standard deviation, minimum and maximum value.
-	 * 
+	 *
 	 * The method can be overriden and enhanced with custom benchmark results.
-	 * 
+	 *
 	 * @param runtimes
 	 *            an array with all benchmark results
 	 * @return a map between measure name (e.g. "average") and its value (e.g.
@@ -117,8 +117,8 @@ public abstract class Benchmark {
 
 		// average
 		long sum = 0L;
-		for (int i = 0; i < runtimes.length; i++) {
-			sum += runtimes[i];
+		for (long runtime : runtimes) {
+			sum += runtime;
 		}
 		double avg = new Double(sum) / runtimes.length;
 
@@ -128,14 +128,16 @@ public abstract class Benchmark {
 		long tmp = 0;
 		long min = Long.MAX_VALUE;
 		long max = Long.MIN_VALUE;
-		for (int i = 0; i < runtimes.length; i++) {
-			tmp += Math.pow((runtimes[i] - avg), 2);
+		for (long runtime : runtimes) {
+			tmp += Math.pow((runtime - avg), 2);
 			// min
-			if (runtimes[i] < min)
-				min = runtimes[i];
+			if (runtime < min) {
+				min = runtime;
+			}
 			// max
-			if (runtimes[i] > max)
-				max = runtimes[i];
+			if (runtime > max) {
+				max = runtime;
+			}
 		}
 		double stdev = Math.sqrt( new Double(tmp) / (runtimes.length) );
 

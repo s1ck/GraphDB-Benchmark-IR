@@ -25,7 +25,7 @@ public class BFS_Benchmark extends DEXBenchmark {
 	
 	@Override
 	public void run() {	
-		doBFS(startNode);		
+		doBFS(startNodeID);		
 	}
 	
 	private void doBFS(long startNode) {

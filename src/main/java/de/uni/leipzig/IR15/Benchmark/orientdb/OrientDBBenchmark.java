@@ -1,8 +1,11 @@
 package de.uni.leipzig.IR15.Benchmark.orientdb;
 
+import java.util.List;
+
 import com.orientechnologies.orient.core.db.graph.OGraphDatabase;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
+
 
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Connectors.OrientDBConnector;
@@ -47,7 +50,9 @@ public abstract class OrientDBBenchmark extends Benchmark {
 			// check if WordID exists
 			iVertex = orientdb.getRoot(String.valueOf( startWordID ));
 		} while (iVertex == null);
-	}
+	
+		startWordID = r.nextInt(numVertices);
+	}	
 
 	@Override
 	public void tearDown() {

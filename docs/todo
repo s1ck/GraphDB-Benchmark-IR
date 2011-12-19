@@ -14,7 +14,7 @@
 	- Code-Doku
 			
 3. Dex (Robert)
-	- Abfragen via Native API
+	- Abfragen via Native API -done
 	- Bericht
 	- Code-Doku
 	
@@ -31,6 +31,7 @@
 	- Abfragemöglichkeiten
 	- Benchmarks
 	- Vor- / Nachteile (Fazit)
+	- Analyse der Daten (Anzahl Knoten je Grad)
 		
 6. Zusammenfassendes Dokument (Martin / Robert / Sascha)
 
