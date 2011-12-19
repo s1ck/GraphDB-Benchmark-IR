@@ -24,10 +24,10 @@ public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 		OrientDBImportBench.setRuns(1);
 		// benchmarks.add(OrientDBImportBench);
 		
-		Benchmark getWordByID_Query = new de.uni.leipzig.IR15.Benchmark.orientdb.GetOneWordByID_Benchmark();
-		getWordByID_Query.setRuns(5);
-		getWordByID_Query.setWarmups(1);
-		benchmarks.add(getWordByID_Query);
+//		Benchmark getWordByID_Query = new de.uni.leipzig.IR15.Benchmark.orientdb.GetOneWordByID_Benchmark();
+//		getWordByID_Query.setRuns(5);
+//		getWordByID_Query.setWarmups(1);
+//		benchmarks.add(getWordByID_Query);
 		
 		Benchmark Query1_SQL = new de.uni.leipzig.IR15.Benchmark.orientdb.Query1_SQL_Benchmark();
 		Query1_SQL.setRuns(5);
