@@ -19,7 +19,7 @@ public class Query2_Benchmark extends DEXBenchmark {
 	    Session session = dex.newSession();
 	    session.begin();
 
-		Objects neighbors_depth_1 = graph.neighbors(startNode, coSEdgeType, EdgesDirection.Outgoing);
+		Objects neighbors_depth_1 = graph.neighbors(startNodeID, coSEdgeType, EdgesDirection.Outgoing);
 		ObjectsIterator iter_depth_1 = neighbors_depth_1.iterator();
 
 		while (iter_depth_1.hasNext()) {
@@ -31,12 +31,15 @@ public class Query2_Benchmark extends DEXBenchmark {
 			while (iter_depth_2.hasNext()) {
 				node_depth_2 = iter_depth_2.next();
 				edge = graph.findEdge(coSEdgeType, node_depth_2, node_depth_1);
+
 				graph.getAttribute(edge, coSEdgeSigAttribute, value);
 				graph.getAttribute(edge, coSEdgeFreqAttribute, value);
 			}
 			iter_depth_2.close();
+			iter_depth_2.delete();
 		}
 		iter_depth_1.close();
+		iter_depth_1.delete();
 
     	session.commit();
     	session.close();
