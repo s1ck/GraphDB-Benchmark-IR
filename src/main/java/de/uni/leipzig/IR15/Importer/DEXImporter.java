@@ -92,7 +92,7 @@ public class DEXImporter extends Importer {
 		        graph.setAttribute(edge, edgeSigAttribute, new Value().setDouble(sig));
 		        graph.setAttribute(edge, edgeFreqAttribute, new Value().setInteger(freq));
 	    	}
-	    	session.commit();	    	
+	    	session.commit();  	
 	    } catch (SQLException ex) {
 		      System.err.println(ex.getMessage());
 		} finally {
@@ -139,6 +139,6 @@ public class DEXImporter extends Importer {
 
 	@Override
 	public String getName() {		
-		return "dex";
+		return "DEX";
 	}
 }

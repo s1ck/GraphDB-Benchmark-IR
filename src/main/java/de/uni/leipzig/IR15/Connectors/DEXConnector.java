@@ -12,17 +12,18 @@ import com.sparsity.dex.gdb.DexConfig;
 import de.uni.leipzig.IR15.Support.Configuration;
 
 public class DEXConnector {
-	private static Logger log = Logger.getLogger(Neo4JConnector.class);	
+	private static Logger log = Logger.getLogger(Neo4JConnector.class);
 	private static Database dex;
 	private static Dex dexConnector;
-	
+
 	public static Database getConnection() {
 		Configuration config = Configuration.getInstance("dex");
-		
+
 		DexConfig dexConfig = new DexConfig();
-		dexConfig.setLicense("B7QWC-18YV7-GVDVD-VJZHH");
+		dexConfig.setLicense(config.getPropertyAsString("license"));
+		//dexConfig.setLogLevel(LogLevel.Debug);
 		dexConnector = new Dex(dexConfig);
-		
+
 		try {
 			File location = new File(config.getPropertyAsString("location"));
 			if (location.exists()) {
@@ -32,14 +33,13 @@ public class DEXConnector {
 			}
 			log.info("Create connection successful");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			log.error("Create connection failed");
 		}
-		
+
 		return dex;
 	}
-	
+
 	public static void destroyConnection() {
 		try {
 			dex.close();

@@ -14,6 +14,10 @@ public abstract class DEXBenchmark extends Benchmark {
 	protected Graph graph;
 	protected int startWordID;
 	protected long startNode;
+	protected int wordNodeType;
+	protected int wordIdAttribute;
+	protected int coNEdgeType, coNEdgeSigAttribute, coNEdgeFreqAttribute;
+	protected int coSEdgeType, coSEdgeSigAttribute, coSEdgeFreqAttribute;
 
 	@Override
 	public void setUp() {
@@ -22,9 +26,20 @@ public abstract class DEXBenchmark extends Benchmark {
 		session.begin();
 		graph = session.getGraph();
 
-		int wordNodeType = graph.findType("word");
-		int wordIdAttribute = graph.findAttribute(wordNodeType, "w_id");
+		wordNodeType = graph.findType("word");
+    	wordIdAttribute = graph.findAttribute(wordNodeType, "w_id");
 
+    	coNEdgeType = graph.findType("CO_N");
+    	coNEdgeSigAttribute = graph.findAttribute(coNEdgeType, "sig");
+    	coNEdgeFreqAttribute = graph.findAttribute(coNEdgeType, "freq");
+    	coSEdgeType = graph.findType("CO_S");
+    	coSEdgeSigAttribute = graph.findAttribute(coSEdgeType, "sig");
+    	coSEdgeFreqAttribute = graph.findAttribute(coSEdgeType, "freq");
+	}
+
+	@Override
+	public void beforeRun() {
+		startWordID = 137;
 		startNode = graph.findObject(wordIdAttribute,
 				new Value().setInteger(startWordID));
 	}
@@ -32,5 +47,5 @@ public abstract class DEXBenchmark extends Benchmark {
 	@Override
 	public void tearDown() {
 		DEXConnector.destroyConnection();
-	}	
+	}
 }
