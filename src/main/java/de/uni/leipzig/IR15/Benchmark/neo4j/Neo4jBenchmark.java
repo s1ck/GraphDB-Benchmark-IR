@@ -1,13 +1,16 @@
 package de.uni.leipzig.IR15.Benchmark.neo4j;
 
 import org.neo4j.cypher.ExecutionEngine;
+import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.index.Index;
+import org.neo4j.helpers.collection.IteratorUtil;
 import org.neo4j.tooling.GlobalGraphOperations;
 
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Connectors.Neo4JConnector;
+import de.uni.leipzig.IR15.Support.Configuration;
 
 /**
  * Abstract Base Class for all benchmarks running on neo4j graph database. It
@@ -26,30 +29,31 @@ public abstract class Neo4jBenchmark extends Benchmark {
 	protected ExecutionEngine engine;
 
 	protected Node startNode;
-	/*
-	 * number of nodes
+
+	private int minOutDegree;
+
+	private static Configuration neo4jConfig = Configuration
+			.getInstance("neo4j");
+	/**
+	 * the maximum value for word id (needed for random id generation)
 	 */
-	protected int n;
+	protected int maxWordID;
 
 	@Override
-	@SuppressWarnings("unused")
 	public void setUp() {
 		neo4j = Neo4JConnector.getConnection();
 		engine = new ExecutionEngine(neo4j);
 		// get index
 		index = neo4j.index().forNodes("words");
-		// neo4j always has one node, so we start at -1 to get the exact count.
-		// This is important for the Random instance
-		n = -1;
+		// select the highest word_id
+		maxWordID = getMaxWordID();
 
-		for (Node v : GlobalGraphOperations.at(neo4j).getAllNodes()) {
-			n++;
-		}
+		minOutDegree = neo4jConfig.getPropertyAsInteger("min_outdegree");
 	}
 
 	@Override
 	public void beforeRun() {
-		startNode = getRandomNode();
+		startNode = getRandomNode(minOutDegree);
 	}
 
 	@Override
@@ -63,13 +67,43 @@ public abstract class Neo4jBenchmark extends Benchmark {
 	 * @return
 	 */
 	protected Node getRandomNode() {
+		return getRandomNode(0);
+	}
+
+	/**
+	 * Returns a random node with an out degree greater or equal than the given
+	 * treshold.
+	 * 
+	 * @param treshold
+	 * @return
+	 */
+	protected Node getRandomNode(int treshold) {
 		Node v = null;
 		int id = 0;
 
 		while (v == null) {
-			id = r.nextInt(n);
+			id = r.nextInt(maxWordID);
 			v = index.get("w_id", id).getSingle();
+			if (v != null) {
+				if (IteratorUtil.asCollection(
+						v.getRelationships(Direction.OUTGOING)).size() < treshold) {
+					v = null;
+				}
+			}
 		}
 		return v;
+	}
+
+	private int getMaxWordID() {
+		int maxWordID = Integer.MIN_VALUE;
+
+		for (Node v : GlobalGraphOperations.at(neo4j).getAllNodes()) {
+			if (v.hasProperty("w_id")) {
+				if ((Integer) v.getProperty("w_id") > maxWordID) {
+					maxWordID = (Integer) v.getProperty("w_id");
+				}
+			}
+		}
+		return maxWordID;
 	}
 }
