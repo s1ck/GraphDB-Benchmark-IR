@@ -1,11 +1,7 @@
 package de.uni.leipzig.IR15.Benchmark.neo4j;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Path;
-import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.traversal.Evaluation;
 import org.neo4j.graphdb.traversal.Evaluator;
 import org.neo4j.kernel.Traversal;
@@ -44,10 +40,8 @@ public class Query1_Traverser_Benchmark extends TraverserBenchmark {
 
 	@Override
 	public void run() {
-		List<Relationship> relevantEdges = new ArrayList<Relationship>();
-
 		for (Path p : td.traverse(startNode)) {
-			relevantEdges.add(p.lastRelationship());
+			p.endNode().getProperty("w_id"); // w2_id
 		}
 	}
 

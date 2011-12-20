@@ -13,18 +13,14 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 	public static void main(String[] args) {
 		List<Benchmark> benchmarks = new ArrayList<Benchmark>();
 
-		// Benchmark neo4jImportBench = new ImportBenchmark(new
-		// Neo4JImporter());
-		// neo4jImportBench.setWarmups(0);
-		// neo4jImportBench.setRuns(1);
-		// benchmarks.add(neo4jImportBench);
+//		Benchmark neo4jImportBench = new ImportBenchmark(new Neo4JImporter());
+//		neo4jImportBench.setWarmups(0);
+//		neo4jImportBench.setRuns(1);
+//		benchmarks.add(neo4jImportBench);
 
-		// Benchmark neo4jNeighbours = new
-		// de.uni.leipzig.IR15.Benchmark.neo4j.BFS_Benchmark(
-		// 5, Neo4JImporter.RelTypes.CO_S);
-		// neo4jNeighbours.setRuns(1000);
-		// neo4jNeighbours.setWarmups(0);
-		// benchmarks.add(neo4jNeighbours);
+		/**
+		 * Cypher
+		 */
 
 		Benchmark query_1 = new de.uni.leipzig.IR15.Benchmark.neo4j.Query1_Cypher_Benchmark();
 		query_1.setRuns(100);
@@ -41,6 +37,10 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 		query_3.setWarmups(0);
 		benchmarks.add(query_3);
 
+		/**
+		 * TraversalAPI
+		 */
+
 		Benchmark query_1_traveral = new de.uni.leipzig.IR15.Benchmark.neo4j.Query1_Traverser_Benchmark();
 		query_1_traveral.setWarmups(0);
 		query_1_traveral.setRuns(100);
@@ -55,6 +55,25 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 		query_3_traversal.setWarmups(0);
 		query_3_traversal.setRuns(100);
 		benchmarks.add(query_3_traversal);
+
+		/**
+		 * Native API
+		 */
+
+		Benchmark query_1_native = new de.uni.leipzig.IR15.Benchmark.neo4j.Query1_Native_Benchmark();
+		query_1_native.setWarmups(0);
+		query_1_native.setRuns(100);
+		benchmarks.add(query_1_native);
+
+		Benchmark query_2_native = new de.uni.leipzig.IR15.Benchmark.neo4j.Query2_Native_Benchmark();
+		query_2_native.setWarmups(0);
+		query_2_native.setRuns(100);
+		benchmarks.add(query_2_native);
+
+		Benchmark query_3_native = new de.uni.leipzig.IR15.Benchmark.neo4j.Query3_Native_Benchmark();
+		query_3_native.setWarmups(0);
+		query_3_native.setRuns(100);
+		benchmarks.add(query_3_native);
 
 		runBenchmarks(benchmarks, true);
 	}
