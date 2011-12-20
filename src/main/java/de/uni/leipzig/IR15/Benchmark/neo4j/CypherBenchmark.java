@@ -1,6 +1,5 @@
 package de.uni.leipzig.IR15.Benchmark.neo4j;
 
-import org.neo4j.cypher.commands.Query;
 
 /**
  * Abstract Base Class for all Cypher-based benchmarks. It just executes the
@@ -10,8 +9,7 @@ import org.neo4j.cypher.commands.Query;
  *
  */
 public abstract class CypherBenchmark extends Neo4jBenchmark {
-
-	protected static Query CYPHER_QUERY;
+	protected static String CYPHER_QUERY;
 
 	@Override
 	public void run() {

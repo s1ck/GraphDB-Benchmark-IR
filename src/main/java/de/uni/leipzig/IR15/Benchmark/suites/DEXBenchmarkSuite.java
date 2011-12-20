@@ -44,6 +44,6 @@ public class DEXBenchmarkSuite extends AbstractBenchmarkSuite {
 		query_3.setWarmups(0);
 		benchmarks.add(query_3);
 
-		runBenchmarks(benchmarks);
+		runBenchmarks(benchmarks, true);
 	}
 }
