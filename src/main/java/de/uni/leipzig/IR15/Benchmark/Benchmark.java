@@ -22,17 +22,22 @@ public abstract class Benchmark {
 	 *
 	 * Warmup runs are not included in the final results.
 	 */
-
 	private int warmups = 10;
+
 	/**
 	 * Number of benchmark runs
 	 */
 	private int runs = 100;
 
 	/**
+	 * Number of current benchmark runs
+	 */
+	private int currentRun = 0;
+
+	/**
 	 * constant seed for same random IDs for each benchmark
 	 */
-	protected Random r = new Random(13003); // 13374223 
+	protected Random r = new Random(13003); // 13374223
 											// 13003 --> first int for 10k DB = 137
 
 	/**
@@ -74,6 +79,24 @@ public abstract class Benchmark {
 	}
 
 	/**
+	 * Set the number of current benchmark run
+	 *
+	 * @param currentRun
+	 */
+	public void setCurrentRun(int currentRun) {
+		this.currentRun = currentRun;
+	}
+
+	/**
+	 * Returns the number of current benchmark run
+	 *
+	 * @return
+	 */
+	public int getCurrentRun() {
+		return currentRun;
+	}
+
+	/**
 	 * This method is called once before <code>run()</code> is invoked for the
 	 * first time.
 	 */
@@ -93,6 +116,12 @@ public abstract class Benchmark {
 	 * This method is called before each single call of <code>run()</code>
 	 */
 	public abstract void beforeRun();
+
+
+	/**
+	 * This method is called after each single call of <code>run()</code>
+	 */
+	public abstract void afterRun();
 
 	/**
 	 * Returns the Benchmarks name

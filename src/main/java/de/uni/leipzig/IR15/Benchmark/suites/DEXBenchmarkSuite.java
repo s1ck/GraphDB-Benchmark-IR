@@ -30,7 +30,7 @@ public class DEXBenchmarkSuite extends AbstractBenchmarkSuite {
 //		benchmarks.add(dexNeighbours);
 
 		Benchmark query_1 = new de.uni.leipzig.IR15.Benchmark.dex.Query1_Benchmark();
-		query_1.setRuns(100);
+		query_1.setRuns(10);
 		query_1.setWarmups(0);
 		benchmarks.add(query_1);
 

@@ -57,6 +57,11 @@ public abstract class MySQLBenchmark extends Benchmark {
 	}
 
 	@Override
+	public void afterRun() {
+
+	}
+
+	@Override
 	public void run() {
 		try {
 			ResultSet rs = st.executeQuery();
@@ -69,7 +74,7 @@ public abstract class MySQLBenchmark extends Benchmark {
 
 	/**
 	 * creates random id until a matching db entity is found
-	 * 
+	 *
 	 * @return
 	 */
 	public int getRandomStartNode(int treshold) {

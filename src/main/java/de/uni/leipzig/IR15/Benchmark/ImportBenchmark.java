@@ -36,4 +36,9 @@ public class ImportBenchmark extends Benchmark {
 		return String.format("%s Import", importer.getName());
 	}
 
+	@Override
+	public void afterRun() {
+
+	}
+
 }

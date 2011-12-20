@@ -16,9 +16,9 @@ import de.uni.leipzig.IR15.Support.Configuration;
  * Abstract Base Class for all benchmarks running on neo4j graph database. It
  * holds a reference to the database and the word index, it also cares about
  * generating random (and existing) node ids.
- * 
+ *
  * @author Martin 's1ck' Junghanns
- * 
+ *
  */
 public abstract class Neo4jBenchmark extends Benchmark {
 
@@ -57,13 +57,18 @@ public abstract class Neo4jBenchmark extends Benchmark {
 	}
 
 	@Override
+	public void afterRun() {
+
+	}
+
+	@Override
 	public void tearDown() {
 		Neo4JConnector.destroyConnection();
 	}
 
 	/**
 	 * creates random id until a matching db entity is found
-	 * 
+	 *
 	 * @return
 	 */
 	protected Node getRandomNode() {
@@ -73,7 +78,7 @@ public abstract class Neo4jBenchmark extends Benchmark {
 	/**
 	 * Returns a random node with an out degree greater or equal than the given
 	 * treshold.
-	 * 
+	 *
 	 * @param treshold
 	 * @return
 	 */
