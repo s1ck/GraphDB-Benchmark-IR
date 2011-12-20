@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
+import de.uni.leipzig.IR15.Benchmark.ImportBenchmark;
+import de.uni.leipzig.IR15.Importer.Neo4JImporter;
 
 public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 
@@ -13,10 +15,10 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 	public static void main(String[] args) {
 		List<Benchmark> benchmarks = new ArrayList<Benchmark>();
 
-//		Benchmark neo4jImportBench = new ImportBenchmark(new Neo4JImporter());
-//		neo4jImportBench.setWarmups(0);
-//		neo4jImportBench.setRuns(1);
-//		benchmarks.add(neo4jImportBench);
+		Benchmark neo4jImportBench = new ImportBenchmark(new Neo4JImporter());
+		neo4jImportBench.setWarmups(0);
+		neo4jImportBench.setRuns(1);
+		benchmarks.add(neo4jImportBench);
 
 		/**
 		 * Cypher
@@ -53,7 +55,7 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 
 		Benchmark query_3_traversal = new de.uni.leipzig.IR15.Benchmark.neo4j.Query3_Traverser_Benchmark();
 		query_3_traversal.setWarmups(0);
-		query_3_traversal.setRuns(100);
+		query_3_traversal.setRuns(10);
 		benchmarks.add(query_3_traversal);
 
 		/**

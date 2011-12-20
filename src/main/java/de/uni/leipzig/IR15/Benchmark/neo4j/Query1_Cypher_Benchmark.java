@@ -1,6 +1,5 @@
 package de.uni.leipzig.IR15.Benchmark.neo4j;
 
-import org.neo4j.cypher.CypherParser;
 
 /**
  * Query 1 selects the wordID of all the sentence co-occurrences of a given word.
@@ -17,7 +16,7 @@ public class Query1_Cypher_Benchmark extends CypherBenchmark {
 	@Override
 	public void beforeRun() {
 		super.beforeRun();
-		CYPHER_QUERY = new CypherParser().parse(String.format("START n=node(%d) MATCH n-[:CO_S]->m return m.w_id", startNode.getId()));
+		CYPHER_QUERY = String.format("START n=node(%d) MATCH n-[:CO_S]->m return m.w_id", startNode.getId());
 	}
 
 	@Override
