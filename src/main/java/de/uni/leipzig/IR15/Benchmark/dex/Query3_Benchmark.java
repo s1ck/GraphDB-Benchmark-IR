@@ -16,14 +16,14 @@ public class Query3_Benchmark extends DEXBenchmark {
 	    Session session = dex.newSession();
 	    session.begin();
 
-		Objects neighbors = graph.neighbors(startNodeID, coSEdgeType, EdgesDirection.Outgoing);
-		ObjectsIterator iter1 = neighbors.iterator();
+		Objects neighbors_1 = graph.neighbors(startNodeID, coSEdgeType, EdgesDirection.Outgoing);
+		ObjectsIterator iter1 = neighbors_1.iterator();
 		while (iter1.hasNext()) {
-			node1 = iter1.next();
+			node1 = iter1.nextObject();
 
-			iter2 = neighbors.iterator();
+			iter2 = neighbors_1.iterator();
 			while (iter2.hasNext()) {
-				node2 = iter2.next();
+				node2 = iter2.nextObject();
 
 				// skip self-references
 				if (node1 == node2) {

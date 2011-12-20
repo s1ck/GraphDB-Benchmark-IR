@@ -47,7 +47,7 @@ public abstract class DEXBenchmark extends Benchmark {
 	    Session session = dex.newSession();
 	    session.begin();
 
-	    startNodeID = getRandomNode(2);
+	    startNodeID = getRandomNode(20);
 
 	    session.commit();
     	session.close();
