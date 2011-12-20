@@ -25,15 +25,6 @@ public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 		OrientDBImportBench.setRuns(1);
 		// benchmarks.add(OrientDBImportBench);
 
-//		Benchmark getWordByID_Query = new de.uni.leipzig.IR15.Benchmark.orientdb.GetOneWordByID_Benchmark();
-//		getWordByID_Query.setWarmups(10);
-//		getWordByID_Query.setRuns(1000);
-//		benchmarks.add(getWordByID_Query);
-
-//		Benchmark Query2_SQL = new de.uni.leipzig.IR15.Benchmark.orientdb.Query2_SQL_Benchmark();
-//		Query2_SQL.setWarmups(0);
-//		Query2_SQL.setRuns(1);
-//		benchmarks.add(Query2_SQL);
 
 //		Benchmark Query1_LL = new de.uni.leipzig.IR15.Benchmark.orientdb.Query1_LowL_Benchmark();
 //		Query1_LL.setWarmups(0);
@@ -55,14 +46,3 @@ public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 	}
 
 }
-
-
-/*
-for(int zzz = 0; zzz < 100000; zzz++)
-{
-	Random r2 = new Random(zzz);
-	int startWordID = r2.nextInt(39334);
-	if (startWordID == 137)
-			log.info(zzz);
-}
-*/

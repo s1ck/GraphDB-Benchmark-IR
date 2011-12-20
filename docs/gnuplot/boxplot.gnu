@@ -5,13 +5,13 @@
 
 ### config the output layout 
 # set the title of the plot
-set title "Query 1 - 10k"
+set title "Query 3 - 10k"
 # x-axis labeling should be done automatically
 set auto x
 # rotated the tics on the x-axis by 45 degrees
 # set xtic rotate by -45 scale 0
 # set y-axis range
-set yrange [0:60] # noreverse nowriteback
+set yrange [0:600] # noreverse nowriteback
 # set the position of the legend
 set key left top
 
@@ -32,7 +32,7 @@ set style fill solid 1 border -1
 # define missing values. should not happen
 set datafile missing '-'
 # plot the boxplot
-plot for [i=1:5]'boxplot.dat' using (i*0.5):i ti col
+plot for [i=1:6] 'boxdata3.dat' using (i*0.5):i ti col
 
 
 # pause until ENTER

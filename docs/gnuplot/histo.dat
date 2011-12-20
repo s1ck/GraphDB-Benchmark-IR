@@ -1,4 +1,3 @@
-# IMMIGRATION BY REGION AND SELECTED COUNTRY OF LAST RESIDENCE
 #
 Dataset		mySQL	mySQL 	neo4j_c	neo4j_c	neo4j_t	neo4j_t	neo4j_g	neo4j_g	dex_api	dex_api	orient_api	orient_api	orient_sql	orient_sql	orient_g	orient_g  
 10k			50		10		10		10  	5   	12		8   	4    	60   	15		100   		20			40			6 			40			22
