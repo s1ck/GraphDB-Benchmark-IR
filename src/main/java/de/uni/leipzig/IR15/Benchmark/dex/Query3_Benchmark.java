@@ -11,13 +11,17 @@ public class Query3_Benchmark extends DEXBenchmark {
 	@Override
 	public void run() {
 		long edge, node1, node2;
-		ObjectsIterator iter2;
+
+		Value sigValue, freqValue, word1IDValue, word2IDValue;
+		int freq, word1ID, word2ID;
+		double sig;
 
 	    Session session = dex.newSession();
 	    session.begin();
 
 		Objects neighbors_1 = graph.neighbors(startNodeID, coSEdgeType, EdgesDirection.Outgoing);
-		ObjectsIterator iter1 = neighbors_1.iterator();
+		ObjectsIterator iter1 = neighbors_1.iterator(), iter2;
+
 		while (iter1.hasNext()) {
 			node1 = iter1.nextObject();
 
@@ -37,8 +41,17 @@ public class Query3_Benchmark extends DEXBenchmark {
 					continue;
 				}
 
-				graph.getAttribute(edge, coSEdgeSigAttribute, new Value());
-				graph.getAttribute(edge, coSEdgeFreqAttribute, new Value());
+				graph.getAttribute(node1, wordIdAttribute, word1IDValue = new Value());
+				word1ID = word1IDValue.getInteger();
+
+				graph.getAttribute(node1, wordIdAttribute, word2IDValue = new Value());
+				word2ID = word2IDValue.getInteger();
+
+				graph.getAttribute(edge, coSEdgeSigAttribute, sigValue = new Value());
+				sig = sigValue.getDouble();
+
+				graph.getAttribute(edge, coSEdgeFreqAttribute, freqValue = new Value());
+				freq = freqValue.getInteger();
 			}
 			iter2.close();
 			iter2.delete();

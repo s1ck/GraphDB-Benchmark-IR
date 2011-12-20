@@ -11,7 +11,10 @@ public class Query2_Benchmark extends DEXBenchmark {
 	@Override
 	public void run() {
 		long edge, node_depth_1, node_depth_2;
-		Value value = new Value();
+
+		Value sigValue, freqValue, wordIDValue;
+		int freq, wordID;
+		double sig;
 
 		Objects neighbors_depth_2;
 		ObjectsIterator iter_depth_2;
@@ -32,8 +35,14 @@ public class Query2_Benchmark extends DEXBenchmark {
 				node_depth_2 = iter_depth_2.next();
 				edge = graph.findEdge(coSEdgeType, node_depth_2, node_depth_1);
 
-				graph.getAttribute(edge, coSEdgeSigAttribute, value);
-				graph.getAttribute(edge, coSEdgeFreqAttribute, value);
+				graph.getAttribute(node_depth_2, wordIdAttribute, wordIDValue = new Value());
+				wordID = wordIDValue.getInteger();
+
+				graph.getAttribute(edge, coSEdgeSigAttribute, sigValue = new Value());
+				sig = sigValue.getDouble();
+
+				graph.getAttribute(edge, coSEdgeFreqAttribute, freqValue = new Value());
+				freq = freqValue.getInteger();
 			}
 			iter_depth_2.close();
 			iter_depth_2.delete();
