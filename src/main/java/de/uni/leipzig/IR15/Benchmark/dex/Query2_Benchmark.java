@@ -45,15 +45,15 @@ public class Query2_Benchmark extends DEXBenchmark {
 				// find the edge between the two nodes
 				edge = graph.findEdge(coSEdgeType, node_depth_2, node_depth_1);
 
-				// get the w_id attribute value and cleanup
-				graph.getAttribute(node_depth_2, wordIDAttribute, word1IDValue = new Value());
+				// get the w1_id attribute value and cleanup
+				graph.getAttribute(node_depth_1, wordIDAttribute, word1IDValue = new Value());
 				word1IDValue.getInteger();
 				word1IDValue.delete();
 
-				// get the w_id attribute value and cleanup
-				graph.getAttribute(node_depth_2, wordIDAttribute, word1IDValue = new Value());
-				word1IDValue.getInteger();
-				word1IDValue.delete();
+				// get the w2_id attribute value and cleanup
+				graph.getAttribute(node_depth_2, wordIDAttribute, word2IDValue = new Value());
+				word2IDValue.getInteger();
+				word2IDValue.delete();
 
 				// get the sig attribute value and cleanup
 				graph.getAttribute(edge, coSEdgeSigAttribute, sigValue = new Value());
