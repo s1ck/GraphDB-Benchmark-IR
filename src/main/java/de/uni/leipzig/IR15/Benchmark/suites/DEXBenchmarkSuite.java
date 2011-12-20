@@ -27,19 +27,21 @@ public class DEXBenchmarkSuite extends AbstractBenchmarkSuite {
 //		Benchmark dexNeighbours = new de.uni.leipzig.IR15.Benchmark.dex.BFS_Benchmark(
 //				5, DEXImporter.RelTypes.CO_S, 137);
 //		dexNeighbours.setRuns(100);
-//		dexNeighbours.setWarmups(10);
 //		benchmarks.add(dexNeighbours);
 
 		Benchmark query_1 = new de.uni.leipzig.IR15.Benchmark.dex.Query1_Benchmark();
-		query_1.setRuns(1000);
+		query_1.setRuns(100);
+		query_1.setWarmups(0);
 		benchmarks.add(query_1);
 
 		Benchmark query_2 = new de.uni.leipzig.IR15.Benchmark.dex.Query2_Benchmark();
-		query_2.setRuns(1000);
+		query_2.setRuns(100);
+		query_2.setWarmups(0);
 		benchmarks.add(query_2);
 
 		Benchmark query_3 = new de.uni.leipzig.IR15.Benchmark.dex.Query3_Benchmark();
-		query_3.setRuns(1000);
+		query_3.setRuns(100);
+		query_3.setWarmups(0);
 		benchmarks.add(query_3);
 
 		runBenchmarks(benchmarks);

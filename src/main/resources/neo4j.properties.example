@@ -1,2 +1,11 @@
+# storage directory of neo4j
 location=out/neo4j
+
+# this is relevant for import
 operations_per_transaction=20000
+
+# native API get neighbours benchmark
+bfs_max_depth=5
+
+# sets the treshold for number of outgoing edges
+min_outdegree=2

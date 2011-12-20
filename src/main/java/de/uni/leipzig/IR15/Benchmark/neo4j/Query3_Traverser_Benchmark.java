@@ -1,7 +1,6 @@
 package de.uni.leipzig.IR15.Benchmark.neo4j;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Path;
@@ -66,17 +65,20 @@ public class Query3_Traverser_Benchmark extends TraverserBenchmark {
 
 	@Override
 	public void run() {
-		List<Relationship> relevantEdges = new ArrayList<Relationship>();
 		int i;
 		/**
-		 * If there are any paths that match the traverser pattern they look lik
-		 * A -> B -> C <- A and we are interested in the edge (B,C).
+		 * If there are any paths that match the traverser pattern they look
+		 * like A -> B -> C <- A and we are interested in the edge (B,C).
 		 */
 		for (Path p : td.traverse(startNode)) {
 			i = 0;
 			for (Relationship e : p.relationships()) {
-				if (i++ == 1)
-					relevantEdges.add(e);
+				if (i++ == 1) {
+					e.getStartNode().getProperty("w_id"); // w1_id
+					e.getEndNode().getProperty("w_id"); // w2_id
+					e.getProperty("freq"); // frequency
+					e.getProperty("sig"); // siginificance
+				}
 			}
 		}
 	}
