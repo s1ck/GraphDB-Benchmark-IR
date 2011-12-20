@@ -19,7 +19,7 @@ public class Query1_Cypher_Benchmark extends CypherBenchmark {
 		super.beforeRun();
 		CYPHER_QUERY = new CypherParser().parse(String.format("START n=node(%d) MATCH n-[:CO_S]->m return m.w_id", startNode.getId()));
 	}
-
+	
 	@Override
 	public String getName() {		
 		return "neo4j Query 1 (Cypher)";

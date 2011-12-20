@@ -53,6 +53,13 @@ public abstract class OrientDBBenchmark extends Benchmark {
 	
 		startWordID = r.nextInt(numVertices);
 	}	
+	
+	public int getMaxWordID()
+	{
+		int m = 0;
+		
+		return m;
+	}
 
 	@Override
 	public void tearDown() {
