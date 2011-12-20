@@ -10,6 +10,7 @@ import org.neo4j.tooling.GlobalGraphOperations;
 
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Connectors.Neo4JConnector;
+import de.uni.leipzig.IR15.Importer.Neo4JImporter;
 import de.uni.leipzig.IR15.Support.Configuration;
 
 /**
@@ -23,22 +24,20 @@ import de.uni.leipzig.IR15.Support.Configuration;
 public abstract class Neo4jBenchmark extends Benchmark {
 
 	protected Index<Node> index;
-
 	protected GraphDatabaseService neo4j;
-
 	protected ExecutionEngine engine;
-
 	protected Node startNode;
-
 	private int minOutDegree;
+	private static Configuration neo4jConfig = Configuration.getInstance("neo4j");
 
-	private static Configuration neo4jConfig = Configuration
-			.getInstance("neo4j");
 	/**
-	 * the maximum value for word id (needed for random id generation)
+	 * The maximum value for word id (needed for random id generation)
 	 */
 	protected int maxWordID;
 
+	/**
+	 * Setup the database connection and get the max w_id.
+	 */
 	@Override
 	public void setUp() {
 		neo4j = Neo4JConnector.getConnection();
@@ -51,25 +50,29 @@ public abstract class Neo4jBenchmark extends Benchmark {
 		minOutDegree = neo4jConfig.getPropertyAsInteger("min_outdegree");
 	}
 
+	/**
+	 * Get a random node before each run.
+	 */
 	@Override
 	public void beforeRun() {
 		startNode = getRandomNode(minOutDegree);
 	}
 
 	@Override
-	public void afterRun() {
+	public void afterRun() {}
 
-	}
-
+	/**
+	 * Cleanup after running benchmarks.
+	 */
 	@Override
 	public void tearDown() {
 		Neo4JConnector.destroyConnection();
 	}
 
 	/**
-	 * creates random id until a matching db entity is found
+	 * Creates random id until a matching db entity is found.
 	 *
-	 * @return
+	 * @return random node
 	 */
 	protected Node getRandomNode() {
 		return getRandomNode(0);
@@ -80,7 +83,7 @@ public abstract class Neo4jBenchmark extends Benchmark {
 	 * treshold.
 	 *
 	 * @param treshold
-	 * @return
+	 * @return random node
 	 */
 	protected Node getRandomNode(int treshold) {
 		Node v = null;
@@ -91,7 +94,7 @@ public abstract class Neo4jBenchmark extends Benchmark {
 			v = index.get("w_id", id).getSingle();
 			if (v != null) {
 				if (IteratorUtil.asCollection(
-						v.getRelationships(Direction.OUTGOING)).size() < treshold) {
+						v.getRelationships(Neo4JImporter.RelTypes.CO_S, Direction.OUTGOING)).size() < treshold) {
 					v = null;
 				}
 			}

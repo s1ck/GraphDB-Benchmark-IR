@@ -9,11 +9,19 @@ import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Benchmark.ImportBenchmark;
 import de.uni.leipzig.IR15.Importer.OrientDBImporter;
 
+/**
+ * OrientDB benchmark suite that runs all the configured benchmarks.
+ *
+ * @author IR-Team
+ *
+ */
 public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 
 	public static Logger log = Logger.getLogger(OrientBenchmarkSuite.class);
 
 	/**
+	 * Initialize and run all benchmarks.
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -25,7 +33,6 @@ public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 		OrientDBImportBench.setRuns(1);
 		benchmarks.add(OrientDBImportBench);
 
-
 		Benchmark Query1_LL = new de.uni.leipzig.IR15.Benchmark.orientdb.Query1_LowL_Benchmark();
 		Query1_LL.setWarmups(0);
 		Query1_LL.setRuns(100);
@@ -36,14 +43,11 @@ public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 		Query2_LL.setRuns(100);
 		benchmarks.add(Query2_LL);
 
-
 		Benchmark Query3_LL = new de.uni.leipzig.IR15.Benchmark.orientdb.Query3_LowL_Benchmark();
 		Query3_LL.setWarmups(0);
 		Query3_LL.setRuns(100);
 		benchmarks.add(Query3_LL);
 
 		runBenchmarks(benchmarks, true);
-
 	}
-
 }

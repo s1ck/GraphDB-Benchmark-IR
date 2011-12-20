@@ -6,6 +6,12 @@ import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 import de.uni.leipzig.IR15.Support.Configuration;
 
+/**
+ * Class to handle connection to the neo4j database.
+ *
+ * @author IR-Team
+ *
+ */
 public class Neo4JConnector {
 	private static Logger log = Logger.getLogger(Neo4JConnector.class);
 	private static GraphDatabaseService neo4j;
@@ -27,6 +33,9 @@ public class Neo4JConnector {
 		return neo4j;
 	}
 
+	/**
+	 * Destroy a database connection.
+	 */
 	public static void destroyConnection() {
 		try {
 			neo4j.shutdown();

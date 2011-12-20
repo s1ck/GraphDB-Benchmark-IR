@@ -11,11 +11,22 @@ import com.sparsity.dex.gdb.DexConfig;
 
 import de.uni.leipzig.IR15.Support.Configuration;
 
+/**
+ * Class to handle connection to the dex database.
+ *
+ * @author IR-Team
+ *
+ */
 public class DEXConnector {
 	private static Logger log = Logger.getLogger(Neo4JConnector.class);
 	private static Database dex;
 	private static Dex dexConnector;
 
+	/**
+	 * Create and return a connection.
+	 *
+	 * @return database connection
+	 */
 	public static Database getConnection() {
 		Configuration config = Configuration.getInstance("dex");
 
@@ -40,6 +51,9 @@ public class DEXConnector {
 		return dex;
 	}
 
+	/**
+	 * Destroy a database connection.
+	 */
 	public static void destroyConnection() {
 		try {
 			dex.close();

@@ -7,9 +7,17 @@ import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Benchmark.ImportBenchmark;
 import de.uni.leipzig.IR15.Importer.Neo4JImporter;
 
+/**
+ * Neo4j benchmark suite that runs all the configured benchmarks.
+ *
+ * @author IR-Team
+ *
+ */
 public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 
 	/**
+	 * Initialize and run all benchmarks.
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -55,7 +63,7 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 
 		Benchmark query_3_traversal = new de.uni.leipzig.IR15.Benchmark.neo4j.Query3_Traverser_Benchmark();
 		query_3_traversal.setWarmups(0);
-		query_3_traversal.setRuns(10);
+		query_3_traversal.setRuns(100);
 		benchmarks.add(query_3_traversal);
 
 		/**

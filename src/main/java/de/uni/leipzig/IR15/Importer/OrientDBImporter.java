@@ -15,6 +15,12 @@ import com.orientechnologies.orient.core.record.impl.ODocument;
 import de.uni.leipzig.IR15.Connectors.MySQLConnector;
 import de.uni.leipzig.IR15.Connectors.OrientDBConnector;
 
+/**
+ * Importer to load all data from mysql to orientdb database.
+ *
+ * @author Sascha 'peil' Ludwig
+ *
+ */
 public class OrientDBImporter extends Importer {
 
 	private static OGraphDatabase orientdb;
@@ -25,10 +31,11 @@ public class OrientDBImporter extends Importer {
 		return orientdb;
 	}
 
-
+	/**
+	 * Setup the importer, reset and get a connection to the database.
+	 */
 	@Override
 	public void setUp() {
-
 		super.setUp("orientdb");
 
 		// clean up database directory
@@ -66,7 +73,11 @@ public class OrientDBImporter extends Importer {
 		dbschema.save();
 	}
 
-
+	/**
+	 * Destroy database connection after running importer.
+	 *
+	 * @see de.uni.leipzig.IR15.Importer.Importer#tearDown()
+	 */
 	@Override
 	public void tearDown() {
 		// shutdown the connections
@@ -74,7 +85,9 @@ public class OrientDBImporter extends Importer {
 		super.tearDown();
 	}
 
-
+	/**
+	 * Import all data.
+	 */
 	@Override
 	public void importData() {
 		// transfer the data from mysql to orientdb
@@ -88,7 +101,12 @@ public class OrientDBImporter extends Importer {
 		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_S);
 	}
 
-
+	/**
+	 * Import all words.
+	 *
+	 * @param mySQL
+	 * @param orientdb
+	 */
 	private void importWords(Connection mySQL, OGraphDatabase orientdb) {
 		String query = "SELECT * FROM words";
 
@@ -128,8 +146,14 @@ public class OrientDBImporter extends Importer {
 		}
 	}
 
+	/**
+	 * Import all cooccurrences by <relType>.
+	 *
+	 * @param mySQL
+	 * @param orientdb
+	 * @param relType
+	 */
 	private void importCooccurrences(Connection mySQL, OGraphDatabase orientdb, RelTypes relType) {
-
 		String table = relType.toString().toLowerCase();
 		Integer count = getRowCount(mySQL, table), step = 0;
 
@@ -171,7 +195,13 @@ public class OrientDBImporter extends Importer {
 		}
 	}
 
-
+	/**
+	 * Get mysql row count.
+	 *
+	 * @param sqlConnection
+	 * @param table
+	 * @return
+	 */
 	private Integer getRowCount(Connection sqlConnection, String table) {
 		String query = "SELECT COUNT(*) FROM " + table;
 		Integer count = null;
@@ -188,6 +218,9 @@ public class OrientDBImporter extends Importer {
 		return count;
 	}
 
+	/**
+	 * Get the name of the importer.
+	 */
 	@Override
 	public String getName() {
 		return "orientdb";

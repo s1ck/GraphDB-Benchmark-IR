@@ -12,14 +12,17 @@ import de.uni.leipzig.IR15.Importer.Neo4JImporter;
 /**
  * Query 2 Traverser collects all nodes with are 2 hops away from the start node and
  * connected via outgoing CO_S relationships between start and end node.
- * 
+ *
  * A-[CO_S]->B-[CO_S]->C
- * 
+ *
  * @author Martin 's1ck' Junghanns
- * 
+ *
  */
 public class Query2_Traverser_Benchmark extends TraverserBenchmark {
 
+	/**
+	 * Prepare the statement before each run.
+	 */
 	@Override
 	public void beforeRun() {
 		super.beforeRun();
@@ -40,19 +43,25 @@ public class Query2_Traverser_Benchmark extends TraverserBenchmark {
 				});
 	}
 
+	/**
+	 * Finds all nodes with degree 2 and get some properties from the node or
+	 * it's last relationship().
+	 */
 	@Override
-	public void run() {		
+	public void run() {
 		for (Path p : td.traverse(startNode)) {
 			p.lastRelationship().getStartNode().getProperty("w_id"); // w1_id
 			p.lastRelationship().getEndNode().getProperty("w_id"); // w2_id
 			p.lastRelationship().getProperty("freq"); // frequency
-			p.lastRelationship().getProperty("sig"); // significance		
+			p.lastRelationship().getProperty("sig"); // significance
 		}
 	}
 
+	/**
+	 * Returns the name of the benchmark.
+	 */
 	@Override
 	public String getName() {
 		return "neo4j Query 2 (traverser)";
 	}
-
 }

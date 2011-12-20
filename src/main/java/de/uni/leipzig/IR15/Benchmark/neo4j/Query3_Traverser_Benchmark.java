@@ -16,12 +16,15 @@ import de.uni.leipzig.IR15.Importer.Neo4JImporter;
  * Traverser collects all paths starting at A which have the following pattern
  * A-[CO_S]->B-[CO_S]->C<-[CO_S]-A. The relevant edges are the ones between B
  * and C, they are excluded from the results after the traversal.
- * 
+ *
  * @author Martin 's1ck' Junghanns
- * 
+ *
  */
 public class Query3_Traverser_Benchmark extends TraverserBenchmark {
 
+	/**
+	 * Prepare statement before each run.
+	 */
 	@Override
 	public void beforeRun() {
 		super.beforeRun();
@@ -63,6 +66,9 @@ public class Query3_Traverser_Benchmark extends TraverserBenchmark {
 				});
 	}
 
+	/**
+	 * Execute the prepared statement.
+	 */
 	@Override
 	public void run() {
 		int i;
@@ -83,9 +89,11 @@ public class Query3_Traverser_Benchmark extends TraverserBenchmark {
 		}
 	}
 
+	/**
+	 * Returns the name of the benchmark.
+	 */
 	@Override
 	public String getName() {
 		return "neo4j Query 3 (traverser)";
 	}
-
 }

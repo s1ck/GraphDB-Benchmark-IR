@@ -26,10 +26,16 @@ import com.orientechnologies.orient.core.record.impl.ODocument;
  * 		 from co_s w3
  * 		 where w3.w1_id=137);
  *
+ * @author Sascha 'peil' Ludwig
+ *
  */
 
 public class Query3_LowL_Benchmark extends OrientDBBenchmark{
 
+	/**
+	 * Finds all nodes and gets the w1_id, w2_id, sig and freq attributes
+	 * for nodes that are neighbors to each other and to a given start node.
+	 */
 	@Override
 	public void run() {
 		Set<ODocument> FOVertices = new HashSet<ODocument>();
@@ -41,13 +47,11 @@ public class Query3_LowL_Benchmark extends OrientDBBenchmark{
 			// get all the outgoing edges
 			Set<OIdentifiable> FOoutEdges = orientdb.getOutEdges(iVertex);
 			// for all outgoing edges
-			for (OIdentifiable FOoutEdgeIter : FOoutEdges)
-			{
+			for (OIdentifiable FOoutEdgeIter : FOoutEdges) {
 				// cast the Edge to a real Edge (because of return-type of getOutEdges)
 				ODocument FOoutEdge = orientdb.load(FOoutEdgeIter.getIdentity());
 				// if the edge is of type co_s
-				if ( FOoutEdge.field("type").toString().equalsIgnoreCase("co_s"))
-				{
+				if ( FOoutEdge.field("type").toString().equalsIgnoreCase("co_s")) {
 					// get the Vertex at the end of the edge
 					ODocument FOoutVertex = orientdb.getInVertex(FOoutEdge);
 					FOVertices.add(FOoutVertex);
@@ -58,17 +62,15 @@ public class Query3_LowL_Benchmark extends OrientDBBenchmark{
 				//and from there all outgoing edges again
 				Set<OIdentifiable> SOoutEdges = orientdb.getOutEdges(FOoutVertex);
 				// for all second order outgoing edges
-				for (OIdentifiable SOoutEdgeIter : SOoutEdges)
-				{
+				for (OIdentifiable SOoutEdgeIter : SOoutEdges) {
 					// cast the Edge to a real Edge (because of return-type of getOutEdges)
 					ODocument SOoutEdge = orientdb.load(SOoutEdgeIter.getIdentity());
 					// if type is co_s
-					if ( SOoutEdge.field("type").toString().equalsIgnoreCase("co_s") && FOVertices.contains(orientdb.getInVertex(SOoutEdge)))
-					{
-						int freq = SOoutEdge.field("freq");
-						double sig = SOoutEdge.field("sig");
-						int w2_id = orientdb.getOutVertex(SOoutEdge).field("w_id");
-						int w1_id = orientdb.getInVertex(SOoutEdge).field("w_id");
+					if ( SOoutEdge.field("type").toString().equalsIgnoreCase("co_s") && FOVertices.contains(orientdb.getInVertex(SOoutEdge))) {
+						SOoutEdge.field("freq");
+						SOoutEdge.field("sig");
+						orientdb.getOutVertex(SOoutEdge).field("w_id");
+						orientdb.getInVertex(SOoutEdge).field("w_id");
 					}
 				}
 			}
@@ -76,12 +78,11 @@ public class Query3_LowL_Benchmark extends OrientDBBenchmark{
 		}
 	}
 
+	/**
+	 * Returns the name of the benchmark.
+	 */
 	@Override
 	public String getName() {
 		return "OrientDB Query3 LowLevel Benchmark";
 	}
-
 }
-
-
-

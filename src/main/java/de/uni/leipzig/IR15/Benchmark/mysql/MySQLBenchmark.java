@@ -9,23 +9,28 @@ import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Connectors.MySQLConnector;
 import de.uni.leipzig.IR15.Support.Configuration;
 
+/**
+ * Abstract Base Class for all benchmarks running on sql database. It holds a
+ * reference to the database it also cares about generating random (and
+ * existing) node ids.
+ *
+ * @author Martin 's1ck' Junghanns
+ *
+ */
 public abstract class MySQLBenchmark extends Benchmark {
 
 	private Connection mySQL;
-
 	private int maxWordID;
-
 	protected String query;
-
 	protected PreparedStatement st;
-
 	protected int start_WordID;
-
-	private static Configuration mySQLConfig = Configuration
-			.getInstance("mysql");
+	private static Configuration mySQLConfig = Configuration.getInstance("mysql");
 
 	protected int minOutDegree;
 
+	/**
+	 * Setup the database connection.
+	 */
 	@Override
 	public void setUp() {
 		mySQL = MySQLConnector.getConnection();
@@ -42,11 +47,17 @@ public abstract class MySQLBenchmark extends Benchmark {
 		}
 	}
 
+	/**
+	 * Cleanup after benchmarking.
+	 */
 	@Override
 	public void tearDown() {
 		MySQLConnector.destroyConnection();
 	}
 
+	/**
+	 * Prepare the statement before each run.
+	 */
 	@Override
 	public void beforeRun() {
 		try {
@@ -57,10 +68,11 @@ public abstract class MySQLBenchmark extends Benchmark {
 	}
 
 	@Override
-	public void afterRun() {
+	public void afterRun() {}
 
-	}
-
+	/**
+	 * Run and execute the prepared statement.
+	 */
 	@Override
 	public void run() {
 		try {
@@ -73,7 +85,9 @@ public abstract class MySQLBenchmark extends Benchmark {
 	}
 
 	/**
-	 * creates random id until a matching db entity is found
+	 * Returns a random start node.
+	 *
+	 * Loops with a random w_id until a existing entity is found.
 	 *
 	 * @return
 	 */

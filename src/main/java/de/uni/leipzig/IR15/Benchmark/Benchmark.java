@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
  * This abstract base class must be extended by any benchmark in the suite. It
  * defines some simple methods which are used during benchmark processing.
  *
- * @author s1ck
+ * @author Martin 's1ck' Junghanns
  *
  */
 public abstract class Benchmark {
@@ -35,7 +35,7 @@ public abstract class Benchmark {
 	private int currentRun = 0;
 
 	/**
-	 * constant seed for same random IDs for each benchmark
+	 * Constant seed for same random IDs for each benchmark
 	 */
 	protected Random r = new Random(13003); // 13374223
 											// 13003 --> first int for 10k DB = 137
@@ -116,7 +116,6 @@ public abstract class Benchmark {
 	 * This method is called before each single call of <code>run()</code>
 	 */
 	public abstract void beforeRun();
-
 
 	/**
 	 * This method is called after each single call of <code>run()</code>

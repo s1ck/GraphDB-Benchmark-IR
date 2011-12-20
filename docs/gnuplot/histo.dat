@@ -1,7 +1,0 @@
-#
-Dataset		mySQL	mySQL 	neo4j_c	neo4j_c	neo4j_t	neo4j_t	neo4j_g	neo4j_g	dex_api	dex_api	orient_api	orient_api	orient_sql	orient_sql	orient_g	orient_g  
-10k			50		10		10		10  	5   	12		8   	4    	60   	15		100   		20			40			6 			40			22
-100k		100		10		11  	10		6   	12		8   	4   	62   	15		110   		20			60			6			60			22
-300k		150 	10		15  	10		8   	12		9   	4		70   	15		120   		20			100			6			80			22
-1M			200		10		20		10		15  	12		10  	4		80   	15		130   		20			150			6			100			22
-
