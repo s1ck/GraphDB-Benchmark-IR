@@ -11,6 +11,14 @@ import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Connectors.OrientDBConnector;
 
+/**
+ * Abstract Base Class for all benchmarks running on orient graph database. It
+ * holds a reference to the database and the word index, it also cares about
+ * generating random (and existing) node ids.
+ *
+ * @author Sascha 'peil' Ludwig
+ *
+ */
 public abstract class OrientDBBenchmark extends Benchmark {
 
 	protected long startWordID;
@@ -19,12 +27,18 @@ public abstract class OrientDBBenchmark extends Benchmark {
 	protected OSQLSynchQuery<ODocument> prep_query1;
 	protected OSQLSynchQuery<ODocument> prep_query2;
 
+	/**
+	 * Setup the database connection and get the maximum word id.
+	 */
 	@Override
 	public void setUp() {
 		orientdb = OrientDBConnector.getConnection();
 		maxID = findMaxWordID();
 	}
 
+	/**
+	 * Find a random start vertex.
+	 */
 	@Override
 	public void beforeRun() {
 		ODocument startVertex;
@@ -48,6 +62,10 @@ public abstract class OrientDBBenchmark extends Benchmark {
 	@Override
 	public void afterRun() {}
 
+	/**
+	 * Find the maxium word id.
+	 * @return
+	 */
 	// gets the max WordID. Needed for random WordID
 	public int findMaxWordID() {
 		int m = 0;
@@ -67,6 +85,9 @@ public abstract class OrientDBBenchmark extends Benchmark {
 		return m;
 	}
 
+	/**
+	 * Cleanup after running benchmarks.
+	 */
 	@Override
 	public void tearDown() {
 		OrientDBConnector.destroyConnection();

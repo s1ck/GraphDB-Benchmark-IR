@@ -19,6 +19,9 @@ import de.uni.leipzig.IR15.Importer.Neo4JImporter;
  */
 public class Query1_Traverser_Benchmark extends TraverserBenchmark {
 
+	/**
+	 * Prepare the statement before each run.
+	 */
 	@Override
 	public void beforeRun() {
 		super.beforeRun();
@@ -33,11 +36,13 @@ public class Query1_Traverser_Benchmark extends TraverserBenchmark {
 						} else {
 							return Evaluation.EXCLUDE_AND_CONTINUE;
 						}
-
 					}
 				});
 	}
 
+	/**
+	 * Iterates over all neighbors to a given start node and gets their w_id.
+	 */
 	@Override
 	public void run() {
 		for (Path p : td.traverse(startNode)) {
@@ -52,5 +57,4 @@ public class Query1_Traverser_Benchmark extends TraverserBenchmark {
 	public String getName() {
 		return "neo4j Query 1 (traverser)";
 	}
-
 }

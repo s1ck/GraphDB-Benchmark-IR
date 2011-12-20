@@ -13,20 +13,43 @@ import org.apache.log4j.Logger;
 
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 
+/**
+ * Abstract base class for all benchmark suites.
+ *
+ * @author robbl
+ *
+ */
 public class AbstractBenchmarkSuite {
 
 	public static Logger log = Logger.getLogger(Neo4JBenchmarkSuite.class);
 
+	/**
+	 * Run all benchmarks.
+	 *
+	 * @param benchmarks a list of benchmarks
+	 */
 	public static void runBenchmarks(List<Benchmark> benchmarks) {
 		runBenchmarks(benchmarks, false);
 	}
 
+	/**
+	 * Run all benchmarks.
+	 *
+	 * @param benchmarks a list of benchmarks
+	 * @param log2file true to turn on logging.
+	 */
 	public static void runBenchmarks(List<Benchmark> benchmarks, boolean log2file) {
 		for(Benchmark bm : benchmarks) {
 			runBenchmark(bm, log2file);
 		}
 	}
 
+	/**
+	 * Run a benchmark.
+	 *
+	 * @param benchmark a benchmark
+	 * @param log2file true to turn on logging.
+	 */
 	public static void runBenchmark(Benchmark benchmark, boolean log2file) {
 		int warmups = benchmark.getWarmups();
 		int runs = benchmark.getRuns();
@@ -76,8 +99,13 @@ public class AbstractBenchmarkSuite {
 		log.info(String.format("Finished Benchmark: %s", benchmark.getName()));
 	}
 
+	/**
+	 * Save the results to file.
+	 *
+	 * @param results
+	 * @param benchmark
+	 */
 	private static void storeResults(long[] results, Benchmark benchmark) {
-
 		String dirString = "out/benchmarks/" + benchmark.getName().toLowerCase() + "/" + new SimpleDateFormat("yyyy.MM.dd-HH.mm.ss").format(new Date());
 		File dir = new File(dirString);
 		if(dir.mkdirs()) {
@@ -94,6 +122,5 @@ public class AbstractBenchmarkSuite {
 				e.printStackTrace();
 			}
 		}
-
 	}
 }

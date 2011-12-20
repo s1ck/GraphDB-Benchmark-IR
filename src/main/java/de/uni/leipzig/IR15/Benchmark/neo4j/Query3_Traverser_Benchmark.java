@@ -22,6 +22,9 @@ import de.uni.leipzig.IR15.Importer.Neo4JImporter;
  */
 public class Query3_Traverser_Benchmark extends TraverserBenchmark {
 
+	/**
+	 * Prepare statement before each run.
+	 */
 	@Override
 	public void beforeRun() {
 		super.beforeRun();
@@ -63,6 +66,9 @@ public class Query3_Traverser_Benchmark extends TraverserBenchmark {
 				});
 	}
 
+	/**
+	 * Execute the prepared statement.
+	 */
 	@Override
 	public void run() {
 		int i;

@@ -18,6 +18,9 @@ package de.uni.leipzig.IR15.Benchmark.neo4j;
  */
 public class Query3_Cypher_Benchmark extends CypherBenchmark {
 
+	/**
+	 * Prepare statement before each run.
+	 */
 	@Override
 	public void beforeRun() {
 		super.beforeRun();

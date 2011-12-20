@@ -20,6 +20,9 @@ import de.uni.leipzig.IR15.Importer.Neo4JImporter;
  */
 public class Query2_Traverser_Benchmark extends TraverserBenchmark {
 
+	/**
+	 * Prepare the statement before each run.
+	 */
 	@Override
 	public void beforeRun() {
 		super.beforeRun();
@@ -40,6 +43,10 @@ public class Query2_Traverser_Benchmark extends TraverserBenchmark {
 				});
 	}
 
+	/**
+	 * Finds all nodes with degree 2 and get some properties from the node or
+	 * it's last relationship().
+	 */
 	@Override
 	public void run() {
 		for (Path p : td.traverse(startNode)) {
@@ -57,5 +64,4 @@ public class Query2_Traverser_Benchmark extends TraverserBenchmark {
 	public String getName() {
 		return "neo4j Query 2 (traverser)";
 	}
-
 }

@@ -18,6 +18,9 @@ import de.uni.leipzig.IR15.Importer.Neo4JImporter;
  */
 public class Query1_Native_Benchmark extends Neo4jBenchmark {
 
+	/**
+	 * Iterates over all neighbors to a given start node and gets their w_id.
+	 */
 	@Override
 	public void run() {
 		for (Relationship e : startNode.getRelationships(
@@ -33,5 +36,4 @@ public class Query1_Native_Benchmark extends Neo4jBenchmark {
 	public String getName() {
 		return "neo4j Query 1 (native)";
 	}
-
 }

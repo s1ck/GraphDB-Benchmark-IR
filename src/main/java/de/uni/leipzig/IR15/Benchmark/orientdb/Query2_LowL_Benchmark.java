@@ -6,8 +6,18 @@ import java.util.Set;
 import com.orientechnologies.orient.core.db.record.OIdentifiable;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 
+/**
+ * Query 2 selects all sentence co-occurrences of sentence co-occurrences (co_s)
+ * of a given word.
+ *
+ * @author Sascha 'peil' Ludwig
+ *
+ */
 public class Query2_LowL_Benchmark extends OrientDBBenchmark{
 
+	/**
+	 * Fetches all neighbors of neighbors of a given start node.
+	 */
 	@Override
 	public void run() {
 		// get the vertex with the given word_id

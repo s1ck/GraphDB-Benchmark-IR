@@ -21,12 +21,15 @@ public class Query1_Benchmark extends DEXBenchmark {
 
 		Value wordIDValue;
 
+		// iterate over all neighbors of a given start node
 	    ObjectsIterator iter = graph.neighbors(startNodeID, coSEdgeType, EdgesDirection.Any).iterator();
 	    while(iter.hasNext()) {
 	    	node = iter.nextObject();
 
+	    	// get the w_id attribute value and cleanup
 			graph.getAttribute(node, wordIDAttribute, wordIDValue = new Value());
 			wordIDValue.getInteger();
+			wordIDValue.delete();
 	    }
 	}
 

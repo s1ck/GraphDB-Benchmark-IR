@@ -8,6 +8,9 @@ package de.uni.leipzig.IR15.Benchmark.mysql;
  */
 public class Query1_Benchmark extends MySQLBenchmark {
 
+	/**
+	 * Find a random start node and prepare the sql statement.
+	 */
 	@Override
 	public void beforeRun() {
 		start_WordID = getRandomStartNode(minOutDegree);

@@ -6,6 +6,12 @@ import java.util.Set;
 import com.orientechnologies.orient.core.db.record.OIdentifiable;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 
+/**
+ * Query 1 selects all sentence co-occurrences (co_s) of a given word.
+ *
+ * @author robbl
+ *
+ */
 public class Query1_LowL_Benchmark extends OrientDBBenchmark{
 
 	@Override

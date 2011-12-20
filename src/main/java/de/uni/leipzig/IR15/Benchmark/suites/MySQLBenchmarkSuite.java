@@ -5,8 +5,19 @@ import java.util.List;
 
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 
+/**
+ * Mysql benchmark suite that runs all the configured benchmarks.
+ *
+ * @author IR-Team
+ *
+ */
 public class MySQLBenchmarkSuite extends AbstractBenchmarkSuite {
 
+	/**
+	 * Initialize and run all benchmarks.
+	 *
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		List<Benchmark> benchmarks = new ArrayList<Benchmark>();
 

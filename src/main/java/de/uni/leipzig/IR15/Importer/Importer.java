@@ -11,15 +11,26 @@ import org.apache.log4j.Logger;
 import de.uni.leipzig.IR15.Connectors.MySQLConnector;
 import de.uni.leipzig.IR15.Support.Configuration;
 
+/**
+ * Abstract base class for all database importer.
+ *
+ * @author robbl
+ *
+ */
 public abstract class Importer {
 	protected static Configuration graphConfiguration;
 	protected static Configuration mySQLConfiguration;
 	protected static Connection mySQLConnection;
 
+	public static enum RelTypes {
+		CO_S,
+		CO_N
+	}
+
 	protected static Logger log = Logger.getLogger(Importer.class);
 
 	/**
-	 * deletes all files associated with the repective graph database
+	 * Deletes all files associated with the repective graph database
 	 */
 	public void reset() {
 		File location = new File(
@@ -68,16 +79,17 @@ public abstract class Importer {
 	public abstract String getName();
 
 	/**
-	 * Returns the associated database instance
-	 *
-	 * @return the database instance the importer is using
+	 * Cleanup mysql connection after running importer.
 	 */
-//	public abstract Object getDatabaseInstance();
-
 	public void tearDown() {
 		MySQLConnector.destroyConnection();
 	}
 
+	/**
+	 * Delete a directory recursively.
+	 *
+	 * @param path
+	 */
 	private void recursiveDeleteDirectory(File path) {
 		for (File file : path.listFiles()) {
 			if (file.isDirectory()) {
@@ -88,6 +100,12 @@ public abstract class Importer {
 		path.delete();
 	}
 
+	/**
+	 * Get mysql row counts.
+	 *
+	 * @param table
+	 * @return
+	 */
 	protected Integer getMysqlRowCount(String table) {
 		String query = "SELECT COUNT(*) FROM " + table;
 		Integer count = null;

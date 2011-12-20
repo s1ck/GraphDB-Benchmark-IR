@@ -8,10 +8,22 @@ import org.apache.log4j.Logger;
 
 import de.uni.leipzig.IR15.Support.Configuration;
 
+/**
+ * Class to handle connection to the mysql database.
+ *
+ * @author IR-Team
+ *
+ */
+
 public class MySQLConnector {
 	private static Logger log = Logger.getLogger(MySQLConnector.class);
 	private static Connection connection;
 
+	/**
+	 * Create and return a database connection.
+	 *
+	 * @return database connection
+	 */
 	public static Connection getConnection() {
 		Configuration mySQLConfiguration = Configuration.getInstance("mysql");
 
@@ -48,6 +60,9 @@ public class MySQLConnector {
 		return connection;
 	}
 
+	/**
+	 * Destroy a database connection.
+	 */
 	public static void destroyConnection() {
 		try {
 			connection.close();

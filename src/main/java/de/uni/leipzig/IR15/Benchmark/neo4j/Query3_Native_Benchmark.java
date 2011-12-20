@@ -45,5 +45,4 @@ public class Query3_Native_Benchmark extends Neo4jBenchmark {
 	public String getName() {
 		return "neo4j Query 3 (native)";
 	}
-
 }

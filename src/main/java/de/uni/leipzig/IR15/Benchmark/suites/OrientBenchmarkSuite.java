@@ -9,11 +9,19 @@ import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Benchmark.ImportBenchmark;
 import de.uni.leipzig.IR15.Importer.OrientDBImporter;
 
+/**
+ * OrientDB benchmark suite that runs all the configured benchmarks.
+ *
+ * @author IR-Team
+ *
+ */
 public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 
 	public static Logger log = Logger.getLogger(OrientBenchmarkSuite.class);
 
 	/**
+	 * Initialize and run all benchmarks.
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {

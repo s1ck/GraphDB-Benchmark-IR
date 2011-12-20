@@ -10,10 +10,19 @@ import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Benchmark.ImportBenchmark;
 import de.uni.leipzig.IR15.Importer.DEXImporter;
 
+/**
+ * DEX benchmark suite that runs all the configured benchmarks.
+ *
+ * @author IR-Team
+ *
+ */
 public class DEXBenchmarkSuite extends AbstractBenchmarkSuite {
 
 	public static Logger log = Logger.getLogger(DEXBenchmarkSuite.class);
+
 	/**
+	 * Initialize and run all benchmarks.
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -23,11 +32,6 @@ public class DEXBenchmarkSuite extends AbstractBenchmarkSuite {
 		dexImportBench.setWarmups(0);
 		dexImportBench.setRuns(1);
 		benchmarks.add(dexImportBench);
-
-//		Benchmark dexNeighbours = new de.uni.leipzig.IR15.Benchmark.dex.BFS_Benchmark(
-//				5, DEXImporter.RelTypes.CO_S, 137);
-//		dexNeighbours.setRuns(100);
-//		benchmarks.add(dexNeighbours);
 
 		Benchmark query_1 = new de.uni.leipzig.IR15.Benchmark.dex.Query1_Benchmark();
 		query_1.setRuns(100);

@@ -11,6 +11,9 @@ package de.uni.leipzig.IR15.Benchmark.neo4j;
 public abstract class CypherBenchmark extends Neo4jBenchmark {
 	protected static String CYPHER_QUERY;
 
+	/**
+	 * Execute the prepared statement.
+	 */
 	@Override
 	public void run() {
 		engine.execute(CYPHER_QUERY).size();

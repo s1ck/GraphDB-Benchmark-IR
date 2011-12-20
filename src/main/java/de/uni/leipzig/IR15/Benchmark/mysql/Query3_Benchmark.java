@@ -9,6 +9,9 @@ package de.uni.leipzig.IR15.Benchmark.mysql;
  */
 public class Query3_Benchmark extends MySQLBenchmark {
 
+	/**
+	 * Find a random start node and prepare the sql statement.
+	 */
 	@Override
 	public void beforeRun() {
 		start_WordID = getRandomStartNode(minOutDegree);
@@ -25,5 +28,4 @@ public class Query3_Benchmark extends MySQLBenchmark {
 	public String getName() {
 		return "MySQL query 3";
 	}
-
 }

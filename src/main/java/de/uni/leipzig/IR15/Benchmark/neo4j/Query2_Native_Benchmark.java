@@ -20,6 +20,9 @@ import de.uni.leipzig.IR15.Importer.Neo4JImporter;
  */
 public class Query2_Native_Benchmark extends Neo4jBenchmark {
 
+	/**
+	 * Fetches all neighbors of neighbors of a given start node.
+	 */
 	@Override
 	public void run() {
 		for(Relationship e1 : startNode.getRelationships(Neo4JImporter.RelTypes.CO_S, Direction.OUTGOING)) {
@@ -39,5 +42,4 @@ public class Query2_Native_Benchmark extends Neo4jBenchmark {
 	public String getName() {
 		return "neo4j Query 2 (native)";
 	}
-
 }
