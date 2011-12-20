@@ -11,8 +11,9 @@ public class GetOneWordByID_Benchmark extends OrientDBBenchmark{
 	public void run() {
 		List<ODocument> result;
 		
-		// V = OGraphVertex
-		String q1 = "SELECT FROM V WHERE w_id = " + startWordID;
+		//String q1 = "SELECT FROM V WHERE w_id = " + startWordID;
+		String q1 = "SELECT FROM index:word_id_Index WHERE key = " + startWordID ;
+		
 		//log.info("Query: " + q1);
 		result = orientdb.query(new OSQLSynchQuery<ODocument>(q1));
 		//for (ODocument v : result)

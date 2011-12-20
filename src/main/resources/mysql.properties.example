@@ -1,8 +1,0 @@
-host=192.168.0.102
-port=3306
-database=deu_news_2009_10K
-username=ir15
-password=IR15
-table_words=words
-table_co_n=co_n
-table_co_s=co_s
