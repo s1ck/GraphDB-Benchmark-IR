@@ -50,6 +50,11 @@
 			<artifactId>orientdb-core</artifactId>
 			<version>1.0rc6</version>
 		</dependency>
+		<dependency>
+			<groupId>com.tinkerpop.blueprints</groupId>
+			<artifactId>blueprints-orient-graph</artifactId>
+			<version>??</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
