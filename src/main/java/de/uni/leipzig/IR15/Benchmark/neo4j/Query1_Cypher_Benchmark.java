@@ -2,8 +2,6 @@ package de.uni.leipzig.IR15.Benchmark.neo4j;
 
 import org.neo4j.cypher.CypherParser;
 
-
-
 /**
  * Query 1 selects the wordID of all the sentence co-occurrences of a given word.
  * 
