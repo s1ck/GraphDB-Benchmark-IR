@@ -5,15 +5,24 @@ import com.sparsity.dex.gdb.Objects;
 import com.sparsity.dex.gdb.ObjectsIterator;
 import com.sparsity.dex.gdb.Value;
 
+/**
+ * Query 2 selects all sentence co-occurrences of sentence co-occurrences (co_s)
+ * of a given word.
+ *
+ * @author robbl
+ *
+ */
 public class Query2_Benchmark extends DEXBenchmark {
 
+	/**
+	 * Fetches all neighbors with degree equals 2 to a given start node and
+	 * gets their w_id, sig and freq.
+	 */
 	@Override
 	public void run() {
 		long edge, node_depth_1, node_depth_2;
 
 		Value sigValue, freqValue, wordIDValue;
-		int freq, wordID;
-		double sig;
 
 		Objects neighbors_depth_2;
 		ObjectsIterator iter_depth_2;
@@ -31,16 +40,16 @@ public class Query2_Benchmark extends DEXBenchmark {
 				node_depth_2 = iter_depth_2.nextObject();
 				edge = graph.findEdge(coSEdgeType, node_depth_2, node_depth_1);
 
-				graph.getAttribute(node_depth_2, wordIdAttribute, wordIDValue = new Value());
-				wordID = wordIDValue.getInteger();
+				graph.getAttribute(node_depth_2, wordIDAttribute, wordIDValue = new Value());
+				wordIDValue.getInteger();
 				wordIDValue.delete();
 
 				graph.getAttribute(edge, coSEdgeSigAttribute, sigValue = new Value());
-				sig = sigValue.getDouble();
+				sigValue.getDouble();
 				sigValue.delete();
 
 				graph.getAttribute(edge, coSEdgeFreqAttribute, freqValue = new Value());
-				freq = freqValue.getInteger();
+				freqValue.getInteger();
 				freqValue.delete();
 			}
 			iter_depth_2.close();
@@ -50,6 +59,9 @@ public class Query2_Benchmark extends DEXBenchmark {
 		neighbors_depth_1.close();
 	}
 
+	/**
+	 * Returns the name of the benchmark.
+	 */
 	@Override
 	public String getName() {
 		return "DEX Query 2";

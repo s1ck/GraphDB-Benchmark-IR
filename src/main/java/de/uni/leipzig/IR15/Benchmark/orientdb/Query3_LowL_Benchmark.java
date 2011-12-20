@@ -76,6 +76,9 @@ public class Query3_LowL_Benchmark extends OrientDBBenchmark{
 		}
 	}
 
+	/**
+	 * Returns the name of the benchmark.
+	 */
 	@Override
 	public String getName() {
 		return "OrientDB Query3 LowLevel Benchmark";

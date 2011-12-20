@@ -12,8 +12,6 @@ public class Query3_Benchmark extends DEXBenchmark {
 		long edge, node1, node2;
 
 		Value sigValue, freqValue, word1IDValue, word2IDValue;
-		int freq, word1ID, word2ID;
-		double sig;
 
 		Objects neighbors_1 = graph.neighbors(startNodeID, coSEdgeType, EdgesDirection.Outgoing);
 		Objects neighbors_2;
@@ -39,20 +37,20 @@ public class Query3_Benchmark extends DEXBenchmark {
 					continue;
 				}
 
-				graph.getAttribute(node1, wordIdAttribute, word1IDValue = new Value());
-				word1ID = word1IDValue.getInteger();
+				graph.getAttribute(node1, wordIDAttribute, word1IDValue = new Value());
+				word1IDValue.getInteger();
 				word1IDValue.delete();
 
-				graph.getAttribute(node1, wordIdAttribute, word2IDValue = new Value());
-				word2ID = word2IDValue.getInteger();
+				graph.getAttribute(node1, wordIDAttribute, word2IDValue = new Value());
+				word2IDValue.getInteger();
 				word2IDValue.delete();
 
 				graph.getAttribute(edge, coSEdgeSigAttribute, sigValue = new Value());
-				sig = sigValue.getDouble();
+				sigValue.getDouble();
 				sigValue.delete();
 
 				graph.getAttribute(edge, coSEdgeFreqAttribute, freqValue = new Value());
-				freq = freqValue.getInteger();
+				freqValue.getInteger();
 				freqValue.delete();
 			}
 			iter2.close();
@@ -63,6 +61,9 @@ public class Query3_Benchmark extends DEXBenchmark {
 		neighbors_1.close();
 	}
 
+	/**
+	 * Returns the name of the benchmark.
+	 */
 	@Override
 	public String getName() {
 		return "DEX Query 3";

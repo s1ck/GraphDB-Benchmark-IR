@@ -11,11 +11,11 @@ import de.uni.leipzig.IR15.Importer.Neo4JImporter;
 /**
  * Query 1 Traverser collects all nodes which are directly connected to the
  * start node via an outgoing CO_S relationship.
- * 
+ *
  * A-[CO_S]->B
- * 
+ *
  * @author Martin 's1ck' Junghanns
- * 
+ *
  */
 public class Query1_Traverser_Benchmark extends TraverserBenchmark {
 
@@ -45,6 +45,9 @@ public class Query1_Traverser_Benchmark extends TraverserBenchmark {
 		}
 	}
 
+	/**
+	 * Returns the name of the benchmark.
+	 */
 	@Override
 	public String getName() {
 		return "neo4j Query 1 (traverser)";

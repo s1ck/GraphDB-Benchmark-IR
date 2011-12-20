@@ -18,7 +18,7 @@ public abstract class DEXBenchmark extends Benchmark {
 	protected int startWordID, maxWordID;
 	protected long startNodeID;
 	protected int wordNodeType;
-	protected int wordIdAttribute;
+	protected int wordIDAttribute;
 	protected int coNEdgeType, coNEdgeSigAttribute, coNEdgeFreqAttribute;
 	protected int coSEdgeType, coSEdgeSigAttribute, coSEdgeFreqAttribute;
 
@@ -32,7 +32,7 @@ public abstract class DEXBenchmark extends Benchmark {
 		session.begin();
 
 		wordNodeType = graph.findType("word");
-    	wordIdAttribute = graph.findAttribute(wordNodeType, "w_id");
+    	wordIDAttribute = graph.findAttribute(wordNodeType, "w_id");
 
     	coNEdgeType = graph.findType("CO_N");
     	coNEdgeSigAttribute = graph.findAttribute(coNEdgeType, "sig");
@@ -58,7 +58,7 @@ public abstract class DEXBenchmark extends Benchmark {
 	}
 
 	public int findMaxWordID() {
-		AttributeStatistics statistic = graph.getAttributeStatistics(wordIdAttribute, false);
+		AttributeStatistics statistic = graph.getAttributeStatistics(wordIDAttribute, false);
 		return statistic.getMax().getInteger();
 	}
 
@@ -68,7 +68,7 @@ public abstract class DEXBenchmark extends Benchmark {
 
 		while (true) {
 			startWordID = r.nextInt(maxWordID);
-			node = graph.findObject(wordIdAttribute, new Value().setInteger(startWordID));
+			node = graph.findObject(wordIDAttribute, new Value().setInteger(startWordID));
 			if (node != 0) {
 				neighbors = graph.neighbors(node, coSEdgeType, EdgesDirection.Outgoing);
 				if (neighbors.size() >= outDegree) {

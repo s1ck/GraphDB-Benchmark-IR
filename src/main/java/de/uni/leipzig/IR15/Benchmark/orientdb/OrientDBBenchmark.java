@@ -50,9 +50,7 @@ public abstract class OrientDBBenchmark extends Benchmark {
 	}
 
 	@Override
-	public void afterRun() {
-
-	}
+	public void afterRun() {}
 
 	@Override
 	public void tearDown() {

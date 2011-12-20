@@ -6,8 +6,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
-import de.uni.leipzig.IR15.Benchmark.ImportBenchmark;
-import de.uni.leipzig.IR15.Importer.OrientDBImporter;
 
 public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 
@@ -20,10 +18,10 @@ public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 
 		List<Benchmark> benchmarks = new ArrayList<Benchmark>();
 
-		Benchmark OrientDBImportBench = new ImportBenchmark(new OrientDBImporter());
-		OrientDBImportBench.setWarmups(0);
-		OrientDBImportBench.setRuns(1);
-		benchmarks.add(OrientDBImportBench);
+//		Benchmark OrientDBImportBench = new ImportBenchmark(new OrientDBImporter());
+//		OrientDBImportBench.setWarmups(0);
+//		OrientDBImportBench.setRuns(1);
+//		benchmarks.add(OrientDBImportBench);
 
 //		Benchmark getWordByID_Query = new de.uni.leipzig.IR15.Benchmark.orientdb.GetOneWordByID_Benchmark();
 //		getWordByID_Query.setWarmups(10);

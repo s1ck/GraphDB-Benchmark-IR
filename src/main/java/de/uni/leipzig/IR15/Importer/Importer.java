@@ -1,7 +1,6 @@
 package de.uni.leipzig.IR15.Importer;
 
 import java.io.File;
-import java.security.InvalidParameterException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,7 +39,7 @@ public abstract class Importer {
 
 	/**
 	 * Initializes the configuration instances
-	 * 
+	 *
 	 * @param graphDBName
 	 *            the name of the graph database which is used (e.g. neo4j,
 	 *            orientdb, dex)
@@ -63,14 +62,14 @@ public abstract class Importer {
 
 	/**
 	 * Returns the name of the importer
-	 * 
+	 *
 	 * @return importer's name
 	 */
 	public abstract String getName();
 
 	/**
 	 * Returns the associated database instance
-	 * 
+	 *
 	 * @return the database instance the importer is using
 	 */
 //	public abstract Object getDatabaseInstance();
@@ -81,8 +80,9 @@ public abstract class Importer {
 
 	private void recursiveDeleteDirectory(File path) {
 		for (File file : path.listFiles()) {
-			if (file.isDirectory())
+			if (file.isDirectory()) {
 				recursiveDeleteDirectory(file);
+			}
 			file.delete();
 		}
 		path.delete();

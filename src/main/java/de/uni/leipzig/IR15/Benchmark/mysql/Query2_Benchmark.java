@@ -3,9 +3,9 @@ package de.uni.leipzig.IR15.Benchmark.mysql;
 /**
  * Query 2 selects all sentence co-occurrences of sentence co-occurrences (co_s)
  * of a given word.
- * 
+ *
  * @author Martin 's1ck' Junghanns
- * 
+ *
  */
 public class Query2_Benchmark extends MySQLBenchmark {
 
@@ -18,6 +18,9 @@ public class Query2_Benchmark extends MySQLBenchmark {
 		super.beforeRun();
 	}
 
+	/**
+	 * Returns the name of the benchmark.
+	 */
 	@Override
 	public String getName() {
 		return "MySQL query 2";
