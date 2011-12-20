@@ -11,7 +11,6 @@ public class Query3_Benchmark extends DEXBenchmark {
 	@Override
 	public void run() {
 		long edge, node1, node2;
-		Value value = new Value();
 		ObjectsIterator iter2;
 
 	    Session session = dex.newSession();
@@ -42,8 +41,10 @@ public class Query3_Benchmark extends DEXBenchmark {
 				graph.getAttribute(edge, coSEdgeFreqAttribute, new Value());
 			}
 			iter2.close();
+			iter2.delete();
 		}
 		iter1.close();
+		iter1.delete();
 
     	session.commit();
     	session.close();
