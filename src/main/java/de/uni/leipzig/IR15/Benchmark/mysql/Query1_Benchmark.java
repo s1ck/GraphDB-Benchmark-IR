@@ -15,7 +15,7 @@ public class Query1_Benchmark extends MySQLBenchmark {
 	public void beforeRun() {
 		start_WordID = getRandomStartNode(minOutDegree);
 		query = String.format("select w1.w2_id from co_s w1 where w1.w1_id=%d",
-				start_WordID);
+				start_WordID);		
 		super.beforeRun();
 	}
 

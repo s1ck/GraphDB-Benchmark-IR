@@ -10,6 +10,7 @@ import org.neo4j.tooling.GlobalGraphOperations;
 
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Connectors.Neo4JConnector;
+import de.uni.leipzig.IR15.Importer.Neo4JImporter;
 import de.uni.leipzig.IR15.Support.Configuration;
 
 /**
@@ -93,7 +94,7 @@ public abstract class Neo4jBenchmark extends Benchmark {
 			v = index.get("w_id", id).getSingle();
 			if (v != null) {
 				if (IteratorUtil.asCollection(
-						v.getRelationships(Direction.OUTGOING)).size() < treshold) {
+						v.getRelationships(Neo4JImporter.RelTypes.CO_S, Direction.OUTGOING)).size() < treshold) {
 					v = null;
 				}
 			}

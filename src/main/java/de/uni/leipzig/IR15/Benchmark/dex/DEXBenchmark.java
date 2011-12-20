@@ -64,7 +64,7 @@ public abstract class DEXBenchmark extends Benchmark {
 	@Override
 	public void beforeRun() {
 		session.begin();
-	    startNodeID = getRandomNode(20);
+	    startNodeID = getRandomNode(20);	    
 	}
 
 	/**
