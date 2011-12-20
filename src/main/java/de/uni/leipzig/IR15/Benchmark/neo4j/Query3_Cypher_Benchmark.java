@@ -1,6 +1,6 @@
 package de.uni.leipzig.IR15.Benchmark.neo4j;
 
-import org.neo4j.cypher.parser.CypherParser;
+import org.neo4j.cypher.CypherParser;
 
 /**
  * Query 3 selects all sentence co-occurrences of a given word which are
