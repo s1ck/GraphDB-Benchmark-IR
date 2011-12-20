@@ -47,13 +47,13 @@ public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 		// benchmarks.add(Query1_LL);
 		
 		Benchmark Query2_LL = new de.uni.leipzig.IR15.Benchmark.orientdb.Query2_LowL_Benchmark();
-		Query2_LL.setWarmups(0);
-		Query2_LL.setRuns(1);
-		// benchmarks.add(Query2_LL);
+		Query2_LL.setWarmups(10);
+		Query2_LL.setRuns(100);
+		benchmarks.add(Query2_LL);
 		
 		Benchmark Query3_LL = new de.uni.leipzig.IR15.Benchmark.orientdb.Query3_LowL_Benchmark();
 		Query3_LL.setWarmups(10);
-		Query3_LL.setRuns(1000);
+		Query3_LL.setRuns(100);
 		benchmarks.add(Query3_LL);
 		
 		runBenchmarks(benchmarks, true);

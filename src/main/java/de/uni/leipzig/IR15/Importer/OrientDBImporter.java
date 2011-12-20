@@ -14,7 +14,6 @@ import com.orientechnologies.orient.core.record.impl.ODocument;
 
 import de.uni.leipzig.IR15.Connectors.MySQLConnector;
 import de.uni.leipzig.IR15.Connectors.OrientDBConnector;
-import com.orientechnologies.orient.core.storage.OStorage;
 
 public class OrientDBImporter extends Importer {
 	
