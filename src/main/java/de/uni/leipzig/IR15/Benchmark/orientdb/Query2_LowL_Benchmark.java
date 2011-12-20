@@ -2,15 +2,15 @@ package de.uni.leipzig.IR15.Benchmark.orientdb;
 
 
 import java.util.Set;
+
 import com.orientechnologies.orient.core.db.record.OIdentifiable;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 
 public class Query2_LowL_Benchmark extends OrientDBBenchmark{
-	
+
 	@Override
 	public void run() {
-		
-		int n = 0;
+
 		// get the vertex with the given word_id
 		ODocument iVertex = orientdb.getRoot(String.valueOf( startWordID ));
 		// test if not null. should always be true, because the before_run methods tests on existence
@@ -37,25 +37,20 @@ public class Query2_LowL_Benchmark extends OrientDBBenchmark{
 						// if type is co_s
 						if ( SOoutEdge.field("type").toString().equalsIgnoreCase("co_s"))
 						{
-							/*
 							int freq = SOoutEdge.field("freq");
 							double sig = SOoutEdge.field("sig");
 							int w2_id = orientdb.getOutVertex(SOoutEdge).field("w_id");
 							int w1_id = orientdb.getInVertex(SOoutEdge).field("w_id");
-							*/
-							//log.info("w1_id: " + w1_id + " | w2_id: " + w2_id + " | freq:" + freq + " | sig: " + sig);
-							//n++;
 						}
 					}
 				}
 			}
 		}
-		//log.info("n = " + n);
-	}	
-	
+	}
+
 	@Override
 	public String getName() {
 		return "OrientDB Query2 LowLevel Benchmark";
 	}
-	
+
 }
