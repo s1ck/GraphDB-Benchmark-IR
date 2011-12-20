@@ -85,7 +85,7 @@ public abstract class OrientDBBenchmark extends Benchmark {
 		
 		return m;
 	}
-
+	
 	@Override
 	public void tearDown() {
 		OrientDBConnector.destroyConnection();

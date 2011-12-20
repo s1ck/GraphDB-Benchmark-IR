@@ -11,7 +11,9 @@ set auto x
 # rotated the tics on the x-axis by 45 degrees
 # set xtic rotate by -45 scale 0
 # set y-axis range
-set yrange [0:600] # noreverse nowriteback
+set yrange [000.1:600] # noreverse nowriteback
+# logarithmic y-axis
+# set log y
 # set the position of the legend
 set key left top
 
