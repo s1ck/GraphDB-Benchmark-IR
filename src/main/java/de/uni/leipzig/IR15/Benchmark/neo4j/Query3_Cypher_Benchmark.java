@@ -1,6 +1,5 @@
 package de.uni.leipzig.IR15.Benchmark.neo4j;
 
-import org.neo4j.cypher.CypherParser;
 
 /**
  * Query 3 selects all sentence co-occurrences of a given word which are
@@ -22,10 +21,9 @@ public class Query3_Cypher_Benchmark extends CypherBenchmark {
 	@Override
 	public void beforeRun() {
 		super.beforeRun();
-		CYPHER_QUERY = new CypherParser()
-				.parse(String
-						.format("START n=node(%d) MATCH n-[:CO_S]->m, n-[:CO_S]-> t, m-[r:CO_S]-> t return m.w_id, t.w_id, r.sig, r.freq",
-								startNode.getId()));
+		CYPHER_QUERY = String
+				.format("START n=node(%d) MATCH n-[:CO_S]->m, n-[:CO_S]-> t, m-[r:CO_S]-> t return m.w_id, t.w_id, r.sig, r.freq",
+						startNode.getId());
 	}
 
 	@Override

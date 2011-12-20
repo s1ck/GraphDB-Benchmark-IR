@@ -25,9 +25,11 @@ public abstract class DEXBenchmark extends Benchmark {
 	@Override
 	public void setUp() {
 		dex = DEXConnector.getConnection();
+
 		session = dex.newSession();
-		session.begin();
 		graph = session.getGraph();
+
+		session.begin();
 
 		wordNodeType = graph.findType("word");
     	wordIdAttribute = graph.findAttribute(wordNodeType, "w_id");
@@ -40,17 +42,19 @@ public abstract class DEXBenchmark extends Benchmark {
     	coSEdgeFreqAttribute = graph.findAttribute(coSEdgeType, "freq");
 
     	maxWordID = findMaxWordID();
+
+    	session.commit();
 	}
 
 	@Override
 	public void beforeRun() {
-	    Session session = dex.newSession();
-	    session.begin();
-
+		session.begin();
 	    startNodeID = getRandomNode(20);
+	}
 
-	    session.commit();
-    	session.close();
+	@Override
+	public void afterRun() {
+		session.commit();
 	}
 
 	public int findMaxWordID() {
@@ -63,7 +67,8 @@ public abstract class DEXBenchmark extends Benchmark {
 		Objects neighbors;
 
 		while (true) {
-			node = graph.findObject(wordIdAttribute, new Value().setInteger(r.nextInt(maxWordID)));
+			startWordID = r.nextInt(maxWordID);
+			node = graph.findObject(wordIdAttribute, new Value().setInteger(startWordID));
 			if (node != 0) {
 				neighbors = graph.neighbors(node, coSEdgeType, EdgesDirection.Outgoing);
 				if (neighbors.size() >= outDegree) {

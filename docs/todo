@@ -8,7 +8,7 @@
 2. Neo4j (Martin) 
 	- Cypher Abfragen formulieren -done
 	- Benchmarks mit Cypher Abfragen -done
-	- Benchmarks mit Traverser API
+	- Benchmarks mit Traverser API -done
 	- Zeitmessung (average / min / max / stdev) -done
 	- Bericht
 	- Code-Doku
