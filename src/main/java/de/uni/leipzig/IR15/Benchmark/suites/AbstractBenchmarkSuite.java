@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
+import de.uni.leipzig.IR15.Support.Configuration;
 
 public class AbstractBenchmarkSuite {
 
@@ -21,8 +22,9 @@ public class AbstractBenchmarkSuite {
 		runBenchmarks(benchmarks, false);
 	}
 
-	public static void runBenchmarks(List<Benchmark> benchmarks, boolean log2file) {
-		for(Benchmark bm : benchmarks) {
+	public static void runBenchmarks(List<Benchmark> benchmarks,
+			boolean log2file) {
+		for (Benchmark bm : benchmarks) {
 			runBenchmark(bm, log2file);
 		}
 	}
@@ -38,7 +40,9 @@ public class AbstractBenchmarkSuite {
 
 		long[] results = new long[runs];
 
-		log.info(String.format("Starting Benchmark: %s with %d warmups and %d runs", benchmark.getName(), warmups, runs));
+		log.info(String.format(
+				"Starting Benchmark: %s with %d warmups and %d runs",
+				benchmark.getName(), warmups, runs));
 
 		benchmark.setUp();
 
@@ -65,11 +69,12 @@ public class AbstractBenchmarkSuite {
 		}
 		benchmark.tearDown();
 
-		for(Entry<String, Object> e : benchmark.getResults(results).entrySet()) {
-			log.info(String.format("%s = %s", e.getKey(), e.getValue().toString()));
+		for (Entry<String, Object> e : benchmark.getResults(results).entrySet()) {
+			log.info(String.format("%s = %s", e.getKey(), e.getValue()
+					.toString()));
 		}
 
-		if(log2file) {
+		if (log2file) {
 			storeResults(totalResults, benchmark);
 		}
 
@@ -77,13 +82,23 @@ public class AbstractBenchmarkSuite {
 	}
 
 	private static void storeResults(long[] results, Benchmark benchmark) {
+		Configuration mysqlConf = Configuration.getInstance("mysql");
 
-		String dirString = "out/benchmarks/" + benchmark.getName().toLowerCase() + "/" + new SimpleDateFormat("yyyy.MM.dd-HH.mm.ss").format(new Date());
+		String dirString = "out/benchmarks/"
+				+ mysqlConf.getPropertyAsString("database")
+				+ "/"
+				+ benchmark.getName().toLowerCase()
+				+ "/"
+				+ new SimpleDateFormat("yyyy.MM.dd-HH.mm.ss")
+						.format(new Date());
+		
 		File dir = new File(dirString);
-		if(dir.mkdirs()) {
-			String fileString = dirString + "/" + benchmark.getClass().getSimpleName();
+		if (dir.mkdirs()) {
+			String fileString = dirString + "/"
+					+ benchmark.getClass().getSimpleName();
 			try {
-				BufferedWriter writer = new BufferedWriter(new FileWriter(new File(fileString)));
+				BufferedWriter writer = new BufferedWriter(new FileWriter(
+						new File(fileString)));
 
 				for (int i = 0; i < results.length; i++) {
 					writer.write(String.format("%d\n", results[i]));

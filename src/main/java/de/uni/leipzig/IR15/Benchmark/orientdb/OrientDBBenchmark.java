@@ -1,8 +1,5 @@
 package de.uni.leipzig.IR15.Benchmark.orientdb;
 
-
-import java.util.Set;
-
 import com.orientechnologies.orient.core.db.graph.OGraphDatabase;
 import com.orientechnologies.orient.core.db.record.OIdentifiable;
 import com.orientechnologies.orient.core.record.impl.ODocument;
@@ -27,26 +24,12 @@ public abstract class OrientDBBenchmark extends Benchmark {
 
 	@Override
 	public void beforeRun() {
-		ODocument startVertex;
-		int runs = 0;
-		int numoutEdges = 0;
-
-		do {
-			runs++;
-			startWordID = r.nextInt(maxID);
-
-			// check if WordID exists and if degree of outgoing edges is big enough
-			startVertex = orientdb.getRoot(String.valueOf( startWordID ));
-			numoutEdges = 0;
-			if (startVertex != null) {
-				Set<OIdentifiable> outEdges = orientdb.getOutEdges(startVertex);
-				numoutEdges = outEdges.size();
-			}
-		} while ( runs < 10000 && (startVertex == null || numoutEdges < 20) );
+		startWordID = getRandomNode(20);
 	}
 
 	@Override
-	public void afterRun() {}
+	public void afterRun() {
+	}
 
 	// gets the max WordID. Needed for random WordID
 	public int findMaxWordID() {
@@ -56,7 +39,7 @@ public abstract class OrientDBBenchmark extends Benchmark {
 		// get all Vertices aka words
 		Iterable<ODocument> allWords = orientdb.browseVertices();
 		// for all words
-		for(ODocument word : allWords) {
+		for (ODocument word : allWords) {
 			tmp = word.field("w_id");
 			// check if w_id is bigger than current max
 			if (tmp > m) {
@@ -65,6 +48,43 @@ public abstract class OrientDBBenchmark extends Benchmark {
 		}
 
 		return m;
+	}
+
+	/**
+	 * Returns a random word id with an out degree greater or equal than the
+	 * given treshold.
+	 * 
+	 * @param treshold
+	 *            minimum out degree
+	 * @return random word id
+	 */
+	private int getRandomNode(int treshold) {
+		ODocument startVertex = null;
+		int id = 0;
+
+		while (startVertex == null) {
+			id = r.nextInt(maxID);
+			startVertex = orientdb.getRoot(String.valueOf(id));
+			if (startVertex != null) {
+				int e = 0;
+
+				ODocument sinnlosesRumgeCasteVariable;
+
+				for (OIdentifiable outEdge : orientdb.getOutEdges(startVertex)) {
+					sinnlosesRumgeCasteVariable = orientdb.load(outEdge
+							.getIdentity());
+					if (sinnlosesRumgeCasteVariable.field("type").toString()
+							.equalsIgnoreCase("co_s")) {
+						e++;
+					}
+				}
+
+				if (e < treshold) {
+					startVertex = null;
+				}
+			}
+		}
+		return id;
 	}
 
 	@Override

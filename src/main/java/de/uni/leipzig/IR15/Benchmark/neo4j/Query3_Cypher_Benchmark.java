@@ -21,6 +21,7 @@ public class Query3_Cypher_Benchmark extends CypherBenchmark {
 	@Override
 	public void beforeRun() {
 		super.beforeRun();
+		System.out.println(startNode.getProperty("w_id"));
 		CYPHER_QUERY = String
 				.format("START n=node(%d) MATCH n-[:CO_S]->m, n-[:CO_S]-> t, m-[r:CO_S]-> t return m.w_id, t.w_id, r.sig, r.freq",
 						startNode.getId());
