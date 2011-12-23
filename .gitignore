@@ -15,4 +15,5 @@ out/*
 diff.html
 jdex.log
 dex.log
-/docs/gnuplot/*.dat
+/docs/script/*.dat
+/docs/script/*.gnu

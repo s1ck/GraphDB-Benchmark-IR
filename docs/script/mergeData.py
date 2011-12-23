@@ -1,22 +1,31 @@
-import os		# for list of files
-import subprocess
+import os			# for list of files and folders
+import subprocess	# to start gnuplot
+import math			# for sqrt
 
+BENCHDIR = "../../out/benchmarks"		# the base-dir, where the Benchmarks are located. no / at the end
+LATEXPICDIR = "../report/pics/"			# the dir, where the pics should be saved. must have a / at the end
+DATABASES = ["deu_news_2009_10k", "deu_news_2009_100k", "deu_news_2009_300k", "deu_news_2009_1M"]
+QUERYLANG = ["mysql", "neo4japi", "neo4jc", "neo4jt", "dexapi", "orientapi"]
 
 class DataRecord:
 	DataSet = ""			# deu_news_2009_10k  100k  300k   1M
-	QueryNumber = 0			# 1 , 2 , 3
+	QueryNumber = 0			# 1 , 2 , 3;  0 means probably "import"
 	QueryLanguage = ""		# mysql, neo4japi, neo4jc, neo4jt, dexapi, orientapi
-	Data = []				# 
+	Data = []				# stores the time in ms for each single query
+	
 
 
 # generate the gnuplot-Boxplot-Skripts
 def generateBoxPNG(query_num, db_name):
+	if os.path.isdir(LATEXPICDIR) == False:
+		os.mkdir(LATEXPICDIR)
+	
 	fgnu = open("./boxdata_q" + str(query_num) + "_" + db_name + ".gnu", 'w')
 	
 	gp = ""
 	gp += "### config png output" + "\n"
-	gp += "set terminal png size 1024,768 nocrop font 'Arial,13' truecolor       # gnuplot recommends setting terminal before output" + "\n"
-	gp += "set output 'q" + str(query_num) + "_" + db_name + ".png'"  + "\n"
+	gp += "set terminal png size 1024,768 nocrop font 'Arial,13' truecolor" + "\n"
+	gp += "set output '" + LATEXPICDIR + "q" + str(query_num) + "_" + db_name + ".png'"  + "\n"
 	gp += "### config the output layout" + "\n"
 	gp += "# set the title of the plot" + "\n"
 	gp += "set title 'Query " + str(query_num) + " - " + db_name + "'" + "\n"
@@ -46,8 +55,8 @@ def generateBoxPNG(query_num, db_name):
 	gp += "# keine Legende anzeigen" + "\n"
 	gp += "# unset key" + "\n"
 	gp += "### plot data" + "\n"
-	gp += "# define missing values. should not happen" + "\n"
-	gp += "set datafile missing '-'" + "\n"
+	gp += "# define missing values." + "\n"
+	gp += "set datafile missing 'NaN'" + "\n"
 	gp += "# plot the boxplot" + "\n"
 	gp += "plot for [i=1:6] '" + "boxdata_q" + str(query_num) + "_" + db_name + ".dat" + "' using (i*0.5):i ti col" + "\n"
 	
@@ -55,15 +64,19 @@ def generateBoxPNG(query_num, db_name):
 	fgnu.close()
 	
 	# execute gnuplot and produce png's
-	subprocess.call(["gnuplot", "boxdata_q" + str(query_num) + "_" + db_name + ".gnu"])
+	# subprocess.call(["gnuplot", "boxdata_q" + str(query_num) + "_" + db_name + ".gnu"])
+	
 
 
 def generateHistoPNG(query_num):
+	if os.path.isdir(LATEXPICDIR) == False:
+		os.mkdir(LATEXPICDIR)
+	
 	fgnu = open("./histodata_q" + str(query_num) + ".gnu", 'w')
 	
 	gp = "### config png output" + "\n"
 	gp += "set terminal png size 1024,768 nocrop font 'Arial,13' truecolor       # gnuplot recommends setting terminal before output" + "\n"
-	gp += "set output 'histogram_query" + str(query_num) + ".png' " + "\n"
+	gp += "set output '" + LATEXPICDIR + "histogram_query" + str(query_num) + ".png' " + "\n"
 	gp += "### config the output layout " + "\n"
 	gp += "# set the title of the plot" + "\n"
 	gp += "set title 'Query " + str(query_num) + "'" + "\n"
@@ -89,7 +102,7 @@ def generateHistoPNG(query_num):
 	gp += "set style fill solid 1 border -1" + "\n"
 	gp += "### plot data" + "\n"
 	gp += "# define missing values. should not happen" + "\n"
-	gp += "set datafile missing '-'" + "\n"
+	gp += "set datafile missing 'NaN'" + "\n"
 	gp += "# plot the histogram" + "\n"
 	gp += "plot for [c=1:6] 'histodata_q" + str(q_num) + ".dat" +  "' using c*2:c*2+1:xticlabels(1)  ti col" + "\n"
 	
@@ -97,22 +110,32 @@ def generateHistoPNG(query_num):
 	fgnu.close()
 	
 	# execute gnuplot and produce png's
-	subprocess.call(["gnuplot", "histodata_q" + str(query_num) + ".gnu"])
+	# subprocess.call(["gnuplot", "histodata_q" + str(query_num) + ".gnu"])
 	
 
+def mean (values):
+    return sum(values, 0.0) / len(values)
+	
+
+def stddev (values):
+	m = mean(values)
+	summe = 0
+	for v in values:
+		summe += (m-v) * (m-v)
+	return math.sqrt(summe / len(values) )
+	
 
 ################################################
 # read out the data from a folder-structure 
 ################################################
 
-databases = ["deu_news_2009_10k", "deu_news_2009_100k", "deu_news_2009_300k", "deu_news_2009_1M"]
 allRecords = []
 
 # iterate over all db sizes
-for db in databases:
+for db in DATABASES:
 	# go into directory ./deu_news_2009_* and get all the directories
-	if os.path.isdir("." + os.sep + db):
-		for setting in os.listdir("." + os.sep + db):
+	if os.path.isdir(BENCHDIR + os.sep + db):
+		for setting in os.listdir(BENCHDIR + os.sep + db):
 			el = DataRecord()
 			el.DataSet = db
 			
@@ -138,52 +161,64 @@ for db in databases:
 			elif "dex" in setting: 
 				el.QueryLanguage = "dexapi"
 	
-			# for every singel conducted benchmark, find the latest one (folder = timestamp)
+			# for every single conducted benchmark, find the latest one (folder = timestamp)
 			latest = ""
-			for folder in os.listdir("." + os.sep + db + os.sep + setting):
+			for folder in os.listdir(BENCHDIR + os.sep + db + os.sep + setting):
 				if folder > latest:
 					latest = folder
 			
 			# read out the latest folder --> there should be one file
-			benchFile = os.listdir("." + os.sep + db + os.sep + setting + os.sep + latest)[0]
-			f = open("." + os.sep + db + os.sep + setting + os.sep + latest + os.sep + benchFile , 'r')
+			benchFile = os.listdir(BENCHDIR + os.sep + db + os.sep + setting + os.sep + latest)[0]
+			f = open(BENCHDIR + os.sep + db + os.sep + setting + os.sep + latest + os.sep + benchFile , 'r')
 			# one column of numbers, split them by line break and gat a list of values
 			timeList = f.read().split("\n")
-			# remove first element. is always '' and store the data
-			el.Data = timeList[1:]
+			# remove last element. is always '' and store the data
+			el.Data = timeList[:-1]
+			for i in range(0, len(el.Data)):
+				el.Data[i] = int(el.Data[i])
+			
+			
 			f.close()
 			
 			allRecords.append(el)
+			
+"""
+for u in allRecords:
+	print u.DataSet
+	print u.QueryNumber 
+	print u.QueryLanguage 
+	print u.Data
+exit()
+"""
 
-
+numRows = 0
+for rec in allRecords:
+	if len(rec.Data) > numRows:
+		numRows = len(rec.Data)
+	
 
 ################################################
 # rearrange the data  and  make Boxplots
 ################################################
 
-numRows = len(allRecords[0].Data)
-
 # iterate over all database names
-for db in databases:
+for db in DATABASES:
 	# test on all query numbers
 	for q_num in range(1,4):
 		# array of rows. initialize them with empty lists to append values
 		outData = []
 		for i in range(0, numRows+1): 
 			outData.append([])
+		atLeastOneLang = False
 		
-		# check on all dataSets
-		for ds in allRecords:
-			
-			# test if current dataset belongs to the iterated db
-			if ds.DataSet == db:
-				
-				# create the corresponding gnu-plot data file
-				fout = open("./boxdata_q" + str(q_num) + "_" + ds.DataSet + ".dat", 'w')
-				fout.write("# Data generated by mergeData.py \n")
-				
-				# if dataset belongs to this query-number
-				if ds.QueryNumber == q_num:
+		for lang in QUERYLANG:
+			foundsome = False
+			# check on all dataSets
+			for ds in allRecords:
+				# test if current dataset belongs to the iterated db and if dataset belongs to this query-number
+				if ds.DataSet == db and ds.QueryNumber == q_num and ds.QueryLanguage == lang:
+					foundsome = True
+					atLeastOneLang = True
 					# add the Query-Language as Header
 					outData[0].append(ds.QueryLanguage)
 					# add the data
@@ -192,66 +227,92 @@ for db in databases:
 						try:
 							outData[i+1].append( ds.Data[i] )
 						except:
-							outData[i+1].append( "-" )
+							outData[i+1].append( "NaN" )
+		
+			if foundsome == False:
+				outData[0].append(lang)
+				for i in range(0, numRows):
+					outData[i+1].append( "NaN" )
+		
+		if atLeastOneLang == True:
+			# create the corresponding gnu-plot data file
+			fout = open("./boxdata_q" + str(q_num) + "_" + db + ".dat", 'w')
+			fout.write("# Data generated by mergeData.py \n")
+			
+			for oneline in outData:
+				for ele in oneline:
+					fout.write( "%11s" % str(ele) )
+				fout.write("\n")
+				
+			fout.write("\n")
+			fout.close
+			
+			generateBoxPNG(q_num, db)
 					
-					for oneline in outData:
-						for ele in oneline:
-							fout.write( "%11s" % str(ele) )
-						fout.write("\n")
-	
-					fout.write("\n")
-					generateBoxPNG(q_num, ds.DataSet)
-					fout.close
 
 
 ######################################################
 # rearrange the data  and  make Histogram-Plots
 ######################################################
 
-# iterate over all database names
 # test on all query numbers
 for q_num in range(1,4):
 	# array of rows. initialize
 	outData = [ ["Dataset"],["10k"],["100k"],["300k"],["1M"] ]
-	# create the corresponding gnu-plot data file
-	fout = open("./histodata_q" + str(q_num) + ".dat", 'w')
-	fout.write("# Data generated by mergeData.py \n")
-					
-	for db in databases:
-		# check on all dataSets
-		for ds in allRecords:
-			# test if current dataset belongs to the iterated db
-			if ds.DataSet == db:
-				# if dataset belongs to this query-number
-				if ds.QueryNumber == q_num:
+	atLeastOneElement = False
+	# iterate over all database names
+	for lang in QUERYLANG:
+		# add the Query-Language as Header
+		outData[0].append(lang)
+		outData[0].append(lang)
 				
-					if db == "deu_news_2009_10k":
-						# add the Query-Language as Header
-						outData[0].append(ds.QueryLanguage)
-						# add the Query-Language as Header
-						outData[0].append(ds.QueryLanguage)
-						
-						outData[1].append( 10 )
-						outData[1].append( 11 )
-					elif db == "deu_news_2009_100k":
-						outData[2].append( 100 )
-						outData[2].append( 101 )
-					elif db == "deu_news_2009_300k":
-						outData[3].append( 300 )
-						outData[3].append( 301 )
-					elif db == "deu_news_2009_1M":
-						outData[4].append( 1000 )
-						outData[4].append( 1001 )
+		for db in DATABASES:
+			foundsome = False
+			
+			ind = 99
+			if db == "deu_news_2009_10k":
+				ind = 1
+			elif db == "deu_news_2009_100k":
+				ind = 2
+			elif db == "deu_news_2009_300k":
+				ind = 3
+			elif db == "deu_news_2009_1M":
+				ind = 4
+			
+			# check on all dataSets
+			for ds in allRecords:
+				# test if current dataset belongs to the iterated db and if dataset belongs to this query-number
+				if ds.DataSet == db and ds.QueryNumber == q_num and ds.QueryLanguage == lang:
+					foundsome = True
+					atLeastOneElement = True
+					# add mean and stddev 
+					outData[ind].append(mean(ds.Data))
+					outData[ind].append(stddev(ds.Data))
 					
-	for oneline in outData:
-		for ele in oneline:
-			fout.write( "%11s" % str(ele)  )
+			if foundsome == False:
+				# add mean and stddev 
+				outData[ind].append("NaN")
+				outData[ind].append("NaN")
+	
+	if atLeastOneElement == True:
+		# create the corresponding gnu-plot data file
+		# create the corresponding gnu-plot data file
+		fout = open("./histodata_q" + str(q_num) + ".dat", 'w')
+		fout.write("# Data generated by mergeData.py \n")
+		
+		for oneline in outData:
+			for ele in oneline:
+				fout.write( "%20s" % str(ele) )
+			fout.write("\n")
+			
 		fout.write("\n")
+		fout.close
+		
+		generateHistoPNG(q_num)
+		
 
-	fout.write("\n")
-	generateHistoPNG(q_num)
-	fout.close
-
-
-
-
+#######################################
+# execute all gnu-files
+#######################################
+# gives some gnuplot errors
+# subprocess.call("gnuplot *.gnu", shell=True)

@@ -43,6 +43,7 @@ public abstract class OrientDBBenchmark extends Benchmark {
 
 	@Override
 	public void afterRun() {
+		
 	}
 
 	/**
