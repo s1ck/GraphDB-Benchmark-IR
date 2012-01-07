@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.orientechnologies.orient.core.db.graph.OGraphDatabase;
+import com.orientechnologies.orient.core.intent.OIntentMassiveInsert;
 import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.metadata.schema.OSchema;
 import com.orientechnologies.orient.core.metadata.schema.OType;
@@ -25,7 +26,9 @@ public class OrientDBImporter extends Importer {
 
 	private static OGraphDatabase orientdb;
 	private static enum RelTypes { CO_S, CO_N }
-
+	private OClass cWord;
+	private OClass cco_s;
+	private OClass cco_n;
 
 	public OGraphDatabase getDB() {
 		return orientdb;
@@ -55,21 +58,24 @@ public class OrientDBImporter extends Importer {
 		//define schema and index
 		OSchema dbschema = orientdb.getMetadata().getSchema();
 
-		OClass cWord = orientdb.createVertexType("WORD");
+		cWord = orientdb.createVertexType("WORD");
 		cWord.createProperty("w_id", OType.INTEGER);
 		cWord.createProperty("word", OType.STRING);
 		cWord.createIndex("word_id_Index", OClass.INDEX_TYPE.UNIQUE, "w_id");
-
-		OClass cco_s = orientdb.createEdgeType("CO_S");
+		cWord.setOverSize(2);
+		
+		cco_s = orientdb.createEdgeType("CO_S");
 		cco_s.createProperty("freq", OType.INTEGER);
 		cco_s.createProperty("sig", OType.DOUBLE);
 		cco_s.createProperty("type", OType.STRING);
-
-		OClass cco_n = orientdb.createEdgeType("CO_N");
+		cco_s.setOverSize(2); 
+		
+		cco_n = orientdb.createEdgeType("CO_N");
 		cco_n.createProperty("freq", OType.INTEGER);
 		cco_n.createProperty("sig", OType.DOUBLE);
 		cco_n.createProperty("type", OType.STRING);
-
+		cco_n.setOverSize(2); 
+		
 		dbschema.save();
 	}
 
@@ -91,12 +97,12 @@ public class OrientDBImporter extends Importer {
 	@Override
 	public void importData() {
 		// transfer the data from mysql to orientdb
+		// orientdb.declareIntent( new OIntentMassiveInsert() );
+		// first import the words
 		importWords(mySQLConnection, orientdb);
-
-		// create an index on the nodes for Word_ID
-		// String q1 = "CREATE INDEX WordIds ON OGRAPHVERTEX (W_ID) UNIQUE";
-		// List<ODocument> result = orientdb.query(new OSQLSynchQuery<ODocument>(q1));
-
+		// orientdb.declareIntent( null );
+		
+		// and then the edges between them
 		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_N);
 		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_S);
 	}
@@ -117,22 +123,28 @@ public class OrientDBImporter extends Importer {
 			Statement st = mySQL.createStatement();
 			st.setFetchSize(Integer.MIN_VALUE);
 			ResultSet rs = st.executeQuery(query);
+			
 			// v-type
-
 			ODocument vertex;
 			String word;
 			Integer word_id;
-
+			long t1;
+			long t2;
+			
+			t1 = System.currentTimeMillis();
+			
 			while (rs.next()) {
 				if ((++step % 10000) == 0) {
-					log.info(step + "/" + count);
+					t2 = System.currentTimeMillis();
+					log.info(String.format("%d / %d [%2.2f%%]  %8d ms", step, count, (step.doubleValue()*100.0)/count.doubleValue(), t2-t1 ));
+					t1 = System.currentTimeMillis();
 				}
 
 				word = rs.getString("word");
 				word_id = rs.getInt("w_id");
 
-				vertex = orientdb.createVertex("word");
-
+				vertex = orientdb.createVertex(cWord.getName());
+				
 				vertex.field("w_id", word_id);
 				vertex.field("word", word);
 				vertex.save(); // make it persistent
@@ -165,25 +177,38 @@ public class OrientDBImporter extends Importer {
 			Statement st = mySQL.createStatement();
 			st.setFetchSize(Integer.MIN_VALUE);
 			ResultSet rs = st.executeQuery(query);
-
+			
+			Integer w1_id;
+			Integer w2_id;
+			Double sig;
+			Integer freq;
+			ODocument source;
+			ODocument target;
+			ODocument edge;
+			long t1;
+			long t2;
+			t1 = System.currentTimeMillis();
+			
 			while (rs.next()) {
 				if ((++step % 10000) == 0) {
-					log.info(step + "/" + count);
+					t2 = System.currentTimeMillis();
+					log.info(String.format("%d / %d [%2.2f%%]  %8d ms", step, count, (step.doubleValue()*100.0)/count.doubleValue(), t2-t1 ));
+					t1 = System.currentTimeMillis();
 				}
 
-				Integer w1_id = rs.getInt("w1_id");
-				Integer w2_id = rs.getInt("w2_id");
-				Double sig = rs.getDouble("sig");
-				Integer freq = rs.getInt("freq");
+				w1_id = rs.getInt("w1_id");
+				w2_id = rs.getInt("w2_id");
+				sig = rs.getDouble("sig");
+				freq = rs.getInt("freq");
 
 				// @TODO Dirty, maybe better solution for bigger Graphs
 				// but not with queries. One query takes 0.25s to return 1 vertex
 				// maybe lowlevel extraction by id
-				ODocument source = orientdb.getRoot(w1_id.toString());
-				ODocument target = orientdb.getRoot(w2_id.toString());
+				source = orientdb.getRoot(w1_id.toString());
+				target = orientdb.getRoot(w2_id.toString());
 				// e_type.getName() = co_n or co_s
-				ODocument edge = orientdb.createEdge(source, target, table.toUpperCase());
-
+				edge = orientdb.createEdge(source, target, table.toUpperCase());
+				
 				edge.field("freq", freq);
 				edge.field("sig", sig);
 				edge.field("type", table);
