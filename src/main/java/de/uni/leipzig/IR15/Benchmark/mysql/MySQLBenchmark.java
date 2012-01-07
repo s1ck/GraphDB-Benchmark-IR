@@ -13,9 +13,9 @@ import de.uni.leipzig.IR15.Support.Configuration;
  * Abstract Base Class for all benchmarks running on sql database. It holds a
  * reference to the database it also cares about generating random (and
  * existing) node ids.
- *
+ * 
  * @author Martin 's1ck' Junghanns
- *
+ * 
  */
 public abstract class MySQLBenchmark extends Benchmark {
 
@@ -24,7 +24,8 @@ public abstract class MySQLBenchmark extends Benchmark {
 	protected String query;
 	protected PreparedStatement st;
 	protected int start_WordID;
-	private static Configuration mySQLConfig = Configuration.getInstance("mysql");
+	private static Configuration mySQLConfig = Configuration
+			.getInstance("mysql");
 
 	protected int minOutDegree;
 
@@ -68,7 +69,8 @@ public abstract class MySQLBenchmark extends Benchmark {
 	}
 
 	@Override
-	public void afterRun() {}
+	public void afterRun() {
+	}
 
 	/**
 	 * Run and execute the prepared statement.
@@ -79,6 +81,7 @@ public abstract class MySQLBenchmark extends Benchmark {
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) { /* silence is golden */
 			}
+			rs.close();
 		} catch (SQLException ex) {
 			log.error(ex.getMessage());
 		}
@@ -86,9 +89,9 @@ public abstract class MySQLBenchmark extends Benchmark {
 
 	/**
 	 * Returns a random start node.
-	 *
+	 * 
 	 * Loops with a random w_id until a existing entity is found.
-	 *
+	 * 
 	 * @return
 	 */
 	public int getRandomStartNode(int treshold) {
