@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.orientechnologies.orient.core.db.graph.OGraphDatabase;
+import com.orientechnologies.orient.core.index.OIndexUnique;
 import com.orientechnologies.orient.core.intent.OIntentMassiveInsert;
 import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.metadata.schema.OSchema;
@@ -18,17 +19,22 @@ import de.uni.leipzig.IR15.Connectors.OrientDBConnector;
 
 /**
  * Importer to load all data from mysql to orientdb database.
- *
+ * 
  * @author Sascha 'peil' Ludwig
- *
+ * 
  */
 public class OrientDBImporter extends Importer {
 
-	private static OGraphDatabase orientdb;
-	private static enum RelTypes { CO_S, CO_N }
-	private OClass cWord;
-	private OClass cco_s;
-	private OClass cco_n;
+	private static OGraphDatabase	orientdb;
+
+	private static enum RelTypes {
+		CO_S, CO_N
+	}
+
+	private OClass				cWord;
+	private OClass				cco_s;
+	private OClass				cco_n;
+	private OIndexUnique	index;
 
 	public OGraphDatabase getDB() {
 		return orientdb;
@@ -55,33 +61,33 @@ public class OrientDBImporter extends Importer {
 		// and to MySQL
 		mySQLConnection = MySQLConnector.getConnection();
 
-		//define schema and index
+		// define schema and index
 		OSchema dbschema = orientdb.getMetadata().getSchema();
 
 		cWord = orientdb.createVertexType("WORD");
 		cWord.createProperty("w_id", OType.INTEGER);
 		cWord.createProperty("word", OType.STRING);
-		cWord.createIndex("word_id_Index", OClass.INDEX_TYPE.UNIQUE, "w_id");
+		index = (OIndexUnique) cWord.createIndex("word_id_Index", OClass.INDEX_TYPE.UNIQUE, "w_id");
 		cWord.setOverSize(2);
-		
+
 		cco_s = orientdb.createEdgeType("CO_S");
 		cco_s.createProperty("freq", OType.INTEGER);
 		cco_s.createProperty("sig", OType.DOUBLE);
 		cco_s.createProperty("type", OType.STRING);
-		cco_s.setOverSize(2); 
-		
+		cco_s.setOverSize(2);
+
 		cco_n = orientdb.createEdgeType("CO_N");
 		cco_n.createProperty("freq", OType.INTEGER);
 		cco_n.createProperty("sig", OType.DOUBLE);
 		cco_n.createProperty("type", OType.STRING);
-		cco_n.setOverSize(2); 
-		
+		cco_n.setOverSize(2);
+
 		dbschema.save();
 	}
 
 	/**
 	 * Destroy database connection after running importer.
-	 *
+	 * 
 	 * @see de.uni.leipzig.IR15.Importer.Importer#tearDown()
 	 */
 	@Override
@@ -97,11 +103,12 @@ public class OrientDBImporter extends Importer {
 	@Override
 	public void importData() {
 		// transfer the data from mysql to orientdb
-		// orientdb.declareIntent( new OIntentMassiveInsert() );
+		orientdb.declareIntent(new OIntentMassiveInsert());
+
 		// first import the words
 		importWords(mySQLConnection, orientdb);
 		// orientdb.declareIntent( null );
-		
+
 		// and then the edges between them
 		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_N);
 		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_S);
@@ -109,7 +116,7 @@ public class OrientDBImporter extends Importer {
 
 	/**
 	 * Import all words.
-	 *
+	 * 
 	 * @param mySQL
 	 * @param orientdb
 	 */
@@ -123,20 +130,21 @@ public class OrientDBImporter extends Importer {
 			Statement st = mySQL.createStatement();
 			st.setFetchSize(Integer.MIN_VALUE);
 			ResultSet rs = st.executeQuery(query);
-			
+
 			// v-type
 			ODocument vertex;
 			String word;
 			Integer word_id;
 			long t1;
 			long t2;
-			
+
 			t1 = System.currentTimeMillis();
-			
+
 			while (rs.next()) {
 				if ((++step % 10000) == 0) {
 					t2 = System.currentTimeMillis();
-					log.info(String.format("%d / %d [%2.2f%%]  %8d ms", step, count, (step.doubleValue()*100.0)/count.doubleValue(), t2-t1 ));
+					log.info(String.format("%d / %d [%2.2f%%]  %8d ms", step, count, (step.doubleValue() * 100.0) / count.doubleValue(), t2
+							- t1));
 					t1 = System.currentTimeMillis();
 				}
 
@@ -144,14 +152,10 @@ public class OrientDBImporter extends Importer {
 				word_id = rs.getInt("w_id");
 
 				vertex = orientdb.createVertex(cWord.getName());
-				
+
 				vertex.field("w_id", word_id);
 				vertex.field("word", word);
 				vertex.save(); // make it persistent
-
-				// @TODO: mayber better solution for getting vertices by id later on?!
-				orientdb.setRoot(word_id.toString(), vertex);
-
 			}
 		} catch (SQLException ex) {
 			log.error(ex.getMessage());
@@ -160,7 +164,7 @@ public class OrientDBImporter extends Importer {
 
 	/**
 	 * Import all cooccurrences by <relType>.
-	 *
+	 * 
 	 * @param mySQL
 	 * @param orientdb
 	 * @param relType
@@ -177,7 +181,7 @@ public class OrientDBImporter extends Importer {
 			Statement st = mySQL.createStatement();
 			st.setFetchSize(Integer.MIN_VALUE);
 			ResultSet rs = st.executeQuery(query);
-			
+
 			Integer w1_id;
 			Integer w2_id;
 			Double sig;
@@ -188,11 +192,12 @@ public class OrientDBImporter extends Importer {
 			long t1;
 			long t2;
 			t1 = System.currentTimeMillis();
-			
+
 			while (rs.next()) {
 				if ((++step % 10000) == 0) {
 					t2 = System.currentTimeMillis();
-					log.info(String.format("%d / %d [%2.2f%%]  %8d ms", step, count, (step.doubleValue()*100.0)/count.doubleValue(), t2-t1 ));
+					log.info(String.format("%d / %d [%2.2f%%]  %8d ms", step, count, (step.doubleValue() * 100.0) / count.doubleValue(), t2
+							- t1));
 					t1 = System.currentTimeMillis();
 				}
 
@@ -204,15 +209,15 @@ public class OrientDBImporter extends Importer {
 				// @TODO Dirty, maybe better solution for bigger Graphs
 				// but not with queries. One query takes 0.25s to return 1 vertex
 				// maybe lowlevel extraction by id
-				source = orientdb.getRoot(w1_id.toString());
-				target = orientdb.getRoot(w2_id.toString());
+				source = (ODocument) index.get(w1_id.toString()).getRecord();
+				target = (ODocument) index.get(w2_id.toString()).getRecord();
 				// e_type.getName() = co_n or co_s
 				edge = orientdb.createEdge(source, target, table.toUpperCase());
-				
+
 				edge.field("freq", freq);
 				edge.field("sig", sig);
 				edge.field("type", table);
-				edge.save();  // make it persistent
+				edge.save(); // make it persistent
 			}
 
 		} catch (SQLException ex) {
@@ -222,7 +227,7 @@ public class OrientDBImporter extends Importer {
 
 	/**
 	 * Get mysql row count.
-	 *
+	 * 
 	 * @param sqlConnection
 	 * @param table
 	 * @return
