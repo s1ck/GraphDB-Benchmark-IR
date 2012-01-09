@@ -62,8 +62,6 @@ public class OrientDBImporter extends Importer {
 		mySQLConnection = MySQLConnector.getConnection();
 
 		// define schema and index
-		// OSchema dbschema = orientdb.getMetadata().getSchema();
-		
 		cWord = orientdb.createVertexType("WORD");
 		cWord.createProperty("w_id", OType.INTEGER);
 		cWord.createProperty("word", OType.STRING);
@@ -82,8 +80,6 @@ public class OrientDBImporter extends Importer {
 		cco_n.createProperty("sig", OType.DOUBLE);
 		cco_n.createProperty("type", OType.STRING);
 		cco_n.setOverSize(2);
-
-		// dbschema.save();
 	}
 
 	/**
@@ -103,12 +99,12 @@ public class OrientDBImporter extends Importer {
 	 */
 	@Override
 	public void importData() {
-		// transfer the data from mysql to orientdb
-		// orientdb.declareIntent(new OIntentMassiveInsert());
-
+		
+		orientdb.declareIntent(new OIntentMassiveInsert());
 		// first import the words
 		importWords(mySQLConnection, orientdb);
-		// orientdb.declareIntent( null );
+		// leads to errors while importing coocurrences, if not set to null
+		orientdb.declareIntent( null );
 		
 		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_S);
 		// and then the edges between them
