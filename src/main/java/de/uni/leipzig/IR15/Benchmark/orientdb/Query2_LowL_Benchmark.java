@@ -20,19 +20,16 @@ public class Query2_LowL_Benchmark extends OrientDBBenchmark{
 	 */
 	@Override
 	public void run() {
-		// get the vertex with the given word_id
-		ODocument iVertex = orientdb.getRoot(String.valueOf(startWordID));
-
 		// get all the outgoing edges
-		Set<OIdentifiable> FOoutEdges = orientdb.getOutEdges(iVertex);
-
+		Set<OIdentifiable> FOoutEdges = orientdb.getOutEdges(startVertex);
+		
 		// for all outgoing edges
 		for (OIdentifiable FOoutEdgeIter : FOoutEdges) {
 			// cast the Edge to a real Edge (because of return-type of getOutEdges)
-			ODocument FOoutEdge = orientdb.load(FOoutEdgeIter.getIdentity());
-
+			ODocument FOoutEdge = (ODocument) FOoutEdgeIter.getRecord();
+			
 			// if the edge is of type co_s
-			if ( FOoutEdge.field("type").toString().equalsIgnoreCase("co_s")) {
+			if ( FOoutEdge.field("type").toString().equalsIgnoreCase("co_s") ) {
 				// get the Vertex at the end of the edge
 				ODocument FOoutVertex = orientdb.getInVertex(FOoutEdge);
 
@@ -42,10 +39,10 @@ public class Query2_LowL_Benchmark extends OrientDBBenchmark{
 				// for all second order outgoing edges
 				for (OIdentifiable SOoutEdgeIter : SOoutEdges) {
 					// cast the Edge to a real Edge (because of return-type of getOutEdges)
-					ODocument SOoutEdge = orientdb.load(SOoutEdgeIter.getIdentity());
-
+					ODocument SOoutEdge = (ODocument) SOoutEdgeIter.getRecord();
+					
 					// if type is co_s
-					if ( SOoutEdge.field("type").toString().equalsIgnoreCase("co_s")) {
+					if ( SOoutEdge.field("type").toString().equalsIgnoreCase("co_s") ) {
 						SOoutEdge.field("freq");
 						SOoutEdge.field("sig");
 						orientdb.getOutVertex(SOoutEdge).field("w_id");
@@ -54,6 +51,7 @@ public class Query2_LowL_Benchmark extends OrientDBBenchmark{
 				}
 			}
 		}
+		
 	}
 
 	/**

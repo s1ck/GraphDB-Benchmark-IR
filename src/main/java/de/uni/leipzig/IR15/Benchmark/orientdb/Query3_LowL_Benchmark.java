@@ -39,43 +39,38 @@ public class Query3_LowL_Benchmark extends OrientDBBenchmark{
 	@Override
 	public void run() {
 		Set<ODocument> FOVertices = new HashSet<ODocument>();
-
-		// get the vertex with the given word_id
-		ODocument iVertex = orientdb.getRoot(String.valueOf( startWordID ));
-		// test if not null. should always be true, because the before_run methods tests on existence
-		if (iVertex != null) {
-			// get all the outgoing edges
-			Set<OIdentifiable> FOoutEdges = orientdb.getOutEdges(iVertex);
-			// for all outgoing edges
-			for (OIdentifiable FOoutEdgeIter : FOoutEdges) {
-				// cast the Edge to a real Edge (because of return-type of getOutEdges)
-				ODocument FOoutEdge = orientdb.load(FOoutEdgeIter.getIdentity());
-				// if the edge is of type co_s
-				if ( FOoutEdge.field("type").toString().equalsIgnoreCase("co_s")) {
-					// get the Vertex at the end of the edge
-					ODocument FOoutVertex = orientdb.getInVertex(FOoutEdge);
-					FOVertices.add(FOoutVertex);
-				}
+		
+		// get all the outgoing edges
+		Set<OIdentifiable> FOoutEdges = orientdb.getOutEdges(startVertex);
+		// for all outgoing edges
+		for (OIdentifiable FOoutEdgeIter : FOoutEdges) {
+			// cast the Edge to a real Edge (because of return-type of getOutEdges)
+			ODocument FOoutEdge = (ODocument) FOoutEdgeIter.getRecord();
+			// if the edge is of type co_s
+			if ( FOoutEdge.field("type").toString().equalsIgnoreCase("co_s")) {
+				// get the Vertex at the end of the edge
+				ODocument FOoutVertex = orientdb.getInVertex(FOoutEdge);
+				FOVertices.add(FOoutVertex);
 			}
-
-			for(ODocument FOoutVertex : FOVertices  ){
-				//and from there all outgoing edges again
-				Set<OIdentifiable> SOoutEdges = orientdb.getOutEdges(FOoutVertex);
-				// for all second order outgoing edges
-				for (OIdentifiable SOoutEdgeIter : SOoutEdges) {
-					// cast the Edge to a real Edge (because of return-type of getOutEdges)
-					ODocument SOoutEdge = orientdb.load(SOoutEdgeIter.getIdentity());
-					// if type is co_s
-					if ( SOoutEdge.field("type").toString().equalsIgnoreCase("co_s") && FOVertices.contains(orientdb.getInVertex(SOoutEdge))) {
-						SOoutEdge.field("freq");
-						SOoutEdge.field("sig");
-						orientdb.getOutVertex(SOoutEdge).field("w_id");
-						orientdb.getInVertex(SOoutEdge).field("w_id");
-					}
-				}
-			}
-
 		}
+		
+		for(ODocument FOoutVertex : FOVertices  ){
+			//and from there all outgoing edges again
+			Set<OIdentifiable> SOoutEdges = orientdb.getOutEdges(FOoutVertex);
+			// for all second order outgoing edges
+			for (OIdentifiable SOoutEdgeIter : SOoutEdges) {
+				// cast the Edge to a real Edge (because of return-type of getOutEdges)
+				ODocument SOoutEdge = (ODocument) SOoutEdgeIter.getRecord();
+				// if type is co_s
+				if ( SOoutEdge.field("type").toString().equalsIgnoreCase("co_s") && FOVertices.contains(orientdb.getInVertex(SOoutEdge))) {
+					SOoutEdge.field("freq");
+					SOoutEdge.field("sig");
+					orientdb.getOutVertex(SOoutEdge).field("w_id");
+					orientdb.getInVertex(SOoutEdge).field("w_id");
+				}
+			}
+		}
+		
 	}
 
 	/**

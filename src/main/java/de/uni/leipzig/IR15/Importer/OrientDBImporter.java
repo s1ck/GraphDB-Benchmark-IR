@@ -10,7 +10,6 @@ import com.orientechnologies.orient.core.db.graph.OGraphDatabase;
 import com.orientechnologies.orient.core.index.OIndexUnique;
 import com.orientechnologies.orient.core.intent.OIntentMassiveInsert;
 import com.orientechnologies.orient.core.metadata.schema.OClass;
-import com.orientechnologies.orient.core.metadata.schema.OSchema;
 import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 
@@ -40,7 +39,7 @@ public class OrientDBImporter extends Importer {
 	public OGraphDatabase getDB() {
 		return orientdb;
 	}
-
+	
 	/**
 	 * Setup the importer, reset and get a connection to the database.
 	 */
@@ -58,33 +57,33 @@ public class OrientDBImporter extends Importer {
 
 		// connect (create) to OrientDB
 		orientdb = OrientDBConnector.getConnection();
-
+		
 		// and to MySQL
 		mySQLConnection = MySQLConnector.getConnection();
 
 		// define schema and index
-		OSchema dbschema = orientdb.getMetadata().getSchema();
-
+		// OSchema dbschema = orientdb.getMetadata().getSchema();
+		
 		cWord = orientdb.createVertexType("WORD");
 		cWord.createProperty("w_id", OType.INTEGER);
 		cWord.createProperty("word", OType.STRING);
-		index = (OIndexUnique) cWord.createIndex("word_id_Index",
+		index = (OIndexUnique) cWord.createIndex("word_id_index",
 				OClass.INDEX_TYPE.UNIQUE, "w_id");
 		cWord.setOverSize(2);
-
+		
 		cco_s = orientdb.createEdgeType("CO_S");
 		cco_s.createProperty("freq", OType.INTEGER);
 		cco_s.createProperty("sig", OType.DOUBLE);
 		cco_s.createProperty("type", OType.STRING);
 		cco_s.setOverSize(2);
-
+		
 		cco_n = orientdb.createEdgeType("CO_N");
 		cco_n.createProperty("freq", OType.INTEGER);
 		cco_n.createProperty("sig", OType.DOUBLE);
 		cco_n.createProperty("type", OType.STRING);
 		cco_n.setOverSize(2);
 
-		dbschema.save();
+		// dbschema.save();
 	}
 
 	/**
@@ -105,7 +104,7 @@ public class OrientDBImporter extends Importer {
 	@Override
 	public void importData() {
 		// transfer the data from mysql to orientdb
-		orientdb.declareIntent(new OIntentMassiveInsert());
+		// orientdb.declareIntent(new OIntentMassiveInsert());
 
 		// first import the words
 		importWords(mySQLConnection, orientdb);
@@ -157,8 +156,8 @@ public class OrientDBImporter extends Importer {
 				word_id = rs.getInt("w_id");
 
 				vertex = orientdb.createVertex(cWord.getName());
-
-				vertex.field("w_id", word_id);
+				
+				vertex.field("w_id", word_id.intValue());
 				vertex.field("word", word);
 				vertex.save(); // make it persistent
 			}
@@ -219,8 +218,8 @@ public class OrientDBImporter extends Importer {
 				// vertex
 				// maybe lowlevel extraction by id
 				// String getParam = w1_id.toString();
-				source = (ODocument) index.get( w1_id ).getRecord();
-				target = (ODocument) index.get( w2_id ).getRecord();
+				source = (ODocument) index.get( w1_id.intValue() ).getRecord();
+				target = (ODocument) index.get( w2_id.intValue() ).getRecord();
 				// e_type.getName() = co_n or co_s
 				edge = orientdb.createEdge(source, target, table.toUpperCase());
 

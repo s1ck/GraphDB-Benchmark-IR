@@ -2,9 +2,9 @@ package de.uni.leipzig.IR15.Benchmark.orientdb;
 
 import com.orientechnologies.orient.core.db.graph.OGraphDatabase;
 import com.orientechnologies.orient.core.db.record.OIdentifiable;
+import com.orientechnologies.orient.core.index.OIndex;
+import com.orientechnologies.orient.core.index.OIndexUnique;
 import com.orientechnologies.orient.core.record.impl.ODocument;
-import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
-
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Connectors.OrientDBConnector;
 
@@ -18,18 +18,22 @@ import de.uni.leipzig.IR15.Connectors.OrientDBConnector;
  */
 public abstract class OrientDBBenchmark extends Benchmark {
 
+	// TODO remove
 	protected long startWordID;
+	
+	protected ODocument startVertex;
 	protected OGraphDatabase orientdb;
+	protected OIndexUnique index;
 	protected int maxID;
-	protected OSQLSynchQuery<ODocument> prep_query1;
-	protected OSQLSynchQuery<ODocument> prep_query2;
-
+	
 	/**
-	 * Setup the database connection and get the maximum word id.
+	 * Setup the database connection, get the index and get the maximum word id.
 	 */
 	@Override
 	public void setUp() {
 		orientdb = OrientDBConnector.getConnection();
+		index = (OIndexUnique) orientdb.getMetadata().getIndexManager().getIndexInternal("word_id_index");
+		log.info(index);
 		maxID = findMaxWordID();
 	}
 
@@ -38,7 +42,7 @@ public abstract class OrientDBBenchmark extends Benchmark {
 	 */
 	@Override
 	public void beforeRun() {
-		startWordID = getRandomNode(20);
+		startVertex = getRandomNode(20);
 	}
 
 	@Override
@@ -69,40 +73,39 @@ public abstract class OrientDBBenchmark extends Benchmark {
 		return m;
 	}
 
-	/** Returns a random word id with an out degree greater or equal than the
-	 * given treshold.
+	/** Returns a random starting vertex with an out degree greater or equal than the
+	 * given threshold.
 	 *
-	 * @param treshold
+	 * @param threshold
 	 *            minimum out degree
-	 * @return random word id
+	 * @return random starting vertex
 	 */
-	private int getRandomNode(int treshold) {
-		ODocument startVertex = null;
+	private ODocument getRandomNode(int threshold) {
+		ODocument sVertex = null;
+		ODocument sinnlosesRumgeCasteVariable = null;
 		int id = 0;
-
-		while (startVertex == null) {
+		
+		while (sVertex == null) {
 			id = r.nextInt(maxID);
-			startVertex = orientdb.getRoot(String.valueOf(id));
-			if (startVertex != null) {
+			
+			if (index.get( id ) != null) {
+				sVertex = (ODocument) index.get( id ).getRecord();
 				int e = 0;
-
-				ODocument sinnlosesRumgeCasteVariable;
-
-				for (OIdentifiable outEdge : orientdb.getOutEdges(startVertex)) {
-					sinnlosesRumgeCasteVariable = orientdb.load(outEdge
-							.getIdentity());
+				
+				for (OIdentifiable outEdge : orientdb.getOutEdges(sVertex)) {
+					sinnlosesRumgeCasteVariable = (ODocument) outEdge.getRecord();
 					if (sinnlosesRumgeCasteVariable.field("type").toString()
 							.equalsIgnoreCase("co_s")) {
 						e++;
 					}
 				}
 
-				if (e < treshold) {
-					startVertex = null;
+				if (e < threshold) {
+					sVertex = null;
 				}
 			}
 		}
-		return id;
+		return sVertex;
 	}
 
 	@Override
