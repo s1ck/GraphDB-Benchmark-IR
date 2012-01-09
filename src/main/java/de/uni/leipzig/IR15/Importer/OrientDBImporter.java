@@ -25,16 +25,16 @@ import de.uni.leipzig.IR15.Connectors.OrientDBConnector;
  */
 public class OrientDBImporter extends Importer {
 
-	private static OGraphDatabase	orientdb;
+	private static OGraphDatabase orientdb;
 
 	private static enum RelTypes {
 		CO_S, CO_N
 	}
 
-	private OClass				cWord;
-	private OClass				cco_s;
-	private OClass				cco_n;
-	private OIndexUnique	index;
+	private OClass cWord;
+	private OClass cco_s;
+	private OClass cco_n;
+	private OIndexUnique index;
 
 	public OGraphDatabase getDB() {
 		return orientdb;
@@ -67,7 +67,8 @@ public class OrientDBImporter extends Importer {
 		cWord = orientdb.createVertexType("WORD");
 		cWord.createProperty("w_id", OType.INTEGER);
 		cWord.createProperty("word", OType.STRING);
-		index = (OIndexUnique) cWord.createIndex("word_id_Index", OClass.INDEX_TYPE.UNIQUE, "w_id");
+		index = (OIndexUnique) cWord.createIndex("word_id_Index",
+				OClass.INDEX_TYPE.UNIQUE, "w_id");
 		cWord.setOverSize(2);
 
 		cco_s = orientdb.createEdgeType("CO_S");
@@ -143,8 +144,10 @@ public class OrientDBImporter extends Importer {
 			while (rs.next()) {
 				if ((++step % 10000) == 0) {
 					t2 = System.currentTimeMillis();
-					log.info(String.format("%d / %d [%2.2f%%]  %8d ms", step, count, (step.doubleValue() * 100.0) / count.doubleValue(), t2
-							- t1));
+					log.info(String.format("%d / %d [%2.2f%%]  %8d ms", step,
+							count,
+							(step.doubleValue() * 100.0) / count.doubleValue(),
+							t2 - t1));
 					t1 = System.currentTimeMillis();
 				}
 
@@ -169,7 +172,8 @@ public class OrientDBImporter extends Importer {
 	 * @param orientdb
 	 * @param relType
 	 */
-	private void importCooccurrences(Connection mySQL, OGraphDatabase orientdb, RelTypes relType) {
+	private void importCooccurrences(Connection mySQL, OGraphDatabase orientdb,
+			RelTypes relType) {
 		String table = relType.toString().toLowerCase();
 		Integer count = getRowCount(mySQL, table), step = 0;
 
@@ -196,8 +200,10 @@ public class OrientDBImporter extends Importer {
 			while (rs.next()) {
 				if ((++step % 10000) == 0) {
 					t2 = System.currentTimeMillis();
-					log.info(String.format("%d / %d [%2.2f%%]  %8d ms", step, count, (step.doubleValue() * 100.0) / count.doubleValue(), t2
-							- t1));
+					log.info(String.format("%d / %d [%2.2f%%]  %8d ms", step,
+							count,
+							(step.doubleValue() * 100.0) / count.doubleValue(),
+							t2 - t1));
 					t1 = System.currentTimeMillis();
 				}
 
@@ -207,11 +213,11 @@ public class OrientDBImporter extends Importer {
 				freq = rs.getInt("freq");
 
 				// @TODO Dirty, maybe better solution for bigger Graphs
-				// but not with queries. One query takes 0.25s to return 1 vertex
+				// but not with queries. One query takes 0.25s to return 1
+				// vertex
 				// maybe lowlevel extraction by id
-				source = (ODocument) index.get(w1_id.toString()).getRecord();
-				target = (ODocument) index.get(w2_id.toString()).getRecord();
-				// e_type.getName() = co_n or co_s
+				source = (ODocument) index.get(w1_id).getRecord();
+				target = (ODocument) index.get(w2_id).getRecord();
 				edge = orientdb.createEdge(source, target, table.toUpperCase());
 
 				edge.field("freq", freq);
