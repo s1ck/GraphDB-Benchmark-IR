@@ -34,7 +34,7 @@ public class OrientDBImporter extends Importer {
 	private OClass				cWord;
 	private OClass				cco_s;
 	private OClass				cco_n;
-	private OIndexUnique	index;
+	private OIndexUnique		index;
 
 	public OGraphDatabase getDB() {
 		return orientdb;
@@ -108,10 +108,11 @@ public class OrientDBImporter extends Importer {
 		// first import the words
 		importWords(mySQLConnection, orientdb);
 		// orientdb.declareIntent( null );
-
+		
+		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_S);
 		// and then the edges between them
 		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_N);
-		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_S);
+		
 	}
 
 	/**
@@ -209,8 +210,9 @@ public class OrientDBImporter extends Importer {
 				// @TODO Dirty, maybe better solution for bigger Graphs
 				// but not with queries. One query takes 0.25s to return 1 vertex
 				// maybe lowlevel extraction by id
-				source = (ODocument) index.get(w1_id.toString()).getRecord();
-				target = (ODocument) index.get(w2_id.toString()).getRecord();
+				// String getParam = w1_id.toString();
+				source = (ODocument) index.get( w1_id ).getRecord();
+				target = (ODocument) index.get( w2_id ).getRecord();
 				// e_type.getName() = co_n or co_s
 				edge = orientdb.createEdge(source, target, table.toUpperCase());
 
