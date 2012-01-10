@@ -18,7 +18,7 @@
 		Sascha Ludwig \\ \url{s.ludwig@studserv.uni-leipzig.de} \and 
 		Robert Schulze \\ \url{robert.schulze@studserv.uni-leipzig.de} }
 \date{\today}
-\title{Performanz Evaluation von Graphdatenbanksystemen versus SQL am Beispiel von Kookkurrenzgraphen }
+\title{Performanz Evaluation von Graphdatenbanksystemen versus MySQL am Beispiel von Kookkurrenzgraphen }
 
 \begin{document}
 
@@ -41,6 +41,18 @@
 \section{Neo4j}
 
 \section{OrientDB}
+
+\subsection{Gebrauch}
+OrientDB lässt sich einfach über eine Java API steuern. Das Handling von OrientDB wird, nach einer gewissen Einarbeitungszeit, relativ einfach, was auch der guten Javadoc der API geschuldet ist. Neben einer Java-API bietet OrientDB auch die Möglichkeit der Steuerung des Datenbanksystems über eine Konsole. Dies hat den Vorteil, dass man das Datenbanksystem erkunden und kennen lernen kann. In der Konsolen können Befehle in einer SQL-artigen Syntax an das DBS geschickt und ausgewertet werden.
+
+\subsection{Einschränkungen}
+Ein großes Bottleneck bei OrientDB ist der Import der Daten aus einer SQL-Datenbank. Auch nach dem befolgen der "Performance Hints" und dem Optimieren diverser JVM Parameter, stieg die Zeit für den Import exponentiell zur Anzahl der einzufügenden Daten an. Dies hat zur Folge, dass große Datenbanken (ab 1M Datensatz) nicht mehr importiert werden konnten. Mittels JProfiler konnte der Persistierungsprozess von OrientDB als HotSpot ausgemacht werden. Ein Kontaktaufnahme mit dem Autor bezüglich dieses Performanzverlustes ist durch uns erfolgt.
+
+\subsection{Dokumentation}
+OrientDB ist gut und ausführlich dokumentiert. Es liegt sowohl eine komplette und ausführliche Javadoc der API vor, als auch Informationsseiten zu grundlegenden und weiterführenden Aspekten vor. Auf diesen Webseiten lassen sich Informationen zu fast allen Fragen finden. Allerdings ist das Finden einer Antwort auf eine konkrete Frage teilweise schwierig. Dies ist unter Umständen dem Fakt geschuldet, dass OrientDB sowohl ein Dokumenten-Datenbanksystem, als auch ein Key-Value-Store, als auch ein Graphdatenbanksystem ist. Oft werden in der Dokumentation diese drei Konzepte vermischt, was zu Verwirrungen führen kann. Weiterhin hat das Fehlen eines ausführlichen und kompletten Einstiegbeispiels die Einarbeitung erschwert. Auch fehlen Beispiele für komplexe Anwendungsfälle. Allerdings war der Autor bei speziellen Fragen per E-Mail zu erreichen, wobei man auf eine Antwort lediglich eine angemessene Zeit warten musste.
+
+\subsection{Aussicht}
+OrientDB stellt bezüglich seiner Graphdatenbankenfunktionalität einige interssante Features in Aussicht. OrientDB stellt seit Kurzem eine Implementation der Tinkerpop Blueprints APIs zur Verfügung. Somit steht auch die einfache und leicht lesbare Highlevel-Abfragesprache Gremlin zur verfügbar. Mit dieser Abfragesprache ist es möglich auch komplexe und vielseitige Abfragen verständlich zu formulieren.
 
 
 \section{DEX}

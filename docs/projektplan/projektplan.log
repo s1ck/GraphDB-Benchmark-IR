@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2011.11.2)  10 JAN 2012 01:41
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2011.11.2)  10 JAN 2012 11:37
 entering extended mode
  %&-line parsing enabled.
-**ir15_report.tex
-(./ir15_report.tex
+**projektplan.tex
+(./projektplan.tex
 LaTeX2e <2009/09/24>
 Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
 yphenation, loaded.
@@ -307,28 +307,48 @@ File: pdfmark.def 2009/10/09 v6.79a Hyperref definitions for pdfmark specials
 \pdf@toks=\toks27
 \pdf@defaulttoks=\toks28
 \Fld@listcount=\count107
-)) (./ir15_report.aux)
-\openout1 = `ir15_report.aux'.
+))
+(/usr/share/texmf-texlive/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2005/04/14 v1.61803 publication quality tables
+\heavyrulewidth=\dimen118
+\lightrulewidth=\dimen119
+\cmidrulewidth=\dimen120
+\belowrulesep=\dimen121
+\belowbottomsep=\dimen122
+\aboverulesep=\dimen123
+\abovetopsep=\dimen124
+\cmidrulesep=\dimen125
+\cmidrulekern=\dimen126
+\defaultaddspace=\dimen127
+\@cmidla=\count108
+\@cmidlb=\count109
+\@aboverulesep=\dimen128
+\@belowrulesep=\dimen129
+\@thisruleclass=\count110
+\@lastruleclass=\count111
+\@thisrulewidth=\dimen130
+) (./projektplan.aux)
+\openout1 = `projektplan.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
 
 (/usr/share/texmf-texlive/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2003/11/29 Fixes to fontencodings LGR, T3
 )
-Package hyperref Info: Link coloring OFF on input line 23.
+Package hyperref Info: Link coloring OFF on input line 24.
 
 (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
 Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
@@ -336,20 +356,20 @@ Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 (/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
 Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
-\c@section@level=\count108
+\c@section@level=\count112
 )
-LaTeX Info: Redefining \ref on input line 23.
-LaTeX Info: Redefining \pageref on input line 23.
- (./ir15_report.out) (./ir15_report.out)
+LaTeX Info: Redefining \ref on input line 24.
+LaTeX Info: Redefining \pageref on input line 24.
+ (./projektplan.out) (./projektplan.out)
 \@outlinefile=\write3
-\openout3 = `ir15_report.out'.
+\openout3 = `projektplan.out'.
 
 \AtBeginShipoutBox=\box29
-LaTeX Font Info:    Try loading font information for U+msa on input line 30.
+LaTeX Font Info:    Try loading font information for U+msa on input line 31.
  (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 30.
+LaTeX Font Info:    Try loading font information for U+msb on input line 31.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
@@ -357,53 +377,20 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 (/usr/share/texmf-texlive/tex/latex/ucs/data/uni-0.def
 File: uni-0.def 2004/10/17 UCS: Unicode data U+0000..U+00FF
 )
-Underfull \hbox (badness 1430) in paragraph at lines 52--53
-\OT1/cmr/m/n/10.95 tiert. Es liegt sowohl eine kom-plette und
- []
-
-
-Underfull \hbox (badness 1888) in paragraph at lines 52--53
-\OT1/cmr/m/n/10.95 schwierig. Dies ist unter Umst[]anden dem
- []
-
-
-Underfull \hbox (badness 1142) in paragraph at lines 52--53
-\OT1/cmr/m/n/10.95 banksys-tem ist. Oft wer-den in der Doku-
- []
-
-
-Underfull \hbox (badness 1014) in paragraph at lines 52--53
-\OT1/cmr/m/n/10.95 speziellen Fra-gen per E-Mail zu er-re-ichen,
+Overfull \hbox (49.8858pt too wide) in paragraph at lines 43--65
+[][] 
  []
 
 [1
 
-
-]
-Underfull \hbox (badness 6725) in paragraph at lines 55--56
-\OT1/cmr/m/n/10.95 OrientDB stellt bez[]uglich sein-er Graph-
- []
-
-
-Underfull \hbox (badness 1418) in paragraph at lines 55--56
-\OT1/cmr/m/n/10.95 daten-banken-funk-tion-alit[]at einige in-ter-ssante
- []
-
-
-Underfull \hbox (badness 1484) in paragraph at lines 55--56
-\OT1/cmr/m/n/10.95 Fea-tures in Aus-sicht. Ori-ent-DB stellt seit
- []
-
-[2
-
-] (./ir15_report.aux) ) 
+] [2] (./projektplan.aux) ) 
 Here is how much of TeX's memory you used:
- 6147 strings out of 495062
- 85201 string characters out of 1182644
- 172179 words of memory out of 3000000
- 9211 multiletter control sequences out of 15000+50000
- 9965 words of font info for 38 fonts, out of 3000000 for 9000
+ 6200 strings out of 495062
+ 85888 string characters out of 1182644
+ 172174 words of memory out of 3000000
+ 9259 multiletter control sequences out of 15000+50000
+ 11214 words of font info for 43 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,11n,44p,972b,480s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,11n,43p,880b,480s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on ir15_report.dvi (2 pages, 10364 bytes).
+Output written on projektplan.dvi (2 pages, 8852 bytes).

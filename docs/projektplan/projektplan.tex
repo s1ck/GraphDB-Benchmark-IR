@@ -1,0 +1,69 @@
+\documentclass[11pt, a4paper, oneside]{article} % article scrartcl
+\usepackage[utf8x]{inputenc}		% Umlaute können genutzt werden ohne \" davor zu stellen
+\usepackage{ucs}					% contains support for using UTF-8 as input encoding
+\usepackage{amsmath}				% besser Mathe-Ausgabe
+\usepackage{amsfonts}				% Mathe-Schrift
+\usepackage{amssymb}				% Mathe-Symbole
+\usepackage[ngerman]{babel}			% für deutsche Sprache. Übersetzungen (z.Bsp. Zusammenfassung <-- Abstract) und Silbentrennung 
+\usepackage{fancyhdr}				% für Kopf- und Fußzeilen
+\usepackage{graphicx}				% für Bilder
+\usepackage{graphics}				% für Bilder
+\usepackage{url}					% für anklickbare URLs
+\usepackage{parskip}				% kein Einrücken sondern Leerzeilen zwischen Abschnitten
+\usepackage{color}					% Farben
+\usepackage{units}   				% Einheiten, \unit[23]{m}
+\usepackage{hyperref}				% Referenzen
+\usepackage{booktabs}				% Tabellen
+
+\author{Martin Junghanns \\  \url{martin.junghanns@studserv.uni-leipzig.de} \and 
+		Sascha Ludwig \\ \url{s.ludwig@studserv.uni-leipzig.de} \and 
+		Robert Schulze \\ \url{robert.schulze@studserv.uni-leipzig.de} }
+\date{\today}
+\title{Performanz Evaluation von Graphdatenbanksystemen versus MySQL am Beispiel von Kookkurrenzgraphen }
+
+\begin{document}
+
+% bei Aufzählungen einen Strich an Stelle eines Punktes verwenden
+\renewcommand{\labelitemi}{-}
+
+% Titel mit Autoren
+\maketitle
+
+
+\section{Ziel}
+
+Ziel dieses Projektes ist der Vergleich von Graphdatenbanksystemen versus MySQL hinsichtlich Abfragegeschwindigkeit auf Kookurrenzgraphen. Hierbei soll mindestens ein GraphDBS mit MySQL verglichen werden. Der Vergleich erfolgt in Hinblick auf die Abfragegeschwindigkeit für drei verschiedene, für die automatische Sprachverarbeitung typischen Queries. Das GraphDBS soll auf Skalierbarkeit hinsichtlich der Datenbank-, und somit auch der Graphengröße, untersucht werden. Wir vermuten, dass GraphDBS für größer werdende Datenbanken bzw. Graphen linear skalieren, wohingegen SQL, bedingt durch rechenaufwendige JOINs, schlechter skalieren sollte. Wichtig ist hierbei, dass das GraphDBS eine Java API bereitstellt, damit es einfach genutzt werden kann. 
+
+\section{Zeitplan}
+
+\setlength{\tabcolsep}{10pt}		% Spaltenabstand
+\renewcommand{\arraystretch}{1.5}	% Zeilenabstand
+
+\begin{table}
+\begin{tabular}{|p{1cm}|p{12cm}|}
+%Tabellenkopf
+\hline \textbf{bis} & \textbf{ Aufgabe} \\ 
+\hline 31.10 & Spezifizieren des genauen Aufgabenstellung, Treffen mit D. Goldhahn \\ 
+\hline 31.10 & Spezifizieren, welche Queries an das DBS gestellt werden sollen \\ 
+\hline 31.10 & Ausfindig machen von Graphdatenbanksystemen \\ 
+\hline 07.11 & Erstellen eines Code-Repositories für kollaboratives arbeiten \\ 
+\hline 14.11 & Vertraut machen mit der jeweiligen spezifischen GraphDB Java API \\ 
+\hline 21.11 & Erstellen einer Klassenstruktur für das gesamte Projekt \\ 
+\hline 21.11 & Implementieren der Importer von MySQL in die jeweiligen GraphDBS  \\ 
+\hline 05.12 & Implementieren der Queries in der native API der jeweiligen GraphDBS \\ 
+\hline 12.12 & Implementieren der Queries in eventuell vorhandenen highlevel Sprachen \\ 
+\hline 19.12 & Implementieren von automatisch durchführbaren Benchmarks mit anschließender automatischen Generierung von  Performance-Plots \\ 
+\hline 09.01 & Tunen der Performance für jedes GraphDBS \\ 
+\hline 09.01 & Feinüberarbeitung des gesamten Projektes \\ 
+\hline 10.01 & Überarbeiten der Java-Code-Dokumentation  \\ 
+\hline 13.01 & Durchführen der Benchmarks und erstellen der Plots \\ 
+\hline 16.01 & Erstellen des Abschlussberichtes \\ 
+\hline 16.01 & Erstellen der Abschlusspräsentation \\ 
+\hline 20.01 & Halten der Abschlusspräsentation \\ 
+\hline
+\end{tabular}
+\end{table}
+
+
+\end{document}
+
