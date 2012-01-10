@@ -1,4 +1,4 @@
-\documentclass[11pt, a4paper, oneside]{article} % article scrartcl
+\documentclass[11pt, a4paper, ngerman, oneside]{article} % article scrartcl
 \usepackage[utf8x]{inputenc}		% Umlaute können genutzt werden ohne \" davor zu stellen
 \usepackage{ucs}					% contains support for using UTF-8 as input encoding
 \usepackage{amsmath}				% besser Mathe-Ausgabe
@@ -19,7 +19,7 @@
 		Sascha Ludwig \\ \url{s.ludwig@studserv.uni-leipzig.de} \and 
 		Robert Schulze \\ \url{robert.schulze@studserv.uni-leipzig.de} }
 \date{\today}
-\title{Performanz Evaluation von Graphdatenbanksystemen versus MySQL am Beispiel von Kookkurrenzgraphen }
+\title{Evaluation von Graphdatenbanken und MySQL am Beispiel von Kookkurrenzgraphen }
 
 \begin{document}
 
@@ -32,31 +32,37 @@
 
 \section{Ziel}
 
-Ziel dieses Projektes ist der Vergleich von Graphdatenbanksystemen versus MySQL hinsichtlich Abfragegeschwindigkeit auf Kookurrenzgraphen. Hierbei soll mindestens ein GraphDBS mit MySQL verglichen werden. Der Vergleich erfolgt in Hinblick auf die Abfragegeschwindigkeit für drei verschiedene, für die automatische Sprachverarbeitung typischen Queries. Das GraphDBS soll auf Skalierbarkeit hinsichtlich der Datenbank-, und somit auch der Graphengröße, untersucht werden. Wir vermuten, dass GraphDBS für größer werdende Datenbanken bzw. Graphen linear skalieren, wohingegen SQL, bedingt durch rechenaufwendige JOINs, schlechter skalieren sollte. Wichtig ist hierbei, dass das GraphDBS eine Java API bereitstellt, damit es einfach genutzt werden kann. 
+Ziel des Praktikums ist die Evaluation verschiedener Graphdatenbanken und eine Gegenüberstellung mit relationalen Datenbanken. Als Vertreter der Graphdatenbanken werden Neo4j\footnote{\url{http://neo4j.org/}}, Dex\footnote{\url{http://www.sparsity-technologies.com/dex}} und OrientDB\footnote{\url{http://www.orientechnologies.com/orient-db.htm}} näher betrachtet, MySQL\footnote{\url{http://www.mysql.de/}} wird als relationale Datenbank in den Vergleich einbezogen.
+\par
+Konkrete Ziele des Praktikums sind das Kennenlernen der verschiedenen Graphdatenbanken, der zu Grunde liegenden Datenmodelle und der angebotenen Abfragetechniken. Für den experimentellen Vergleich sollen verschiedene Kookkurrenzgraphen des Wortschatz Leipzig Projektes in die Datenbanken importiert und mit den angebotenen Techniken abgefragt werden. Dabei werden ausgewählte SQL Anfragen in API Calls, aber auch in deklarative Anfragesprachen des jeweiligen Herstellers umformuliert und hinsichtlich ihrer Ausführungszeit verglichen.\\
+\par
+Wir vermuten, dass Graphdatenbanken mit zunehmendem Umfang der Graphen und insbesondere bei rekursiven Anfragen durch die Vermeidung von Verbundoperationen besser skalieren als MySQL.
+
+\newpage
 
 \section{Zeitplan}
 
 \setlength{\tabcolsep}{10pt}		% Spaltenabstand
 \renewcommand{\arraystretch}{1.5}	% Zeilenabstand
 
-\begin{table}
+\begin{table}[ht]
 \begin{tabular}{|p{1cm}|p{12cm}|}
 %Tabellenkopf
 \hline \textbf{bis} & \textbf{ Aufgabe} \\ 
-\hline 31.10 & Spezifizieren des genauen Aufgabenstellung, Treffen mit D. Goldhahn \\ 
-\hline 31.10 & Spezifizieren, welche Queries an das DBS gestellt werden sollen \\ 
-\hline 31.10 & Ausfindig machen von Graphdatenbanksystemen \\ 
-\hline 07.11 & Erstellen eines Code-Repositories für kollaboratives arbeiten \\ 
-\hline 14.11 & Vertraut machen mit der jeweiligen spezifischen GraphDB Java API \\ 
+\hline 31.10 & Spezifizieren der genauen Aufgabenstellung, Treffen mit D. Goldhahn \\ 
+\hline 31.10 & Spezifizieren, welche Queries an das DBMS gestellt werden sollen \\ 
+\hline 31.10 & Recherche verschiedener Graphdatenbanken \\ 
+\hline 07.11 & Erstellen eines Code-Repositories (github) für kollaboratives Arbeiten \\ 
+\hline 14.11 & Einarbeitung in die jeweiligen Java APIs \\ 
 \hline 21.11 & Erstellen einer Klassenstruktur für das gesamte Projekt \\ 
-\hline 21.11 & Implementieren der Importer von MySQL in die jeweiligen GraphDBS  \\ 
-\hline 05.12 & Implementieren der Queries in der native API der jeweiligen GraphDBS \\ 
-\hline 12.12 & Implementieren der Queries in eventuell vorhandenen highlevel Sprachen \\ 
-\hline 19.12 & Implementieren von automatisch durchführbaren Benchmarks mit anschließender automatischen Generierung von  Performance-Plots \\ 
-\hline 09.01 & Tunen der Performance für jedes GraphDBS \\ 
-\hline 09.01 & Feinüberarbeitung des gesamten Projektes \\ 
-\hline 10.01 & Überarbeiten der Java-Code-Dokumentation  \\ 
-\hline 13.01 & Durchführen der Benchmarks und erstellen der Plots \\ 
+\hline 21.11 & Implementieren der Importer von MySQL in die jeweiligen GraphDBs  \\ 
+\hline 05.12 & Implementieren der Queries in der native API der jeweiligen GraphDBs \\ 
+\hline 12.12 & Implementieren der Queries in eventuell vorhandenen High-Level Sprachen \\ 
+\hline 19.12 & Implementieren von automatisch durchführbaren Benchmarks mit anschließender automatischer Generierung von Performance-Plots \\ 
+\hline 09.01 & Optimierung für jedes GraphDBS \\ 
+\hline 09.01 & Refaktorierung des gesamten Projektes \\ 
+\hline 10.01 & Erstellen und Überarbeiten der Java-Code-Dokumentation  \\ 
+\hline 13.01 & Durchführen der Benchmarks und Erstellen der Plots \\ 
 \hline 16.01 & Erstellen des Abschlussberichtes \\ 
 \hline 16.01 & Erstellen der Abschlusspräsentation \\ 
 \hline 20.01 & Halten der Abschlusspräsentation \\ 
