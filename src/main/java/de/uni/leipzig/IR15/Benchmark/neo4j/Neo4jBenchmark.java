@@ -4,6 +4,7 @@ import org.neo4j.cypher.ExecutionEngine;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.helpers.collection.IteratorUtil;
 import org.neo4j.tooling.GlobalGraphOperations;
@@ -17,9 +18,9 @@ import de.uni.leipzig.IR15.Support.Configuration;
  * Abstract Base Class for all benchmarks running on neo4j graph database. It
  * holds a reference to the database and the word index, it also cares about
  * generating random (and existing) node ids.
- *
+ * 
  * @author Martin 's1ck' Junghanns
- *
+ * 
  */
 public abstract class Neo4jBenchmark extends Benchmark {
 
@@ -28,7 +29,8 @@ public abstract class Neo4jBenchmark extends Benchmark {
 	protected ExecutionEngine engine;
 	protected Node startNode;
 	private int minOutDegree;
-	private static Configuration neo4jConfig = Configuration.getInstance("neo4j");
+	private static Configuration neo4jConfig = Configuration
+			.getInstance("neo4j");
 
 	/**
 	 * The maximum value for word id (needed for random id generation)
@@ -59,7 +61,8 @@ public abstract class Neo4jBenchmark extends Benchmark {
 	}
 
 	@Override
-	public void afterRun() {}
+	public void afterRun() {
+	}
 
 	/**
 	 * Cleanup after running benchmarks.
@@ -69,9 +72,22 @@ public abstract class Neo4jBenchmark extends Benchmark {
 		Neo4JConnector.destroyConnection();
 	}
 
+	@Override
+	@SuppressWarnings("unused")
+	public void warmup() {
+		// warmup the caches
+		log.info("Warming up the caches ...");
+		for (Node v : GlobalGraphOperations.at(neo4j).getAllNodes()) {
+		}
+		for (Relationship e : GlobalGraphOperations.at(neo4j)
+				.getAllRelationships()) {
+		}
+		log.info("done");
+	}
+
 	/**
 	 * Creates random id until a matching db entity is found.
-	 *
+	 * 
 	 * @return random node
 	 */
 	protected Node getRandomNode() {
@@ -81,7 +97,7 @@ public abstract class Neo4jBenchmark extends Benchmark {
 	/**
 	 * Returns a random node with an out degree greater or equal than the given
 	 * treshold.
-	 *
+	 * 
 	 * @param treshold
 	 * @return random node
 	 */
@@ -94,7 +110,8 @@ public abstract class Neo4jBenchmark extends Benchmark {
 			v = index.get("w_id", id).getSingle();
 			if (v != null) {
 				if (IteratorUtil.asCollection(
-						v.getRelationships(Neo4JImporter.RelTypes.CO_S, Direction.OUTGOING)).size() < treshold) {
+						v.getRelationships(Neo4JImporter.RelTypes.CO_S,
+								Direction.OUTGOING)).size() < treshold) {
 					v = null;
 				}
 			}

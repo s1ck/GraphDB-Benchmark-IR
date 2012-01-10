@@ -9,20 +9,13 @@ import org.apache.log4j.Logger;
 /**
  * This abstract base class must be extended by any benchmark in the suite. It
  * defines some simple methods which are used during benchmark processing.
- *
+ * 
  * @author Martin 's1ck' Junghanns
- *
+ * 
  */
 public abstract class Benchmark {
 
 	protected static Logger log = Logger.getLogger(Benchmark.class);
-
-	/**
-	 * Number of warmups runs
-	 *
-	 * Warmup runs are not included in the final results.
-	 */
-	private int warmups = 10;
 
 	/**
 	 * Number of benchmark runs
@@ -37,31 +30,11 @@ public abstract class Benchmark {
 	/**
 	 * Constant seed for same random IDs for each benchmark
 	 */
-	protected Random r = new Random(13003); // 13374223
-											// 13003 --> first int for 10k DB = 137
-
-	/**
-	 * Sets the warmup runs for the benchmark
-	 *
-	 * @param warmups
-	 *            number of warmups
-	 */
-	public void setWarmups(int warmups) {
-		this.warmups = warmups;
-	}
-
-	/**
-	 * Returns the number of warmups
-	 *
-	 * @return number of warmups
-	 */
-	public int getWarmups() {
-		return warmups;
-	}
+	protected Random r = new Random(13003);
 
 	/**
 	 * Sets the number of benchmarks to run
-	 *
+	 * 
 	 * @param runs
 	 *            number of benchmarks
 	 */
@@ -71,7 +44,7 @@ public abstract class Benchmark {
 
 	/**
 	 * Returns the number of benchmarks to run
-	 *
+	 * 
 	 * @return number of benchmarks
 	 */
 	public int getRuns() {
@@ -80,7 +53,7 @@ public abstract class Benchmark {
 
 	/**
 	 * Set the number of current benchmark run
-	 *
+	 * 
 	 * @param currentRun
 	 */
 	public void setCurrentRun(int currentRun) {
@@ -89,7 +62,7 @@ public abstract class Benchmark {
 
 	/**
 	 * Returns the number of current benchmark run
-	 *
+	 * 
 	 * @return
 	 */
 	public int getCurrentRun() {
@@ -123,8 +96,13 @@ public abstract class Benchmark {
 	public abstract void afterRun();
 
 	/**
+	 * This method is called once before the benchmark starts
+	 */
+	public abstract void warmup();
+
+	/**
 	 * Returns the Benchmarks name
-	 *
+	 * 
 	 * @return name of the benchmark
 	 */
 	public abstract String getName();
@@ -132,9 +110,9 @@ public abstract class Benchmark {
 	/**
 	 * This method calculates some default measurement results: average,
 	 * standard deviation, minimum and maximum value.
-	 *
+	 * 
 	 * The method can be overriden and enhanced with custom benchmark results.
-	 *
+	 * 
 	 * @param runtimes
 	 *            an array with all benchmark results
 	 * @return a map between measure name (e.g. "average") and its value (e.g.
@@ -167,7 +145,7 @@ public abstract class Benchmark {
 				max = runtime;
 			}
 		}
-		double stdev = Math.sqrt( new Double(tmp) / (runtimes.length) );
+		double stdev = Math.sqrt(new Double(tmp) / (runtimes.length));
 
 		results.put("Stdev [ms]", stdev);
 		results.put("Min [ms]", min);

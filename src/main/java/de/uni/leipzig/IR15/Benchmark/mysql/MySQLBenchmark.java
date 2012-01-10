@@ -125,4 +125,38 @@ public abstract class MySQLBenchmark extends Benchmark {
 		}
 		return id;
 	}
+
+	@Override
+	public void warmup() {
+		String q;
+
+		PreparedStatement statement;
+		ResultSet result;
+
+		try {
+			// query all words
+			q = "SELECT w_id FROM words";
+			statement = mySQL.prepareStatement(q);
+			result = statement.executeQuery();
+			while (result.next()) {
+			}
+
+			// query all neighbour co-occurrences
+			q = "SELECT * FROM co_n";
+			statement = mySQL.prepareStatement(q);
+			result = statement.executeQuery();
+			while (result.next()) {
+			}
+
+			// query all sentence co-occurences
+			q = "SELECT * FROM co_s";
+			statement = mySQL.prepareStatement(q);
+			result = statement.executeQuery(q);
+			while (result.next()) {
+			}
+		} catch (SQLException ex) {
+			log.error(ex.getMessage());
+		}
+
+	}
 }

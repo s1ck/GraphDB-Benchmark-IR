@@ -2,6 +2,7 @@ package de.uni.leipzig.IR15.Connectors;
 
 import org.apache.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.helpers.collection.MapUtil;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 import de.uni.leipzig.IR15.Support.Configuration;
@@ -21,7 +22,13 @@ public class Neo4JConnector {
 
 		// connect to neo4j and create an index on the nodes
 		neo4j = new EmbeddedGraphDatabase(
-				config.getPropertyAsString("location"));
+                config.getPropertyAsString("location"), MapUtil.stringMap(
+                "neostore.nodestore.db.mapped_memory", "10M",
+                "neostore.relationshipstore.db.mapped_memory", "50M",
+                "neostore.propertystore.db.mapped_memory", "100M",
+                "neostore.propertystore.db.strings.mapped_memory", "10M",
+                "neostore.propertystore.db.arrays.mapped_memory", "10M"
+        ));
 
 		if (neo4j != null) {
 			log.info("Create connection successful");

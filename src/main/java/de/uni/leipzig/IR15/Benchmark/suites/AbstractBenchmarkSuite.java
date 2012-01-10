@@ -9,11 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.apache.log4j.Layout;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.ErrorHandler;
-import org.apache.log4j.spi.Filter;
-import org.apache.log4j.spi.LoggingEvent;
 
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Support.Configuration;
@@ -21,7 +17,7 @@ import de.uni.leipzig.IR15.Support.Configuration;
 /**
  * Abstract base class for all benchmark suites.
  * 
- * @author robbl
+ * @author all
  * 
  */
 public class AbstractBenchmarkSuite {
@@ -35,7 +31,7 @@ public class AbstractBenchmarkSuite {
 	 *            a list of benchmarks
 	 */
 	public static void runBenchmarks(List<Benchmark> benchmarks) {
-		runBenchmarks(benchmarks, false);
+		runBenchmarks(benchmarks, false, false);
 	}
 
 	/**
@@ -47,9 +43,9 @@ public class AbstractBenchmarkSuite {
 	 *            true to turn on logging.
 	 */
 	public static void runBenchmarks(List<Benchmark> benchmarks,
-			boolean log2file) {
+			boolean log2file, boolean doWarmup) {
 		for (Benchmark bm : benchmarks) {
-			runBenchmark(bm, log2file);
+			runBenchmark(bm, log2file, doWarmup);
 		}
 	}
 
@@ -61,11 +57,11 @@ public class AbstractBenchmarkSuite {
 	 * @param log2file
 	 *            true to turn on logging.
 	 */
-	public static void runBenchmark(Benchmark benchmark, boolean log2file) {
-		int warmups = benchmark.getWarmups();
+	public static void runBenchmark(Benchmark benchmark, boolean log2file,
+			boolean doWarmup) {		
 		int runs = benchmark.getRuns();
 
-		long[] totalResults = new long[warmups + runs];
+		long[] totalResults = new long[runs];
 
 		long start;
 		long diff;
@@ -73,23 +69,17 @@ public class AbstractBenchmarkSuite {
 		long[] results = new long[runs];
 
 		log.info(String.format(
-				"Starting Benchmark: %s with %d warmups and %d runs",
-				benchmark.getName(), warmups, runs));
+				"Starting Benchmark: %s with %d runs",
+				benchmark.getName(), runs));
 
 		benchmark.setUp();
 
-		// do warmup
-		for (int i = 0; i < warmups; i++) {
-			log.info(String.format("Starting warmup %d ...", i));
-			benchmark.beforeRun();
-			benchmark.setCurrentRun(i);
-			start = System.currentTimeMillis();
-			benchmark.run();
-			diff = System.currentTimeMillis() - start;
-			totalResults[i] = diff;
-			log.info(String.format("Done with warmup %d", i));
+		if(doWarmup) {
+			log.info("starting warmup...");
+			benchmark.warmup();
+			log.info("done");
 		}
-
+		
 		// do measurement
 		for (int i = 0; i < runs; i++) {
 			log.info(String.format("Starting run %d ...", i));
@@ -100,7 +90,7 @@ public class AbstractBenchmarkSuite {
 			diff = System.currentTimeMillis() - start;
 			benchmark.afterRun();
 			results[i] = diff;
-			totalResults[warmups + i] = diff;
+			totalResults[i] = diff;
 			log.info(String.format("Done with run %d", i));
 			logMemoryInfo();
 		}

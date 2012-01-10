@@ -13,11 +13,11 @@ import de.uni.leipzig.IR15.Connectors.DEXConnector;
 
 /**
  * Abstract Base Class for all benchmarks running on DEX graph database. It
- * holds a reference to the database, the session and the graph, it also cares about
- * generating random (and existing) node ids.
- *
+ * holds a reference to the database, the session and the graph, it also cares
+ * about generating random (and existing) node ids.
+ * 
  * @author Robert 'robbl' Schulze
- *
+ * 
  */
 public abstract class DEXBenchmark extends Benchmark {
 	protected Database dex;
@@ -44,18 +44,18 @@ public abstract class DEXBenchmark extends Benchmark {
 		session.begin();
 
 		wordNodeType = graph.findType("word");
-    	wordIDAttribute = graph.findAttribute(wordNodeType, "w_id");
+		wordIDAttribute = graph.findAttribute(wordNodeType, "w_id");
 
-    	coNEdgeType = graph.findType("CO_N");
-    	coNEdgeSigAttribute = graph.findAttribute(coNEdgeType, "sig");
-    	coNEdgeFreqAttribute = graph.findAttribute(coNEdgeType, "freq");
-    	coSEdgeType = graph.findType("CO_S");
-    	coSEdgeSigAttribute = graph.findAttribute(coSEdgeType, "sig");
-    	coSEdgeFreqAttribute = graph.findAttribute(coSEdgeType, "freq");
+		coNEdgeType = graph.findType("CO_N");
+		coNEdgeSigAttribute = graph.findAttribute(coNEdgeType, "sig");
+		coNEdgeFreqAttribute = graph.findAttribute(coNEdgeType, "freq");
+		coSEdgeType = graph.findType("CO_S");
+		coSEdgeSigAttribute = graph.findAttribute(coSEdgeType, "sig");
+		coSEdgeFreqAttribute = graph.findAttribute(coSEdgeType, "freq");
 
-    	maxWordID = findMaxWordID();
+		maxWordID = findMaxWordID();
 
-    	session.commit();
+		session.commit();
 	}
 
 	/**
@@ -63,8 +63,8 @@ public abstract class DEXBenchmark extends Benchmark {
 	 */
 	@Override
 	public void beforeRun() {
-		session.begin();		
-	    startNodeID = getRandomNode(20);	    
+		session.begin();
+		startNodeID = getRandomNode(20);
 	}
 
 	/**
@@ -77,17 +77,18 @@ public abstract class DEXBenchmark extends Benchmark {
 
 	/**
 	 * Find the maximal word id.
-	 *
+	 * 
 	 * @return maximal word id
 	 */
 	public int findMaxWordID() {
-		AttributeStatistics statistic = graph.getAttributeStatistics(wordIDAttribute, false);
+		AttributeStatistics statistic = graph.getAttributeStatistics(
+				wordIDAttribute, false);
 		return statistic.getMax().getInteger();
 	}
 
 	/**
 	 * Get a random node with a minimum degree as threshold.
-	 *
+	 * 
 	 * @param outDegree
 	 * @return random node id
 	 */
@@ -97,9 +98,11 @@ public abstract class DEXBenchmark extends Benchmark {
 
 		while (true) {
 			startWordID = r.nextInt(maxWordID);
-			node = graph.findObject(wordIDAttribute, new Value().setInteger(startWordID));
+			node = graph.findObject(wordIDAttribute,
+					new Value().setInteger(startWordID));
 			if (node != 0) {
-				neighbors = graph.neighbors(node, coSEdgeType, EdgesDirection.Outgoing);
+				neighbors = graph.neighbors(node, coSEdgeType,
+						EdgesDirection.Outgoing);
 				if (neighbors.size() >= outDegree) {
 					return node;
 				}
@@ -113,5 +116,9 @@ public abstract class DEXBenchmark extends Benchmark {
 	@Override
 	public void tearDown() {
 		DEXConnector.destroyConnection();
+	}
+
+	@Override
+	public void warmup() {
 	}
 }

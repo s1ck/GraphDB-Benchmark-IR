@@ -2,9 +2,9 @@ package de.uni.leipzig.IR15.Benchmark.orientdb;
 
 import com.orientechnologies.orient.core.db.graph.OGraphDatabase;
 import com.orientechnologies.orient.core.db.record.OIdentifiable;
-import com.orientechnologies.orient.core.index.OIndex;
 import com.orientechnologies.orient.core.index.OIndexUnique;
 import com.orientechnologies.orient.core.record.impl.ODocument;
+
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Connectors.OrientDBConnector;
 
@@ -12,27 +12,28 @@ import de.uni.leipzig.IR15.Connectors.OrientDBConnector;
  * Abstract Base Class for all benchmarks running on orient graph database. It
  * holds a reference to the database and the word index, it also cares about
  * generating random (and existing) node ids.
- *
+ * 
  * @author Sascha 'peil' Ludwig
- *
+ * 
  */
 public abstract class OrientDBBenchmark extends Benchmark {
 
 	// TODO remove
 	protected long startWordID;
-	
+
 	protected ODocument startVertex;
 	protected OGraphDatabase orientdb;
 	protected OIndexUnique index;
 	protected int maxID;
-	
+
 	/**
 	 * Setup the database connection, get the index and get the maximum word id.
 	 */
 	@Override
 	public void setUp() {
 		orientdb = OrientDBConnector.getConnection();
-		index = (OIndexUnique) orientdb.getMetadata().getIndexManager().getIndexInternal("word_id_index");
+		index = (OIndexUnique) orientdb.getMetadata().getIndexManager()
+				.getIndexInternal("word_id_index");
 		log.info(index);
 		maxID = findMaxWordID();
 	}
@@ -47,11 +48,12 @@ public abstract class OrientDBBenchmark extends Benchmark {
 
 	@Override
 	public void afterRun() {
-		
+
 	}
 
 	/**
 	 * Find the maxium word id.
+	 * 
 	 * @return
 	 */
 	// gets the max WordID. Needed for random WordID
@@ -73,9 +75,10 @@ public abstract class OrientDBBenchmark extends Benchmark {
 		return m;
 	}
 
-	/** Returns a random starting vertex with an out degree greater or equal than the
-	 * given threshold.
-	 *
+	/**
+	 * Returns a random starting vertex with an out degree greater or equal than
+	 * the given threshold.
+	 * 
 	 * @param threshold
 	 *            minimum out degree
 	 * @return random starting vertex
@@ -84,16 +87,17 @@ public abstract class OrientDBBenchmark extends Benchmark {
 		ODocument sVertex = null;
 		ODocument sinnlosesRumgeCasteVariable = null;
 		int id = 0;
-		
+
 		while (sVertex == null) {
 			id = r.nextInt(maxID);
-			
-			if (index.get( id ) != null) {
-				sVertex = (ODocument) index.get( id ).getRecord();
+
+			if (index.get(id) != null) {
+				sVertex = (ODocument) index.get(id).getRecord();
 				int e = 0;
-				
+
 				for (OIdentifiable outEdge : orientdb.getOutEdges(sVertex)) {
-					sinnlosesRumgeCasteVariable = (ODocument) outEdge.getRecord();
+					sinnlosesRumgeCasteVariable = (ODocument) outEdge
+							.getRecord();
 					if (sinnlosesRumgeCasteVariable.field("type").toString()
 							.equalsIgnoreCase("co_s")) {
 						e++;
@@ -111,5 +115,9 @@ public abstract class OrientDBBenchmark extends Benchmark {
 	@Override
 	public void tearDown() {
 		OrientDBConnector.destroyConnection();
+	}
+
+	@Override
+	public void warmup() {
 	}
 }

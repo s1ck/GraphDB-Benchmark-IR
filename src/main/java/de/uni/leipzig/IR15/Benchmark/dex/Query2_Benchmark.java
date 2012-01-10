@@ -30,10 +30,10 @@ public class Query2_Benchmark extends DEXBenchmark {
 		// iterate over all neighbors
 		for(Long node_depth_1 : neighbors_depth_1)	{		
 
-			// get all outgoing neighbors (degree = 2) to each neighbor of the start node
+			// get all outgoing neighbors (distance = 2) to each neighbor of the start node
 			neighbors_depth_2 = graph.neighbors(node_depth_1, coSEdgeType, EdgesDirection.Outgoing);
 
-			// iterate over all neighbors with degree 2
+			// iterate over all neighbors with distance 2 from startnode
 			
 			for(Long node_depth_2 : neighbors_depth_2) {				
 

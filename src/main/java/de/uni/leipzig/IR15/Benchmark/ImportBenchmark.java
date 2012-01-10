@@ -27,7 +27,8 @@ public class ImportBenchmark extends Benchmark {
 	}
 
 	@Override
-	public void beforeRun() {}
+	public void beforeRun() {
+	}
 
 	@Override
 	public String getName() {
@@ -35,5 +36,10 @@ public class ImportBenchmark extends Benchmark {
 	}
 
 	@Override
-	public void afterRun() {}
+	public void afterRun() {
+	}
+
+	@Override
+	public void warmup() {
+	}
 }

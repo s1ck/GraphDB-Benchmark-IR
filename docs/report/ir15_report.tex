@@ -30,19 +30,28 @@
 
 % Abstract
 \begin{abstract}
-	In dieser Arbeit wurden...    The research focus (i.e. statement of the problem(s)/research issue(s) addressed);
-    The research methods used (experimental research, case studies, questionnaires, etc.);
-    The results/findings of the research; and
-    The main conclusions and recommendations
-
+	Dieser Bericht dient der Zusammenfassung der Ergebnisse eines Praktikums im Rahmen des Moduls \dq Fortgeschrittene Methoden des Information Retrieval\dq~im WS 2010/11 der Universität Leipzig. Inhalt des Praktikums ist die Evaluation verschiedener Graphdatenbanken und eine Gegenüberstellung mit relationalen Datenbanken. Als Vertreter der Graphdatenbanken werden Neo4j, Dex und OrientDB näher betrachtet, MySQL wird als relationale Datenbank in den Vergleich einbezogen.\\
+Konkrete Ziele des Praktikums sind das Kennenlernen der verschiedenen Graphdatenbanken, der zu Grunde liegenden Datenmodelle und deren Abfragetechniken. Für den experimentellen Vergleich sollen verschiedene Kookkurrenzgraphen des Wortschatz Leipzig Projektes in die Datenbanken importiert und mit den angebotenen Techniken abgefragt werden. Dabei wurden ausgewählte SQL Anfragen in API Calls, aber auch in deklarative Anfragesprachen des jeweiligen Herstellers umformuliert und hinsichtlich ihrer Ausführungszeit verglichen.\\
 \end{abstract}
 
 % der wahre Inhalt
 \section{Neo4j}
 
+Neo4j\footnote{\url{http://www.neo4j.org}} ist eine eingebettete, persistente, transaktionale Graphdatenbank. Sie wird seit 2005 von der Firma Neo Technology, Inc. entwickelt, Version 1.0 erschien Anfang 2010. Die Datenbank wurde vollständig in Java geschrieben und steht quelloffen zur Verfügung.\footnote{\url{https://github.com/neo4j/community}}
+
+\subsection{Anbindung}
+
+Neo4j kann in zwei verschiedenen Szenarien betrieben werden: Die eingebettete Version wird direkt in eine Java Applikation integriert und bietet den performantesten Zugriff auf die Datenbank. Darüber hinaus implementiert Neo4j eine REST Schnittstelle, mit welcher auf die Datenbank via HTTP Requests zugegriffen werden kann. Die Anbindung erfolgt über verschiedene Clients, welche den Zugang aus unterschiedlichen Plattformen und Sprachen heraus ermöglichen.\\
+Für die Leistungsmessung wurde die eingebettete Variante der Datenbank genutzt. Sie bietet neben dem Geschwindigkeitsvorteil auch das volle Spektrum an Zugriffsmöglichkeiten an.
+
+\subsection{Anfragemöglichkeiten}
+
+Neo4j bietet verschiedene Möglichkeiten an, den gespeicherten Graphen zu traversieren bzw. abzufragen. Neben der nativen Java API und der ebenfalls in Java entwickelten Traversal API steht seit Version 1.5 mit Cypher eine deklarative Abfragesprache zur Verfügung. Die drei genannten Abfragemöglichkeiten werden im Folgenden kurz vorgestellt und die Formulierung der vorgegebenen SQL Queries aufgezeigt.
+
 \section{OrientDB}
 
-\subsection{Gebrauch}
+\subsection{Anfragemöglichkeiten}
+
 OrientDB lässt sich einfach über eine Java API steuern. Das Handling von OrientDB wird, nach einer gewissen Einarbeitungszeit, relativ einfach, was auch der guten Javadoc der API geschuldet ist. Neben einer Java-API bietet OrientDB auch die Möglichkeit der Steuerung des Datenbanksystems über eine Konsole. Dies hat den Vorteil, dass man das Datenbanksystem erkunden und kennen lernen kann. In der Konsolen können Befehle in einer SQL-artigen Syntax an das DBS geschickt und ausgewertet werden.
 
 \subsection{Einschränkungen}
