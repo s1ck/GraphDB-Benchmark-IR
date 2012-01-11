@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.27)  11 JAN 2012 00:00
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.27)  11 JAN 2012 00:07
 entering extended mode
 **ir15_report.tex
 (C:\Install\Devel\Java\Projects\IR_15\docs\report\ir15_report.tex
@@ -427,51 +427,51 @@ Underfull \hbox (badness 1297) in paragraph at lines 49--50
  []
 
 
-Underfull \hbox (badness 1430) in paragraph at lines 61--62
+Underfull \hbox (badness 1430) in paragraph at lines 75--76
 \OT1/cmr/m/n/10.95 tiert. Es liegt so-wohl ei-ne kom-plet-te und
  []
 
 
-Underfull \hbox (badness 1005) in paragraph at lines 61--62
+Underfull \hbox (badness 1005) in paragraph at lines 75--76
 \OT1/cmr/m/n/10.95 wei-se schwie-rig. Dies ist un-ter Umst[]anden
  []
 
-
-Underfull \hbox (badness 2293) in paragraph at lines 64--65
+[2]
+Underfull \hbox (badness 2293) in paragraph at lines 78--79
 \OT1/cmr/m/n/10.95 die ein-fa-che und leicht les-ba-re Highlevel-
  []
 
-[2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 70.
- [3
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 95.
+[3
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 70.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 95.
  (C:\Install\Devel\Java\Projects\IR_15\docs\report\ir15_report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 70.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 70.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 95.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 95.
 Package rerunfilecheck Info: File `ir15_report.out' has not changed.
-(rerunfilecheck)             Checksum: 0C179ECA99BC9768534349509C8EF1AA;518.
+(rerunfilecheck)             Checksum: FA5CD15691B8049C658E26E1FCA5A940;1088.
  ) 
 Here is how much of TeX's memory you used:
- 7050 strings out of 494045
- 99537 string characters out of 3147986
+ 7070 strings out of 494045
+ 99851 string characters out of 3147986
  194291 words of memory out of 3000000
- 10230 multiletter control sequences out of 15000+200000
- 13570 words of font info for 53 fonts, out of 3000000 for 9000
+ 10240 multiletter control sequences out of 15000+200000
+ 13878 words of font info for 54 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  29i,10n,43p,972b,517s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Install/System/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/I
-nstall/System/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Install/S
-ystem/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Install/System/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Install/System/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Install/System/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmr8.pfb><C:/Install/System/MiKTeX 2.9/fonts/type1/publi
-c/amsfonts/cm/cmtt12.pfb><C:/Install/System/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmtt9.pfb>
-Output written on ir15_report.pdf (3 pages, 109565 bytes).
+<C:/Install/System/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/I
+nstall/System/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Install/
+System/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Install/System/M
+iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Install/System/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Install/System/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmr6.pfb><C:/Install/System/MiKTeX 2.9/fonts/type1/pub
+lic/amsfonts/cm/cmr8.pfb><C:/Install/System/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmtt12.pfb><C:/Install/System/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmtt9.pfb>
+Output written on ir15_report.pdf (3 pages, 127051 bytes).
 PDF statistics:
- 101 PDF objects out of 1000 (max. 8388607)
- 16 named destinations out of 1000 (max. 500000)
- 73 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 143 PDF objects out of 1000 (max. 8388607)
+ 25 named destinations out of 1000 (max. 500000)
+ 145 words of extra memory for PDF output out of 10000 (max. 10000000)
 

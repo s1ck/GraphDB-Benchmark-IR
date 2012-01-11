@@ -1,9 +1,18 @@
 \BOOKMARK [1][-]{section.1}{Neo4j}{}% 1
 \BOOKMARK [2][-]{subsection.1.1}{Anbindung}{section.1}% 2
 \BOOKMARK [2][-]{subsection.1.2}{Anfragem\366glichkeiten}{section.1}% 3
-\BOOKMARK [1][-]{section.2}{OrientDB}{}% 4
-\BOOKMARK [2][-]{subsection.2.1}{Anfragem\366glichkeiten}{section.2}% 5
-\BOOKMARK [2][-]{subsection.2.2}{Einschr\344nkungen}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.3}{Dokumentation}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.4}{Aussicht}{section.2}% 8
-\BOOKMARK [1][-]{section.3}{DEX}{}% 9
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Native API}{subsection.1.2}% 4
+\BOOKMARK [3][-]{subsubsection.1.2.2}{Traversal API}{subsection.1.2}% 5
+\BOOKMARK [3][-]{subsubsection.1.2.3}{Cypher}{subsection.1.2}% 6
+\BOOKMARK [2][-]{subsection.1.3}{Einschr\344nkungen}{section.1}% 7
+\BOOKMARK [2][-]{subsection.1.4}{Dokumentation}{section.1}% 8
+\BOOKMARK [2][-]{subsection.1.5}{Aussicht}{section.1}% 9
+\BOOKMARK [1][-]{section.2}{OrientDB}{}% 10
+\BOOKMARK [2][-]{subsection.2.1}{Anfragem\366glichkeiten}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.2}{Einschr\344nkungen}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.3}{Dokumentation}{section.2}% 13
+\BOOKMARK [2][-]{subsection.2.4}{Aussicht}{section.2}% 14
+\BOOKMARK [1][-]{section.3}{DEX}{}% 15
+\BOOKMARK [1][-]{section.4}{Evaluation}{}% 16
+\BOOKMARK [2][-]{subsection.4.1}{Testbed}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.2}{Ergebnisse}{section.4}% 18

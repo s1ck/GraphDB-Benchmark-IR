@@ -9,9 +9,9 @@ import de.uni.leipzig.IR15.Support.Configuration;
 
 /**
  * Class to handle connection to the neo4j database.
- *
+ * 
  * @author IR-Team
- *
+ * 
  */
 public class Neo4JConnector {
 	private static Logger log = Logger.getLogger(Neo4JConnector.class);
@@ -22,13 +22,13 @@ public class Neo4JConnector {
 
 		// connect to neo4j and create an index on the nodes
 		neo4j = new EmbeddedGraphDatabase(
-                config.getPropertyAsString("location"), MapUtil.stringMap(
-                "neostore.nodestore.db.mapped_memory", "10M",
-                "neostore.relationshipstore.db.mapped_memory", "50M",
-                "neostore.propertystore.db.mapped_memory", "100M",
-                "neostore.propertystore.db.strings.mapped_memory", "10M",
-                "neostore.propertystore.db.arrays.mapped_memory", "10M"
-        ));
+				config.getPropertyAsString("location"),
+				MapUtil.stringMap("neostore.nodestore.db.mapped_memory", "10M",
+						"neostore.relationshipstore.db.mapped_memory", "50M",
+						"neostore.propertystore.db.mapped_memory", "100M",
+						"neostore.propertystore.db.strings.mapped_memory",
+						"10M",
+						"neostore.propertystore.db.arrays.mapped_memory", "10M"));
 
 		if (neo4j != null) {
 			log.info("Create connection successful");

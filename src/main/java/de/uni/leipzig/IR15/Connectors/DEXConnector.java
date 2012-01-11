@@ -13,9 +13,9 @@ import de.uni.leipzig.IR15.Support.Configuration;
 
 /**
  * Class to handle connection to the dex database.
- *
+ * 
  * @author IR-Team
- *
+ * 
  */
 public class DEXConnector {
 	private static Logger log = Logger.getLogger(Neo4JConnector.class);
@@ -24,7 +24,7 @@ public class DEXConnector {
 
 	/**
 	 * Create and return a connection.
-	 *
+	 * 
 	 * @return database connection
 	 */
 	public static Database getConnection() {
@@ -32,15 +32,17 @@ public class DEXConnector {
 
 		DexConfig dexConfig = new DexConfig();
 		dexConfig.setLicense(config.getPropertyAsString("license"));
-		//dexConfig.setLogLevel(LogLevel.Debug);
+		// dexConfig.setLogLevel(LogLevel.Debug);
 		dexConnector = new Dex(dexConfig);
 
 		try {
 			File location = new File(config.getPropertyAsString("location"));
 			if (location.exists()) {
-				dex = dexConnector.open(config.getPropertyAsString("location"), false);
+				dex = dexConnector.open(config.getPropertyAsString("location"),
+						false);
 			} else {
-				dex = dexConnector.create(config.getPropertyAsString("location"), "dex");
+				dex = dexConnector.create(
+						config.getPropertyAsString("location"), "dex");
 			}
 			log.info("Create connection successful");
 		} catch (FileNotFoundException e) {
@@ -56,8 +58,8 @@ public class DEXConnector {
 	 */
 	public static void destroyConnection() {
 		try {
-//			dex.close();
-		    dexConnector.close();
+			// dex.close();
+			dexConnector.close();
 			log.info("Destroy connection successful");
 		} catch (Exception e) {
 			log.error("Destroy connection failed");

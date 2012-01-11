@@ -41,7 +41,7 @@ public abstract class DEXBenchmark extends Benchmark {
 		session = dex.newSession();
 		graph = session.getGraph();
 
-		session.begin();
+//		session.begin();
 
 		wordNodeType = graph.findType("word");
 		wordIDAttribute = graph.findAttribute(wordNodeType, "w_id");
@@ -55,15 +55,14 @@ public abstract class DEXBenchmark extends Benchmark {
 
 		maxWordID = findMaxWordID();
 
-		session.commit();
+//		session.commit();
 	}
 
 	/**
 	 * Get a new random node before each run.
 	 */
 	@Override
-	public void beforeRun() {
-		session.begin();
+	public void beforeRun() {		
 		startNodeID = getRandomNode(20);
 	}
 
@@ -72,7 +71,7 @@ public abstract class DEXBenchmark extends Benchmark {
 	 */
 	@Override
 	public void afterRun() {
-		session.commit();
+//		session.commit();
 	}
 
 	/**
@@ -115,10 +114,22 @@ public abstract class DEXBenchmark extends Benchmark {
 	 */
 	@Override
 	public void tearDown() {
+//		session.commit();
+//		session.close();
 		DEXConnector.destroyConnection();
 	}
 
 	@Override
+	@SuppressWarnings("unused")
 	public void warmup() {
+		for (Integer nType : graph.findNodeTypes()) {
+			for (long v : graph.select(nType)) {
+			}
+		}
+
+		for (Integer eType : graph.findEdgeTypes()) {
+			for (long e : graph.select(eType)) {
+			}
+		}
 	}
 }

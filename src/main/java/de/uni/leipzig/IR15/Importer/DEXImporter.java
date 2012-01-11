@@ -17,9 +17,9 @@ import de.uni.leipzig.IR15.Connectors.DEXConnector;
 
 /**
  * Importer to load all data from mysql to dex database.
- *
+ * 
  * @author Robert 'robbl' Schulze
- *
+ * 
  */
 public class DEXImporter extends Importer {
 	protected static Logger log = Logger.getLogger(DEXImporter.class);
@@ -28,8 +28,7 @@ public class DEXImporter extends Importer {
 	 * Relation types
 	 */
 	public static enum RelTypes {
-		CO_S,
-		CO_N
+		CO_S, CO_N
 	}
 
 	private Database dex;
@@ -67,50 +66,68 @@ public class DEXImporter extends Importer {
 
 	/**
 	 * Import cooccurrences by <relType>.
-	 *
-	 * @param relType relationship type
+	 * 
+	 * @param relType
+	 *            relationship type
 	 */
 	private void importCooccurrences(RelTypes relType) {
 		String table = relType.toString().toLowerCase();
 		Integer count = getMysqlRowCount(table);
-		log.info(String.format("Importing %d cooccurences from mysql table %s", count, table));
+		log.info(String.format("Importing %d cooccurences from mysql table %s",
+				count, table));
 
-	    String query = "SELECT * FROM " + table;
-	    Session session = dex.newSession();
-	    session.begin();
+		String query = "SELECT * FROM " + table;
+		Session session = dex.newSession();
+		session.begin();
 
-	    try {
-	    	Statement st = mySQLConnection.createStatement();
-	    	st.setFetchSize(Integer.MIN_VALUE);
-	    	ResultSet rs = st.executeQuery(query);
+		try {
+			Statement st = mySQLConnection.createStatement();
+			st.setFetchSize(Integer.MIN_VALUE);
+			ResultSet rs = st.executeQuery(query);
 
-	    	Graph graph = session.getGraph();
-	    	int wordNodeType = graph.findType("word");
-	    	int wordIdAttribute = graph.findAttribute(wordNodeType, "w_id");
+			Graph graph = session.getGraph();
+			int wordNodeType = graph.findType("word");
+			int wordIdAttribute = graph.findAttribute(wordNodeType, "w_id");
 
-	    	int edgeType = graph.newEdgeType(relType.toString(), true, true);
-	    	int edgeSigAttribute = graph.newAttribute(edgeType, "sig", DataType.Double, AttributeKind.Indexed);
-	    	int edgeFreqAttribute = graph.newAttribute(edgeType, "freq", DataType.Integer, AttributeKind.Indexed);
+			int edgeType = graph.newEdgeType(relType.toString(), true, true);
+			int edgeSigAttribute = graph.newAttribute(edgeType, "sig",
+					DataType.Double, AttributeKind.Indexed);
+			int edgeFreqAttribute = graph.newAttribute(edgeType, "freq",
+					DataType.Integer, AttributeKind.Indexed);
 
-	    	while (rs.next()) {
-		        Integer w1_id 	= rs.getInt("w1_id");
-		        Integer w2_id 	= rs.getInt("w2_id");
-		        Double sig 		= rs.getDouble("sig");
-		        Integer freq 	= rs.getInt("freq");
+			Integer w1_id;
+			Integer w2_id;
+			Double sig;
+			Integer freq;
 
-		        long sourceNode = graph.findObject(wordIdAttribute, new Value().setInteger(w1_id));
-		        long targetNode = graph.findObject(wordIdAttribute, new Value().setInteger(w2_id));
+			long sourceNode;
+			long targetNode;
 
-		        long edge = graph.newEdge(edgeType, sourceNode, targetNode);
-		        graph.setAttribute(edge, edgeSigAttribute, new Value().setDouble(sig));
-		        graph.setAttribute(edge, edgeFreqAttribute, new Value().setInteger(freq));
-	    	}
-	    	session.commit();
-	    } catch (SQLException ex) {
-		      System.err.println(ex.getMessage());
+			long edge;
+
+			while (rs.next()) {
+				w1_id = rs.getInt("w1_id");
+				w2_id = rs.getInt("w2_id");
+				sig = rs.getDouble("sig");
+				freq = rs.getInt("freq");
+
+				sourceNode = graph.findObject(wordIdAttribute,
+						new Value().setInteger(w1_id));
+				targetNode = graph.findObject(wordIdAttribute,
+						new Value().setInteger(w2_id));
+
+				edge = graph.newEdge(edgeType, sourceNode, targetNode);
+				graph.setAttribute(edge, edgeSigAttribute,
+						new Value().setDouble(sig));
+				graph.setAttribute(edge, edgeFreqAttribute,
+						new Value().setInteger(freq));
+			}
+			session.commit();
+		} catch (SQLException ex) {
+			System.err.println(ex.getMessage());
 		} finally {
-	    	session.close();
-	    }
+			session.close();
+		}
 	}
 
 	/**
@@ -119,38 +136,47 @@ public class DEXImporter extends Importer {
 	private void importWords() {
 		String table = "words";
 		Integer count = getMysqlRowCount(table);
-		log.info(String.format("Importing %d words from mysql table %s", count, table));
+		log.info(String.format("Importing %d words from mysql table %s", count,
+				table));
 
-	    String query = "SELECT * FROM words";
-	    Session session = dex.newSession();
-	    session.begin();
+		String query = "SELECT * FROM words";
+		Session session = dex.newSession();
+		session.begin();
 
-	    try {
-	    	Statement st = mySQLConnection.createStatement();
-	    	st.setFetchSize(Integer.MIN_VALUE);
-	    	ResultSet rs = st.executeQuery(query);
+		try {
+			Statement st = mySQLConnection.createStatement();
+			st.setFetchSize(Integer.MIN_VALUE);
+			ResultSet rs = st.executeQuery(query);
 
-	    	Graph graph = session.getGraph();
-	    	int wordNodeType = graph.newNodeType("word");
-	    	int wordIdAttribute = graph.newAttribute(wordNodeType, "w_id", DataType.Integer, AttributeKind.Indexed);
-	    	int wordAttribute = graph.newAttribute(wordNodeType, "word", DataType.String, AttributeKind.Basic);
+			Graph graph = session.getGraph();
+			int wordNodeType = graph.newNodeType("word");
+			int wordIdAttribute = graph.newAttribute(wordNodeType, "w_id",
+					DataType.Integer, AttributeKind.Indexed);
+			int wordAttribute = graph.newAttribute(wordNodeType, "word",
+					DataType.String, AttributeKind.Basic);
 
-	    	while (rs.next()) {
-	    		String word 	= rs.getString("word");
-	    		Integer word_id = rs.getInt("w_id");
+			String word;
+			Integer word_id;
+			long node;
 
-	    		long node = graph.newNode(wordNodeType);
+			while (rs.next()) {
+				word = rs.getString("word");
+				word_id = rs.getInt("w_id");
 
-	    		graph.setAttribute(node, wordIdAttribute, new Value().setInteger(word_id));
-	    		graph.setAttribute(node, wordAttribute, new Value().setString(word));
-	    	}
-	    	session.commit();
+				node = graph.newNode(wordNodeType);
 
-	    } catch (SQLException ex) {
-		      System.err.println(ex.getMessage());
+				graph.setAttribute(node, wordIdAttribute,
+						new Value().setInteger(word_id));
+				graph.setAttribute(node, wordAttribute,
+						new Value().setString(word));
+			}
+			session.commit();
+
+		} catch (SQLException ex) {
+			System.err.println(ex.getMessage());
 		} finally {
-	    	session.close();
-	    }
+			session.close();
+		}
 	}
 
 	/**
