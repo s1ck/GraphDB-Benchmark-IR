@@ -61,24 +61,22 @@
 \begin{figure}[ht]
 \begin{minipage}[b]{0.45\linewidth}
 \centering
-\includegraphics[scale=0.3]{images/mysql_schema}
-\caption{default}
+\includegraphics[scale=0.03]{images/mysql_schema}
+\caption{Mysql Schema}
 \label{fig:mysql_schema}
 \end{minipage}
 \hspace{0.5cm}
 \begin{minipage}[b]{0.45\linewidth}
 \centering
-\includegraphics[scale=0.3]{images/graph_schema}
-\caption{default}
+\includegraphics[scale=0.1]{images/graph_schema}
+\caption{Graph}
 \label{fig:graph_schema}
 \end{minipage}
 \end{figure}
 \end{frame}
 
 \begin{frame}\frametitle{Testdaten}
-	\begin{itemize}
-		\item Kookkurrenzgraph des Wortschatz Leipzig
-	\end{itemize} 
+	\begin{table}
 	\begin{tabular}{|l|r|r|r|}
 		\hline
 		Datenbank & Knoten & \multicolumn{2}{|c|}{Kanten}\\
@@ -99,25 +97,30 @@
 		deu\_{}news\_{}2009\_{}10M & 3309332 & 37393614 & 4412321\\
 		\hline
 	\end{tabular}
+	\caption{Kookkurrenzgraph des Wortschatz Leipzig}
+	\end{table}
 \end{frame}
 
-\begin{frame}\frametitle{Query1 erklären} 
+\begin{frame}\frametitle{Queries erklären}
+\begin{description}
+\item[Query 1]Finde alle Satz- oder Nachbarschaftskookkurrenzen eines Wortes. Gib Frequenz, Signifikanz und die beteiligten Wörter der Kookkurrenz aus.
+\item[Query 2]Finde alle Satz- oder Nachbarschaftskookkurrenzen der Nachbarn eines Wortes. Gib Frequenz, Signifikanz und die beteiligten Wörter der Kookkurrenz aus.
+\item[Query 3]Finde alle Satz- oder Nachbarschaftskookkurrenzen zwischen den Nachbarn eines Wortes. Gib Frequenz, Signifikanz und die beteiligten Wörter der Kookkurrenz aus.
+\end{description}
+\end{frame}
+
+\section{Durchführung}
+\begin{frame}\frametitle{Framework} 
 	\begin{itemize}
-		\item 
-		\item 
-		\item 
+		\item Verbindung zur Datenbank
+		\item Importieren von Datenbasis aus MySQL
+		\item Durchführung einzelner Benchmarks und Messung durchschnittlicher Ausführungszeiten von Datenbankoperationen
+		\item Konfiguration über Java-properties-Dateien
 	\end{itemize} 
 \end{frame}
 
-\begin{frame}\frametitle{Query2 erklären}
-	\begin{itemize}
-		\item 
-		\item 
-		\item 
-	\end{itemize} 
-\end{frame}
-
-\begin{frame}\frametitle{Auswertung} 
+\section{Auswertung}
+\begin{frame}\frametitle{Auswertung}
 	\begin{itemize}
 		\item 
 		\item 

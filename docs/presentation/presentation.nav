@@ -18,16 +18,22 @@
 \headcommand {\beamer@framepages {7}{7}}
 \headcommand {\slideentry {1}{0}{8}{8/8}{}{0}}
 \headcommand {\beamer@framepages {8}{8}}
-\headcommand {\slideentry {1}{0}{9}{9/9}{}{0}}
+\headcommand {\sectionentry {2}{Durchf\IeC {\"u}hrung}{9}{Durchf\IeC {\"u}hrung}{0}}
+\headcommand {\beamer@sectionpages {3}{8}}
+\headcommand {\beamer@subsectionpages {3}{8}}
+\headcommand {\slideentry {2}{0}{9}{9/9}{}{0}}
 \headcommand {\beamer@framepages {9}{9}}
-\headcommand {\slideentry {1}{0}{10}{10/10}{}{0}}
+\headcommand {\sectionentry {3}{Auswertung}{10}{Auswertung}{0}}
+\headcommand {\beamer@sectionpages {9}{9}}
+\headcommand {\beamer@subsectionpages {9}{9}}
+\headcommand {\slideentry {3}{0}{10}{10/10}{}{0}}
 \headcommand {\beamer@framepages {10}{10}}
-\headcommand {\slideentry {1}{0}{11}{11/11}{}{0}}
+\headcommand {\slideentry {3}{0}{11}{11/11}{}{0}}
 \headcommand {\beamer@framepages {11}{11}}
-\headcommand {\slideentry {1}{0}{12}{12/12}{}{0}}
+\headcommand {\slideentry {3}{0}{12}{12/12}{}{0}}
 \headcommand {\beamer@framepages {12}{12}}
 \headcommand {\beamer@partpages {1}{12}}
-\headcommand {\beamer@subsectionpages {3}{12}}
-\headcommand {\beamer@sectionpages {3}{12}}
+\headcommand {\beamer@subsectionpages {10}{12}}
+\headcommand {\beamer@sectionpages {10}{12}}
 \headcommand {\beamer@documentpages {12}}
 \headcommand {\def \inserttotalframenumber {12}}
