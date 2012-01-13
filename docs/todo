@@ -3,30 +3,41 @@
 1. MySQL evaluieren (Martin)
 	- Queries testen - done
 	- Zeitmessung (average / min / max / stdev)
-	- Code-Doku
+	- Code-Doku - done
 	
 2. Neo4j (Martin) 
 	- Cypher Abfragen formulieren -done
 	- Benchmarks mit Cypher Abfragen -done
 	- Benchmarks mit Traverser API -done
 	- Zeitmessung (average / min / max / stdev) -done
-	- Bericht
-	- Code-Doku
+	- Bericht - done
+	- Code-Doku - done
+	- Grafiken als Vektorgrafik
+	- 10M Grafiken
+	- Gesamtgrafik
 			
 3. Dex (Robert)
 	- Abfragen via Native API -done
-	- Bericht
-	- Code-Doku
+	- Code-Doku - done
+	- Bericht DEX
+		- SW Doku (UML)
+		- Bedienungsanleitung
+		- Grafiken drehen
+		- Query 1 für 10M ersetzen
+	- Präsentation
+		- Tabelle (Auswertung) aus Bericht übernehmen
 	
 4. OrientDB (Sascha)
-	- OrientConnector implementieren und verwenden! (siehe neo4j und DexConnector)
-	- Abfragen via SQL http://code.google.com/p/orient/wiki/SQL
-	- Zeitmessung (average / min / max / stdev)
-	- Bericht
-	- Code-Doku
+	- OrientConnector implementieren und verwenden! (siehe neo4j und DexConnector) - done
+	- Abfragen via SQL http://code.google.com/p/orient/wiki/SQL - done
+	- Zeitmessung (average / min / max / stdev) - done
+	- Bericht - done
+	- Code-Doku - done
+	- Doku überprüfen
+	- Grafiken dokumentieren (Auswertung)
 
 5. Bericht (DB-spezifisch) (Martin / Robert / Sascha)
-	- Fakten zur DB (evtl. auch Community Support)
+	- Fakten zur DB (evtl. auch Community Support) - done
 	- Datenmodell
 	- Abfragemöglichkeiten
 	- Benchmarks

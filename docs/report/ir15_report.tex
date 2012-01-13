@@ -14,6 +14,8 @@
 \usepackage{units}   				% Einheiten, \unit[23]{m}
 \usepackage{hyperref}				% Referenzen
 \usepackage{todonotes}				% Todo
+\usepackage{listings}
+\usepackage{grffile}
 
 \author{Martin Junghanns \\  \url{martin.junghanns@studserv.uni-leipzig.de} \and 
 		Sascha Ludwig \\ \url{s.ludwig@studserv.uni-leipzig.de} \and 
@@ -168,14 +170,45 @@ versionen
 
 \subsection{Ergebnisse}
 
+In Tabelle \ref{tab:compare} werden die Erkenntnisse aus dem Praktikum zusammengefasst. Es hat sich gezeigt, dass Neo4j insgesamt am Besten für den Anwendungsfall geeignet ist. Dies ist nicht nur auf die gute bis sehr gute Performance zurückzuführen, sondern auch auf die umfangreiche Dokumentation und den Community Support. Mit Cypher steht eine mächtige Anfragesprache zur Verfügung, welche stetig weiterentwickelt und optimiert wird. Wir empfehlen daher Neo4j für eine weiterführende Evaluation im Zusammenhang mit Kookkurrenzgraphen.
 
+\renewcommand{\arraystretch}{1.5}
+
+\begin{table}[ht]
+\begin{tabular}{|l||p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+\hline 
+ & \textbf{Neo4j} & \textbf{OrientDB} & \textbf{DEX} \\ 
+\hline
+Performance Import & $++$ & $--$ & ++ \\ 
+\hline 
+Performance Query 1 & ++ & ++* & ++ \\ 
+\hline 
+Performance Query 2 & ++ & +* & + \\ 
+\hline 
+Performance Query 3 & ++ & +* & ++ \\ 
+\hline
+Community & ++ & + & $--$ \\ 
+\hline 
+Dokumentation & ++ & ++ & $-$ \\
+\hline 
+Anfrage & Java API, Cypher, Gremlin & Java API, SQL, Gremlin & Java API \\
+\hline
+Implementiert in & Java & Java & C++ (Core), Java (API) \\
+\hline 
+Lizenz & GPL (Community Edition) & Apache License 2.0 & kommerziell	 \\ 
+\hline 
+\end{tabular}
+\caption{Gegenüberstellung der verwendeten Graphdatenbanken (* bis einschließlich deu\textunderscore news\textunderscore 300K)}
+\label{tab:compare}
+\end{table}
 
 % Anhang auf neue Seite
 \newpage
 % und diese einspaltig
 \onecolumn
 
-\section{Anhang}
+\begin{appendix}
+\section{Abbildungen}
 
 \begin{figure*}[htbp]
 	\centering
@@ -184,5 +217,194 @@ versionen
 	\label{fig:orientdb_import}
 \end{figure*}
 
+\newpage
+\thispagestyle{empty}
+
+\begin{figure}[ht]
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/10K_query1_boxplot}
+	\caption{...}
+	\label{fig:10k_query2_boxplot}
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/100K_query1_boxplot}
+	\caption{...}
+	\label{fig:100k_query1_boxplot}
+\end{minipage}
+
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/10K_query2_boxplot}
+	\caption{...}
+	\label{fig:10k_query2_boxplot}
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/100K_query2_boxplot}
+	\caption{...}
+	\label{fig:100k_query2_boxplot}
+\end{minipage}
+
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/10K_query3_boxplot}
+	\caption{...}
+	\label{fig:10k_query3_boxplot}
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/100K_query3_boxplot}
+	\caption{...}
+	\label{fig:100k_query3_boxplot}
+\end{minipage}
+\end{figure}
+
+\newpage
+\thispagestyle{empty}
+
+\begin{figure}[ht]
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/1M_query1_boxplot}
+	\caption{...}
+	\label{fig:1M_query2_boxplot}
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/1M_query1_boxplot}
+	\caption{TODO: in 10M ändern}
+	\label{fig:10M_query1_boxplot}
+\end{minipage}
+
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/1M_query2_boxplot}
+	\caption{...}
+	\label{fig:1M_query2_boxplot}
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/10M_query2_boxplot}
+	\caption{...}
+	\label{fig:10M_query2_boxplot}
+\end{minipage}
+
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/1M_query3_boxplot}
+	\caption{...}
+	\label{fig:1M_query3_boxplot}
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/10M_query3_boxplot}
+	\caption{...}
+	\label{fig:10M_query3_boxplot}
+\end{minipage}
+\end{figure}
+
+\newpage
+\thispagestyle{empty}
+
+\begin{figure}[ht]
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/10K_query1_perf}
+	\caption{...}
+	\label{fig:10k_query2_perf}
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/100K_query1_perf}
+	\caption{...}
+	\label{fig:100k_query1_perf}
+\end{minipage}
+
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/10K_query2_perf}
+	\caption{...}
+	\label{fig:10k_query2_perf}
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/100K_query2_perf}
+	\caption{...}
+	\label{fig:100k_query2_perf}
+\end{minipage}
+
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/10K_query3_perf}
+	\caption{...}
+	\label{fig:10k_query3_perf}
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/100K_query3_perf}
+	\caption{...}
+	\label{fig:100k_query3_perf}
+\end{minipage}
+\end{figure}
+
+\newpage
+\thispagestyle{empty}
+
+\begin{figure}[ht]
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/1M_query1_perf}
+	\caption{...}
+	\label{fig:1M_query2_perf}
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/1M_query1_perf}
+	\caption{TODO: in 10M ändern}
+	\label{fig:10M_query1_perf}
+\end{minipage}
+
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/1M_query2_perf}
+	\caption{...}
+	\label{fig:1M_query2_perf}
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/10M_query2_perf}
+	\caption{...}
+	\label{fig:10M_query2_perf}
+\end{minipage}
+
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/1M_query3_perf}
+	\caption{...}
+	\label{fig:1M_query3_perf}
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{7cm}
+	\centering
+	\includegraphics[width=7cm]{../results/cold caches/images/10M_query3_perf}
+	\caption{...}
+	\label{fig:10M_query3_perf}
+\end{minipage}
+\end{figure}
+
+\end{appendix}
 
 \end{document}
