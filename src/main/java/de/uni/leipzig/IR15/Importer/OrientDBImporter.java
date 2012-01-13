@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.orientechnologies.orient.core.config.OGlobalConfiguration;
 import com.orientechnologies.orient.core.db.graph.OGraphDatabase;
 import com.orientechnologies.orient.core.index.OIndexUnique;
 import com.orientechnologies.orient.core.intent.OIntentMassiveInsert;
@@ -104,14 +105,19 @@ public class OrientDBImporter extends Importer {
 		// first import the words
 		importWords(mySQLConnection, orientdb);
 		// leads to errors while importing coocurrences, if not set to null
-		orientdb.declareIntent( null );
+		
+		OGlobalConfiguration.CACHE_LEVEL1_ENABLED.setValue(false);
+		OGlobalConfiguration.CACHE_LEVEL2_ENABLED.setValue(false);
+		//OGlobalConfiguration.SERVER_CACHE_FILE_STATIC.setValue(false);
 		
 		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_S);
+		orientdb.declareIntent( null );
+		
 		// and then the edges between them
 		importCooccurrences(mySQLConnection, orientdb, RelTypes.CO_N);
 		
 	}
-
+	
 	/**
 	 * Import all words.
 	 * 
