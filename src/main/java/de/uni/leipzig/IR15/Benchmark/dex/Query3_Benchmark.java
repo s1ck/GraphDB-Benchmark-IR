@@ -2,6 +2,7 @@ package de.uni.leipzig.IR15.Benchmark.dex;
 
 import com.sparsity.dex.gdb.EdgesDirection;
 import com.sparsity.dex.gdb.Objects;
+import com.sparsity.dex.gdb.ObjectsIterator;
 import com.sparsity.dex.gdb.Value;
 
 /**
@@ -19,22 +20,29 @@ public class Query3_Benchmark extends DEXBenchmark {
 	 */
 	@Override
 	public void run() {
-		long edge;
+		long edge, node1, node2;
 
 		Value sigValue, freqValue, word1IDValue, word2IDValue;
 
 		// find all neighbors to a given start node
 		Objects neighbors_1 = graph.neighbors(startNodeID, coSEdgeType,
 				EdgesDirection.Outgoing);
-		Objects neighbors_2 = graph.neighbors(startNodeID, coSEdgeType,
-				EdgesDirection.Outgoing);
-		;
+		Objects neighbors_2;
+//		Objects neighbors_2 = graph.neighbors(startNodeID, coSEdgeType,
+//				EdgesDirection.Outgoing);
+//		;
 
 		// iterate over all neighbors
-		for (Long node1 : neighbors_1) {
+		ObjectsIterator iter1 = neighbors_1.iterator(), iter2;
+		while (iter1.hasNext()) {
+			node1 = iter1.nextObject();
 
+			neighbors_2 = graph.neighbors(startNodeID, coSEdgeType,
+					EdgesDirection.Outgoing);
 			// iterate over all neighbors once again
-			for (Long node2 : neighbors_2) {
+			iter2 = neighbors_2.iterator();
+			while (iter2.hasNext()) {
+				node2 = iter2.nextObject();
 
 				// skip self-references
 				if (node1 == node2) {
@@ -73,7 +81,11 @@ public class Query3_Benchmark extends DEXBenchmark {
 				freqValue.getInteger();
 				freqValue.delete();
 			}
+			iter2.close();
+			neighbors_2.close();
 		}
+		iter1.close();
+		neighbors_1.close();
 	}
 
 	/**
