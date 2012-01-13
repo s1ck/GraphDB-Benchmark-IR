@@ -216,7 +216,37 @@ versionen
 
 \section{Fazit}
 
+In Tabelle \ref{tab:compare} werden die Erkenntnisse aus dem Praktikum zusammengefasst. Es hat sich gezeigt, dass Neo4j insgesamt am Besten für den Anwendungsfall geeignet ist. Dies ist nicht nur auf die gute bis sehr gute Performance zurückzuführen, sondern auch auf die umfangreiche Dokumentation und den Community Support. Mit Cypher steht eine mächtige Anfragesprache zur Verfügung, welche stetig weiterentwickelt und optimiert wird. Wir empfehlen daher Neo4j für eine weiterführende Evaluation im Zusammenhang mit Kookkurrenzgraphen.
 
+\renewcommand{\arraystretch}{1.5}
+
+\begin{table}[ht]
+\begin{tabular}{|l||p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+\hline 
+ & \textbf{Neo4j} & \textbf{OrientDB} & \textbf{DEX} \\ 
+\hline
+Performance Import & $++$ & $--$ & ++ \\ 
+\hline 
+Performance Query 1 & ++ & ++* & ++ \\ 
+\hline 
+Performance Query 2 & ++ & +* & + \\ 
+\hline 
+Performance Query 3 & ++ & +* & ++ \\ 
+\hline
+Community & ++ & + & $--$ \\ 
+\hline 
+Dokumentation & ++ & ++ & $-$ \\
+\hline 
+Anfrage & Java API, Cypher, Gremlin & Java API, SQL, Gremlin & Java API \\
+\hline
+Implementiert in & Java & Java & C++ (Core), Java (API) \\
+\hline 
+Lizenz & GPL (Community Edition) & Apache License 2.0 & kommerziell	 \\ 
+\hline 
+\end{tabular}
+\caption{Gegenüberstellung der verwendeten Graphdatenbanken (* bis einschließlich deu\textunderscore news\textunderscore 300K)}
+\label{tab:compare}
+\end{table}
 
 % Anhang auf neue Seite
 \newpage

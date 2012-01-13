@@ -1,0 +1,35 @@
+\BOOKMARK [1][-]{section.1}{Projektbeschreibung}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Softwarearchitektur}{section.1}% 2
+\BOOKMARK [3][-]{subsubsection.1.1.1}{Konnektoren}{subsection.1.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.1.2}{Importierer}{subsection.1.1}% 4
+\BOOKMARK [3][-]{subsubsection.1.1.3}{Benchmark-Suite}{subsection.1.1}% 5
+\BOOKMARK [3][-]{subsubsection.1.1.4}{Benchmark}{subsection.1.1}% 6
+\BOOKMARK [3][-]{subsubsection.1.1.5}{Konfigurationsdateien}{subsection.1.1}% 7
+\BOOKMARK [3][-]{subsubsection.1.1.6}{Ausw\344rtungsskripte}{subsection.1.1}% 8
+\BOOKMARK [2][-]{subsection.1.2}{Bedienungsanleitung}{section.1}% 9
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Vorraussetzungen}{subsection.1.2}% 10
+\BOOKMARK [3][-]{subsubsection.1.2.2}{Benchmarks ausf\374hren}{subsection.1.2}% 11
+\BOOKMARK [3][-]{subsubsection.1.2.3}{Benchmarks konfigurieren}{subsection.1.2}% 12
+\BOOKMARK [3][-]{subsubsection.1.2.4}{zus\344tzliche Benchmarks}{subsection.1.2}% 13
+\BOOKMARK [3][-]{subsubsection.1.2.5}{zus\344tzliche Datenbank}{subsection.1.2}% 14
+\BOOKMARK [2][-]{subsection.1.3}{Einschr\344nkungen}{section.1}% 15
+\BOOKMARK [2][-]{subsection.1.4}{Erweiterungsm\366glichkeiten}{section.1}% 16
+\BOOKMARK [1][-]{section.2}{Neo4j}{}% 17
+\BOOKMARK [2][-]{subsection.2.1}{Anbindung}{section.2}% 18
+\BOOKMARK [2][-]{subsection.2.2}{Anfragem\366glichkeiten}{section.2}% 19
+\BOOKMARK [2][-]{subsection.2.3}{Einschr\344nkungen}{section.2}% 20
+\BOOKMARK [2][-]{subsection.2.4}{Dokumentation}{section.2}% 21
+\BOOKMARK [2][-]{subsection.2.5}{Aussicht}{section.2}% 22
+\BOOKMARK [1][-]{section.3}{OrientDB}{}% 23
+\BOOKMARK [2][-]{subsection.3.1}{Anbindung}{section.3}% 24
+\BOOKMARK [2][-]{subsection.3.2}{Anfragem\366glichkeiten}{section.3}% 25
+\BOOKMARK [2][-]{subsection.3.3}{Einschr\344nkungen}{section.3}% 26
+\BOOKMARK [2][-]{subsection.3.4}{Dokumentation}{section.3}% 27
+\BOOKMARK [2][-]{subsection.3.5}{Aussicht}{section.3}% 28
+\BOOKMARK [1][-]{section.4}{DEX}{}% 29
+\BOOKMARK [1][-]{section.5}{Evaluation}{}% 30
+\BOOKMARK [2][-]{subsection.5.1}{Anfragen}{section.5}% 31
+\BOOKMARK [2][-]{subsection.5.2}{Testbed}{section.5}% 32
+\BOOKMARK [2][-]{subsection.5.3}{Auswertung}{section.5}% 33
+\BOOKMARK [1][-]{section.6}{Fazit}{}% 34
+\BOOKMARK [1][-]{section.7}{Anhang}{}% 35
