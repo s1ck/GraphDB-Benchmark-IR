@@ -17,3 +17,7 @@ jdex.log
 dex.log
 /docs/script/*.dat
 /docs/script/*.gnu
+/docs/**/*.aux
+/docs/**/*.log
+/docs/**/*.pdf
+/docs/**/*.out
