@@ -13,6 +13,7 @@
 \usepackage{color}					% Farben
 \usepackage{units}   				% Einheiten, \unit[23]{m}
 \usepackage{hyperref}				% Referenzen
+\usepackage{todonotes}				% Todo
 
 \author{Martin Junghanns \\  \url{martin.junghanns@studserv.uni-leipzig.de} \and 
 		Sascha Ludwig \\ \url{s.ludwig@studserv.uni-leipzig.de} \and 
@@ -30,9 +31,72 @@
 
 % Abstract
 \begin{abstract}
-	Dieser Bericht dient der Zusammenfassung der Ergebnisse eines Praktikums im Rahmen des Moduls \dq Fortgeschrittene Methoden des Information Retrieval\dq~im WS 2010/11 der Universität Leipzig. Inhalt des Praktikums ist die Evaluation verschiedener Graphdatenbanken und eine Gegenüberstellung mit relationalen Datenbanken. Als Vertreter der Graphdatenbanken werden Neo4j, Dex und OrientDB näher betrachtet, MySQL wird als relationale Datenbank in den Vergleich einbezogen.\\
-Konkrete Ziele des Praktikums sind das Kennenlernen der verschiedenen Graphdatenbanken, der zu Grunde liegenden Datenmodelle und deren Abfragetechniken. Für den experimentellen Vergleich sollen verschiedene Kookkurrenzgraphen des Wortschatz Leipzig Projektes in die Datenbanken importiert und mit den angebotenen Techniken abgefragt werden. Dabei wurden ausgewählte SQL Anfragen in API Calls, aber auch in deklarative Anfragesprachen des jeweiligen Herstellers umformuliert und hinsichtlich ihrer Ausführungszeit verglichen.\\
+	Dieser Bericht ist die Zusammenfassung der Praktikumsergebnisse im Rahmen des Moduls \dq Fortgeschrittene Methoden des Information Retrieval\dq~im WS 2010/11 der Universität Leipzig. Inhalt des Praktikums war die Evaluation verschiedener Graphdatenbanken und die Gegenüberstellung von relationalen Datenbanken. Als Vertreter der Graphdatenbanken wurden Neo4j, DEX und OrientDB näher betrachtet, MySQL wurde als relationale Datenbank in den Vergleich einbezogen.\\
+Konkrete Ziele des Praktikums waren das Kennenlernen der verschiedenen Graphdatenbanken, der zu Grunde liegenden Datenmodelle und deren Abfragetechniken. Für den experimentellen Vergleich sollten verschiedene Kookkurrenzgraphen des Wortschatz Leipzig Projektes in die jeweilige Datenbanken importiert und mit den individuell angebotenen Möglichkeiten abgefragt werden. Dabei wurden ausgewählte SQL-Anfragen in API-Anfragen, aber auch in deklarative Anfragesprachen des jeweiligen Herstellers umformuliert und hinsichtlich ihrer Ausführungszeit verglichen.\\
+Um die gemessenen Ausführungszeiten besser vergleichen zu können wurden die Messergebnisse mittels genuplot\footnote{\url{http://http://www.gnuplot.info/}} visualisiert.
 \end{abstract}
+
+\listoftodos
+
+\section{Projektbeschreibung}
+	Als Ergebnis des Praktikums ergaben sich zum einen konkrete und vergleichbare Messergebnisse der einzelnen Datenbanken. Zum anderen ist ein minimales, einfach konfigurierbares und auf den Anwendungsfall des Datenbankenvergleichens angepasstes Benchmarkframework entstanden. Das Framework unterstütze uns beim aggregieren der Messergebnisse einzelner Datenbanken und erleichterte wiederkehrende Aufgaben. 
+	
+\subsection{Softwarearchitektur}
+Das Framework besteht aus sechs Komponenten, durch deren Ableitung und Kombination sich ein einzelner Benchmarkvorgang durchführen lässt, die im folgenden kurz vorgestellt werden sollen. 
+
+\subsubsection{Konnektoren}
+Ein Konnektor (Connector) dient den einzelnen Benchmarks oder Importierern zur Herstellung und Aufrechterhaltung einer Verbindung zur jeweiligen Datenbank. Für jede Datenbank muss nur ein Konnektor implementiert werden.
+
+\subsubsection{Importierer}
+Ein Importierer (Importer) dient dem Importiervorgang einer Datenbasis in die jeweilige Datenbank. In unserem Fall wurde die Datenbasis aus einer MySQL Datenbank übernommen. An dieser Stelle könnte aber auch ein Import aus einer CSV-Datei oder mit einer anderen Quelle implementiert werden. Für den vorstellbaren Fall, dass Benchmarks nicht auf einer existierenden Datenbasis operieren, ist die Implementierung eines Importierers nicht notwendig. Durch den Importierer lässt sich eine Datenbank auch in den Urzustand zurücksetzen und alle enthaltenen Daten entfernen.
+
+\subsubsection{Benchmark-Suite}
+Eine Benchmark-Suite dient der Zusammenfassung mehrerer einzelner Benchmark zu einer Folge, die geordnet durchgeführt werden sollen. Die Benchmark-Suite ermöglicht das Aggregieren und Persistieren einzelner Messergebnisse. In der Benchmark-Suite kann konfiguriert werden ob der eigentlichen Messung vorausgehend eine sogenannte Aufwärmung der Datenbank durchgeführt werden soll oder nicht.
+
+\subsubsection{Benchmark}
+Ein Benchmark misst die durchschnittliche Ausführungszeit einer Datenbankoperation. Die auszuführende Datenbankoperation ist an dieser Stelle zu implementieren.
+
+\subsubsection{Konfigurationsdateien}
+Bezüglich geeigneter Parameter ist die Konfiguration der einzelnen Datenbanken oder des Frameworks selbst über sogenannte properties-Dateien möglich.
+
+\subsubsection{Auswärtungsskripte}
+
+\subsection{Bedienungsanleitung}
+\label{subsec:bedienungsanleitung}
+
+\subsubsection{Vorraussetzungen}
+
+\begin{itemize}
+\item repository auschecken
+\item maven dependencies installieren
+\item etc.
+\item pp.
+\end{itemize}
+
+\subsubsection{Benchmarks ausführen}
+
+
+\subsubsection{Benchmarks konfigurieren}
+
+\subsubsection{zusätzliche Benchmarks}
+
+\subsubsection{zusätzliche Datenbank}
+
+\subsection{Einschränkungen}
+
+Vorhandene Einschränkungen Datenbank-spezifischer Natur sind im jeweiligen Abschnitt dokumentiert.
+
+An dieser Stelle sei aber auch erwähnt, dass wir im Rahmen des Praktikums keine überdurchschnittliche Expertise bezüglich der verwendeten Datenbanken ausbilden konnten und so die Aussagekraft unserer Messergebnisse unter folgendem Bedingungen zu betrachten sind: Es ist durchaus möglich, dass sich die in den Benchmarks verwendeten Datenbankoperationen noch weiter optimieren ließen. Dabei kann es sein, dass eine Optimierung nur hinsichtlich bestimmter Operationen einen Vorteil bringt und sich bei andere Operationen eher nachteilig auswirkt.
+
+\subsection{Erweiterungsmöglichkeiten}
+
+Bezüglich der Erweiterungsmöglichkeiten muss an dieser Stelle unterschieden werden. Zum einen ist es möglich die Benchmarks an sich zu erweitern, dazu siehe die Bedienungsanleitung im Absatz \ref{subsec:bedienungsanleitung}. Zum anderen bietet das Framework an sich Potenzial für Erweiterungen.
+
+\subsubsection*{Vereinfachte Konfiguration der Benchmark-Suiten}
+Es ist vorstellbar, dass die Erstellung einer Benchmark-Suite, also das Zusammenführen einzelner Benchmarks zu einer geordneten Folge, nicht zwingend in Programmierleistung in einer Java-Klasse geschehen muss. Denkbar wäre, dass man dies lediglich in einer properties-Datei konfiguriert. Dies vereinfacht das Anpassen einer Benchmark-Suite und ist auch für Personen ohne Programmierkenntnisse zugänglich.
+
+\subsubsection*{Visualisierung von Messergebnissen durch das Framework}
+Momentan geschieht die Auswertung der Messergebnisse noch außerhalb des Frameworks. Dazu existiert ein zusätzliches python-Skript, welches die Messergebnisse aggregiert, aufbereitet und mittels gnuplot visuell zugänglich ausgibt. Dieses aggregieren, aufbereiten und Ansprechen von gnuplot ist auch in Java möglich und könnte in das Framework integriert werden.
 
 % der wahre Inhalt
 \section{Neo4j}
