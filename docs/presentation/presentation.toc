@@ -1,3 +1,5 @@
 \beamer@endinputifotherversion {3.07pt}
 \select@language {ngerman}
 \beamer@sectionintoc {1}{Einleitung}{3}{0}{1}
+\beamer@sectionintoc {2}{Durchf\IeC {\"u}hrung}{9}{0}{2}
+\beamer@sectionintoc {3}{Auswertung}{10}{0}{3}
