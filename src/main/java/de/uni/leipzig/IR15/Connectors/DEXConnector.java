@@ -58,7 +58,7 @@ public class DEXConnector {
 	 */
 	public static void destroyConnection() {
 		try {
-			// dex.close();
+			dex.close();
 			dexConnector.close();
 			log.info("Destroy connection successful");
 		} catch (Exception e) {

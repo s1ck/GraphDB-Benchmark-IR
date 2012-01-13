@@ -14,6 +14,7 @@
 \usepackage{units}   				% Einheiten, \unit[23]{m}
 \usepackage{hyperref}				% Referenzen
 \usepackage{todonotes}				% Todo
+\usepackage{listings}
 
 \author{Martin Junghanns \\  \url{martin.junghanns@studserv.uni-leipzig.de} \and 
 		Sascha Ludwig \\ \url{s.ludwig@studserv.uni-leipzig.de} \and 
@@ -110,21 +111,20 @@ Für die Leistungsmessung wurde die eingebettete Variante der Datenbank genutzt.
 
 \subsection{Anfragemöglichkeiten}
 
-Neo4j bietet verschiedene Möglichkeiten an, den gespeicherten Graphen zu traversieren bzw. abzufragen. Neben der nativen Java API und der ebenfalls in Java entwickelten Traversal API steht seit Version 1.5 mit Cypher eine deklarative Abfragesprache zur Verfügung. Die drei genannten Abfragemöglichkeiten werden im Folgenden kurz vorgestellt und die Formulierung der vorgegebenen SQL Queries aufgezeigt.
-
-\subsubsection{Native API}
-
-\subsubsection{Traversal API}
-
-\subsubsection{Cypher}
+Neo4j bietet verschiedene Möglichkeiten an, den gespeicherten Graphen zu traversieren bzw. abzufragen. Neben der nativen Java API und der ebenfalls in Java entwickelten Traversal API steht seit Version 1.5 mit Cypher eine deklarative Abfragesprache zur Verfügung. Die Beispielanfragen auf den Kookkurrenzgraphen wurden in allen drei Anfragemöglichkeiten formuliert und können im Code Repository eingesehen werden.
 
 \subsection{Einschränkungen}
 
-Cypher, Traverser Speicherprobs, keine Optimierung
+Die wesentlichen Einschränkungen von Neo4j beziehen sich auf die Anfragesprache Cypher und die Java basierte Traversal API. Cypher befindet sich im Entwicklungsstatus und bietet momentan keine Query Optimierung an. Dies führte in der Testumgebung zu Ausnahmen infolge von Speicherüberläufen während der Ausführung. Das gleiche Problem trat auch bei der Verwendung der Traverser API auf. Beide Anfragemöglichkeiten wurden in die Messungen nicht einbezogen, befinden sich jedoch ebenfalls im Code Repository.
 
 \subsection{Dokumentation}
 
+Von den betrachteten Datenbanken weist Neo4j die umfangreichste und ausführlichste Dokumentation auf, in konkreten Beispielen wird der Umgang mit der Datenbank erläutert. Die Javadoc wird automatisch mit jedem Release aktualisiert und jede Funktionalität ist ausreichend dokumentiert.\\
+Darüber hinaus verwaltet Neo Technologies eine Mailing List auf der Probleme aktiv diskutiert werden. Neben der Verwendung der Datenbank werden innerhalb der Dokumentation auch Möglichkeiten der Optimierung aufgezeigt. Diese wurden im Rahmen des Praktikums in Anspruch genommen.
+
 \subsection{Aussicht}
+
+Neo4j befindet sich in einem aktiven Entwicklungsprozess. Anfragen an die Mailing List ergaben, dass insbesondere Cypher im Rahmen der nächsten Releases optimiert wird. Neo4j entwickelt außerdem mit Spring Data Neo4j eine Anbindung an das Spring Framework\footnote{\url{http://www.springsource.org/}}, welches die Integration in bestehende Softwaresysteme und die Abbildung zu Datenbankenobjekten stark vereinfacht.
 
 \section{OrientDB}
 
@@ -146,7 +146,53 @@ OrientDB stellt bezüglich seiner Graphdatenbankenfunktionalität einige interss
 
 \section{Evaluation}
 
+Im folgenden Abschnitt wird die Durchführung der Messung beschrieben. Dabei werden zunächst die verwendeten Anfragen vorgestellt und anschließend das Testbed beschrieben. Die Ergebnisse der Messung befinden sich im Anhang, eine Auswertung dieser ist in Abschnitt
+
+\subsection{Anfragen}
+
+Zur Messung wurden folgende Anfragen in den jeweiligen Sprachen bzw. APIs formuliert.
+
+\subsubsection*{Anfrage 1}
+
+Finde alle Satz- oder Nachbarschaftskookkurrenzen eines Wortes. Gib Frequenz, Signifikanz und die beteiligten Wörter der Kookkurrenz aus.
+
+\subsubsection*{Anfrage 2}
+
+Finde alle Satz- oder Nachbarschaftskookkurrenzen der Nachbarn eines Wortes. Gib Frequenz, Signifikanz und die beteiligten Wörter der Kookkurrenz aus.
+
+\subsubsection*{Anfrage 3}
+
+Finde alle Satz- oder Nachbarschaftskookkurrenzen zwischen den Nachbarn eines Wortes. Gib Frequenz, Signifikanz und die beteiligten Wörter der Kookkurrenz aus.
+
 \subsection{Testbed}
+
+Das Testsystem ist wie folgt aufgebaut: Intel Core i7 2620M (2 x 3,2Ghz), 8GB DDR3 RAM, Crucial M4 SSD Festplatte. Die Graphdatenbanken wurden in das Benchmark Framework eingebunden, MySQL wurde lokal installiert und mit den von MySQL vorgegebenen Einstellungen einer Produktivumgebung gestartet.\\
+Die Auwahl der Knoten erfolgte zufällig, es wurde jedoch ein Seed Wert definiert um in jeder Datenbank die gleichen Startknoten zu verwenden. Darüber hinaus kann im Framework ein Schwellwert definiert werden. Dieser legt fest, wieviele ausgehende Kanten (Satz- oder Nachbarschaftskookkurrenz) ein zufällig ausgewählter Knoten mindestens besitzen muss. Dieser Wert wurde auf 20 festgelegt.
+\par
+Nachfolgend werden die Startparameter der Java Virtual Machine angegeben. Diese ergeben sich entweder aus der Dokumentation des Hersteller oder gewonnenen Erfahrungen infolge mehrere Testläufe.
+
+\begin{lstlisting}
+// MySQL
+-server
+-Xmx1g
+
+// Neo4j
+-Xmx4g
+-server
+-Xmn512M
+-XX:+UseConcMarkSweepGC
+
+// Dex
+-server
+-Xmx1g
+
+// OrientDB
+-server
+-Xmx4g
+-XX:+AggressiveOpts 
+-XX:CompileThreshold=200
+\end{lstlisting}
+
 
 Hardware Fakten
 Datensätze (Anzahl Knoten, Kanten, evtl. Gradverteilung)
@@ -154,6 +200,8 @@ cold caches / warm caches
 JVM settings
 versionen
 
-\subsection{Ergebnisse}
+\subsection{Auswertung}
+
+\section{Fazit}
 
 \end{document}
