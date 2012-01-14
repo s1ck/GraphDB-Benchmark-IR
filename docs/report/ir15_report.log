@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.27)  13 JAN 2012 18:30
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2011.10.27)  14 JAN 2012 11:42
 entering extended mode
 **ir15_report.tex
 (C:\Install\Devel\Java\Projects\IR_15\docs\report\ir15_report.tex
@@ -762,339 +762,348 @@ operties-Dateien m[]oglich.
  []
 
 [3] [4] [5] [6] [7] [8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 241--241
+Underfull \hbox (badness 10000) in paragraph at lines 254--254
 []\OT1/cmr/m/n/10.95 Java API,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 243--244
+Underfull \hbox (badness 10000) in paragraph at lines 256--257
 []\OT1/cmr/m/n/10.95 C++ (Co-re),
  []
 
 
-Overfull \hbox (5.53494pt too wide) in paragraph at lines 225--248
+Overfull \hbox (5.53494pt too wide) in paragraph at lines 238--261
 [][] 
  []
 
-[10] <./pics/OrientImporter.png, id=269, 909.3975pt x 590.205pt>
+[10] [11] <./pics/OrientImporter.png, id=273, 909.3975pt x 590.205pt>
 File: ./pics/OrientImporter.png Graphic file (type png)
 
 <use ./pics/OrientImporter.png>
-Package pdftex.def Info: ./pics/OrientImporter.png used on input line 262.
+Package pdftex.def Info: ./pics/OrientImporter.png used on input line 275.
 (pdftex.def)             Requested size: 284.52756pt x 184.66374pt.
- [11
+ [12
 
  <C:/Install/Devel/Java/Projects/IR_15/docs/report/pics/OrientImporter.png>]
-<../results/cold caches/images/10K_query1_boxplot.png, id=274, 674.52pt x 673.5
-1625pt>
-File: ../results/cold caches/images/10K_query1_boxplot.png Graphic file (type p
-ng)
- <use ../results/cold caches/images/10K_query1_boxplot.png>
-Package pdftex.def Info: ../results/cold caches/images/10K_query1_boxplot.png u
-sed on input line 273.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+<../results/cold caches/images/10K_query1_boxplot.pdf, id=278, 505.89pt x 504.8
+8625pt>
+File: ../results/cold caches/images/10K_query1_boxplot.pdf Graphic file (type p
+df)
+ <use ../results/cold caches/images/10K_query1_boxplot.pdf>
+Package pdftex.def Info: ../results/cold caches/images/10K_query1_boxplot.pdf u
+sed on input line 286.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-<../results/cold caches/images/100K_query1_boxplot.png, id=275, 674.52pt x 673.
-51625pt>
-File: ../results/cold caches/images/100K_query1_boxplot.png Graphic file (type 
-png)
- <use ../results/cold caches/images/100K_query1_boxplot.png>
-Package pdftex.def Info: ../results/cold caches/images/100K_query1_boxplot.png 
-used on input line 280.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+<../results/cold caches/images/100K_query1_boxplot.pdf, id=279, 505.89pt x 504.
+88625pt>
+File: ../results/cold caches/images/100K_query1_boxplot.pdf Graphic file (type 
+pdf)
+ <use ../results/cold caches/images/100K_query1_boxplot.pdf>
+Package pdftex.def Info: ../results/cold caches/images/100K_query1_boxplot.pdf 
+used on input line 293.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-Overfull \hbox (40.7719pt too wide) in paragraph at lines 271--284
+Overfull \hbox (40.7719pt too wide) in paragraph at lines 284--297
 []$[]$  $[]$ 
  []
 
 
-<../results/cold caches/images/10K_query2_boxplot.png, id=276, 674.52pt x 673.5
-1625pt>
-File: ../results/cold caches/images/10K_query2_boxplot.png Graphic file (type p
-ng)
- <use ../results/cold caches/images/10K_query2_boxplot.png>
-Package pdftex.def Info: ../results/cold caches/images/10K_query2_boxplot.png u
-sed on input line 287.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+<../results/cold caches/images/10K_query2_boxplot.pdf, id=280, 505.89pt x 504.8
+8625pt>
+File: ../results/cold caches/images/10K_query2_boxplot.pdf Graphic file (type p
+df)
+ <use ../results/cold caches/images/10K_query2_boxplot.pdf>
+Package pdftex.def Info: ../results/cold caches/images/10K_query2_boxplot.pdf u
+sed on input line 300.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-<../results/cold caches/images/100K_query2_boxplot.png, id=277, 674.52pt x 673.
-51625pt>
-File: ../results/cold caches/images/100K_query2_boxplot.png Graphic file (type 
-png)
- <use ../results/cold caches/images/100K_query2_boxplot.png>
-Package pdftex.def Info: ../results/cold caches/images/100K_query2_boxplot.png 
-used on input line 294.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+<../results/cold caches/images/100K_query2_boxplot.pdf, id=281, 505.89pt x 504.
+88625pt>
+File: ../results/cold caches/images/100K_query2_boxplot.pdf Graphic file (type 
+pdf)
+ <use ../results/cold caches/images/100K_query2_boxplot.pdf>
+Package pdftex.def Info: ../results/cold caches/images/100K_query2_boxplot.pdf 
+used on input line 307.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-Overfull \hbox (40.7719pt too wide) in paragraph at lines 285--298
+Overfull \hbox (40.7719pt too wide) in paragraph at lines 298--311
 []$[]$  $[]$ 
  []
 
 
-<../results/cold caches/images/10K_query3_boxplot.png, id=278, 674.52pt x 673.5
-1625pt>
-File: ../results/cold caches/images/10K_query3_boxplot.png Graphic file (type p
-ng)
- <use ../results/cold caches/images/10K_query3_boxplot.png>
-Package pdftex.def Info: ../results/cold caches/images/10K_query3_boxplot.png u
-sed on input line 301.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+<../results/cold caches/images/10K_query3_boxplot.pdf, id=282, 505.89pt x 504.8
+8625pt>
+File: ../results/cold caches/images/10K_query3_boxplot.pdf Graphic file (type p
+df)
+ <use ../results/cold caches/images/10K_query3_boxplot.pdf>
+Package pdftex.def Info: ../results/cold caches/images/10K_query3_boxplot.pdf u
+sed on input line 314.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-<../results/cold caches/images/100K_query3_boxplot.png, id=279, 674.52pt x 673.
-51625pt>
-File: ../results/cold caches/images/100K_query3_boxplot.png Graphic file (type 
-png)
- <use ../results/cold caches/images/100K_query3_boxplot.png>
-Package pdftex.def Info: ../results/cold caches/images/100K_query3_boxplot.png 
-used on input line 308.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+<../results/cold caches/images/100K_query3_boxplot.pdf, id=283, 505.89pt x 504.
+88625pt>
+File: ../results/cold caches/images/100K_query3_boxplot.pdf Graphic file (type 
+pdf)
+ <use ../results/cold caches/images/100K_query3_boxplot.pdf>
+Package pdftex.def Info: ../results/cold caches/images/100K_query3_boxplot.pdf 
+used on input line 321.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-Overfull \hbox (40.7719pt too wide) in paragraph at lines 299--312
+Overfull \hbox (40.7719pt too wide) in paragraph at lines 312--325
 []$[]$  $[]$ 
  []
 
 
-LaTeX Warning: Float too large for page by 79.99893pt on input line 312.
+LaTeX Warning: Float too large for page by 79.71791pt on input line 325.
 
 
-<../results/cold caches/images/1M_query1_boxplot.png, id=280, 674.52pt x 673.51
+<../results/cold caches/images/1M_query1_boxplot.pdf, id=284, 505.89pt x 504.88
 625pt>
-File: ../results/cold caches/images/1M_query1_boxplot.png Graphic file (type pn
-g)
- <use ../results/cold caches/images/1M_query1_boxplot.png>
-Package pdftex.def Info: ../results/cold caches/images/1M_query1_boxplot.png us
-ed on input line 320.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
-File: ../results/cold caches/images/1M_query1_boxplot.png Graphic file (type pn
-g)
+File: ../results/cold caches/images/1M_query1_boxplot.pdf Graphic file (type pd
+f)
+ <use ../results/cold caches/images/1M_query1_boxplot.pdf>
+Package pdftex.def Info: ../results/cold caches/images/1M_query1_boxplot.pdf us
+ed on input line 333.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-<use ../results/cold caches/images/1M_query1_boxplot.png>
-Package pdftex.def Info: ../results/cold caches/images/1M_query1_boxplot.png us
-ed on input line 327.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+<../results/cold caches/images/10M_query1_boxplot.pdf, id=285, 505.89pt x 504.8
+8625pt>
+File: ../results/cold caches/images/10M_query1_boxplot.pdf Graphic file (type p
+df)
+ <use ../results/cold caches/images/10M_query1_boxplot.pdf>
+Package pdftex.def Info: ../results/cold caches/images/10M_query1_boxplot.pdf u
+sed on input line 340.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-Overfull \hbox (40.7719pt too wide) in paragraph at lines 318--331
+Overfull \hbox (40.7719pt too wide) in paragraph at lines 331--344
 []$[]$  $[]$ 
  []
 
 
-<../results/cold caches/images/1M_query2_boxplot.png, id=281, 674.52pt x 673.51
+<../results/cold caches/images/1M_query2_boxplot.pdf, id=286, 505.89pt x 504.88
 625pt>
-File: ../results/cold caches/images/1M_query2_boxplot.png Graphic file (type pn
-g)
- <use ../results/cold caches/images/1M_query2_boxplot.png>
-Package pdftex.def Info: ../results/cold caches/images/1M_query2_boxplot.png us
-ed on input line 334.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+File: ../results/cold caches/images/1M_query2_boxplot.pdf Graphic file (type pd
+f)
+ <use ../results/cold caches/images/1M_query2_boxplot.pdf>
+Package pdftex.def Info: ../results/cold caches/images/1M_query2_boxplot.pdf us
+ed on input line 347.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-<../results/cold caches/images/10M_query2_boxplot.png, id=282, 674.52pt x 673.5
-1625pt>
-File: ../results/cold caches/images/10M_query2_boxplot.png Graphic file (type p
-ng)
- <use ../results/cold caches/images/10M_query2_boxplot.png>
-Package pdftex.def Info: ../results/cold caches/images/10M_query2_boxplot.png u
-sed on input line 341.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+<../results/cold caches/images/10M_query2_boxplot.pdf, id=287, 505.89pt x 504.8
+8625pt>
+File: ../results/cold caches/images/10M_query2_boxplot.pdf Graphic file (type p
+df)
+ <use ../results/cold caches/images/10M_query2_boxplot.pdf>
+Package pdftex.def Info: ../results/cold caches/images/10M_query2_boxplot.pdf u
+sed on input line 354.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-Overfull \hbox (40.7719pt too wide) in paragraph at lines 332--345
+Overfull \hbox (40.7719pt too wide) in paragraph at lines 345--358
 []$[]$  $[]$ 
  []
 
 
-<../results/cold caches/images/1M_query3_boxplot.png, id=283, 674.52pt x 673.51
+<../results/cold caches/images/1M_query3_boxplot.pdf, id=288, 505.89pt x 504.88
 625pt>
-File: ../results/cold caches/images/1M_query3_boxplot.png Graphic file (type pn
-g)
- <use ../results/cold caches/images/1M_query3_boxplot.png>
-Package pdftex.def Info: ../results/cold caches/images/1M_query3_boxplot.png us
-ed on input line 348.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+File: ../results/cold caches/images/1M_query3_boxplot.pdf Graphic file (type pd
+f)
+ <use ../results/cold caches/images/1M_query3_boxplot.pdf>
+Package pdftex.def Info: ../results/cold caches/images/1M_query3_boxplot.pdf us
+ed on input line 361.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-<../results/cold caches/images/10M_query3_boxplot.png, id=284, 674.52pt x 673.5
-1625pt>
-File: ../results/cold caches/images/10M_query3_boxplot.png Graphic file (type p
-ng)
- <use ../results/cold caches/images/10M_query3_boxplot.png>
-Package pdftex.def Info: ../results/cold caches/images/10M_query3_boxplot.png u
-sed on input line 355.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+<../results/cold caches/images/10M_query3_boxplot.pdf, id=289, 505.89pt x 504.8
+8625pt>
+File: ../results/cold caches/images/10M_query3_boxplot.pdf Graphic file (type p
+df)
+ <use ../results/cold caches/images/10M_query3_boxplot.pdf>
+Package pdftex.def Info: ../results/cold caches/images/10M_query3_boxplot.pdf u
+sed on input line 368.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-Overfull \hbox (40.7719pt too wide) in paragraph at lines 346--359
+Overfull \hbox (40.7719pt too wide) in paragraph at lines 359--372
 []$[]$  $[]$ 
  []
 
 
-LaTeX Warning: Float too large for page by 79.99893pt on input line 359.
+LaTeX Warning: Float too large for page by 79.71791pt on input line 372.
 
 
-<../results/cold caches/images/10K_query1_perf.png, id=285, 674.52pt x 673.5162
+<../results/cold caches/images/10K_query1_perf.pdf, id=290, 505.89pt x 504.8862
 5pt>
-File: ../results/cold caches/images/10K_query1_perf.png Graphic file (type png)
+File: ../results/cold caches/images/10K_query1_perf.pdf Graphic file (type pdf)
 
- <use ../results/cold caches/images/10K_query1_perf.png>
-Package pdftex.def Info: ../results/cold caches/images/10K_query1_perf.png used
- on input line 367.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+ <use ../results/cold caches/images/10K_query1_perf.pdf>
+Package pdftex.def Info: ../results/cold caches/images/10K_query1_perf.pdf used
+ on input line 380.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-<../results/cold caches/images/100K_query1_perf.png, id=286, 674.52pt x 673.516
+<../results/cold caches/images/100K_query1_perf.pdf, id=291, 505.89pt x 504.886
 25pt>
-File: ../results/cold caches/images/100K_query1_perf.png Graphic file (type png
+File: ../results/cold caches/images/100K_query1_perf.pdf Graphic file (type pdf
 )
- <use ../results/cold caches/images/100K_query1_perf.png>
-Package pdftex.def Info: ../results/cold caches/images/100K_query1_perf.png use
-d on input line 374.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+ <use ../results/cold caches/images/100K_query1_perf.pdf>
+Package pdftex.def Info: ../results/cold caches/images/100K_query1_perf.pdf use
+d on input line 387.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-Overfull \hbox (40.7719pt too wide) in paragraph at lines 365--378
+Overfull \hbox (40.7719pt too wide) in paragraph at lines 378--391
 []$[]$  $[]$ 
  []
 
 
-<../results/cold caches/images/10K_query2_perf.png, id=287, 674.52pt x 673.5162
+<../results/cold caches/images/10K_query2_perf.pdf, id=292, 505.89pt x 504.8862
 5pt>
-File: ../results/cold caches/images/10K_query2_perf.png Graphic file (type png)
+File: ../results/cold caches/images/10K_query2_perf.pdf Graphic file (type pdf)
 
- <use ../results/cold caches/images/10K_query2_perf.png>
-Package pdftex.def Info: ../results/cold caches/images/10K_query2_perf.png used
- on input line 381.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+ <use ../results/cold caches/images/10K_query2_perf.pdf>
+Package pdftex.def Info: ../results/cold caches/images/10K_query2_perf.pdf used
+ on input line 394.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-<../results/cold caches/images/100K_query2_perf.png, id=288, 674.52pt x 673.516
+<../results/cold caches/images/100K_query2_perf.pdf, id=293, 505.89pt x 504.886
 25pt>
-File: ../results/cold caches/images/100K_query2_perf.png Graphic file (type png
+File: ../results/cold caches/images/100K_query2_perf.pdf Graphic file (type pdf
 )
- <use ../results/cold caches/images/100K_query2_perf.png>
-Package pdftex.def Info: ../results/cold caches/images/100K_query2_perf.png use
-d on input line 388.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+ <use ../results/cold caches/images/100K_query2_perf.pdf>
+Package pdftex.def Info: ../results/cold caches/images/100K_query2_perf.pdf use
+d on input line 401.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-Overfull \hbox (40.7719pt too wide) in paragraph at lines 379--392
+Overfull \hbox (40.7719pt too wide) in paragraph at lines 392--405
 []$[]$  $[]$ 
  []
 
 
-<../results/cold caches/images/10K_query3_perf.png, id=289, 674.52pt x 673.5162
+<../results/cold caches/images/10K_query3_perf.pdf, id=294, 505.89pt x 504.8862
 5pt>
-File: ../results/cold caches/images/10K_query3_perf.png Graphic file (type png)
+File: ../results/cold caches/images/10K_query3_perf.pdf Graphic file (type pdf)
 
- <use ../results/cold caches/images/10K_query3_perf.png>
-Package pdftex.def Info: ../results/cold caches/images/10K_query3_perf.png used
- on input line 395.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+ <use ../results/cold caches/images/10K_query3_perf.pdf>
+Package pdftex.def Info: ../results/cold caches/images/10K_query3_perf.pdf used
+ on input line 408.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-<../results/cold caches/images/100K_query3_perf.png, id=290, 674.52pt x 673.516
+<../results/cold caches/images/100K_query3_perf.pdf, id=295, 505.89pt x 504.886
 25pt>
-File: ../results/cold caches/images/100K_query3_perf.png Graphic file (type png
+File: ../results/cold caches/images/100K_query3_perf.pdf Graphic file (type pdf
 )
- <use ../results/cold caches/images/100K_query3_perf.png>
-Package pdftex.def Info: ../results/cold caches/images/100K_query3_perf.png use
-d on input line 402.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+ <use ../results/cold caches/images/100K_query3_perf.pdf>
+Package pdftex.def Info: ../results/cold caches/images/100K_query3_perf.pdf use
+d on input line 415.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-Overfull \hbox (40.7719pt too wide) in paragraph at lines 393--406
+Overfull \hbox (40.7719pt too wide) in paragraph at lines 406--419
 []$[]$  $[]$ 
  []
 
 
-LaTeX Warning: Float too large for page by 79.99893pt on input line 406.
+LaTeX Warning: Float too large for page by 79.71791pt on input line 419.
 
 
-<../results/cold caches/images/1M_query1_perf.png, id=291, 674.52pt x 673.51625
+<../results/cold caches/images/1M_query1_perf.pdf, id=296, 505.89pt x 504.88625
 pt>
-File: ../results/cold caches/images/1M_query1_perf.png Graphic file (type png)
- <use ../results/cold caches/images/1M_query1_perf.png>
-Package pdftex.def Info: ../results/cold caches/images/1M_query1_perf.png used 
-on input line 414.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
-File: ../results/cold caches/images/1M_query1_perf.png Graphic file (type png)
+File: ../results/cold caches/images/1M_query1_perf.pdf Graphic file (type pdf)
+ <use ../results/cold caches/images/1M_query1_perf.pdf>
+Package pdftex.def Info: ../results/cold caches/images/1M_query1_perf.pdf used 
+on input line 427.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-<use ../results/cold caches/images/1M_query1_perf.png>
-Package pdftex.def Info: ../results/cold caches/images/1M_query1_perf.png used 
-on input line 421.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
-
-Overfull \hbox (40.7719pt too wide) in paragraph at lines 412--425
-[]$[]$  $[]$ 
- []
-
-
-<../results/cold caches/images/1M_query2_perf.png, id=292, 674.52pt x 673.51625
-pt>
-File: ../results/cold caches/images/1M_query2_perf.png Graphic file (type png)
- <use ../results/cold caches/images/1M_query2_perf.png>
-Package pdftex.def Info: ../results/cold caches/images/1M_query2_perf.png used 
-on input line 428.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
-
-<../results/cold caches/images/10M_query2_perf.png, id=293, 674.52pt x 673.5162
+<../results/cold caches/images/10M_query1_perf.pdf, id=297, 505.89pt x 504.8862
 5pt>
-File: ../results/cold caches/images/10M_query2_perf.png Graphic file (type png)
+File: ../results/cold caches/images/10M_query1_perf.pdf Graphic file (type pdf)
 
- <use ../results/cold caches/images/10M_query2_perf.png>
-Package pdftex.def Info: ../results/cold caches/images/10M_query2_perf.png used
- on input line 435.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+ <use ../results/cold caches/images/10M_query1_perf.pdf>
+Package pdftex.def Info: ../results/cold caches/images/10M_query1_perf.pdf used
+ on input line 434.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-Overfull \hbox (40.7719pt too wide) in paragraph at lines 426--439
+Overfull \hbox (40.7719pt too wide) in paragraph at lines 425--438
 []$[]$  $[]$ 
  []
 
 
-<../results/cold caches/images/1M_query3_perf.png, id=294, 674.52pt x 673.51625
+<../results/cold caches/images/1M_query2_perf.pdf, id=298, 505.89pt x 504.88625
 pt>
-File: ../results/cold caches/images/1M_query3_perf.png Graphic file (type png)
- <use ../results/cold caches/images/1M_query3_perf.png>
-Package pdftex.def Info: ../results/cold caches/images/1M_query3_perf.png used 
-on input line 442.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+File: ../results/cold caches/images/1M_query2_perf.pdf Graphic file (type pdf)
+ <use ../results/cold caches/images/1M_query2_perf.pdf>
+Package pdftex.def Info: ../results/cold caches/images/1M_query2_perf.pdf used 
+on input line 441.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-<../results/cold caches/images/10M_query3_perf.png, id=295, 674.52pt x 673.5162
+<../results/cold caches/images/10M_query2_perf.pdf, id=299, 505.89pt x 504.8862
 5pt>
-File: ../results/cold caches/images/10M_query3_perf.png Graphic file (type png)
+File: ../results/cold caches/images/10M_query2_perf.pdf Graphic file (type pdf)
 
- <use ../results/cold caches/images/10M_query3_perf.png>
-Package pdftex.def Info: ../results/cold caches/images/10M_query3_perf.png used
- on input line 449.
-(pdftex.def)             Requested size: 199.16928pt x 198.87056pt.
+ <use ../results/cold caches/images/10M_query2_perf.pdf>
+Package pdftex.def Info: ../results/cold caches/images/10M_query2_perf.pdf used
+ on input line 448.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-Overfull \hbox (40.7719pt too wide) in paragraph at lines 440--453
+Overfull \hbox (40.7719pt too wide) in paragraph at lines 439--452
 []$[]$  $[]$ 
  []
 
 
-LaTeX Warning: Float too large for page by 79.99893pt on input line 453.
+<../results/cold caches/images/1M_query3_perf.pdf, id=300, 505.89pt x 504.88625
+pt>
+File: ../results/cold caches/images/1M_query3_perf.pdf Graphic file (type pdf)
+ <use ../results/cold caches/images/1M_query3_perf.pdf>
+Package pdftex.def Info: ../results/cold caches/images/1M_query3_perf.pdf used 
+on input line 455.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 457.
-[12 <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold caches/images/10K_q
-uery1_boxplot.png> <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold cach
-es/images/100K_query1_boxplot.png> <C:/Install/Devel/Java/Projects/IR_15/docs/r
-esults/cold caches/images/10K_query2_boxplot.png> <C:/Install/Devel/Java/Projec
-ts/IR_15/docs/results/cold caches/images/100K_query2_boxplot.png> <C:/Install/D
-evel/Java/Projects/IR_15/docs/results/cold caches/images/10K_query3_boxplot.png
+<../results/cold caches/images/10M_query3_perf.pdf, id=301, 505.89pt x 504.8862
+5pt>
+File: ../results/cold caches/images/10M_query3_perf.pdf Graphic file (type pdf)
+
+ <use ../results/cold caches/images/10M_query3_perf.pdf>
+Package pdftex.def Info: ../results/cold caches/images/10M_query3_perf.pdf used
+ on input line 462.
+(pdftex.def)             Requested size: 199.16928pt x 198.77689pt.
+
+Overfull \hbox (40.7719pt too wide) in paragraph at lines 453--466
+[]$[]$  $[]$ 
+ []
+
+
+LaTeX Warning: Float too large for page by 79.71791pt on input line 466.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 470.
+[13 <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold caches/images/10K_q
+uery1_boxplot.pdf> <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold cach
+es/images/100K_query1_boxplot.pdf> <C:/Install/Devel/Java/Projects/IR_15/docs/r
+esults/cold caches/images/10K_query2_boxplot.pdf> <C:/Install/Devel/Java/Projec
+ts/IR_15/docs/results/cold caches/images/100K_query2_boxplot.pdf> <C:/Install/D
+evel/Java/Projects/IR_15/docs/results/cold caches/images/10K_query3_boxplot.pdf
 > <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold caches/images/100K_qu
-ery3_boxplot.png>] [13 <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold 
-caches/images/1M_query1_boxplot.png> <C:/Install/Devel/Java/Projects/IR_15/docs
-/results/cold caches/images/1M_query2_boxplot.png> <C:/Install/Devel/Java/Proje
-cts/IR_15/docs/results/cold caches/images/10M_query2_boxplot.png> <C:/Install/D
-evel/Java/Projects/IR_15/docs/results/cold caches/images/1M_query3_boxplot.png>
- <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold caches/images/10M_quer
-y3_boxplot.png>] [14 <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold ca
-ches/images/10K_query1_perf.png> <C:/Install/Devel/Java/Projects/IR_15/docs/res
-ults/cold caches/images/100K_query1_perf.png> <C:/Install/Devel/Java/Projects/I
-R_15/docs/results/cold caches/images/10K_query2_perf.png> <C:/Install/Devel/Jav
-a/Projects/IR_15/docs/results/cold caches/images/100K_query2_perf.png> <C:/Inst
-all/Devel/Java/Projects/IR_15/docs/results/cold caches/images/10K_query3_perf.p
-ng> <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold caches/images/100K_
-query3_perf.png>] [15 <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold c
-aches/images/1M_query1_perf.png> <C:/Install/Devel/Java/Projects/IR_15/docs/res
-ults/cold caches/images/1M_query2_perf.png> <C:/Install/Devel/Java/Projects/IR_
-15/docs/results/cold caches/images/10M_query2_perf.png> <C:/Install/Devel/Java/
-Projects/IR_15/docs/results/cold caches/images/1M_query3_perf.png> <C:/Install/
-Devel/Java/Projects/IR_15/docs/results/cold caches/images/10M_query3_perf.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 457.
+ery3_boxplot.pdf>] [14 <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold 
+caches/images/1M_query1_boxplot.pdf> <C:/Install/Devel/Java/Projects/IR_15/docs
+/results/cold caches/images/10M_query1_boxplot.pdf> <C:/Install/Devel/Java/Proj
+ects/IR_15/docs/results/cold caches/images/1M_query2_boxplot.pdf> <C:/Install/D
+evel/Java/Projects/IR_15/docs/results/cold caches/images/10M_query2_boxplot.pdf
+> <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold caches/images/1M_quer
+y3_boxplot.pdf> <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold caches/
+images/10M_query3_boxplot.pdf>] [15 <C:/Install/Devel/Java/Projects/IR_15/docs/
+results/cold caches/images/10K_query1_perf.pdf> <C:/Install/Devel/Java/Projects
+/IR_15/docs/results/cold caches/images/100K_query1_perf.pdf> <C:/Install/Devel/
+Java/Projects/IR_15/docs/results/cold caches/images/10K_query2_perf.pdf> <C:/In
+stall/Devel/Java/Projects/IR_15/docs/results/cold caches/images/100K_query2_per
+f.pdf> <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold caches/images/10
+K_query3_perf.pdf> <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold cach
+es/images/100K_query3_perf.pdf>] [16 <C:/Install/Devel/Java/Projects/IR_15/docs
+/results/cold caches/images/1M_query1_perf.pdf> <C:/Install/Devel/Java/Projects
+/IR_15/docs/results/cold caches/images/10M_query1_perf.pdf> <C:/Install/Devel/J
+ava/Projects/IR_15/docs/results/cold caches/images/1M_query2_perf.pdf> <C:/Inst
+all/Devel/Java/Projects/IR_15/docs/results/cold caches/images/10M_query2_perf.p
+df> <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold caches/images/1M_qu
+ery3_perf.pdf> <C:/Install/Devel/Java/Projects/IR_15/docs/results/cold caches/i
+mages/10M_query3_perf.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 470.
+
 (C:\Install\Devel\Java\Projects\IR_15\docs\report\ir15_report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 457.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 457.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 470.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 470.
 Package rerunfilecheck Info: File `ir15_report.out' has not changed.
 (rerunfilecheck)             Checksum: 8CE585E51B8108E4849289500CE75661;2301.
 
@@ -1103,13 +1112,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 17609 strings out of 494045
- 304920 string characters out of 3147986
- 379587 words of memory out of 3000000
- 20459 multiletter control sequences out of 15000+200000
+ 17618 strings out of 494045
+ 305377 string characters out of 3147986
+ 376549 words of memory out of 3000000
+ 20467 multiletter control sequences out of 15000+200000
  15240 words of font info for 60 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 63i,11n,57p,1152b,998s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 63i,11n,57p,1152b,1764s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Install/System/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/I
 nstall/System/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Install/
 System/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Install/System/M
@@ -1120,9 +1129,9 @@ lic/amsfonts/cm/cmr7.pfb><C:/Install/System/MiKTeX 2.9/fonts/type1/public/amsfo
 nts/cm/cmr8.pfb><C:/Install/System/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
 sy10.pfb><C:/Install/System/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pf
 b><C:/Install/System/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on ir15_report.pdf (15 pages, 396021 bytes).
+Output written on ir15_report.pdf (16 pages, 347795 bytes).
 PDF statistics:
- 421 PDF objects out of 1000 (max. 8388607)
- 115 named destinations out of 1000 (max. 500000)
- 408 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 525 PDF objects out of 1000 (max. 8388607)
+ 116 named destinations out of 1000 (max. 500000)
+ 418 words of extra memory for PDF output out of 10000 (max. 10000000)
 

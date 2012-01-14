@@ -2,7 +2,7 @@
 
 1. MySQL evaluieren (Martin)
 	- Queries testen - done
-	- Zeitmessung (average / min / max / stdev)
+	- Zeitmessung (average / min / max / stdev) - done
 	- Code-Doku - done
 	
 2. Neo4j (Martin) 
@@ -12,9 +12,9 @@
 	- Zeitmessung (average / min / max / stdev) -done
 	- Bericht - done
 	- Code-Doku - done
-	- Grafiken als Vektorgrafik
-	- 10M Grafiken
-	- Gesamtgrafik
+	- Grafiken als Vektorgrafik - done
+	- 10M Grafiken - done
+	- Gesamtgrafik - done
 			
 3. Dex (Robert)
 	- Abfragen via Native API -done

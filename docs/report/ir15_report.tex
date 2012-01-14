@@ -179,8 +179,21 @@ Finde alle Satz- oder Nachbarschaftskookkurrenzen zwischen den Nachbarn eines Wo
 
 \subsection{Testbed}
 
-Das Testsystem ist wie folgt aufgebaut: Intel Core i7 2620M (2 x 3,2Ghz), 8GB DDR3 RAM, Crucial M4 SSD Festplatte. Die Graphdatenbanken wurden in das Benchmark Framework eingebunden, MySQL wurde lokal installiert und mit den von MySQL vorgegebenen Einstellungen einer Produktivumgebung gestartet.\\
-Die Auwahl der Knoten erfolgte zufällig, es wurde jedoch ein Seed Wert definiert um in jeder Datenbank die gleichen Startknoten zu verwenden. Darüber hinaus kann im Framework ein Schwellwert definiert werden. Dieser legt fest, wieviele ausgehende Kanten (Satz- oder Nachbarschaftskookkurrenz) ein zufällig ausgewählter Knoten mindestens besitzen muss. Dieser Wert wurde auf 20 festgelegt.
+Das Testsystem ist wie folgt aufgebaut: 
+\begin{itemize}
+	\item Intel Core i7 2620M (2 x 3,2Ghz)
+	\item 8GB DDR3 RAM
+	\item Crucial M4 SSD
+	\item Windows 7 Professional 64 Bit
+	\item Java(TM) SE Runtime Environment (build 1.6.0\_{}29-b11) 64-Bit Server
+	\item MySQL 5.5.19
+	\item Neo4j 1.6M02
+	\item OrientDB 1.0rc7
+	\item DEX Java 4.3.0
+\end{itemize}
+Die Graphdatenbanken wurden in das Benchmark Framework eingebunden, MySQL wurde lokal installiert und mit den von MySQL vorgegebenen Einstellungen einer Produktivumgebung konfiguriert.
+\par
+Die Auwahl der Knoten erfolgte zufällig, es wurde jedoch ein Seed Wert fest definiert um in jeder Datenbank die gleichen Startknoten zu verwenden. Darüber hinaus kann im Framework ein Schwellwert definiert werden. Dieser legt fest, wieviele ausgehende Kanten (Satz- oder Nachbarschaftskookkurrenz) ein zufällig ausgewählter Knoten mindestens besitzen muss. Dieser Wert wurde auf 20 festgelegt.
 \par
 Nachfolgend werden die Startparameter der Java Virtual Machine angegeben. Diese ergeben sich entweder aus der Dokumentation des Hersteller oder gewonnenen Erfahrungen infolge mehrere Testläufe.
 
@@ -232,7 +245,7 @@ Performance Query 1 & ++ & ++* & ++ \\
 \hline 
 Performance Query 2 & ++ & +* & + \\ 
 \hline 
-Performance Query 3 & ++ & +* & ++ \\ 
+Performance Query 3 & + & +* & ++ \\ 
 \hline
 Community & ++ & + & $--$ \\ 
 \hline 
@@ -324,8 +337,8 @@ Lizenz & GPL (Community Edition) & Apache License 2.0 & kommerziell	 \\
 \hfill
 \begin{minipage}[hbt]{7cm}
 	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/1M_query1_boxplot}
-	\caption{TODO: in 10M ändern}
+	\includegraphics[width=7cm]{../results/cold caches/images/10M_query1_boxplot}
+	\caption{...}
 	\label{fig:10M_query1_boxplot}
 \end{minipage}
 
@@ -418,8 +431,8 @@ Lizenz & GPL (Community Edition) & Apache License 2.0 & kommerziell	 \\
 \hfill
 \begin{minipage}[hbt]{7cm}
 	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/1M_query1_perf}
-	\caption{TODO: in 10M ändern}
+	\includegraphics[width=7cm]{../results/cold caches/images/10M_query1_perf}
+	\caption{...}
 	\label{fig:10M_query1_perf}
 \end{minipage}
 
