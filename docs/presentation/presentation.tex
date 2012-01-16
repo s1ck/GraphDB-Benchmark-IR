@@ -5,17 +5,17 @@
 \usepackage{wrapfig}
 \usepackage[ngerman]{babel}
 \usepackage[utf8x]{inputenc}
+\usepackage{hyperref}
 
 \usepackage{todonotes}
 \presetkeys{todonotes}{inline}{}
-
-\begin{document}
-
 \let\todox\todo
 \renewcommand\todo[1]{\vspace{0.3em}\todox[inline, size=\small , color=red!20]{#1}}
 
-\title{Performanz Evaluation von Graphdatenbanksystemen versus MySQL am Beispiel von Kookkurrenzgraphen}
-\author{Martin Junghanns, Sascha Ludwig \& Robert Schulze} 
+\begin{document}
+
+\title{Performanz-Evaluation von Graphdatenbanksystemen versus MySQL am Beispiel von Kookkurrenzgraphen}
+\author{Martin Junghanns, Sascha Ludwig \& Robert Schulze\\(IR\_{}15)} 
 \date{\today}
 \logo{\includegraphics[scale=0.14]{uni_leipzig_logo}}
 \setbeamertemplate{navigation symbols}{}
@@ -33,10 +33,11 @@
 \begin{frame}\frametitle{Aufgabenstellung}
 	\begin{itemize}
 		\item Evaluation verschiedener Graphdatenbanken
-		\item Gegenüberstellung mit einer relationalen Datenbank
-		\item Datenbasis des Wortschatz Leipzig Projekts
+		\item Gegenüberstellung mit einer relationalen Datenbank (MySQL)
+		\item Wortschatz Leipzig Projekt als Datenbasis
 		\item Implementierung eines Frameworks zur Durchführung von Benchmarks in Java
 		\item Auswertung und Visualisierung der Messergebnisse
+		\item Empfehlung zu Graphdatenbanken
 	\end{itemize} 
 \end{frame}
 
@@ -49,7 +50,7 @@
 	\end{itemize} 
 \end{frame}
 
-\begin{frame}\frametitle{Graphdatenbanken --- Auswahl}
+\begin{frame}\frametitle{Graphdatenbanken --- Auswahl für den Vergleich}
 	\begin{description}
 		\item[Neo4j] gute Skalierbarkeit, Traversal-Framework, geringe Speicheranforderungen
 		\item[OrientDB] Feature-Vielfalt: SQL-Abfragesprache; Embedded oder als Server
@@ -57,12 +58,12 @@
 	\end{description}
 \end{frame}
 
-\begin{frame}\frametitle{Schemavergleich}
+\begin{frame}\frametitle{``Schemavergleich''}
 \begin{figure}[ht]
 \begin{minipage}[b]{0.45\linewidth}
 \centering
 \includegraphics[scale=0.03]{images/mysql_schema}
-\caption{Mysql Schema}
+\caption{MySQL Schema}
 \label{fig:mysql_schema}
 \end{minipage}
 \hspace{0.5cm}
@@ -101,7 +102,7 @@
 	\end{table}
 \end{frame}
 
-\begin{frame}\frametitle{Queries erklären}
+\begin{frame}\frametitle{Testabfragen}
 \begin{description}
 \item[Query 1]Finde alle Satz- oder Nachbarschaftskookkurrenzen eines Wortes. Gib Frequenz, Signifikanz und die beteiligten Wörter der Kookkurrenz aus.
 \item[Query 2]Finde alle Satz- oder Nachbarschaftskookkurrenzen der Nachbarn eines Wortes. Gib Frequenz, Signifikanz und die beteiligten Wörter der Kookkurrenz aus.
@@ -110,29 +111,60 @@
 \end{frame}
 
 \section{Durchführung}
-\begin{frame}\frametitle{Framework} 
+\begin{frame}\frametitle{Benchmark-Framework} 
 	\begin{itemize}
 		\item Verbindung zur Datenbank
 		\item Importieren von Datenbasis aus MySQL
 		\item Durchführung einzelner Benchmarks und Messung durchschnittlicher Ausführungszeiten von Datenbankoperationen
 		\item Konfiguration über Java-properties-Dateien
+		\item Git-Repository unter \href{https://github.com/s1ck/IR15}{https://github.com/s1ck/IR15}
 	\end{itemize} 
 \end{frame}
 
 \section{Auswertung}
-\begin{frame}\frametitle{Auswertung}
-	\begin{itemize}
-		\item 
-		\item 
-		\item 
-	\end{itemize} 
+\begin{frame}\frametitle{Gegenüberstellung}
+
+\setbeamerfont{child}{size=\tiny}
+\usebeamerfont{child}
+	\renewcommand{\arraystretch}{1.5}
+	
+	\begin{table}[ht]
+	\begin{tabular}{|l||p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+	\hline 
+	 & \textbf{Neo4j} & \textbf{OrientDB} & \textbf{DEX} \\ 
+	\hline
+	Performance Import & $++$ & $--$ & ++ \\ 
+	\hline 
+	Performance Query 1 & ++ & ++* & ++ \\ 
+	\hline 
+	Performance Query 2 & ++ & +* & + \\ 
+	\hline 
+	Performance Query 3 & + & +* & ++ \\ 
+	\hline
+	Community & ++ & + & $--$ \\ 
+	\hline 
+	Dokumentation & ++ & ++ & $-$ \\
+	\hline 
+	Anfrage & Java API, Cypher, Gremlin & Java API, SQL, Gremlin & Java API \\
+	\hline
+	Implementiert in & Java & Java & C++ (Core), Java (API) \\
+	\hline 
+	Lizenz & GPL (Community Edition) & Apache License 2.0 & kommerziell	 \\ 
+	\hline 
+	\end{tabular}
+	\caption{Gegenüberstellung der verwendeten Graphdatenbanken (* bis einschließlich deu\textunderscore news\textunderscore 300K)}
+	\label{tab:compare}
+	\end{table}
+
+\normalfont
+
 \end{frame}
 
-\begin{frame}\frametitle{} 
+\begin{frame}\frametitle{Empfehlung}
 	\begin{itemize}
-		\item 
-		\item 
-		\item 
+		\item für den gegebenen Anwendungsfall empfehlen wir Neo4j
+		\item die Gründe sind neben der Performanz: Dokumentation, vorhandene Community und Anfragesprache Cypher
+		\item weiterführende Evaluation im Zusammenhang mit Kookkurrenzgraphen und im Vergleich zu MySQL
 	\end{itemize} 
 \end{frame}
 
