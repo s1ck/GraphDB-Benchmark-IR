@@ -7,6 +7,7 @@
 \usepackage[ngerman]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{hyperref}
+\usepackage{subfigure}
 
 \usepackage{todonotes}
 \presetkeys{todonotes}{inline}{}
@@ -33,29 +34,30 @@
 
 \begin{frame}\frametitle{Aufgabenstellung}
 	\begin{itemize}
-		\item Evaluation verschiedener Graphdatenbanken
+		\item Kennenlernen der Konzepte verschiedener Graphdatenbanken
+		\item Implementierung eines Java-Frameworks zur Durchführung von Benchmarks
 		\item Gegenüberstellung mit einer relationalen Datenbank (MySQL)
 		\item Wortschatz Leipzig Projekt als Datenbasis
-		\item Implementierung eines Frameworks zur Durchführung von Benchmarks in Java
-		\item Auswertung und Visualisierung der Messergebnisse
+		\item Visualisierung und Auswertung der Messergebnisse
 		\item Empfehlung zu Graphdatenbanken
 	\end{itemize} 
 \end{frame}
 
-\begin{frame}\frametitle{Graphdatenbanken --- allgemein}
+\begin{frame}\frametitle{Graphdatenbanken --- Allgemein}
 	\begin{itemize}
-		\item Datenmodellierung als Graph
-		\item Vermeidung von Verbundoperation
+		\item Verwaltung stark vernetzter Daten
+		\item (explizite) Datenmodellierung als Graph		
+		\item Performanz durch Vermeidung von Verbundoperation
 		\item Schemafreiheit
-		\item Anwendung: Soziale Netzwerke, Recommendation, Transportnetze
+		\item Anwendungen: Soziale Netzwerke, Recommendation, Transportnetze, Komplexe Softwaremodelle
 	\end{itemize} 
 \end{frame}
 
 \begin{frame}\frametitle{Graphdatenbanken --- Auswahl für den Vergleich}
 	\begin{description}
-		\item[Neo4j] gute Skalierbarkeit, Traversal-Framework, geringe Speicheranforderungen
-		\item[OrientDB] Feature-Vielfalt: SQL-Abfragesprache; Embedded oder als Server
-		\item[DEX] Backend in C++ mit Java-API; gilt als performanteste Graphdatenbank auf dem Markt
+		\item[Neo4j] Aktive Community, hohe Performanz, Traversal API, Abfragesprachen (Cypher / Gremlin), GPL
+		\item[OrientDB] Graph-Dokumenten-Datenbank, SQL-ähnliche Abfragesprache, Embedded oder als Server (verteilt), Apache License 2.0
+		\item[DEX] Kern in C++, Java-API, gilt als performanteste Graphdatenbank, kommerziell
 	\end{description}
 \end{frame}
 
@@ -63,14 +65,14 @@
 \begin{figure}[ht]
 \begin{minipage}[b]{0.45\linewidth}
 \centering
-\includegraphics[scale=0.03]{images/mysql_schema}
+\includegraphics[scale=0.055]{images/mysql_schema}
 \caption{MySQL Schema}
 \label{fig:mysql_schema}
 \end{minipage}
 \hspace{0.5cm}
 \begin{minipage}[b]{0.45\linewidth}
 \centering
-\includegraphics[scale=0.1]{images/graph_schema}
+\includegraphics[scale=0.075]{images/graph_schema.jpg}
 \caption{Graph}
 \label{fig:graph_schema}
 \end{minipage}
@@ -99,7 +101,7 @@
 		deu\_{}news\_{}2009\_{}10M & 3309332 & 37393614 & 4412321\\
 		\hline
 	\end{tabular}
-	\caption{Kookkurrenzgraph des Wortschatz Leipzig}
+	\caption{Kookkurrenzgraphen des Wortschatz Leipzig}
 	\end{table}
 \end{frame}
 
@@ -114,11 +116,15 @@
 \section{Durchführung}
 \begin{frame}\frametitle{Benchmark-Framework} 
 	\begin{itemize}
-		\item Verbindung zur Datenbank
-		\item Importieren von Datenbasis aus MySQL
-		\item Durchführung einzelner Benchmarks und Messung durchschnittlicher Ausführungszeiten von Datenbankoperationen
-		\item Konfiguration über Java-properties-Dateien
+		\item Verbindung zu MySQL und GraphDBs
+		\item Importieren der Datenbasis aus MySQL in GraphDB
+		\item Formulieren von DB-spezifischer Anfragen (Benchmark)
+		\item Durchführen von Benchmarks und Messen der Ausführungszeit
+		\item Export der Ergebnisse (csv)
+		\item Konfiguration über Java Property Dateien
+		\item Erweiterbarkeit
 		\item Git-Repository unter \href{https://github.com/s1ck/IR15}{https://github.com/s1ck/IR15}
+
 	\end{itemize} 
 \end{frame}
 
@@ -159,7 +165,26 @@
 \normalfont
 \end{frame}
 
-\begin{frame}\frametitle{Problemverhalten von DEX}
+\begin{frame}\frametitle{Teilergebnisse Beispiel}
+
+\begin{figure}[ht]
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\includegraphics[scale=0.3]{../results/cold caches/images/100K_query2_boxplot.pdf}
+\caption{Beispiel Boxplot}
+\label{fig:mysql_schema}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\includegraphics[scale=0.3]{../results/cold caches/images/100K_query2_perf.pdf}
+\caption{Beispiel Performance}
+\label{fig:graph_schema}
+\end{minipage}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Ergebnisse Query 2}
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=0.3]{../results/cold caches/images/query2_semi-log}
@@ -167,7 +192,20 @@
 \end{figure}
 \begin{figure}[ht]
 \centering
+\includegraphics[scale=0.3]{../results/cold caches/images/query2_log-log}
+\label{fig:mysql_schema}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Ergebnisse Query 3}
+\begin{figure}[ht]
+\centering
 \includegraphics[scale=0.3]{../results/cold caches/images/query3_semi-log}
+\label{fig:mysql_schema}
+\end{figure}
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.3]{../results/cold caches/images/query3_log-log}
 \label{fig:mysql_schema}
 \end{figure}
 \end{frame}
@@ -182,9 +220,9 @@
 
 \begin{frame}\frametitle{Empfehlung}
 	\begin{itemize}
-		\item für den gegebenen Anwendungsfall empfehlen wir Neo4j
-		\item die Gründe sind neben der Performanz: Dokumentation, vorhandene Community und Anfragesprache Cypher
-		\item weiterführende Evaluation im Zusammenhang mit Kookkurrenzgraphen und im Vergleich zu MySQL
+		\item Als GraphDB für den Anwendungsfall empfehlen wir Neo4j
+		\item Gründe: Performanz, Dokumentation, aktive Community, Anfragesprache Cypher
+		\item Weiterführende Evaluation im Zusammenhang mit Kookkurrenzgraphen und spezialisierten Anfragen (Pfadsuche, Matching) wird empfohlen
 	\end{itemize} 
 \end{frame}
 
