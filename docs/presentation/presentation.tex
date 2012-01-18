@@ -2,6 +2,7 @@
 \usetheme{Berlin}
 
 \usepackage{graphicx}
+\usepackage{grffile}
 \usepackage{wrapfig}
 \usepackage[ngerman]{babel}
 \usepackage[utf8x]{inputenc}
@@ -155,9 +156,28 @@
 	\caption{Gegenüberstellung der verwendeten Graphdatenbanken (* bis einschließlich deu\textunderscore news\textunderscore 300K)}
 	\label{tab:compare}
 	\end{table}
-
 \normalfont
+\end{frame}
 
+\begin{frame}\frametitle{Problemverhalten von DEX}
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.3]{../results/cold caches/images/query2_semi-log}
+\label{fig:mysql_schema}
+\end{figure}
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.3]{../results/cold caches/images/query3_semi-log}
+\label{fig:mysql_schema}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Problemverhalten von OrientDB}
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.28]{../report/pics/OrientImporter}
+\label{fig:mysql_schema}
+\end{figure}
 \end{frame}
 
 \begin{frame}\frametitle{Empfehlung}

@@ -16,6 +16,7 @@
 \usepackage{todonotes}				% Todo
 \usepackage{listings}
 \usepackage{grffile}
+\usepackage{lscape}
 
 \author{Martin Junghanns \\  \url{martin.junghanns@studserv.uni-leipzig.de} \and 
 		Sascha Ludwig \\ \url{s.ludwig@studserv.uni-leipzig.de} \and 
@@ -262,8 +263,6 @@ Lizenz & GPL (Community Edition) & Apache License 2.0 & kommerziell	 \\
 
 % Anhang auf neue Seite
 \newpage
-% und diese einspaltig
-\onecolumn
 
 \begin{appendix}
 \section{Abbildungen}
@@ -275,194 +274,177 @@ Lizenz & GPL (Community Edition) & Apache License 2.0 & kommerziell	 \\
 	\label{fig:orientdb_import}
 \end{figure*}
 
-\newpage
-\thispagestyle{empty}
+\begin{landscape} 
+	\newpage
+	\thispagestyle{empty}
+	
+	\begin{figure}[ht]
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/10K_query1_boxplot}
+			\label{fig:10K_query1_boxplot}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/10K_query2_boxplot}
+			\label{fig:10K_query2_boxplot}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/10K_query3_boxplot}
+			\label{fig:10K_query3_boxplot}
+		\end{minipage}
+		
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/100K_query1_boxplot}
+			\label{fig:100K_query1_boxplot}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/100K_query2_boxplot}
+			\label{fig:100K_query2_boxplot}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/100K_query3_boxplot}
+			\label{fig:100K_query3_boxplot}
+		\end{minipage}
+	\end{figure}
+\end{landscape} 
 
-\begin{figure}[ht]
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/10K_query1_boxplot}
-	\caption{...}
-	\label{fig:10k_query2_boxplot}
-\end{minipage}
-\hfill
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/100K_query1_boxplot}
-	\caption{...}
-	\label{fig:100k_query1_boxplot}
-\end{minipage}
+\begin{landscape} 
+	\newpage
+	\thispagestyle{empty}
+	
+	\begin{figure}[ht]
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/1M_query1_boxplot}
+			\label{fig:1M_query1_boxplot}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/1M_query2_boxplot}
+			\label{fig:1M_query2_boxplot}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/1M_query3_boxplot}
+			\label{fig:1M_query3_boxplot}
+		\end{minipage}
+		
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/10M_query1_boxplot}
+			\label{fig:10M_query1_boxplot}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/10M_query2_boxplot}
+			\label{fig:10M_query2_boxplot}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/10M_query3_boxplot}
+			\label{fig:10M_query3_boxplot}
+		\end{minipage}
+	\end{figure}
+\end{landscape}
 
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/10K_query2_boxplot}
-	\caption{...}
-	\label{fig:10k_query2_boxplot}
-\end{minipage}
-\hfill
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/100K_query2_boxplot}
-	\caption{...}
-	\label{fig:100k_query2_boxplot}
-\end{minipage}
+\begin{landscape} 
+	\newpage
+	\thispagestyle{empty}
+	
+	\begin{figure}[ht]
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/10K_query1_perf}
+			\label{fig:10K_query1_perf}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/10K_query2_perf}
+			\label{fig:10K_query2_perf}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/10K_query3_perf}
+			\label{fig:10K_query3_perf}
+		\end{minipage}
+		
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/100K_query1_perf}
+			\label{fig:100K_query1_perf}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/100K_query2_perf}
+			\label{fig:100K_query2_perf}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/100K_query3_perf}
+			\label{fig:100K_query3_perf}
+		\end{minipage}
+	\end{figure}
+\end{landscape} 
 
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/10K_query3_boxplot}
-	\caption{...}
-	\label{fig:10k_query3_boxplot}
-\end{minipage}
-\hfill
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/100K_query3_boxplot}
-	\caption{...}
-	\label{fig:100k_query3_boxplot}
-\end{minipage}
-\end{figure}
-
-\newpage
-\thispagestyle{empty}
-
-\begin{figure}[ht]
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/1M_query1_boxplot}
-	\caption{...}
-	\label{fig:1M_query2_boxplot}
-\end{minipage}
-\hfill
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/10M_query1_boxplot}
-	\caption{...}
-	\label{fig:10M_query1_boxplot}
-\end{minipage}
-
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/1M_query2_boxplot}
-	\caption{...}
-	\label{fig:1M_query2_boxplot}
-\end{minipage}
-\hfill
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/10M_query2_boxplot}
-	\caption{...}
-	\label{fig:10M_query2_boxplot}
-\end{minipage}
-
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/1M_query3_boxplot}
-	\caption{...}
-	\label{fig:1M_query3_boxplot}
-\end{minipage}
-\hfill
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/10M_query3_boxplot}
-	\caption{...}
-	\label{fig:10M_query3_boxplot}
-\end{minipage}
-\end{figure}
-
-\newpage
-\thispagestyle{empty}
-
-\begin{figure}[ht]
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/10K_query1_perf}
-	\caption{...}
-	\label{fig:10k_query2_perf}
-\end{minipage}
-\hfill
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/100K_query1_perf}
-	\caption{...}
-	\label{fig:100k_query1_perf}
-\end{minipage}
-
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/10K_query2_perf}
-	\caption{...}
-	\label{fig:10k_query2_perf}
-\end{minipage}
-\hfill
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/100K_query2_perf}
-	\caption{...}
-	\label{fig:100k_query2_perf}
-\end{minipage}
-
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/10K_query3_perf}
-	\caption{...}
-	\label{fig:10k_query3_perf}
-\end{minipage}
-\hfill
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/100K_query3_perf}
-	\caption{...}
-	\label{fig:100k_query3_perf}
-\end{minipage}
-\end{figure}
-
-\newpage
-\thispagestyle{empty}
-
-\begin{figure}[ht]
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/1M_query1_perf}
-	\caption{...}
-	\label{fig:1M_query2_perf}
-\end{minipage}
-\hfill
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/10M_query1_perf}
-	\caption{...}
-	\label{fig:10M_query1_perf}
-\end{minipage}
-
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/1M_query2_perf}
-	\caption{...}
-	\label{fig:1M_query2_perf}
-\end{minipage}
-\hfill
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/10M_query2_perf}
-	\caption{...}
-	\label{fig:10M_query2_perf}
-\end{minipage}
-
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/1M_query3_perf}
-	\caption{...}
-	\label{fig:1M_query3_perf}
-\end{minipage}
-\hfill
-\begin{minipage}[hbt]{7cm}
-	\centering
-	\includegraphics[width=7cm]{../results/cold caches/images/10M_query3_perf}
-	\caption{...}
-	\label{fig:10M_query3_perf}
-\end{minipage}
-\end{figure}
+\begin{landscape} 
+	\newpage
+	\thispagestyle{empty}
+	
+	\begin{figure}[ht]
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/1M_query1_perf}
+			\label{fig:1M_query1_perf}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/1M_query2_perf}
+			\label{fig:1M_query2_perf}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/1M_query3_perf}
+			\label{fig:1M_query3_perf}
+		\end{minipage}
+		
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/10M_query1_perf}
+			\label{fig:10M_query1_perf}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/10M_query2_perf}
+			\label{fig:10M_query2_perf}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[hbt]{6.5cm}
+			\centering
+			\includegraphics[width=7cm]{../results/cold caches/images/10M_query3_perf}
+			\label{fig:10M_query3_perf}
+		\end{minipage}
+	\end{figure}
+\end{landscape}
 
 \end{appendix}
-
 \end{document}

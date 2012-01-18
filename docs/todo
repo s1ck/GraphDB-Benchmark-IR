@@ -23,9 +23,9 @@
 		- SW Doku (UML)
 		- Bedienungsanleitung
 		- Grafiken drehen
-		- Query 1 für 10M ersetzen
+		- Query 1 für 10M ersetzen - done
 	- Präsentation
-		- Tabelle (Auswertung) aus Bericht übernehmen
+		- Tabelle (Auswertung) aus Bericht übernehmen - done
 	
 4. OrientDB (Sascha)
 	- OrientConnector implementieren und verwenden! (siehe neo4j und DexConnector) - done

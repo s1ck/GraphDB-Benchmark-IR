@@ -21,3 +21,5 @@ dex.log
 /docs/**/*.log
 /docs/**/*.pdf
 /docs/**/*.out
+/docs/**/*.snm
+/docs/**/*.nav
