@@ -73,7 +73,7 @@
 \begin{minipage}[b]{0.45\linewidth}
 \centering
 \includegraphics[scale=0.075]{images/graph_schema.jpg}
-\caption{Graph}
+\caption{Graph Schema}
 \label{fig:graph_schema}
 \end{minipage}
 \end{figure}
@@ -128,43 +128,6 @@
 	\end{itemize} 
 \end{frame}
 
-\section{Auswertung}
-\begin{frame}\frametitle{Gegenüberstellung}
-
-\setbeamerfont{child}{size=\tiny}
-\usebeamerfont{child}
-	\renewcommand{\arraystretch}{1.5}
-	
-	\begin{table}[ht]
-	\begin{tabular}{|l||p{2.5cm}|p{2.5cm}|p{2.5cm}|}
-	\hline 
-	 & \textbf{Neo4j} & \textbf{OrientDB} & \textbf{DEX} \\ 
-	\hline
-	Performance Import & $++$ & $--$ & ++ \\ 
-	\hline 
-	Performance Query 1 & ++ & ++* & ++ \\ 
-	\hline 
-	Performance Query 2 & ++ & +* & + \\ 
-	\hline 
-	Performance Query 3 & + & +* & ++ \\ 
-	\hline
-	Community & ++ & + & $--$ \\ 
-	\hline 
-	Dokumentation & ++ & ++ & $-$ \\
-	\hline 
-	Anfrage & Java API, Cypher, Gremlin & Java API, SQL, Gremlin & Java API \\
-	\hline
-	Implementiert in & Java & Java & C++ (Core), Java (API) \\
-	\hline 
-	Lizenz & GPL (Community Edition) & Apache License 2.0 & kommerziell	 \\ 
-	\hline 
-	\end{tabular}
-	\caption{Gegenüberstellung der verwendeten Graphdatenbanken (* bis einschließlich deu\textunderscore news\textunderscore 300K)}
-	\label{tab:compare}
-	\end{table}
-\normalfont
-\end{frame}
-
 \begin{frame}\frametitle{Teilergebnisse Beispiel}
 
 \begin{figure}[ht]
@@ -216,6 +179,43 @@
 \includegraphics[scale=0.28]{../report/pics/OrientImporter}
 \label{fig:mysql_schema}
 \end{figure}
+\end{frame}
+
+\section{Auswertung}
+\begin{frame}\frametitle{Gegenüberstellung}
+
+\setbeamerfont{child}{size=\tiny}
+\usebeamerfont{child}
+	\renewcommand{\arraystretch}{1.5}
+	
+	\begin{table}[ht]
+	\begin{tabular}{|l||p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+	\hline 
+	 & \textbf{Neo4j} & \textbf{OrientDB} & \textbf{DEX} \\ 
+	\hline
+	Performance Import & $++$ & $--$ & ++ \\ 
+	\hline 
+	Performance Query 1 & ++ & ++* & ++ \\ 
+	\hline 
+	Performance Query 2 & ++ & +* & + \\ 
+	\hline 
+	Performance Query 3 & + & +* & ++ \\ 
+	\hline
+	Community & ++ & + & $--$ \\ 
+	\hline 
+	Dokumentation & ++ & ++ & $-$ \\
+	\hline 
+	Anfrage & Java API, Cypher, Gremlin & Java API, SQL, Gremlin & Java API \\
+	\hline
+	Implementiert in & Java & Java & C++ (Core), Java (API) \\
+	\hline 
+	Lizenz & GPL (Community Edition) & Apache License 2.0 & kommerziell	 \\ 
+	\hline 
+	\end{tabular}
+	\caption{Gegenüberstellung der verwendeten Graphdatenbanken (* bis einschließlich deu\textunderscore news\textunderscore 300K)}
+	\label{tab:compare}
+	\end{table}
+\normalfont
 \end{frame}
 
 \begin{frame}\frametitle{Empfehlung}
