@@ -13,9 +13,9 @@ import de.uni.leipzig.IR15.Support.Configuration;
  * Abstract Base Class for all benchmarks running on orient graph database. It
  * holds a reference to the database and the word index, it also cares about
  * generating random (and existing) node ids.
- * 
+ *
  * @author Sascha 'peil' Ludwig
- * 
+ *
  */
 public abstract class OrientDBBenchmark extends Benchmark {
 
@@ -56,13 +56,13 @@ public abstract class OrientDBBenchmark extends Benchmark {
 
 	/**
 	 * Find the maxium word id.
-	 * 
+	 *
 	 * @return
 	 */
 	// gets the max WordID. Needed for random WordID
 	public int findMaxWordID() {
-		int m = 0;
-		int tmp = 0;
+		Integer m = 0;
+		Integer tmp = 0;
 
 		// get all Vertices aka words
 		Iterable<ODocument> allWords = orientdb.browseVertices();
@@ -81,7 +81,7 @@ public abstract class OrientDBBenchmark extends Benchmark {
 	/**
 	 * Returns a random starting vertex with an out degree greater or equal than
 	 * the given threshold.
-	 * 
+	 *
 	 * @param threshold
 	 *            minimum out degree
 	 * @return random starting vertex
