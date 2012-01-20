@@ -116,20 +116,21 @@ Für die Leistungsmessung wurde die eingebettete Variante der Datenbank genutzt.
 
 \subsection{Anfragemöglichkeiten}
 
-Neo4j bietet verschiedene Möglichkeiten an, den gespeicherten Graphen zu traversieren bzw. abzufragen. Neben der nativen Java API und der ebenfalls in Java entwickelten Traversal API steht seit Version 1.5 mit Cypher eine deklarative Abfragesprache zur Verfügung. Die Beispielanfragen auf den Kookkurrenzgraphen wurden in allen drei Anfragemöglichkeiten formuliert und können im Code Repository eingesehen werden.
+Neo4j bietet verschiedene Möglichkeiten an, den gespeicherten Graphen zu traversieren bzw. abzufragen. Neben der nativen Java API und der ebenfalls in Java entwickelten Traversal API steht seit Version 1.5 mit Cypher eine deklarative Abfragesprache zur Verfügung. Die drei genannten Abfragemöglichkeiten werden im Folgenden kurz vorgestellt und die Formulierung der vorgegebenen SQL Queries aufgezeigt.
+
+\subsubsection{Native API}
+
+\subsubsection{Traversal API}
+
+\subsubsection{Cypher}
 
 \subsection{Einschränkungen}
 
-Die wesentlichen Einschränkungen von Neo4j beziehen sich auf die Anfragesprache Cypher und die Java basierte Traversal API. Cypher befindet sich im Entwicklungsstatus und bietet momentan keine Query Optimierung an. Dies führte in der Testumgebung zu Ausnahmen infolge von Speicherüberläufen während der Ausführung. Das gleiche Problem trat auch bei der Verwendung der Traverser API auf. Beide Anfragemöglichkeiten wurden in die Messungen nicht einbezogen, befinden sich jedoch ebenfalls im Code Repository.
+Cypher, Traverser Speicherprobs, keine Optimierung
 
 \subsection{Dokumentation}
 
-Von den betrachteten Datenbanken weist Neo4j die umfangreichste und ausführlichste Dokumentation auf, in konkreten Beispielen wird der Umgang mit der Datenbank erläutert. Die Javadoc wird automatisch mit jedem Release aktualisiert und jede Funktionalität ist ausreichend dokumentiert.\\
-Darüber hinaus verwaltet Neo Technologies eine Mailing List auf der Probleme aktiv diskutiert werden. Neben der Verwendung der Datenbank werden innerhalb der Dokumentation auch Möglichkeiten der Optimierung aufgezeigt. Diese wurden im Rahmen des Praktikums in Anspruch genommen.
-
 \subsection{Aussicht}
-
-Neo4j befindet sich in einem aktiven Entwicklungsprozess. Anfragen an die Mailing List ergaben, dass insbesondere Cypher im Rahmen der nächsten Releases optimiert wird. Neo4j entwickelt außerdem mit Spring Data Neo4j eine Anbindung an das Spring Framework\footnote{\url{http://www.springsource.org/}}, welches die Integration in bestehende Softwaresysteme und die Abbildung zu Datenbankenobjekten stark vereinfacht.
 
 \section{OrientDB}
 
@@ -157,24 +158,6 @@ OrientDB stellt bezüglich seiner Graphdatenbankenfunktionalität einige interss
 \section{DEX}
 
 \section{Evaluation}
-
-Im folgenden Abschnitt wird die Durchführung der Messung beschrieben. Dabei werden zunächst die verwendeten Anfragen vorgestellt und anschließend das Testbed beschrieben. Die Ergebnisse der Messung befinden sich im Anhang, eine Auswertung dieser ist in Abschnitt
-
-\subsection{Anfragen}
-
-Zur Messung wurden folgende Anfragen in den jeweiligen Sprachen bzw. APIs formuliert.
-
-\subsubsection*{Anfrage 1}
-
-Finde alle Satz- oder Nachbarschaftskookkurrenzen eines Wortes. Gib Frequenz, Signifikanz und die beteiligten Wörter der Kookkurrenz aus.
-
-\subsubsection*{Anfrage 2}
-
-Finde alle Satz- oder Nachbarschaftskookkurrenzen der Nachbarn eines Wortes. Gib Frequenz, Signifikanz und die beteiligten Wörter der Kookkurrenz aus.
-
-\subsubsection*{Anfrage 3}
-
-Finde alle Satz- oder Nachbarschaftskookkurrenzen zwischen den Nachbarn eines Wortes. Gib Frequenz, Signifikanz und die beteiligten Wörter der Kookkurrenz aus.
 
 \subsection{Testbed}
 
@@ -225,9 +208,7 @@ cold caches / warm caches
 JVM settings
 versionen
 
-\subsection{Auswertung}
-
-\section{Fazit}
+\subsection{Ergebnisse}
 
 In Tabelle \ref{tab:compare} werden die Erkenntnisse aus dem Praktikum zusammengefasst. Es hat sich gezeigt, dass Neo4j insgesamt am Besten für den Anwendungsfall geeignet ist. Dies ist nicht nur auf die gute bis sehr gute Performance zurückzuführen, sondern auch auf die umfangreiche Dokumentation und den Community Support. Mit Cypher steht eine mächtige Anfragesprache zur Verfügung, welche stetig weiterentwickelt und optimiert wird. Wir empfehlen daher Neo4j für eine weiterführende Evaluation im Zusammenhang mit Kookkurrenzgraphen.
 

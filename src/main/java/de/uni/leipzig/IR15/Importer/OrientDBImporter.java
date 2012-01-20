@@ -14,7 +14,6 @@ import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 
-import de.uni.leipzig.IR15.Connectors.MySQLConnector;
 import de.uni.leipzig.IR15.Connectors.OrientDBConnector;
 
 /**
@@ -59,9 +58,6 @@ public class OrientDBImporter extends Importer {
 		// connect (create) to OrientDB
 		orientdb = OrientDBConnector.getConnection();
 		
-		// and to MySQL
-		mySQLConnection = MySQLConnector.getConnection();
-
 		// define schema and index
 		cWord = orientdb.createVertexType("WORD");
 		cWord.createProperty("w_id", OType.INTEGER);
