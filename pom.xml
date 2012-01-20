@@ -18,9 +18,9 @@
 			</snapshots>
 		</repository>
 		<repository>
-		  <id>tinkerpop-repository</id>
-		  <name>TinkerPop Maven2 Repository</name>
-		  <url>http://tinkerpop.com/maven2</url>
+			<id>tinkerpop-repository</id>
+			<name>TinkerPop Maven2 Repository</name>
+			<url>http://tinkerpop.com/maven2</url>
 		</repository>
 	</repositories>
 
@@ -34,7 +34,7 @@
 			<groupId>org.neo4j</groupId>
 			<artifactId>neo4j</artifactId>
 			<version>1.6.M02</version>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>com.sparsity</groupId>
 			<artifactId>dexjava</artifactId>
@@ -56,9 +56,9 @@
 			<version>1.0rc7</version>
 		</dependency>
 		<dependency>
-		  <groupId>com.tinkerpop.blueprints</groupId>
-		  <artifactId>blueprints-core</artifactId>
-		  <version>1.1</version>
+			<groupId>com.tinkerpop.blueprints</groupId>
+			<artifactId>blueprints-core</artifactId>
+			<version>1.1</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -72,6 +72,11 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+			</plugin>		
 		</plugins>
 	</build>
 </project>
