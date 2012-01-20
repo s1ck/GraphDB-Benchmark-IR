@@ -21,6 +21,9 @@ log=true
 # select if the dataset shall be transfered from mysql
 import=true
 
+# dataset which will be imported from mysql
+dataset=deu_news_2009_10K
+
 # perform a warmup before running a benchmark
 warmup=true
 

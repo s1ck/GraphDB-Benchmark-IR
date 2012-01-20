@@ -58,7 +58,7 @@ public abstract class Importer {
 	public void setUp(String graphDBName) {
 		// load properties
 		graphConfiguration = Configuration.getInstance(graphDBName);
-		mySQLConnection = MySQLConnector.getConnection();
+		mySQLConnection = MySQLConnector.getConnection(graphConfiguration.getPropertyAsString("dataset"));
 	}
 
 	/**
