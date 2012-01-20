@@ -23,3 +23,4 @@ dex.log
 /docs/**/*.out
 /docs/**/*.snm
 /docs/**/*.nav
+/docs/**/*.dvi
