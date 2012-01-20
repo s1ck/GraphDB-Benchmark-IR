@@ -7,6 +7,7 @@ import com.orientechnologies.orient.core.record.impl.ODocument;
 
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Connectors.OrientDBConnector;
+import de.uni.leipzig.IR15.Support.Configuration;
 
 /**
  * Abstract Base Class for all benchmarks running on orient graph database. It
@@ -18,13 +19,14 @@ import de.uni.leipzig.IR15.Connectors.OrientDBConnector;
  */
 public abstract class OrientDBBenchmark extends Benchmark {
 
-	// TODO remove
-	protected long startWordID;
-
 	protected ODocument startVertex;
 	protected OGraphDatabase orientdb;
 	protected OIndexUnique index;
 	protected int maxID;
+
+	private int minOutDegree;
+	private static Configuration orientCfg = Configuration
+			.getInstance("orientdb");
 
 	/**
 	 * Setup the database connection, get the index and get the maximum word id.
@@ -36,6 +38,7 @@ public abstract class OrientDBBenchmark extends Benchmark {
 				.getIndexInternal("word_id_index");
 		log.info(index);
 		maxID = findMaxWordID();
+		minOutDegree = orientCfg.getPropertyAsInteger("min_outdegree");
 	}
 
 	/**
@@ -43,7 +46,7 @@ public abstract class OrientDBBenchmark extends Benchmark {
 	 */
 	@Override
 	public void beforeRun() {
-		startVertex = getRandomNode(20);
+		startVertex = getRandomNode(minOutDegree);
 	}
 
 	@Override

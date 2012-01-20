@@ -24,7 +24,7 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 		List<Benchmark> benchmarks = new ArrayList<Benchmark>();
 
 		boolean logToFile = true;
-		boolean doWarmup = false;
+		boolean doWarmup = true;
 
 		Benchmark neo4jImportBench = new ImportBenchmark(new Neo4JImporter());
 		neo4jImportBench.setRuns(1);

@@ -1,3 +1,11 @@
+# location where the embedded DEX db will be stored
 location=out/dex
+
+# number of operations in one transaction (used during the import)
 operations_per_transaction=20000
+
+# license key
 license=XXXXX-XXXXX-XXXXX-XXXXX
+
+# sets the treshold for number of outgoing edges
+min_outdegree=20

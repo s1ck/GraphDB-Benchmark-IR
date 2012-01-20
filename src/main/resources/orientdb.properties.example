@@ -1,1 +1,5 @@
+# location where the embedded db will be stored
 location=out/orientdb
+
+# sets the treshold for number of outgoing edges
+min_outdegree=20
