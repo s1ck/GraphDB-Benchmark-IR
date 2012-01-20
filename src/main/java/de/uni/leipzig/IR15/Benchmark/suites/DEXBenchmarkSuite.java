@@ -28,17 +28,16 @@ public class DEXBenchmarkSuite extends AbstractBenchmarkSuite {
 		List<Benchmark> benchmarks = new ArrayList<Benchmark>();
 
 		boolean logToFile = true;
-		boolean doWarmup = true;
+		boolean doWarmup = false;
 
 		Benchmark dexImportBench = new ImportBenchmark(new DEXImporter());
 		dexImportBench.setRuns(1);
 		benchmarks.add(dexImportBench);
 
-		// Benchmark query_1 = new
-		// de.uni.leipzig.IR15.Benchmark.dex.Query1_Benchmark();
-		// query_1.setRuns(100);
-		// benchmarks.add(query_1);
-		//
+		Benchmark query_1 = new de.uni.leipzig.IR15.Benchmark.dex.Query1_Benchmark();
+		query_1.setRuns(100);
+		benchmarks.add(query_1);
+
 		Benchmark query_2 = new de.uni.leipzig.IR15.Benchmark.dex.Query2_Benchmark();
 		query_2.setRuns(100);
 		benchmarks.add(query_2);

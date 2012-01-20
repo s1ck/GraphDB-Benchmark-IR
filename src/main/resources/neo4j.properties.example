@@ -1,11 +1,17 @@
 # storage directory of neo4j
 location=out/neo4j
 
+# neo4j specific properties
+neostore.nodestore.db.mapped_memory=10M
+neostore.relationshipstore.db.mapped_memory=50M
+neostore.propertystore.db.mapped_memory=100M
+neostore.propertystore.db.strings.mapped_memory=10M
+neostore.propertystore.db.arrays.mapped_memory=10M
+cache_type=soft
+
+
 # this is relevant for import
 operations_per_transaction=20000
 
-# native API get neighbours benchmark
-bfs_max_depth=5
-
 # sets the treshold for number of outgoing edges
-min_outdegree=2
+min_outdegree=20

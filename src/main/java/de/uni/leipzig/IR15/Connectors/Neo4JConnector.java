@@ -23,13 +23,18 @@ public class Neo4JConnector {
 		// connect to neo4j and create an index on the nodes
 		neo4j = new EmbeddedGraphDatabase(
 				config.getPropertyAsString("location"),
-				MapUtil.stringMap("neostore.nodestore.db.mapped_memory", "10M",
-						"neostore.relationshipstore.db.mapped_memory", "50M",
-						"neostore.propertystore.db.mapped_memory", "100M",
+				MapUtil.stringMap(
+						"neostore.nodestore.db.mapped_memory",
+						config.getPropertyAsString("neostore.nodestore.db.mapped_memory"),
+						"neostore.relationshipstore.db.mapped_memory",
+						config.getPropertyAsString("neostore.relationshipstore.db.mapped_memory"),
+						"neostore.propertystore.db.mapped_memory",
+						config.getPropertyAsString("neostore.propertystore.db.mapped_memory"),
 						"neostore.propertystore.db.strings.mapped_memory",
-						"10M",
-						"neostore.propertystore.db.arrays.mapped_memory", "10M"));
-
+						config.getPropertyAsString("neostore.propertystore.db.strings.mapped_memory"),
+						"neostore.propertystore.db.arrays.mapped_memory",
+						config.getPropertyAsString("neostore.propertystore.db.arrays.mapped_memory"),
+						"cache_type", config.getPropertyAsString("cache_type")));
 		if (neo4j != null) {
 			log.info("Create connection successful");
 		} else {

@@ -21,22 +21,20 @@ public class MySQLBenchmarkSuite extends AbstractBenchmarkSuite {
 	public static void main(String[] args) {
 		List<Benchmark> benchmarks = new ArrayList<Benchmark>();
 
-		boolean doWarmup = true;
+		boolean doWarmup = false;
 		boolean logToFile = true;
 
-		// Benchmark query_1 = new
-		// de.uni.leipzig.IR15.Benchmark.mysql.Query1_Benchmark();
-		// query_1.setRuns(100);
-
-		// benchmarks.add(query_1);
+		Benchmark query_1 = new de.uni.leipzig.IR15.Benchmark.mysql.Query1_Benchmark();
+		query_1.setRuns(100);
+		benchmarks.add(query_1);
 
 		Benchmark query_2 = new de.uni.leipzig.IR15.Benchmark.mysql.Query2_Benchmark();
 		query_2.setRuns(100);
 		benchmarks.add(query_2);
 
-		Benchmark query_3 = new de.uni.leipzig.IR15.Benchmark.mysql.Query3_Benchmark();
-		query_3.setRuns(100);
-		benchmarks.add(query_3);
+		Benchmark query_3_MYSQL = new de.uni.leipzig.IR15.Benchmark.mysql.Query3_Benchmark();
+		query_3_MYSQL.setRuns(100);
+		benchmarks.add(query_3_MYSQL);
 
 		runBenchmarks(benchmarks, logToFile, doWarmup);
 	}

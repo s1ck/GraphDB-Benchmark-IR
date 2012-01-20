@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
+import de.uni.leipzig.IR15.Benchmark.ImportBenchmark;
+import de.uni.leipzig.IR15.Importer.Neo4JImporter;
 
 /**
  * Neo4j benchmark suite that runs all the configured benchmarks.
@@ -22,12 +24,11 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 		List<Benchmark> benchmarks = new ArrayList<Benchmark>();
 
 		boolean logToFile = true;
-		boolean doWarmup = false;
+		boolean doWarmup = true;
 
-		// Benchmark neo4jImportBench = new ImportBenchmark(new
-		// Neo4JImporter());
-		// neo4jImportBench.setRuns(1);
-		// benchmarks.add(neo4jImportBench);
+		Benchmark neo4jImportBench = new ImportBenchmark(new Neo4JImporter());
+		neo4jImportBench.setRuns(1);
+		benchmarks.add(neo4jImportBench);
 
 		/**
 		 * Cypher
@@ -71,10 +72,9 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 		 * Native API
 		 */
 
-		// Benchmark query_1_native = new
-		// de.uni.leipzig.IR15.Benchmark.neo4j.Query1_Native_Benchmark();
-		// query_1_native.setRuns(100);
-		// benchmarks.add(query_1_native);
+		Benchmark query_1_native = new de.uni.leipzig.IR15.Benchmark.neo4j.Query1_Native_Benchmark();
+		query_1_native.setRuns(100);
+		benchmarks.add(query_1_native);
 
 		Benchmark query_2_native = new de.uni.leipzig.IR15.Benchmark.neo4j.Query2_Native_Benchmark();
 		query_2_native.setRuns(100);

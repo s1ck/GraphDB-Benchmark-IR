@@ -10,6 +10,7 @@ import com.sparsity.dex.gdb.Value;
 
 import de.uni.leipzig.IR15.Benchmark.Benchmark;
 import de.uni.leipzig.IR15.Connectors.DEXConnector;
+import de.uni.leipzig.IR15.Support.Configuration;
 
 /**
  * Abstract Base Class for all benchmarks running on DEX graph database. It
@@ -29,6 +30,8 @@ public abstract class DEXBenchmark extends Benchmark {
 	protected int wordIDAttribute;
 	protected int coNEdgeType, coNEdgeSigAttribute, coNEdgeFreqAttribute;
 	protected int coSEdgeType, coSEdgeSigAttribute, coSEdgeFreqAttribute;
+	private int minOutDegree;
+	private static Configuration dexConfig = Configuration.getInstance("dex");
 
 	/**
 	 * Setup the database connection and find all needed node, edge and
@@ -52,6 +55,8 @@ public abstract class DEXBenchmark extends Benchmark {
 		coSEdgeFreqAttribute = graph.findAttribute(coSEdgeType, "freq");
 
 		maxWordID = findMaxWordID();
+		
+		minOutDegree = dexConfig.getPropertyAsInteger("min_outdegree");
 	}
 
 	/**
@@ -59,7 +64,7 @@ public abstract class DEXBenchmark extends Benchmark {
 	 */
 	@Override
 	public void beforeRun() {
-		startNodeID = getRandomNode(20);
+		startNodeID = getRandomNode(minOutDegree);
 	}
 
 	/**
