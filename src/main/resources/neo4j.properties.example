@@ -1,5 +1,5 @@
-# storage directory of neo4j
-location=out/neo4j
+# general properties
+operations_per_transaction=20000
 
 # neo4j specific properties
 neostore.nodestore.db.mapped_memory=10M
@@ -9,9 +9,30 @@ neostore.propertystore.db.strings.mapped_memory=10M
 neostore.propertystore.db.arrays.mapped_memory=10M
 cache_type=soft
 
-
-# this is relevant for import
-operations_per_transaction=20000
+# properties for embedded neo4j instance
+location=out/neo4j
 
 # sets the treshold for number of outgoing edges
 min_outdegree=20
+
+# log benchmark results out directory
+log=true
+
+# select if the dataset shall be transfered from mysql
+import=true
+
+# perform a warmup before running a benchmark
+warmup=true
+
+# select the queries to run 
+query1_native=true
+query2_native=true
+query3_native=true
+
+query1_cypher=false
+query2_cypher=false
+query3_cypher=false
+
+query1_traversal=false
+query2_traversal=false
+query3_traversal=false
