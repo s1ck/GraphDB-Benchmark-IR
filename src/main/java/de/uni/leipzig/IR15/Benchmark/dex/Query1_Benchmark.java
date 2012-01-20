@@ -7,9 +7,9 @@ import com.sparsity.dex.gdb.Value;
 
 /**
  * Query 1 selects all sentence co-occurrences (co_s) of a given word.
- * 
+ *
  * @author robbl
- * 
+ *
  */
 public class Query1_Benchmark extends DEXBenchmark {
 
@@ -34,8 +34,8 @@ public class Query1_Benchmark extends DEXBenchmark {
 			wordIDValue.getInteger();
 			wordIDValue.delete();
 		}
-		iter.close();	
-		neighbours.close();			
+		iter.close();
+		neighbours.close();
 	}
 
 	/**
