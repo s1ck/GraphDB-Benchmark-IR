@@ -27,7 +27,7 @@ public class Query1_Benchmark extends DEXBenchmark {
 				EdgesDirection.Any);
 		ObjectsIterator iter = neighbours.iterator();
 		while (iter.hasNext()) {
-			node = iter.nextObject();
+			node = iter.next();
 
 			// get the w_id attribute value and cleanup
 			graph.getAttribute(node, wordIDAttribute, wordIDValue = new Value());

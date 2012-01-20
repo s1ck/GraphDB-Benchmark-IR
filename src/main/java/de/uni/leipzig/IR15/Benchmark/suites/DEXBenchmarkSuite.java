@@ -48,12 +48,12 @@ public class DEXBenchmarkSuite extends AbstractBenchmarkSuite {
 			query_1.setRuns(100);
 			benchmarks.add(query_1);
 		}
-		if (dexCfg.getPropertyAsBoolean("query1_native")) {
+		if (dexCfg.getPropertyAsBoolean("query2_native")) {
 			Benchmark query_2 = new de.uni.leipzig.IR15.Benchmark.dex.Query2_Benchmark();
 			query_2.setRuns(100);
 			benchmarks.add(query_2);
 		}
-		if (dexCfg.getPropertyAsBoolean("query1_native")) {
+		if (dexCfg.getPropertyAsBoolean("query3_native")) {
 			Benchmark query_3 = new de.uni.leipzig.IR15.Benchmark.dex.Query3_Benchmark();
 			query_3.setRuns(100);
 			benchmarks.add(query_3);

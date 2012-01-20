@@ -8,9 +8,9 @@ import com.sparsity.dex.gdb.Value;
 /**
  * Query 3 selects all sentence co-occurences (co_s) between two words which are
  * sentence co-occurences of a given word.
- * 
+ *
  * @author Robert 'robbl' Schulze
- * 
+ *
  */
 public class Query3_Benchmark extends DEXBenchmark {
 
@@ -27,20 +27,16 @@ public class Query3_Benchmark extends DEXBenchmark {
 		// find all neighbors to a given start node
 		Objects neighbors_1 = graph.neighbors(startNodeID, coSEdgeType,
 				EdgesDirection.Outgoing);
-		Objects neighbors_2;
-//		Objects neighbors_2 = graph.neighbors(startNodeID, coSEdgeType,
-//				EdgesDirection.Outgoing);
-//		;
 
 		// iterate over all neighbors
-		ObjectsIterator iter1 = neighbors_1.iterator(), iter2;
+		ObjectsIterator iter1 = neighbors_1.iterator();
 		while (iter1.hasNext()) {
 			node1 = iter1.nextObject();
 
-			neighbors_2 = graph.neighbors(startNodeID, coSEdgeType,
+			Objects neighbors_2 = graph.neighbors(startNodeID, coSEdgeType,
 					EdgesDirection.Outgoing);
 			// iterate over all neighbors once again
-			iter2 = neighbors_2.iterator();
+			ObjectsIterator iter2 = neighbors_2.iterator();
 			while (iter2.hasNext()) {
 				node2 = iter2.nextObject();
 
