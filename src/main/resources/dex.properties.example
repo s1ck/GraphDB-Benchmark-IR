@@ -9,3 +9,20 @@ license=XXXXX-XXXXX-XXXXX-XXXXX
 
 # sets the treshold for number of outgoing edges
 min_outdegree=20
+
+# log benchmark results out directory
+log=true
+
+# select if the dataset shall be transfered from mysql
+import=true
+
+# dataset which will be imported from mysql
+dataset=deu_news_2009_1M
+
+# perform a warmup before running a benchmark
+warmup=true
+
+# select the queries to run 
+query1_native=true
+query2_native=true
+query3_native=true
