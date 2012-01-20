@@ -10,30 +10,33 @@ import de.uni.leipzig.IR15.Support.Configuration;
 
 /**
  * Class to handle connection to the mysql database.
- *
+ * 
  * @author IR-Team
- *
+ * 
  */
 
 public class MySQLConnector {
 	private static Logger log = Logger.getLogger(MySQLConnector.class);
 	private static Connection connection;
+	private static Configuration mySqlCfg = Configuration.getInstance("mysql");
 
 	/**
 	 * Create and return a database connection.
-	 *
+	 * 
 	 * @return database connection
 	 */
 	public static Connection getConnection() {
-		Configuration mySQLConfiguration = Configuration.getInstance("mysql");
+		return getConnection(mySqlCfg.getPropertyAsString("database"));
+	}
+
+	public static Connection getConnection(String databaseName) {
 
 		String database = "jdbc:mysql://"
-				+ mySQLConfiguration.getPropertyAsString("host") + ":"
-				+ mySQLConfiguration.getPropertyAsString("port") + "/"
-				+ mySQLConfiguration.getPropertyAsString("database");
+				+ mySqlCfg.getPropertyAsString("host") + ":"
+				+ mySqlCfg.getPropertyAsString("port") + "/" + databaseName;
 
-		String username = mySQLConfiguration.getPropertyAsString("username");
-		String password = mySQLConfiguration.getPropertyAsString("password");
+		String username = mySqlCfg.getPropertyAsString("username");
+		String password = mySqlCfg.getPropertyAsString("password");
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
