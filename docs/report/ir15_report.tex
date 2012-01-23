@@ -13,10 +13,42 @@
 \usepackage{color}					% Farben
 \usepackage{units}   				% Einheiten, \unit[23]{m}
 \usepackage{hyperref}				% Referenzen
-\usepackage{todonotes}				% Todo
-\usepackage{listings}
-\usepackage{grffile}
-\usepackage{lscape}
+\usepackage{todonotes}				% Todonotes im Text 
+\usepackage{listings}				% sourcecode
+\usepackage{grffile}				% graphic filename extensions
+\usepackage{lscape}					% landscape
+\usepackage{pdflscape}				% landscape, if using PDFLaTeX
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+ 
+\lstset{ %
+  language=Java,               		% the language of the code
+  basicstyle=\footnotesize,         % the size of the fonts that are used for the code
+  numbers=left,                   	% where to put the line-numbers
+  numberstyle=\footnotesize,        % the size of the fonts that are used for the line-numbers
+  stepnumber=1,                  	% the step between two line-numbers. If it's 1, each line 
+                                  	% will be numbered
+  numbersep=6pt,                  	% how far the line-numbers are from the code
+  backgroundcolor=\color{white},    % choose the background color. You must add \usepackage{color}
+  showspaces=false,               	% show spaces adding particular underscores
+  showstringspaces=false,         	% underline spaces within strings
+  showtabs=false,                 	% show tabs within strings adding particular underscores
+  frame=single,                   	% adds a frame around the code
+  tabsize=2,                      	% sets default tabsize to 2 spaces
+  captionpos=t,                   	% sets the caption-position to bottom
+  breaklines=true,                	% sets automatic line breaking
+  breakatwhitespace=false,        	% sets if automatic breaks should only happen at whitespace
+  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+                                  	% also try caption instead of title
+  numberstyle=\tiny\color{gray},    % line number style
+  keywordstyle=\color{blue},        % keyword style
+  commentstyle=\color{dkgreen},     % comment style
+  stringstyle=\color{mauve},        % string literal style
+  escapeinside={(*@}{@*)},          % if you want to add a comment within your code    %   \%*}{*)
+  morekeywords={*,...}              % if you want to add more keywords to the set
+}
 
 \author{Martin Junghanns \\  \url{martin.junghanns@studserv.uni-leipzig.de} \and 
 		Sascha Ludwig \\ \url{s.ludwig@studserv.uni-leipzig.de} \and 
@@ -28,6 +60,7 @@
 \graphicspath{
  {./pics/}
 }
+
 
 \begin{document}
 
@@ -132,28 +165,135 @@ Cypher, Traverser Speicherprobs, keine Optimierung
 
 \subsection{Aussicht}
 
+
+
+
 \section{OrientDB}
 
 OrientDB\footnote{\url{http://www.orientechnologies.com/}} ist eine eingebettete, persitente, transaktionale Dokumenten- und Graphdatenbank. OrientDB wird seit 1998 von Luca Garulli entwickelt. OrientDB ist zu 100\% in Jave implementiert und steht quelloffen zur Verfügung.\footnote{\url{http://code.google.com/p/orient/}}
 
+
+
 \subsection{Anbindung}
 
-OrientDB lässt sich innerhalb von Java Applikationen unkompliziert über eine Java API nutzen.\footnote{\url{http://code.google.com/p/orient/wiki/JavaAPI}} Neben einer Java-API bietet OrientDB auch die Möglichkeit der Steuerung des Datenbanksystems über eine eigene Konsole. Dies hat den Vorteil, dass man das Datenbanksystem erkunden und kennen lernen kann. In der Konsolen können Befehle in einer SQL-artigen Syntax\footnote{\url{http://code.google.com/p/orient/wiki/ConsoleCommands}} an das Datenbanksystem geschickt und ausgewertet werden.
+OrientDB lässt sich innerhalb von Java Applikationen nativ über eine Java API nutzen.\footnote{\url{http://code.google.com/p/orient/wiki/JavaAPI}} Neben einer Java-API bietet OrientDB auch die Möglichkeit der Steuerung des Datenbanksystems über eine eigene Konsole. Dies hat den Vorteil, dass man das Datenbanksystem, auch ohne den Umweg über Java, erkunden und kennen lernen kann. In der Konsole können Befehle in einer SQL-artigen Syntax\footnote{\url{http://code.google.com/p/orient/wiki/ConsoleCommands}} an das Datenbanksystem geschickt und ausgewertet werden.
+
+
 
 \subsection{Anfragemöglichkeiten}
-Auf die in OrientDB gespeicherten Daten kann im Großen und Ganzen auf drei verschiedene Arten zugegriffen werden. Die erste und performanteste Art ist der Zugriff mittels der nativen Java API. Diese kam auch in den Benchmarks zum Einsatz. \\
-Weiterhin können Anfragen in einer SQL-artigen Syntax\footnote{\url{http://code.google.com/p/orient/wiki/SQL}} gestellt werden. Allerdings gibt es hier noch gewisse Einschränkungen laut des Autors "Sub-selects are not yet implemented." Dies hatte zur Folge, dass diese SQL-artige Art der Anfrage nicht für das in diesem Projekt beschriebene Problem genutzt werden kann. \\
+Auf die in OrientDB gespeicherten Daten kann auf drei verschiedene Arten zugegriffen werden. Die erste und performanteste Art ist der Zugriff mittels der nativen Java API. Diese kam auch in den Benchmarks zum Einsatz. \\
+Weiterhin können Anfragen in einer SQL-artigen Syntax\footnote{\url{http://code.google.com/p/orient/wiki/SQL}} gestellt werden. Allerdings gibt es hier noch gewisse Einschränkungen laut des Autors: "Sub-selects are not yet implemented." Dies hatte zur Folge, dass diese Anfragemöglichkeit nicht für das in diesem Projekt beschriebene Problem genutzt werden kann. \\
 Die Dritte Art der Zugriff kann mittels Gremlin\footnote{\url{https://github.com/tinkerpop/gremlin/wiki}} geschehen. Gremlin bietet eine an XPath angelehnte Syntax um Graphen zu traversieren.
 
+
+
 \subsection{Einschränkungen}
-Ein großes Bottleneck bei OrientDB ist der Import der Daten aus einer SQL-Datenbank. Auch nach dem Befolgen der "Performance Hints" und dem Optimieren diverser JVM Parameter, stieg die Zeit für den Import für die Kookurrenzen-Kanten exponentiell zur Anzahl der einzufügenden Kanten an (siehe Abbildung~\ref{fig:orientdb_import}). Dies hat zur Folge, dass große Datenmengen (ab 1M Datensatz mit 3349314 CO\_{}S Kanten) nicht mehr importiert werden konnten. Mittels JProfiler konnte der Persistierungsprozess von OrientDB als HotSpot ausgemacht werden. Ein Kontaktaufnahme mit dem Autor bezüglich dieses Performanzverlustes ist durch uns erfolgt, führte aber zu keiner Lösung des Problems.\\
+Ein großes Bottleneck bei OrientDB ist der Import von Daten aus einer SQL-Datenbank. Auch nach dem Befolgen der "Performance Hints" und dem Optimieren diverser JVM Parameter, stieg die Zeit für den Import der Kookurrenz-Kanten exponentiell zur Anzahl der einzufügenden Kanten an (siehe Abbildung~\ref{fig:orientdb_import}). Dies hat zur Folge, dass große Datenmengen (ab 1M Datensatz mit 3349314 CO\_{}S Kanten) nicht mehr importiert werden konnten. Mittels JProfiler konnte der Persistierungsprozess von OrientDB als HotSpot ausgemacht werden. Ein Kontaktaufnahme mit dem Autor bezüglich dieses Performanzverlustes ist durch uns erfolgt, führte aber zu keiner Lösung des Problems.\\
 Auch konnte die SQL-artige Abfragesprache OrientSQL nicht genutzt werden, da diese noch nicht alle Funktionalitäten von MySQL bereitstellt.
 
+
+
 \subsection{Dokumentation}
-OrientDB ist gut und ausführlich dokumentiert\footnote{\url{http://code.google.com/p/orient/wiki/Main}}, was das Arbeiten mit OrientDB einfach gestaltet. Es liegt sowohl eine komplette und ausführliche Javadoc der API\footnote{\url{http://www.orientechnologies.com/releases/latest/javadoc/index.html}} vor, als auch Informationsseiten zu grundlegenden und weiterführenden Aspekten vor. Auf diesen Webseiten lassen sich Informationen zu fast allen Fragen finden. Allerdings ist das Finden einer Antwort auf eine konkrete Frage teilweise schwierig. Dies ist unter Umständen dem Fakt geschuldet, dass OrientDB sowohl eine Dokumentendatenbank, als auch ein Key-Value-Store, als auch eine Graphdatenbank ist. Oft werden in der Dokumentation diese drei Konzepte vermischt, was zu Verwirrungen führen kann. Weiterhin hat das Fehlen eines ausführlichen und kompletten Einstiegbeispiels die Einarbeitung erschwert. Auch fehlen Beispiele für komplexe Anwendungsfälle. Allerdings war der Autor bei speziellen Fragen per E-Mail zu erreichen, wobei man auf eine Antwort lediglich eine angemessene Zeit warten musste.
+OrientDB ist gut und ausführlich dokumentiert\footnote{\url{http://code.google.com/p/orient/wiki/Main}}, was das Arbeiten mit OrientDB einfach gestaltet. Es liegt sowohl eine komplette und ausführliche Javadoc der API\footnote{\url{http://www.orientechnologies.com/releases/latest/javadoc/index.html}} vor, als auch Informationsseiten zu grundlegenden und weiterführenden Aspekten. Auf diesen Webseiten lassen sich Informationen zu fast allen Fragen finden. Allerdings ist das Finden einer Antwort auf eine konkrete Frage teilweise schwierig. Dies ist unter Umständen dem Fakt geschuldet, dass OrientDB sowohl eine Dokumentendatenbank, als auch ein Key-Value-Store, als auch eine Graphdatenbank ist. Oft werden in der Dokumentation diese drei Konzepte vermischt, was zu Verwirrungen führen kann. Weiterhin hat das Fehlen eines ausführlichen und kompletten Einstiegbeispiels die Einarbeitung erschwert. Auch fehlen Beispiele für komplexe Anwendungsfälle. Allerdings war der Autor bei speziellen Fragen per E-Mail zu erreichen, wobei man auf eine Antwort lediglich eine angemessene Zeit warten muss.
+
+
 
 \subsection{Aussicht}
-OrientDB stellt bezüglich seiner Graphdatenbankenfunktionalität einige interssante Features in Aussicht. OrientDB stellt seit Kurzem eine Implementation der Tinkerpop Blueprints APIs zur Verfügung. Somit steht auch die einfache und leicht lesbare Highlevel-Abfragesprache Gremlin zur verfügbar. Mit dieser Abfragesprache ist es möglich auch komplexe und vielseitige Abfragen verständlich zu formulieren.
+OrientDB stellt bezüglich seiner Graphdatenbankenfunktionalität einige interssante Features in Aussicht. OrientDB stellt seit Kurzem eine Implementation der Tinkerpop Blueprints APIs\footnote{\url{https://github.com/tinkerpop/blueprints/wiki/}} zur Verfügung. Somit steht auch die einfache und leicht lesbare Highlevel-Abfragesprache Gremlin zur Verfügung. Mit dieser Abfragesprache ist es möglich auch komplexe und vielseitige Abfragen verständlich zu formulieren.
+
+
+
+\subsection{Benutzung}
+In diesem Abschnitt werden konkrete Arbeitsschritte für OrientDB anhand von Quelltext angegeben.
+
+\subsubsection{Datenbank erstellen, öffnen und schließen}
+\begin{lstlisting}[caption={OrientDB - Datenbank erstellen, öffnen und schließen}]
+// benoetigte imports
+import com.orientechnologies.orient.core.db.
+	graph.OGraphDatabase;
+import com.orientechnologies.orient.core.db.
+	document.ODatabaseDocumentTx;
+// OrientDB-Objekt
+OGraphDatabase orientdb;
+// Pfad zu dem Ordner, in dem die DB gespeichert werden soll
+String url2db = "local:<PATH_TO_FOLDER>";
+// erstelle eine neue Datenbank
+new ODatabaseDocumentTx(url2db).create();(*@\label{Ocreate}@*)
+// oeffne eine bestehende Datenbank
+orientdb = new OGraphDatabase(url2db);(*@\label{Oopen1}@*)
+orientdb.open("admin", "admin");(*@\label{Oopen2}@*)
+// ... Anweisungen ...
+// Datenbank schlieszen
+orientdb.close();(*@\label{Oclose}@*)
+\end{lstlisting}
+In diesem Codeausschnitt wird zuerst eine neue Datenbank angelegt (Zeile \ref{Ocreate}). Dazu muss ein bereits existierender Ordner als Parameter angegeben werden. OrientDB speichert verschiedene Dateien in diesem Ordner. Danach wird eine existierende Datenbank geöffnet (Zeile \ref{Oopen1}) und stellt danach ein Objekt bereit, welches die OrientDB Datenbank repräsentiert. Auch hierbei wird der Ordner, welcher die Datenbankdateien beinhaltet, als Parameter angegeben. Zeile \ref{Oopen2} stellt eine (hier lokale) Verbindung zu der Datenbank her. In Zeile \ref{Oclose} wird die Datenbank geschlossen.
+Ausführlichere Informationen finden sich in der Dokumentation.\footnote{\url{http://code.google.com/p/orient/wiki/GraphDatabaseRaw}}
+
+
+
+\subsubsection{Indizes erstellen}
+\begin{lstlisting}[caption={OrientDB - Indizes erstellen}]
+// benoetigte imports
+import com.orientechnologies.orient.core.metadata.schema.OClass;
+import com.orientechnologies.orient.core.index.OIndexUnique;
+// Knotentyp-Objekt
+OClass cWord;
+//Index-Objekt
+OIndexUnique index;
+// erstelle neuen Knotentyp
+cWord = orientdb.createVertexType("WORD"); (*@\label{OVer}@*)
+// Knoten soll bestimmtes Attribut von bestimmten Typ haben
+cWord.createProperty("w_id", OType.INTEGER);(*@\label{OProp}@*)
+// Index auf dieser Knoteneigenschaft erstellen
+index = (OIndexUnique) cWord.createIndex("word_id_index",
+	OClass.INDEX_TYPE.UNIQUE, "w_id");(*@\label{OIndex}@*)
+\end{lstlisting}
+In diesem Codeausschnitt wird zuerst ein Knotentyp deklariert (Zeilt \ref{OVer}), für welchen später ein Index auf ein bestimmtes Attribut erstellt werden soll. In der darauffolgenden Anweisung in Zeile \ref{OProp} wird ein Attribut mit einem bestimmten Typen für den Knoten festgelegt. Der Index auf diesem Attribut wird in Zeile \ref{OIndex} erstellt. 
+Ausführlichere Informationen finden sich in der Dokumentation.\footnote{\url{http://code.google.com/p/orient/wiki/Indexes}}
+
+
+\subsubsection{Daten einfügen}
+\begin{lstlisting}[caption={OrientDB - Daten einfügen}]
+// benoetigte imports
+import com.orientechnologies.orient.core.record.impl.ODocument;
+// erstellt einen neuen Knoten
+ODocument vertex1 = orientdb.createVertex("WORD")(*@\label{OKnoten}@*)
+// fuelle Attribute mit Werten
+vertex1.field("w_id", "137");(*@\label{OKnotenWerte}@*)
+vertex1.field("word", "angenehm");
+// persistiere den Knoten
+vertex1.save();(*@\label{OSave}@*)
+// erstelle einen zweiten Knoten
+ODocument vertex2 = orientdb.createVertex("WORD")
+vertex2.field("w_id", "32958");
+vertex2.field("word", "warm");
+vertex2.save();
+// erstelle eine neue Kanten zwischen 2 Knoten
+ODocument edge = orientdb.createEdge(vertex1, vertex2, "co_n")(*@\label{OKante}@*)
+// fuelle Attribute der Kante mit Werten
+edge.field("freq", "42");
+edge.field("sig", "13.37");
+// persistiere die Kante
+edge.save();
+\end{lstlisting}
+
+In diesem Codeausschnitt werden zwei Knoten erstellt welche anschließend durch eine Kante verbunden werden. Ein Knoten wird mit dem Befehl in Zeile \ref{OKnoten} erstellt. Der Parameter bei diesem Befehl bestimmt den Typen des Knotens. Anschließend, ab Zeile \ref{OKnotenWerte}, werden diesem Knoten Attribute mit Werten zugewiesen. Mit dem Befehl in Zeile \ref{OSave} wird der Knoten auf der Festplatte persistent gespeichert. In Zeile \ref{OKante} wird eine Kante zwischen den zuvor angelegten Knoten erstellt. Der letzte Parameter bestimmt den Typen der Kante.
+Ausführlichere Informationen finden sich in der Dokumentation.\footnote{\url{http://code.google.com/p/orient/wiki/GraphDatabaseRaw}}
+
+\subsubsection{Daten abfragen}
+\begin{lstlisting}[caption={OrientDB - Daten abfragen}]
+Integer lookupID = 137
+source = (ODocument) index.get( lookupID.intValue() ).getRecord();(*@\label{OByIndex}@*)
+String w = source.field("word")(*@\label{OGetAttr}@*)
+Iterable<ODocument> vall = browseVertices()(*@\label{OByBrowse}@*)
+Set<OIdentifiable> outEdges = orientdb.getOutEdges(startVertex); (*@\label{OFromVert}@*)
+Set<OIdentifiable> inEdges = orientdb.getInEdges(startVertex);
+(ODocument) vin = orientdb.getInVertex(edge)(*@\label{OFromEdge}@*)
+(ODocument) vout = orientdb.getOutVertex(edge)
+
+\end{lstlisting}
+In diesem Codeausschnitt wird erläuert, in welcher Form man auf die gespeicherten Daten nativ mittels der Java API zugreifen kann. Hat man einen Index mit dem namen "index" auf ein bestimmtes Attribut von Knoten oder Kanten erstellt, so kann man mittels diesem performant auf das dahinter liegende Objekt zugreifen. In Zeile \ref{OByIndex} wird der Index, welcher im vorangegangenen Quelltext erstellt wurde, wieder verwendet. In Zeile \ref{OGetAttr} wird von dem Knoten ein bestimmter Attributwert eingeholt. Eine andere Art des Zugriffs in in Zeile \ref{OByBrowse} beschrieben. Hier werden alle Knoten des Graphs zurückgegeben. In Zeile \ref{OFromVert} wird aufgezeigt, wie Zugriff auf alle ausgehenden Kanten erhält. In Zeile \ref{OFromEdge} führt der weg ausgehend von einer Kante zu einem Knoten.
+Ausführlichere Informationen finden sich in der Dokumentation.\footnote{\url{http://www.orientechnologies.com/releases/latest/javadoc/index.html?com/orientechnologies/orient/core/db/graph/OGraphDatabase.html}}
 
 \section{DEX}
 
@@ -247,13 +387,18 @@ Lizenz & GPL (Community Edition) & Apache License 2.0 & kommerziell	 \\
 
 \begin{appendix}
 \section{Abbildungen}
-
+\subsection{OrientDB Import}
 \begin{figure*}[htbp]
 	\centering
 	\includegraphics[width=10cm]{OrientImporter.png} 
 	\caption{OrientDB-Importer Zeiten für Kookurenzen CO\_{}S}
 	\label{fig:orientdb_import}
 \end{figure*}
+
+\subsection{Vergleich zwischen den Graphdatenbanken}
+Auf den folgenden Seiten sind die Ergebnisse der Benchmarks dargestellt. Es gibt zwei unterschiedliche Arten von Diagrammen, die den Fokus auf verschiedene Aspekte legen. \\
+Die \textbf{Boxplots} vergleichen die Datenbanken hinsichtlich durchschnittlicher Performanz, welche über 100 Einzelabfragen ermittelt wurde. Die X-Achse beschriftet dabei ein konkretes Datenbanksystem und die Y-Achse stellt die Zeit in Millisekunden dar. Pro Datensatz und Query gibt es ein Boxplotdiagramm. Der Hauptfokus bei diesem Diagrammtyp liegt auf dem Vergleich der Datenbanken mit Hinblick auf die durchschnittliche Dauer von Abfragen sowie auf die Varianz der Abfragezeiten.\\
+Die \textbf{Lineplots} vergleichen die Datenbanken hinsichtlich jeder Einzelabfrage. Die X-Achse beschriftet hierbei eine einzelene Abfrage und die Y-Achse stellt die Zeit in Millisekunden dar. In jedem Diagramm sind die verschiedenen Datenbanksysteme als verschiedene Linien mit verschiedenen Farben dargestellt. Pro Datensatz und Query gibt es ein Boxplotdiagramm. Der Hauptfokus bei diesem Diagrammtyp liegt auf dem Verhalten von den Datenbanksystemen bei einzelnen Queries. Hierbei fällt auf, dass Peaks sehr häufig bei allen Graphdatenbanken bei der selben Abfrage entstehen.
 
 \begin{landscape} 
 	\newpage
