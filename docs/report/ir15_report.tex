@@ -47,7 +47,11 @@
   commentstyle=\color{dkgreen},     % comment style
   stringstyle=\color{mauve},        % string literal style
   escapeinside={(*@}{@*)},          % if you want to add a comment within your code    %   \%*}{*)
-  morekeywords={*,...}              % if you want to add more keywords to the set
+  morekeywords={*,...},              % if you want to add more keywords to the set    
+  literate={ö}{{\"o}}1
+           {ä}{{\"a}}1
+           {ü}{{\"u}}1
+           {ß}{{\ss}}1
 }
 
 \author{Martin Junghanns \\  \url{martin.junghanns@studserv.uni-leipzig.de} \and 
@@ -149,13 +153,142 @@ Für die Leistungsmessung wurde die eingebettete Variante der Datenbank genutzt.
 
 \subsection{Anfragemöglichkeiten}
 
-Neo4j bietet verschiedene Möglichkeiten an, den gespeicherten Graphen zu traversieren bzw. abzufragen. Neben der nativen Java API und der ebenfalls in Java entwickelten Traversal API steht seit Version 1.5 mit Cypher eine deklarative Abfragesprache zur Verfügung. Die drei genannten Abfragemöglichkeiten werden im Folgenden kurz vorgestellt und die Formulierung der vorgegebenen SQL Queries aufgezeigt.
+Neo4j bietet verschiedene Möglichkeiten an, den gespeicherten Graphen zu traversieren bzw. abzufragen. Neben der nativen Java API und der ebenfalls in Java entwickelten Traversal API steht seit Version 1.5 mit Cypher eine deklarative Abfragesprache zur Verfügung. Die drei genannten Abfragemöglichkeiten werden im Folgenden kurz vorgestellt und anhand kurzer Beispiele erläutert.
 
 \subsubsection{Native API}
 
+\begin{lstlisting}[caption={Erstellen, Öffnen und Schließen einer Datenbank},label={lst:neo_create}]
+// benoetigte imports
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.kernel.EmbeddedGraphDatabase;
+
+// GraphDB-Objekt
+GraphDatabaseService neo4j;
+// Pfad zu dem Ordner, in dem die DB gespeichert werden soll
+String location = "<PATH_TO_FOLDER>";
+// oeffne oder erzeuge eine Datenbank
+neo4j = new EmbeddedGraphDatabase(location);(*@\label{Neocreate}@*)
+// ... Anweisungen ...
+// Datenbank schliessen
+neo4j.shutdown();(*@\label{Neoclose}@*)
+\end{lstlisting}
+
+Listing \ref{lst:neo_create} zeigt die nötigen Schritte um eine bestehende Datenbank zu öffnen, bzw. eine neue Datenbank zu erzeugen. In Zeile \ref{Neocreate} wird eine Instanz einer eingebetteten Datenbank erzeugt und gleichzeitig der Zugriff ermöglicht. Alternativ ist hier die Verbindung zu einem Neo4j Server über die angebotene REST Schnittstelle möglich. Diese Variante wurde im Rahmen des Praktikums nicht verwendet, weshalb die Verwendung nicht weiter beschrieben wird. Zum Schließen der Datenbank erfolgt ein Aufruf der \textit{shutdown} Methode (Zeile \ref{Neoclose}).
+\par
+Das Einfügen von Knoten (engl. \textit{nodes}) und Kanten (engl. \textit{relationships}) erfolgt über die Instanz einer Graphdatenbank. Schreiboperationen werden in Transaktionen gekapselt, damit im Fehlerfall Änderungen verworfen werden können und die Erkennung von Deadlocks durch die Datenbank ermöglicht wird. Listing \ref{lst:neo_add} zeigt hierfür ein Beispiel.
+
+\begin{lstlisting}[caption={Einfügen von Knoten und Kanten},label={lst:neo_add}]
+// Starten einer Transaktion
+Transaction tx = neo4j.beginTx();
+try {
+	// Anlegen eines Knotens
+	Node source = neo4j.createNode();(*@\label{Neoadd_createSource}@*)
+	// Properties am Knoten hinzufügen
+	source.setProperty("w_id", 23);(*@\label{Neoadd_addProp}@*)
+	source.setProperty("word", "neo4j");
+	
+	// Anlegen eines weiteren Knotens	
+	Node target = neo4j.createNode();
+	// Properties am Knoten hinzufügen
+	source.setProperty("w_id", 42);
+	source.setProperty("word", "graphdb");
+	
+	// Anlegen einer Kante zwischen den beiden Knoten
+	Relationship edge = source.createRelationshipTo(target, RelTypes.CO_N); (*@\label{Neoadd_addRel}@*)
+	// Properties an der Kante hinzufügen
+	edge.setProperty("freq", 7);(*@\label{Neoadd_addRelProp}@*)
+	edge.setProperty("sig", 13.37);
+
+	// Transaktion abschließen
+	tx.success();
+} finally {
+	tx.finish();
+}
+\end{lstlisting}
+
+In Zeile \ref{Neoadd_createSource} wird ein neuer Knoten erzeugt, diesem werden in den folgenden Zeilen zwei Eigenschaften (engl. \textit{properties}) zugewiesen. Nach dem Anlegen eines zweiten Knotens, werden beide Knoten in Zeile \ref{Neoadd_addRel} durch eine Kante verbunden. Der Kantentyp muss zuvor definiert werden (Listing \ref{lst:neo_relationship}). Kanten können analog zu Knoten mit Properties versehen werden.
+
+\begin{lstlisting}[caption={Anlegen von Kantentypen},label={lst:neo_relationship}]
+import org.neo4j.graphdb.RelationshipType;
+
+public enum RelTypes implements RelationshipType {
+	CO_S, // Satz-Kookkurrenz
+	CO_N // Nachbarschafts-Kookkurrenz
+}
+\end{lstlisting}
+
+Die Abfrage des Graphen mittels nativer API ist in Listing \ref{lst:neo_abfrage} dargestellt. Im Beispiel werden alle Satzkookkurrenzen eines Wortes (source) abgefragt. Dazu werden die entsprechenden Kanten geladen und anschließend die hinterlegten Properties abgefragt. Jede Kante beinhaltet einen Verweis auf ihren Start- und Zielknoten. In Zeile \ref{NeoNative_nodeprop} wird zunächst der Zielknoten geladen und anschließend dessen Eigenschaft \textit{w\_id}. In den darauffolgenden Zeilen werden die Eigenschaften der Satzkookkurrenz geladen.
+
+\begin{lstlisting}[caption={Verwendung der nativen API},label={lst:neo_abfrage}]
+for (Relationship e : startNode.getRelationships(RelTypes.CO_S, Direction.OUTGOING)) {
+	e.getEndNode().getEndNode().getProperty("w2_id"); // w2_id (*@\label{NeoNative_nodeprop}@*)
+	e.getEndNode().getProperty("sig"); // significance
+	e.getEndNode().getProperty("freq"); // frequency
+}
+startNode.getProperty("w_id"); // w1_id 
+\end{lstlisting}
+ 
+
 \subsubsection{Traversal API}
 
+Die Traversal API verwendet intern die native API, erlaubt jedoch die Formulierung komplexer, algorithmischer Graphtraversals. In Listing \ref{lst:neo_traversal} sollen alle Satzkookkurrenzen der Nachbarn eines Wortes ausgegeben werden. Über eine Traversal Description wird dabei das Traversieren des Graphen beschrieben. Dafür ist es zunächst erforderlich zwischen Breiten- und Tiefensuche zu wählen (Zeile \ref{NeoTraversal_type}). Im Anschluss wird in Zeile \ref{NeoTraversal_edges} der relevante Kantentyp und die Richtung der Kante definiert. Der ab Zeile \ref{NeoTraversal_eval} beschriebene Pfad Evaluator wertet bei jedem Hop den aktuell berechneten Pfad aus. Im Beispiel ist lediglich die Länge des Pfades entscheidend: Da nur die Nachbarn der Nachbarn von Interesse sind, wird die maximale Pfadlänge auf Zwei festgelegt. Ist die entsprechende Pfadlänge erreicht wird der aktuelle Knoten in die Ergebnismenge eingebunden und das Traversieren dieses Pfades abgebrochen, andernfalls wird der aktuelle Knoten aus dem Ergebnis ausgeschlossen, die Suche jedoch ausgehend vom aktuellen Knoten fortgesetzt. Letzteres ist notwendig, wenn alle Knoten mit einem definierten Abstand vom Startknoten gefunden werden sollen, Zwischenknoten für das Ergebnis jedoch nicht relevant sind. Zyklen werden standardmäßig vermieden, da Knoten nur einmal besucht werden können. Dies kann jedoch explizit deaktiviert werden.\\
+In Zeile \ref{NeoTraversal_run} wird der Traversal mit dem Startknoten initialisiert und gestartet, das Ergebnis ist eine Menge von Pfaden. Im Beispiel ist der Endknoten eines Pfades und dessen Eigenschaft \textit{w\_id} von Interesse.
+
+\begin{lstlisting}[caption={Verwendung der Traversal API},label={lst:neo_traversal}]
+TraversalDescription td = Traversal
+	.description()
+	.breadthFirst() (*@\label{NeoTraversal_type}@*)
+	.relationships(RelTypes.CO_S, Direction.OUTGOING) (*@\label{NeoTraversal_edges}@*)
+	.evaluator(new Evaluator() { (*@\label{NeoTraversal_eval}@*)
+		@Override
+		public Evaluation evaluate(Path path) {
+			if (path.length() == 2) {
+				return Evaluation.INCLUDE_AND_PRUNE;
+			} else {
+				return Evaluation.EXCLUDE_AND_CONTINUE;
+			}
+		}
+	});
+
+for (Path p : td.traverse(startNode)) { (*@\label{NeoTraversal_run}@*)
+	p.endNode().getProperty("w_id"); // w2_id
+}
+\end{lstlisting}
+
 \subsubsection{Cypher}
+
+Eine dritte Möglichkeit, Anfragen an die Graphdatenbank zu stellen, stellt die deklarative Sprache \textit{Cypher} dar. Sollen beispielsweise alle Nachbarn eines Knotens mit der ID 3  abgefragt werden, die über eine ausgehende Kante mit diesem Knoten verbunden sind, bietet sich folgende Query an:
+\begin{lstlisting}
+START n=node(3) MATCH (n)-->(x) RETURN x
+\end{lstlisting}
+Eine Einschränkung auf einen bestimmten Kantentyp ist ebenfalls möglich:
+\begin{lstlisting}
+START n=node(3) MATCH (n)-[:CO_N]->(x) RETURN x
+\end{lstlisting}
+Folgendes Beispiel gibt die Signifikanz aller Satzkookkurrenzen zurück, welche auf die Nachbarschaftskookkurrenzen eines Knotens verweisen:
+\begin{lstlisting}
+START n=node(3) MATCH (n)-[:CO_N]->()<-[r:CO_S] RETURN r.sig
+\end{lstlisting}
+Das folgende Listing beinhaltet eine Einschränkung durch das Prädikat $r.sig > 3$, eine Sortierung der Ergebnismenge in natürlicher Ordnung und das Einschränken auf das erste Ergebnis.
+\begin{lstlisting}
+START n=node(3) 
+MATCH (n)-[:CO_N]->()<-[r:CO_S] 
+WHERE r.sig > 3.0 
+RETURN r.sig
+ORDER BY r.sig
+LIMIT 1
+\end{lstlisting}
+
+Die Verwendung von Cypher inerhalb von Java ist in Listing \ref{lst:neo_cypher} dargestellt.
+
+\begin{lstlisting}[caption={Verwendung von Cypher in Java},label={lst:neo_cypher}]
+// Erzeugen der Engine auf Basis einer Neo4j Instanz
+ExecutionEngine engine = new ExecutionEngine(neo4j);
+// Definition der Query
+String cypherQuery = "START n=node(3) MATCH (n)-[:CO_N]->(x) RETURN x";
+// Ausführen der Query
+engine.execute(cypherQuery);
+\end{lstlisting}
 
 \subsection{Einschränkungen}
 
@@ -170,7 +303,7 @@ Cypher, Traverser Speicherprobs, keine Optimierung
 
 \section{OrientDB}
 
-OrientDB\footnote{\url{http://www.orientechnologies.com/}} ist eine eingebettete, persitente, transaktionale Dokumenten- und Graphdatenbank. OrientDB wird seit 1998 von Luca Garulli entwickelt. OrientDB ist zu 100\% in Jave implementiert und steht quelloffen zur Verfügung.\footnote{\url{http://code.google.com/p/orient/}}
+OrientDB\footnote{\url{http://www.orientechnologies.com/}} ist eine eingebettete, persistente, transaktionale Dokumenten- und Graphdatenbank. OrientDB wird seit 1998 von Luca Garulli entwickelt. OrientDB ist zu 100\% in Java implementiert und steht quelloffen unter Apache Lizenz 2.0 zur Verfügung.\footnote{\url{http://code.google.com/p/orient/}}
 
 
 
@@ -215,15 +348,15 @@ import com.orientechnologies.orient.core.db.
 	document.ODatabaseDocumentTx;
 // OrientDB-Objekt
 OGraphDatabase orientdb;
-// Pfad zu dem Ordner, in dem die DB gespeichert werden soll
+// Pfad zum Ordner, in welchem die DB gespeichert werden soll
 String url2db = "local:<PATH_TO_FOLDER>";
 // erstelle eine neue Datenbank
 new ODatabaseDocumentTx(url2db).create();(*@\label{Ocreate}@*)
-// oeffne eine bestehende Datenbank
+// öffne eine bestehende Datenbank
 orientdb = new OGraphDatabase(url2db);(*@\label{Oopen1}@*)
 orientdb.open("admin", "admin");(*@\label{Oopen2}@*)
 // ... Anweisungen ...
-// Datenbank schlieszen
+// Datenbank schließen
 orientdb.close();(*@\label{Oclose}@*)
 \end{lstlisting}
 In diesem Codeausschnitt wird zuerst eine neue Datenbank angelegt (Zeile \ref{Ocreate}). Dazu muss ein bereits existierender Ordner als Parameter angegeben werden. OrientDB speichert verschiedene Dateien in diesem Ordner. Danach wird eine existierende Datenbank geöffnet (Zeile \ref{Oopen1}) und stellt danach ein Objekt bereit, welches die OrientDB Datenbank repräsentiert. Auch hierbei wird der Ordner, welcher die Datenbankdateien beinhaltet, als Parameter angegeben. Zeile \ref{Oopen2} stellt eine (hier lokale) Verbindung zu der Datenbank her. In Zeile \ref{Oclose} wird die Datenbank geschlossen.
