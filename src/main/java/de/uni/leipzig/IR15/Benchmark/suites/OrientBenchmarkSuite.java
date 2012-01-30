@@ -12,18 +12,18 @@ import de.uni.leipzig.IR15.Support.Configuration;
 
 /**
  * OrientDB benchmark suite that runs all the configured benchmarks.
- * 
+ *
  * @author IR-Team
- * 
+ *
  */
 public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 
 	public static Logger log = Logger.getLogger(OrientBenchmarkSuite.class);
 	public static Configuration OrientDBCfg = Configuration.getInstance("orientdb");
-	
+
 	/**
 	 * Initialize and run all benchmarks.
-	 * 
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -33,7 +33,7 @@ public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 		List<Benchmark> benchmarks = new ArrayList<Benchmark>();
 		boolean logToFile = OrientDBCfg.getPropertyAsBoolean("log");
 		boolean doWarmup = OrientDBCfg.getPropertyAsBoolean("warmup");
-		
+
 		/**
 		 * Import
 		 */
@@ -43,7 +43,7 @@ public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 			OrientDBImportBench.setRuns(1);
 			benchmarks.add(OrientDBImportBench);
 		}
-		
+
 		/**
 		 * native Benchmarks
 		 */
@@ -62,7 +62,7 @@ public class OrientBenchmarkSuite extends AbstractBenchmarkSuite {
 			Query3_LL.setRuns(100);
 			benchmarks.add(Query3_LL);
 		}
-		
+
 		runBenchmarks(benchmarks, logToFile, doWarmup);
 	}
 }

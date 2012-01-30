@@ -82,7 +82,7 @@ Um die gemessenen Ausführungszeiten besser vergleichen zu können wurden die Me
 \end{abstract}
 
 \section{Projektbeschreibung}
-	Als Ergebnis des Praktikums ergaben sich zum einen konkrete und vergleichbare Messergebnisse der einzelnen Datenbanken. Zum anderen ist ein minimales, einfach konfigurierbares und auf den Anwendungsfall des Datenbankenvergleichens angepasstes Benchmarkframework entstanden. Das Framework unterstütze uns beim aggregieren der Messergebnisse einzelner Datenbanken und erleichterte wiederkehrende Aufgaben. 
+	Als Ergebnis des Praktikums ergaben sich zum einen konkrete und vergleichbare Messergebnisse der einzelnen Datenbanken. Zum anderen ist ein minimales, einfach konfigurierbares und auf den Anwendungsfall des Datenbankenvergleichens angepasstes Benchmarkframework entstanden. Das Framework unterstützte uns beim aggregieren der Messergebnisse einzelner Datenbanken und erleichterte wiederkehrende Aufgaben. 
 	
 \subsection{Softwarearchitektur}
 Das Framework besteht aus sechs Komponenten, durch deren Ableitung und Kombination sich ein einzelner Benchmarkvorgang durchführen lässt, die im folgenden kurz vorgestellt werden sollen. 
@@ -94,36 +94,66 @@ Ein Konnektor (Connector) dient den einzelnen Benchmarks oder Importierern zur H
 Ein Importierer (Importer) dient dem Importiervorgang einer Datenbasis in die jeweilige Datenbank. In unserem Fall wurde die Datenbasis aus einer MySQL Datenbank übernommen. An dieser Stelle könnte aber auch ein Import aus einer CSV-Datei oder mit einer anderen Quelle implementiert werden. Für den vorstellbaren Fall, dass Benchmarks nicht auf einer existierenden Datenbasis operieren, ist die Implementierung eines Importierers nicht notwendig. Durch den Importierer lässt sich eine Datenbank auch in den Urzustand zurücksetzen und alle enthaltenen Daten entfernen.
 
 \subsubsection{Benchmark-Suite}
-Eine Benchmark-Suite dient der Zusammenfassung mehrerer einzelner Benchmark zu einer Folge, die geordnet durchgeführt werden sollen. Die Benchmark-Suite ermöglicht das Aggregieren und Persistieren einzelner Messergebnisse. In der Benchmark-Suite kann konfiguriert werden ob der eigentlichen Messung vorausgehend eine sogenannte Aufwärmung der Datenbank durchgeführt werden soll oder nicht.
+Eine Benchmark-Suite dient der Zusammenfassung mehrerer einzelner Benchmark zu einer Folge, die geordnet durchgeführt werden sollen. Die Benchmark-Suite ermöglicht das Aggregieren und Persistieren einzelner Messergebnisse.
 
 \subsubsection{Benchmark}
 Ein Benchmark misst die durchschnittliche Ausführungszeit einer Datenbankoperation. Die auszuführende Datenbankoperation ist an dieser Stelle zu implementieren.
 
 \subsubsection{Konfigurationsdateien}
-Bezüglich geeigneter Parameter ist die Konfiguration der einzelnen Datenbanken oder des Frameworks selbst über sogenannte properties-Dateien möglich.
-
-\subsubsection{Auswärtungsskripte}
+Bezüglich geeigneter Parameter ist die Konfiguration der einzelnen Datenbanken oder des Frameworks selbst über sogenannte properties-Dateien möglich (siehe dazu den Abschnitt \ref{subsubsec:benchmarks_conf}).
 
 \subsection{Bedienungsanleitung}
 \label{subsec:bedienungsanleitung}
 
-\subsubsection{Vorraussetzungen}
+\subsubsection{Voraussetzungen}
+Um das Benchmarkframework und die von uns implementierten Beispielabfragen ausführen zu können, ist die Installation des Java Runtime Environment 1.6\footnote{\url{http://www.java.com/en/download/manual.jsp}} und Apache Maven 2\footnote{\url{http://maven.apache.org/docs/2.2.1/release-notes.html}} notwendig. Alle weiteren genutzten Bibliotheken, zum Beispiel der einzelnen Datenbanken, werden durch die Ausführung des entsprechenden Maven-Kommandos heruntergeladen und installiert.
 
-\begin{itemize}
-\item repository auschecken
-\item maven dependencies installieren
-\item etc.
-\item pp.
-\end{itemize}
+Das Framework inklusive aller Beispielabfragen, mit denen wir die Benchmarks durchführten, ist als Git-Versionsarchiv bei github\footnote{\url{https://github.com/s1ck/IR15}} für jeden zugänglich verfügbar. Das Versionsarchiv lässt sich als gepacktes Zip-Archiv herunterladen\footnote{\url{https://github.com/s1ck/IR15/zipball/master}}. Alternativ kann das Versionsarchiv auch mittels \texttt{git clone \url{git://github.com/s1ck/IR15.git}} ausgecheckt werden. Für einen Überblick bzgl. der Benutzung von Git als Versionsverwaltungssystem empfehlen wir zum Beispiel das Git User´s Manual 
+\footnote{\url{http://schacon.github.com/git/user-manual.html}} oder die Gitcasts\footnote{\url{http://gitcasts.com/}}
+
+Nachdem das Zip-Archiv entpackt wurde, werden mit Hilfe des Maven-Kommando \texttt{mvn clean install} alle Abhängigkeiten zu Bibliotheken, die durch das Framework verwendet werden, aufgelöst und diese installiert.
 
 \subsubsection{Benchmarks ausführen}
+Sind alle Voraussetzungen erfüllt, lassen sich die einzelnen Benchmarksuiten durch das Maven-Kommando \texttt{mvn exec:java} ausführen.
 
+\begin{lstlisting}[caption={Ausführen der einzelnen Benchmarksuites},label={lst:inst_run}]
+// DEX
+mvn exec:java -Dexec.mainClass="de.uni.leipzig.IR15.Benchmark.suites.DEXBenchmarkSuite"
+
+// OrientDB
+mvn exec:java -Dexec.mainClass="de.uni.leipzig.IR15.Benchmark.suites.OrientBenchmarkSuite"
+
+// Neo4j
+mvn exec:java -Dexec.mainClass="de.uni.leipzig.IR15.Benchmark.suites.Neo4JBenchmarkSuite"
+
+// MySQL
+mvn exec:java -Dexec.mainClass="de.uni.leipzig.IR15.Benchmark.suites.MySQLBenchmarkSuite"
+\end{lstlisting}
 
 \subsubsection{Benchmarks konfigurieren}
+\label{subsubsec:benchmarks_conf}
+Wie bereits erwähnt lässt sich das Framework mittels properties-Dateien konfigurieren. Listing \ref{lst:inst_conf} zeigt die Konfiguration am Beispiel DEX. Dem Versionsarchiv liegen entsprechende Beispielkonfigurationen bei, die entsprechend umbenannt und angepasst werden müssen. 
+
+\lstinputlisting
+    [caption={Konfigurations der DEX-Benchmarksuite}
+       \label{lst:inst_conf},language=bash]
+ {../../src/main/resources/dex.properties.example}
 
 \subsubsection{zusätzliche Benchmarks}
+Das Framework lässt sich sehr leicht um zusätzliche Benchmarks für bereits existierende Datenbanken erweitern. Dazu muss eine der Klassen \texttt{DEXBenchmark}, \texttt{MySQLBenchmark}, \texttt{Neo4jBenchmark} oder \texttt{OrientDBBenchmark} abgeleitet und die entsprechenden Methoden implementiert werden. Dabei sollte man sich an den vorhandenen Benchmarks orientieren. Als nächstes muss der zusätzliche Benchmark in die entsprechende Benchmarksuite (\texttt{DEXBenchmarkSuite}, \linebreak\texttt{MySQLBenchmarkSuite}, \texttt{Neo4JBenchmarkSuite} oder \texttt{OrientBenchmarkSuite}) aufgenommen werden, damit dieser auch ausgeführt wird. Als letztes empfiehlt sich, ein zusätzliches property in der zugehörigen properties-Datei einzuführen, damit auch das ergänzte Benchmark wie alle anderen ein- bzw. ausgeschaltet werden kann.
 
 \subsubsection{zusätzliche Datenbank}
+Um das Framework um Benchmarks für eine zusätzliche Datenbank zu erweitern sind mehrere Schritte notwendig. Diese sollen im Folgenden nur genannt und nicht im Detail beschrieben werden. Der vorhandene Quellcode ist umfangreich dokumentiert und kommentiert, so dass man sich an den Implementierungen für die bereits genutzten Datenbanken orientieren kann. 
+
+Es empfiehlt sich dabei stets alle datenbank-, system- oder benchmarkabhängigen Einstellungen in eine properties-Datei auszulagern um diese besser Anpassen zu können, ohne dass der Quellcode vor der Ausführung neu kompiliert werden muss.
+
+Im ersten Schritt muss für eine neue zusätzliche Datenbank ein Konnektor implementiert werden. Unsere Konventionen geben vor, dass dieser mindestens die Methoden \texttt{getConnection} zum Aufbau, \texttt{destroyConnection} zum Schließen der Verbindung zur Datenbank und \texttt{reset }zum Zurücksetzen der Datenbank implementiert.
+
+Damit die zusätzliche Datenbank mit einer Datenbasis gefüllt werden kann, muss ein Importierer implementiert werden. Dieser leitet sich von der Klasse \texttt{Importer} ab und implementiert mindestens die Methoden \texttt{setUp}, \texttt{tearDown} und \texttt{importData}.
+
+Einzelne Benchmarks werden, wie schon erwähnt, in einer Benchmarksuite zusammengefasst und durch diese ausgeführt. Eine Benchmarksuite wird von der Klasse \texttt{AbstractBenchmarkSuite} abgeleitet und ist das eigentliche ausführbare Java-Programm, in dessen \texttt{main}-Methode, die einzelnen Benchmarks initialisiert und ausgeführt werden.
+
+Nehmen wir an, das Framework soll um die Datenbank MongoDB\footnote{\url{http://www.mongodb.org/}} erweitert werden, dann sollten mindestens die Klassen \texttt{MongoDBConnector}, \texttt{MongoDBImporter}, \texttt{MongoDBBenchmarkSuite} und \texttt{MongoDBBenchmark} implementiert werden. Abbildung \ref{fig:class_diagramm_neo4j} zeigt das Klassendiagramm am Beispiel der Implementierungen für Neo4j, dort sind die Zusammenhänge der einzelnen Klassen zu erkennen. Die Klassendiagramme der Implementierungen von DEX und OrientDB sind äquivalent.
 
 \subsection{Einschränkungen}
 
@@ -429,6 +459,127 @@ In diesem Codeausschnitt wird erläuert, in welcher Form man auf die gespeichert
 Ausführlichere Informationen finden sich in der Dokumentation.\footnote{\url{http://www.orientechnologies.com/releases/latest/javadoc/index.html?com/orientechnologies/orient/core/db/graph/OGraphDatabase.html}}
 
 \section{DEX}
+DEX ist eine persistente, transaktionale Graphdatenbank, die ihren Schwerpunkt auf Performance festgelegt hat. DEX ist in Java und C++ implementiert und bietet APIs für Java, .NET und C++. Entwickelt wird DEX von der Firma sparsity technologies\footnote{\url{http://www.sparsity-technologies.com/dex}} und ist unter einer Mehrfachlizensierung verfügbar, die es Entwicklern erlaubt DEX zunächst zu evaluieren, bevor für den Produktiveinsatz eine kostenpflichtige Lizenz erworben werden muss. Für akademische Zwecke, wie in unserem Fall, sind die Entwickler aber großzügig und vergeben kostenfreie Lizenzen unter der Bedingung der Namensnennung. Der Quellcode von DEX steht bei der Entwicklung nicht zur Verfügung.
+
+\subsection{Anbindung, Anfragemöglichkeiten und Benutzung}
+Wie auch Neo4j und OrientDB lässt sich DEX nativ über eine Java-API ansprechen. Nachfolgend sollen die grundlegenden Operationen beispielhaft aufgezeigt und beschrieben werden.
+
+\subsubsection{Datenbank erstellen und Verbindung herstellen}
+Das Listing \ref{lst:dex_create} zeigt wie eine Verbindung zu einer DEX-Datenbank hergestellt wird. Existiert die Datenbank am angegebenen Pfad nicht, wird diese neu erstellt.
+
+\begin{lstlisting}[caption={DEX - Datenbank erstellen und Verbindung herstellen},label={lst:dex_create},language=Java]
+import com.sparsity.dex.gdb.*;
+
+DexConfig dexConfig = new DexConfig();
+Dex dexConnector = new Dex(dexConfig);
+Database dexDatabase;
+
+String path = "PATH_TO_DEX_DATABASE_FILE";
+File databaseFile = new File(path);
+
+if (databaseFile.exists()) {
+	dexDatabase = dexConnector.open(path, false);
+} else {
+	dexDatabase = dexConnector.create(path, "dex");
+}
+
+dexDatabase.close();
+dexConnector.close();
+\end{lstlisting}
+
+\subsubsection{Daten einfügen}
+Das Listing \ref{lst:dex_insert} zeigt wie Daten zu einer existierenden DEX-Datenbank hinzugefügt werden. Dazu wird in Zeile \ref{DEXInitConnection} zunächst die Verbindung aufgebaut und dann eine Sitzung gestartet über die man Zugriff auf das Graph-Objekt bekommt, an dem die eigentlichen Operationen ausgeführt werden (Zeilen \ref{DEXInitSession}-\ref{DEXInitGraph}). Zunächst müssen der entsprechender Knotentyp und dessen mögliche Attribute erzeugt werden (Zeilen \ref{DEXCreateTypesStart}-\ref{DEXCreateTypesEnd}). Danach werden zwei Knoten erzeugt und jeweils zwei Attribute dazu gesetzt (Zeilen \ref{DEXCreateNodesStart}-\ref{DEXCreateNodesEnd}). Schließlich wird in den Zeilen \ref{DEXCreateEdgeTypesStart} bis \ref{DEXCreateEdgeTypesEnd} ein Kantentyp und dessen Attribut definiert. Die zuvor erzeugten Knoten werden über eine Kante dieses Typs miteinander verbunden (Zeilen \ref{DEXCreateEdgeStart}-\ref{DEXCreateEdgeEnd}).
+
+\begin{lstlisting}[caption={DEX - Daten einfügen},label={lst:dex_insert},language=Java]
+import com.sparsity.dex.gdb.*;
+
+DexConfig dexConfig = new DexConfig();
+Dex dexConnector = new Dex(dexConfig);
+Database dexDatabase = dexConnector.open(path, false);(*@\label{DEXInitConnection}@*)
+
+Session session = dex.newSession();(*@\label{DEXInitSession}@*)
+Graph graph = session.getGraph();(*@\label{DEXInitGraph}@*)
+
+int wordNodeType = graph.newNodeType("word");(*@\label{DEXCreateTypesStart}@*)
+int wordNodeIdAttribute = graph.newAttribute(wordNodeType, "id", DataType.Integer, AttributeKind.Indexed);
+int wordNodeWordAttribute = graph.newAttribute(wordNodeType, "word", DataType.String, AttributeKind.Basic);(*@\label{DEXCreateTypesEnd}@*)
+
+long node1 = graph.newNode(wordNodeType);(*@\label{DEXCreateNodesStart}@*)
+graph.setAttribute(node1, wordNodeIdAttribute, new Value().setInteger("1"));
+graph.setAttribute(node1, wordNodeWordAttribute, new Value().setString("Car"));
+
+long node2 = graph.newNode(wordNodeType);
+graph.setAttribute(node2, wordNodeIdAttribute, new Value().setInteger("2"));
+graph.setAttribute(node2, wordNodeWordAttribute, new Value().setString("Tree"));(*@\label{DEXCreateNodesEnd}@*)
+
+int coocEdgeType = graph.newEdgeType("cooccurrences", true, true);(*@\label{DEXCreateEdgeTypesStart}@*)
+int coocEdgeSigAttribute = graph.newAttribute(coocEdgeType, "significance", DataType.Double, AttributeKind.Indexed);(*@\label{DEXCreateEdgeTypesEnd}@*)
+
+long edgeN1ToN2 = graph.newEdge(cooccurrencesEdgeType, node1, node2);(*@\label{DEXCreateEdgeStart}@*)
+graph.setAttribute(edgeN1ToN2, coocEdgeSigAttribute, new Value().setDouble(1.5));(*@\label{DEXCreateEdgeEnd}@*)
+
+dexDatabase.close();
+dexConnector.close();
+\end{lstlisting}
+
+\subsubsection{Daten abfragen}
+Nachfolgend ein paar kurze Beispiele, wie man in DEX-Datenbanken nach Knoten oder Kanten mit bestimmten Eigenschaften suchen kann.
+
+In Listing\ref{lst:dex_select1} wird ein Knoten eines bestimmten Typs anhand eines bestimmten Attributwerts in der Datenbank gesucht (Zeilen \ref{DEXFindNodeStart}-\ref{DEXFindNodeEnd}) und ein anderes Attribut ausgelesen (Zeilen \ref{DEXReadAttributeStart}-\ref{DEXReadAttributeEnd}).
+
+\begin{lstlisting}[caption={DEX - Daten abfragen - Knoten wiederfinden},label={lst:dex_select1},language=Java]
+int wordNodeType = graph.findType("word");(*@\label{DEXFindNodeStart}@*)
+int wordNodeIdAttribute = graph.findAttribute(wordNodeType, "id");
+int wordNodeWordAttribute = graph.findAttribute(wordNodeType, "word");
+
+long node = graph.findObject(wordIdAttribute, new Value().setInteger("1"));(*@\label{DEXFindNodeEnd}@*)
+
+Value wordNodeWordAttributeValue = new Value();(*@\label{DEXReadAttributeStart}@*)
+graph.getAttribute(node, wordNodeWordAttribute, wordNodeWordAttributeValue);
+System.out.println(wordNodeWordAttributeValue.getString())
+wordNodeWordAttributeValue.delete();(*@\label{DEXReadAttributeEnd}@*)
+\end{lstlisting}
+
+In Listing \ref{lst:dex_select2} wird ähnlich wie in Listing \ref{lst:dex_select1} ein Knoten anhand eines bestimmten Attributwerts aus der Datenbank gelesen (Zeilen \ref{DEXFindNodeStart2}-\ref{DEXFindNodeEnd2}). Weiter werden dessen Nachbarn, also Knoten zu denen eine Kante existiert, und ein Attribut dieser ausgelesen (Zeilen \ref{DEXFindNeighborsStart}-\ref{DEXFindNeighborsEnd}).
+
+\begin{lstlisting}[caption={DEX - Daten abfragen - alle Nachbarn eines Knotens},label={lst:dex_select2},language=Java]
+int wordNodeType = graph.findType("word");(*@\label{DEXFindNodeStart2}@*)
+int wordNodeIdAttribute = graph.findAttribute(wordNodeType, "id");
+int wordNodeWordAttribute = graph.findAttribute(wordNodeType, "word");
+int coocEdgeType = graph.findType("cooccurrences");
+
+long node = graph.findObject(wordNodeIdAttribute, new Value().setInteger("1"));(*@\label{DEXFindNodeEnd2}@*)
+Objects neighbors = graph.neighbors(node, coocEdgeType, EdgesDirection.Outgoing);(*@\label{DEXFindNeighborsStart}@*)
+
+Value wordNodeWordAttributeValue;
+long neighbor;
+
+ObjectsIterator iterator = neighbors.iterator();
+while (iterator.hasNext()) {
+	neighbor = iterator.next();
+
+	graph.getAttribute(node, wordIDAttribute, wordNodeWordAttributeValue = new Value());
+	System.out.println(wordNodeWordAttributeValue.getString();
+	wordNodeWordAttributeValue.delete();
+}
+iterator.close();
+neighbors.close();(*@\label{DEXFindNeighborsEnd}@*)
+\end{lstlisting}
+
+\subsection{Dokumentation}
+Die Dokumentation von DEX beschränkt sich auf eine schmale Dokumentation der API in Javadoc, die als PDF zum Download bereitgestellt wird. Teilweise ist durch die kurzen Ausführungen nicht immer klar ob man bei der Implementierung richtig vorgegangen ist oder nicht. Leider fehlt es auch fast vollkommen an Implementierungsbeispielen. Das vorhandene Supportforum ist kaum frequentiert und enthält seit der Einführung im zweiten Quartal 2011 kaum mehr als 80 Einträge, was auf eine sehr kleine Community rund um DEX schließen lässt. Immerhin scheinen die Entwickler bemüht und beantworten Fragen im Forum zeitnah, ausreichend hilfreich und umfangreich. Auch unsere Erfahrungen mit dem direkten Support via E-Mail sind zumindest nicht negativ.
+
+\subsection{Einschränkungen}
+Die APIs stellen die einzigen Schnittstellen zur Datenbank dar. Eine Unterstützung für den Einsatz als Netzwerkdatenbank ist nicht gegeben und ein Einsatz in einem Netzwerkcluster ist ausgeschlossen, da die Persistierung durch das Abspeichern der Daten in einer einzelnen Datei umgesetzt wurde.
+
+Die Brücke, die durch die APIs zum C++-Kern genommen wird, erschwert die Implementierung einzelner von DEX-Funktionalitäten. Fehler bzw. falsches Vorgehen in der Implementierung enden nicht selten im Absturz der gesamten Java Virtual Machine, ohne dass sich explizite Programm-Exceptions abfangen und behandeln lassen. Dabei sind die Fehlermeldungen nur tendenziell aber nicht konkret einzuordnen, da im Vergleich zu den anderen eingesetzten Datenbanken, der Einblick in den Quellcode und eine gute Dokumentation fehlt. 
+
+Ein anderer Nachteil der C++-Implementierung des Kerns ist die unschöne Integration der API in die Sprache Java. So müssen Java-unüblich zum Beispiel Iteratoren auf einer Knotenmenge oder Listen von Kanten explizit geschlossen bzw. freigegeben werden. Das kennt man so zwar aus der C++-Welt, führt bei Nichteinhaltung aber zu den angesprochenen Programm-Exceptions, deren Fehlermeldung einen DEX-Einsteiger nicht auf die Ursache hinweisen.
+
+Weiter sei zu erwähnen, dass die Evaluierungslizenz lediglich die Datenhaltung von zusammen einer Million Kanten und Knoten erlaubt, was eine aussagekräftige Evaluierung des Verhaltens bei großen Datenmengen enorm einschränkt.
+
+\subsection{Aussicht}
+DEX unterliegt einer ständigen Weiterentwicklung. Alleine während unseres Praktikums gab die Veröffentlichung der Versionen 4.3 und 4.4, die jeweils einige umfangreiche Änderungen \footnote{\url{http://www.sparsity-technologies.com/dex_releases}}mit sich brachten. Eine öffentlich verfügbarer Fahrplan für die Zukunft von DEX ist uns nicht bekannt. Wir wünschen uns vor allem mehr Stabilität und eine bessere Dokumentation.
 
 \section{Evaluation}
 
@@ -508,7 +659,7 @@ Anfrage & Java API, Cypher, Gremlin & Java API, SQL, Gremlin & Java API \\
 \hline
 Implementiert in & Java & Java & C++ (Core), Java (API) \\
 \hline 
-Lizenz & GPL (Community Edition) & Apache License 2.0 & kommerziell	 \\ 
+Lizenz & GPL (Community Edition) & Apache License 2.0 & Mehrfach-lizensierung (kostenfreie Evaluation, kommerzielle Nutzungslizens)	 \\ 
 \hline 
 \end{tabular}
 \caption{Gegenüberstellung der verwendeten Graphdatenbanken (* bis einschließlich deu\textunderscore news\textunderscore 300K)}
@@ -702,6 +853,18 @@ Die \textbf{Lineplots} vergleichen die Datenbanken hinsichtlich jeder Einzelabfr
 			\includegraphics[width=7cm]{../results/cold caches/images/10M_query3_perf}
 			\label{fig:10M_query3_perf}
 		\end{minipage}
+	\end{figure}
+\end{landscape}
+
+\begin{landscape} 
+	\newpage
+	\thispagestyle{empty}
+	
+	\begin{figure}[ht]
+			\centering
+			\caption{Klassendiagramm des Benchmarkframeworks inklusive aller Neo4j-Klassen}
+			\includegraphics[width=27cm]{pics/class_diagramm_incl_neo4j}
+			\label{fig:class_diagramm_neo4j}
 	\end{figure}
 \end{landscape}
 
