@@ -18,6 +18,7 @@
 \usepackage{grffile}				% graphic filename extensions
 \usepackage{lscape}					% landscape
 \usepackage{pdflscape}				% landscape, if using PDFLaTeX
+\usepackage{geometry}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -54,6 +55,9 @@
            {ß}{{\ss}}1
 }
 
+% Ränder
+\geometry{paper=a4paper,left=30mm,right=30mm,top=25mm, bottom=25mm}
+
 \author{Martin Junghanns \\  \url{martin.junghanns@studserv.uni-leipzig.de} \and 
 		Sascha Ludwig \\ \url{s.ludwig@studserv.uni-leipzig.de} \and 
 		Robert Schulze \\ \url{robert.schulze@studserv.uni-leipzig.de} }
@@ -82,22 +86,23 @@ Um die gemessenen Ausführungszeiten besser vergleichen zu können wurden die Me
 \end{abstract}
 
 \section{Projektbeschreibung}
-	Als Ergebnis des Praktikums ergaben sich zum einen konkrete und vergleichbare Messergebnisse der einzelnen Datenbanken. Zum anderen ist ein minimales, einfach konfigurierbares und auf den Anwendungsfall des Datenbankenvergleichens angepasstes Benchmarkframework entstanden. Das Framework unterstützte uns beim aggregieren der Messergebnisse einzelner Datenbanken und erleichterte wiederkehrende Aufgaben. 
+Als Ergebnis des Praktikums ergaben sich zum Einen konkrete und vergleichbare Messergebnisse der einzelnen Datenbanken. Zum Anderen ist ein minimales, einfach konfigurierbares und auf den Anwendungsfall des Vergleichs von Datenbanken angepasstes Benchmark-Framework entstanden. Das Framework unterstützte uns beim Aggregieren der Messergebnisse einzelner Datenbanken und erleichterte wiederkehrende Aufgaben. 
 	
 \subsection{Softwarearchitektur}
-Das Framework besteht aus sechs Komponenten, durch deren Ableitung und Kombination sich ein einzelner Benchmarkvorgang durchführen lässt, die im folgenden kurz vorgestellt werden sollen. 
+Das Framework besteht aus sechs Komponenten, durch deren Ableitung und Kombination sich ein einzelner Benchmarkvorgang durchführen lässt. Die einzelnen Komponenten werden im Folgenden kurz vorgestellt. 
 
 \subsubsection{Konnektoren}
-Ein Konnektor (Connector) dient den einzelnen Benchmarks oder Importierern zur Herstellung und Aufrechterhaltung einer Verbindung zur jeweiligen Datenbank. Für jede Datenbank muss nur ein Konnektor implementiert werden.
+Ein Konnektor (Connector) dient den einzelnen Benchmarks oder Importierern zur Verwaltung der  Verbindung zu einer konkreten Datenbank. Die Verwaltung umfasst dabei den Verbindungsaufbau unter Angabe verschiedener Parameter, wie bspw. Hostnamen, Ports und Nutzerinformationen. Darüber hinaus stellen die Konnektoren auch den korrekten Abbau einer Verbindung sicher. Für jede Datenbank muss nur ein Konnektor implementiert werden.
 
 \subsubsection{Importierer}
-Ein Importierer (Importer) dient dem Importiervorgang einer Datenbasis in die jeweilige Datenbank. In unserem Fall wurde die Datenbasis aus einer MySQL Datenbank übernommen. An dieser Stelle könnte aber auch ein Import aus einer CSV-Datei oder mit einer anderen Quelle implementiert werden. Für den vorstellbaren Fall, dass Benchmarks nicht auf einer existierenden Datenbasis operieren, ist die Implementierung eines Importierers nicht notwendig. Durch den Importierer lässt sich eine Datenbank auch in den Urzustand zurücksetzen und alle enthaltenen Daten entfernen.
-
-\subsubsection{Benchmark-Suite}
-Eine Benchmark-Suite dient der Zusammenfassung mehrerer einzelner Benchmark zu einer Folge, die geordnet durchgeführt werden sollen. Die Benchmark-Suite ermöglicht das Aggregieren und Persistieren einzelner Messergebnisse.
+Ein Importierer (Importer) dient dem Laden einer Datenbasis in eine konkrete Datenbank. Im Rahmen des Praktikums wurde die Datenbasis aus einer MySQL Datenbank geladen. Eine Erweiterung des Frameworks zur Unterstützung verschiedener Datenquellen wie bspw. CSV-Dateien ist jedoch ebenfalls möglich. Für den möglichen Fall, dass Benchmarks nicht auf einer existierenden Datenbasis operieren, ist die Implementierung eines Importierers nicht notwendig. Durch den Importierer lässt sich eine Datenbank auch in den Urzustand zurücksetzen wodurch alle zuvor importierten Daten entfernt werden.
 
 \subsubsection{Benchmark}
-Ein Benchmark misst die durchschnittliche Ausführungszeit einer Datenbankoperation. Die auszuführende Datenbankoperation ist an dieser Stelle zu implementieren.
+Innerhalb eines Benchmarks wird durch das Implementieren einer abstrakten Run Methode die eigentliche Ausführungslogik definiert. Vor- und Nachbedingungen werden in Setup und TearDown Methoden festgelegt. Die Sicherstellung dieser Bedingungen spiegelt sich somit nicht in der Ausführungszeit des Benchmarks wieder. Die Methoden werden zum Beispiel zum Parsen eines SQL- oder Cypher-Statements verwendet oder zur Auswahl des nächsten Startknotens.
+
+\subsubsection{Benchmark-Suite}
+Benchmarks werden mittels Benchmark-Suiten ausgeführt. Dabei besteht die Möglichkeit, mehrere Benchmarks mit dem Ziel zusammenzufassen, diese in einer definierten Abfolge auszuführen. Durch eine Main-Methode bietet die Benchmark-Suite einen Einstiegspunkt in die Ausführung der Benchmarks.\\
+Neben den Methoden zur Ausführung von Benchmarks und der damit verbundenen Zeitmessung bieten Benchmark-Suiten die Möglichkeit, Aggregation und Persistierung von Messergebnissen durchzuführen. Diese Methoden können verwendet, oder in einer konkreten Implementierung erweitert werden.
 
 \subsubsection{Konfigurationsdateien}
 Bezüglich geeigneter Parameter ist die Konfiguration der einzelnen Datenbanken oder des Frameworks selbst über sogenannte properties-Dateien möglich (siehe dazu den Abschnitt \ref{subsubsec:benchmarks_conf}).
@@ -106,15 +111,24 @@ Bezüglich geeigneter Parameter ist die Konfiguration der einzelnen Datenbanken 
 \label{subsec:bedienungsanleitung}
 
 \subsubsection{Voraussetzungen}
-Um das Benchmarkframework und die von uns implementierten Beispielabfragen ausführen zu können, ist die Installation des Java Runtime Environment 1.6\footnote{\url{http://www.java.com/en/download/manual.jsp}} und Apache Maven 2\footnote{\url{http://maven.apache.org/docs/2.2.1/release-notes.html}} notwendig. Alle weiteren genutzten Bibliotheken, zum Beispiel der einzelnen Datenbanken, werden durch die Ausführung des entsprechenden Maven-Kommandos heruntergeladen und installiert.
+Um das Benchmark-Framework und die von uns implementierten Beispielabfragen ausführen zu können, ist die Installation der Java Runtime Environment 1.6\footnote{\url{http://www.java.com/en/download/manual.jsp}} und Apache Maven 2\footnote{\url{http://maven.apache.org/docs/2.2.1/release-notes.html}} notwendig. Alle weiteren genutzten Bibliotheken, wie bspw. jene der verwendeten Datenbanken, werden durch die Ausführung des entsprechenden Maven-Kommandos heruntergeladen und installiert.
 
-Das Framework inklusive aller Beispielabfragen, mit denen wir die Benchmarks durchführten, ist als Git-Versionsarchiv bei github\footnote{\url{https://github.com/s1ck/IR15}} für jeden zugänglich verfügbar. Das Versionsarchiv lässt sich als gepacktes Zip-Archiv herunterladen\footnote{\url{https://github.com/s1ck/IR15/zipball/master}}. Alternativ kann das Versionsarchiv auch mittels \texttt{git clone \url{git://github.com/s1ck/IR15.git}} ausgecheckt werden. Für einen Überblick bzgl. der Benutzung von Git als Versionsverwaltungssystem empfehlen wir zum Beispiel das Git User´s Manual 
-\footnote{\url{http://schacon.github.com/git/user-manual.html}} oder die Gitcasts\footnote{\url{http://gitcasts.com/}}
+Das Framework inklusive aller Benchmarks ist als Git-Versionsarchiv bei github\footnote{\url{https://github.com/s1ck/IR15}} öffentlich verfügbar. Das Versionsarchiv lässt sich als gepacktes Zip-Archiv herunterladen\footnote{\url{https://github.com/s1ck/IR15/zipball/master}}. Alternativ kann das Versionsarchiv auch mittels \texttt{git clone \url{git://github.com/s1ck/IR15.git}} ausgecheckt werden. Für einen Überblick bzgl. der Benutzung von Git als Versionsverwaltungssystem empfehlen wir das Git User´s Manual 
+\footnote{\url{http://schacon.github.com/git/user-manual.html}} oder die Gitcasts\footnote{\url{http://gitcasts.com/}}.
 
-Nachdem das Zip-Archiv entpackt wurde, werden mit Hilfe des Maven-Kommando \texttt{mvn clean install} alle Abhängigkeiten zu Bibliotheken, die durch das Framework verwendet werden, aufgelöst und diese installiert.
+Nachdem das Zip-Archiv entpackt wurde, werden mit Hilfe des Maven-Kommando \texttt{mvn clean install} alle Abhängigkeiten zu Bibliotheken, die durch das Framework verwendet werden, aufgelöst und dies entsprechenden Bibliotheken installiert.
+
+\subsubsection{Benchmarks konfigurieren}
+\label{subsubsec:benchmarks_conf}
+Wie bereits erwähnt, lässt sich das Framework mittels properties-Dateien konfigurieren. Listing \ref{lst:inst_conf} zeigt die Konfiguration am Beispiel DEX. Dem Versionsarchiv liegen entsprechende Beispielkonfigurationen bei, die entsprechend umbenannt und angepasst werden müssen. 
+
+\lstinputlisting
+    [caption={Konfigurations der DEX-Benchmarksuite}
+       \label{lst:inst_conf},language=bash]
+ {../../src/main/resources/dex.properties.example}
 
 \subsubsection{Benchmarks ausführen}
-Sind alle Voraussetzungen erfüllt, lassen sich die einzelnen Benchmarksuiten durch das Maven-Kommando \texttt{mvn exec:java} ausführen.
+Sind alle Voraussetzungen erfüllt, lassen sich die einzelnen Benchmark-Suiten durch das Maven-Kommando \texttt{mvn exec:java} ausführen.
 
 \begin{lstlisting}[caption={Ausführen der einzelnen Benchmarksuites},label={lst:inst_run}]
 // DEX
@@ -130,46 +144,37 @@ mvn exec:java -Dexec.mainClass="de.uni.leipzig.IR15.Benchmark.suites.Neo4JBenchm
 mvn exec:java -Dexec.mainClass="de.uni.leipzig.IR15.Benchmark.suites.MySQLBenchmarkSuite"
 \end{lstlisting}
 
-\subsubsection{Benchmarks konfigurieren}
-\label{subsubsec:benchmarks_conf}
-Wie bereits erwähnt lässt sich das Framework mittels properties-Dateien konfigurieren. Listing \ref{lst:inst_conf} zeigt die Konfiguration am Beispiel DEX. Dem Versionsarchiv liegen entsprechende Beispielkonfigurationen bei, die entsprechend umbenannt und angepasst werden müssen. 
-
-\lstinputlisting
-    [caption={Konfigurations der DEX-Benchmarksuite}
-       \label{lst:inst_conf},language=bash]
- {../../src/main/resources/dex.properties.example}
-
 \subsubsection{zusätzliche Benchmarks}
 Das Framework lässt sich sehr leicht um zusätzliche Benchmarks für bereits existierende Datenbanken erweitern. Dazu muss eine der Klassen \texttt{DEXBenchmark}, \texttt{MySQLBenchmark}, \texttt{Neo4jBenchmark} oder \texttt{OrientDBBenchmark} abgeleitet und die entsprechenden Methoden implementiert werden. Dabei sollte man sich an den vorhandenen Benchmarks orientieren. Als nächstes muss der zusätzliche Benchmark in die entsprechende Benchmarksuite (\texttt{DEXBenchmarkSuite}, \linebreak\texttt{MySQLBenchmarkSuite}, \texttt{Neo4JBenchmarkSuite} oder \texttt{OrientBenchmarkSuite}) aufgenommen werden, damit dieser auch ausgeführt wird. Als letztes empfiehlt sich, ein zusätzliches property in der zugehörigen properties-Datei einzuführen, damit auch das ergänzte Benchmark wie alle anderen ein- bzw. ausgeschaltet werden kann.
 
 \subsubsection{zusätzliche Datenbank}
 Um das Framework um Benchmarks für eine zusätzliche Datenbank zu erweitern sind mehrere Schritte notwendig. Diese sollen im Folgenden nur genannt und nicht im Detail beschrieben werden. Der vorhandene Quellcode ist umfangreich dokumentiert und kommentiert, so dass man sich an den Implementierungen für die bereits genutzten Datenbanken orientieren kann. 
 
-Es empfiehlt sich dabei stets alle datenbank-, system- oder benchmarkabhängigen Einstellungen in eine properties-Datei auszulagern um diese besser Anpassen zu können, ohne dass der Quellcode vor der Ausführung neu kompiliert werden muss.
+Es empfiehlt sich dabei stets alle datenbank-, system- oder benchmarkabhängigen Einstellungen in eine properties-Datei auszulagern um diese besser anpassen zu können, ohne dass der Quellcode vor der Ausführung neu kompiliert werden muss.
 
 Im ersten Schritt muss für eine neue zusätzliche Datenbank ein Konnektor implementiert werden. Unsere Konventionen geben vor, dass dieser mindestens die Methoden \texttt{getConnection} zum Aufbau, \texttt{destroyConnection} zum Schließen der Verbindung zur Datenbank und \texttt{reset }zum Zurücksetzen der Datenbank implementiert.
 
 Damit die zusätzliche Datenbank mit einer Datenbasis gefüllt werden kann, muss ein Importierer implementiert werden. Dieser leitet sich von der Klasse \texttt{Importer} ab und implementiert mindestens die Methoden \texttt{setUp}, \texttt{tearDown} und \texttt{importData}.
 
-Einzelne Benchmarks werden, wie schon erwähnt, in einer Benchmarksuite zusammengefasst und durch diese ausgeführt. Eine Benchmarksuite wird von der Klasse \texttt{AbstractBenchmarkSuite} abgeleitet und ist das eigentliche ausführbare Java-Programm, in dessen \texttt{main}-Methode, die einzelnen Benchmarks initialisiert und ausgeführt werden.
+Einzelne Benchmarks werden, wie schon erwähnt, in einer Benchmark-Suite zusammengefasst und durch diese ausgeführt. Eine Benchmark-Suite wird von der Klasse \texttt{AbstractBenchmarkSuite} abgeleitet und ist das eigentliche ausführbare Java-Programm, in dessen \texttt{main}-Methode, die einzelnen Benchmarks initialisiert und ausgeführt werden.
 
-Nehmen wir an, das Framework soll um die Datenbank MongoDB\footnote{\url{http://www.mongodb.org/}} erweitert werden, dann sollten mindestens die Klassen \texttt{MongoDBConnector}, \texttt{MongoDBImporter}, \texttt{MongoDBBenchmarkSuite} und \texttt{MongoDBBenchmark} implementiert werden. Abbildung \ref{fig:class_diagramm_neo4j} zeigt das Klassendiagramm am Beispiel der Implementierungen für Neo4j, dort sind die Zusammenhänge der einzelnen Klassen zu erkennen. Die Klassendiagramme der Implementierungen von DEX und OrientDB sind äquivalent.
+Angenommen, das Framework soll um die Datenbank MongoDB\footnote{\url{http://www.mongodb.org/}} erweitert werden, dann sollten mindestens die Klassen \texttt{MongoDBConnector}, \texttt{MongoDBImporter}, \texttt{MongoDBBenchmarkSuite} und \texttt{MongoDBBenchmark} implementiert werden. Abbildung \ref{fig:class_diagramm_neo4j} zeigt das Klassendiagramm am Beispiel der Implementierungen für Neo4j, dort sind die Zusammenhänge der einzelnen Klassen zu erkennen. Die Klassendiagramme der Implementierungen von DEX und OrientDB sind äquivalent.
 
 \subsection{Einschränkungen}
 
 Vorhandene Einschränkungen Datenbank-spezifischer Natur sind im jeweiligen Abschnitt dokumentiert.
 
-An dieser Stelle sei aber auch erwähnt, dass wir im Rahmen des Praktikums keine überdurchschnittliche Expertise bezüglich der verwendeten Datenbanken ausbilden konnten und so die Aussagekraft unserer Messergebnisse unter folgendem Bedingungen zu betrachten sind: Es ist durchaus möglich, dass sich die in den Benchmarks verwendeten Datenbankoperationen noch weiter optimieren ließen. Dabei kann es sein, dass eine Optimierung nur hinsichtlich bestimmter Operationen einen Vorteil bringt und sich bei andere Operationen eher nachteilig auswirkt.
+An dieser Stelle sei darauf hingewiesen, dass im Rahmen des Praktikums keine überdurchschnittliche Expertise bezüglich der verwendeten Datenbanken ausgebildet werden konnte und somit die Aussagekraft der Messergebnisse unter folgenden Bedingungen zu betrachten sind: Es ist durchaus möglich, dass weitere Optimierungen der Datenbankoperationen im Rahmen der Benchmarks möglich sind. Dabei kann es sein, dass eine Optimierung nur hinsichtlich bestimmter Operationen von Vorteil ist und sich bei anderen Operationen nachteilig auswirken kann.
 
 \subsection{Erweiterungsmöglichkeiten}
 
-Bezüglich der Erweiterungsmöglichkeiten muss an dieser Stelle unterschieden werden. Zum einen ist es möglich die Benchmarks an sich zu erweitern, dazu siehe die Bedienungsanleitung im Absatz \ref{subsec:bedienungsanleitung}. Zum anderen bietet das Framework an sich Potenzial für Erweiterungen.
+Bezüglich der Erweiterungsmöglichkeiten muss wie folgt differenziert werden: Zum Einen ist es möglich, die Benchmarks selbst zu erweitern (siehe Bedienungsanleitung im Absatz \ref{subsec:bedienungsanleitung}), zum Anderen bietet das Framework an sich Potenzial für Erweiterungen. Zwei mögliche Erweiterungen des Frameworks werden nachfolgend beschrieben.
 
 \subsubsection*{Vereinfachte Konfiguration der Benchmark-Suiten}
-Es ist vorstellbar, dass die Erstellung einer Benchmark-Suite, also das Zusammenführen einzelner Benchmarks zu einer geordneten Folge, nicht zwingend in Programmierleistung in einer Java-Klasse geschehen muss. Denkbar wäre, dass man dies lediglich in einer properties-Datei konfiguriert. Dies vereinfacht das Anpassen einer Benchmark-Suite und ist auch für Personen ohne Programmierkenntnisse zugänglich.
+Es ist vorstellbar, dass die Erstellung einer Benchmark-Suite, also das Zusammenführen einzelner Benchmarks zu einer geordneten Folge, nicht zwingend in Programmierleistung in einer Java-Klasse geschehen muss. Denkbar wäre, dass man dies lediglich in einer properties-Datei konfiguriert. Dies vereinfacht das Anpassen einer Benchmark-Suite und ist auch für Personen ohne Programmierkenntnisse möglich.
 
 \subsubsection*{Visualisierung von Messergebnissen durch das Framework}
-Momentan geschieht die Auswertung der Messergebnisse noch außerhalb des Frameworks. Dazu existiert ein zusätzliches python-Skript, welches die Messergebnisse aggregiert, aufbereitet und mittels gnuplot visuell zugänglich ausgibt. Dieses aggregieren, aufbereiten und Ansprechen von gnuplot ist auch in Java möglich und könnte in das Framework integriert werden.
+Momentan geschieht die Auswertung der Messergebnisse noch außerhalb des Frameworks. Hierfür existieren zusätzliche Skripte, welche die Messergebnisse aggregieren, aufbereiten und mittels R oder gnuplot visuell zugänglich ausgibt. Dieses Aggregieren und Aufbereiten der Daten und das Ansprechen von gnuplot ist auch mittels Java möglich und könnte in das Framework integriert werden.
 
 % der wahre Inhalt
 \section{Neo4j}
