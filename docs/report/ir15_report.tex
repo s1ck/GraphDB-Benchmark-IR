@@ -467,13 +467,15 @@ Eine zweite Art des Zugriffs ist in Zeile \ref{OByBrowse} beschrieben. Hier werd
 
 \section{DEX}
 
-DEX ist eine persistente, transaktionale Graphdatenbank, die ihren Schwerpunkt auf Performance festgelegt hat. DEX ist in Java und C++ implementiert und bietet APIs für Java, .NET und C++. Entwickelt wird DEX von der Firma sparsity technologies\footnote{\url{http://www.sparsity-technologies.com/dex}} und ist unter einer Mehrfachlizensierung verfügbar, die es Entwicklern erlaubt DEX zunächst zu evaluieren, bevor für den Produktiveinsatz eine kostenpflichtige Lizenz erworben werden muss. Für akademische Zwecke, wie in unserem Fall, sind die Entwickler aber großzügig und vergeben kostenfreie Lizenzen unter der Bedingung der Namensnennung. Der Quellcode von DEX steht bei der Entwicklung nicht zur Verfügung.
+DEX ist eine persistente, transaktionale Graphdatenbank, deren Entwickler den Schwerpunkt auf Performance gelegt haben. DEX ist in C++ implementiert und bietet APIs für Java, .NET und C++. Entwickelt wird DEX von der Firma sparsity technologies\footnote{\url{http://www.sparsity-technologies.com/dex}} und ist unter einer Mehrfachlizensierung verfügbar, die es Entwicklern erlaubt, DEX zunächst zu evaluieren, bevor für den Produktiveinsatz eine kostenpflichtige Lizenz erworben werden muss. Für akademische Zwecke, wie in unserem Fall, vergibt sparsity technologies kostenfreie Lizenzen unter der Bedingung der Namensnennung. Der Quellcode von DEX steht bei der Entwicklung nicht zur Verfügung.
 
 \subsection{Anbindung, Anfragemöglichkeiten und Benutzung}
+
 Wie auch Neo4j und OrientDB lässt sich DEX nativ über eine Java-API ansprechen. Nachfolgend sollen die grundlegenden Operationen beispielhaft aufgezeigt und beschrieben werden.
 
 \subsubsection{Datenbank erstellen und Verbindung herstellen}
-Das Listing \ref{lst:dex_create} zeigt wie eine Verbindung zu einer DEX-Datenbank hergestellt wird. Existiert die Datenbank am angegebenen Pfad nicht, wird diese neu erstellt.
+
+Das Listing \ref{lst:dex_create} zeigt, wie eine Verbindung zu einer DEX-Datenbank hergestellt wird. Existiert die Datenbank am angegebenen Pfad nicht, wird diese neu erstellt.
 
 \begin{lstlisting}[caption={DEX - Datenbank erstellen und Verbindung herstellen},label={lst:dex_create},language=Java]
 import com.sparsity.dex.gdb.*;
@@ -496,7 +498,8 @@ dexConnector.close();
 \end{lstlisting}
 
 \subsubsection{Daten einfügen}
-Das Listing \ref{lst:dex_insert} zeigt wie Daten zu einer existierenden DEX-Datenbank hinzugefügt werden. Dazu wird in Zeile \ref{DEXInitConnection} zunächst die Verbindung aufgebaut und dann eine Sitzung gestartet über die man Zugriff auf das Graph-Objekt bekommt, an dem die eigentlichen Operationen ausgeführt werden (Zeilen \ref{DEXInitSession}-\ref{DEXInitGraph}). Zunächst müssen der entsprechender Knotentyp und dessen mögliche Attribute erzeugt werden (Zeilen \ref{DEXCreateTypesStart}-\ref{DEXCreateTypesEnd}). Danach werden zwei Knoten erzeugt und jeweils zwei Attribute dazu gesetzt (Zeilen \ref{DEXCreateNodesStart}-\ref{DEXCreateNodesEnd}). Schließlich wird in den Zeilen \ref{DEXCreateEdgeTypesStart} bis \ref{DEXCreateEdgeTypesEnd} ein Kantentyp und dessen Attribut definiert. Die zuvor erzeugten Knoten werden über eine Kante dieses Typs miteinander verbunden (Zeilen \ref{DEXCreateEdgeStart}-\ref{DEXCreateEdgeEnd}).
+
+Das Listing \ref{lst:dex_insert} zeigt, wie Daten zu einer existierenden DEX-Datenbank hinzugefügt werden. Dazu wird in Zeile \ref{DEXInitConnection} zunächst die Verbindung aufgebaut und dann eine Sitzung gestartet, über die man Zugriff auf das Graph-Objekt bekommt. An diesem Objekt werden die eigentlichen Operationen ausgeführt (Zeilen \ref{DEXInitSession}-\ref{DEXInitGraph}). Zunächst müssen der entsprechende Knotentyp und dessen mögliche Attribute erzeugt werden (Zeilen \ref{DEXCreateTypesStart}-\ref{DEXCreateTypesEnd}). Danach werden zwei Knoten angelegt und jeweils zwei Attribute dazu gesetzt (Zeilen \ref{DEXCreateNodesStart}-\ref{DEXCreateNodesEnd}). Schließlich wird in den Zeilen \ref{DEXCreateEdgeTypesStart} bis \ref{DEXCreateEdgeTypesEnd} ein Kantentyp und dessen Attribut definiert. Die zuvor erzeugten Knoten werden über eine Kante dieses Typs miteinander verbunden (Zeilen \ref{DEXCreateEdgeStart}-\ref{DEXCreateEdgeEnd}).
 
 \begin{lstlisting}[caption={DEX - Daten einfügen},label={lst:dex_insert},language=Java]
 import com.sparsity.dex.gdb.*;
@@ -531,6 +534,7 @@ dexConnector.close();
 \end{lstlisting}
 
 \subsubsection{Daten abfragen}
+
 Nachfolgend ein paar kurze Beispiele, wie man in DEX-Datenbanken nach Knoten oder Kanten mit bestimmten Eigenschaften suchen kann.
 
 In Listing\ref{lst:dex_select1} wird ein Knoten eines bestimmten Typs anhand eines bestimmten Attributwerts in der Datenbank gesucht (Zeilen \ref{DEXFindNodeStart}-\ref{DEXFindNodeEnd}) und ein anderes Attribut ausgelesen (Zeilen \ref{DEXReadAttributeStart}-\ref{DEXReadAttributeEnd}).
@@ -548,7 +552,7 @@ System.out.println(wordNodeWordAttributeValue.getString())
 wordNodeWordAttributeValue.delete();(*@\label{DEXReadAttributeEnd}@*)
 \end{lstlisting}
 
-In Listing \ref{lst:dex_select2} wird ähnlich wie in Listing \ref{lst:dex_select1} ein Knoten anhand eines bestimmten Attributwerts aus der Datenbank gelesen (Zeilen \ref{DEXFindNodeStart2}-\ref{DEXFindNodeEnd2}). Weiter werden dessen Nachbarn, also Knoten zu denen eine Kante existiert, und ein Attribut dieser ausgelesen (Zeilen \ref{DEXFindNeighborsStart}-\ref{DEXFindNeighborsEnd}).
+In Listing \ref{lst:dex_select2} wird, ähnlich wie in Listing \ref{lst:dex_select1}, ein Knoten anhand eines bestimmten Attributwertes aus der Datenbank gelesen (Zeilen \ref{DEXFindNodeStart2}-\ref{DEXFindNodeEnd2}). Weiter werden dessen Nachbarn, also Knoten zu denen eine Kante existiert, und ein Attribut dieser ausgelesen (Zeilen \ref{DEXFindNeighborsStart}-\ref{DEXFindNeighborsEnd}).
 
 \begin{lstlisting}[caption={DEX - Daten abfragen - alle Nachbarn eines Knotens},label={lst:dex_select2},language=Java]
 int wordNodeType = graph.findType("word");(*@\label{DEXFindNodeStart2}@*)
@@ -575,19 +579,22 @@ neighbors.close();(*@\label{DEXFindNeighborsEnd}@*)
 \end{lstlisting}
 
 \subsection{Dokumentation}
+
 Die Dokumentation von DEX beschränkt sich auf eine schmale Dokumentation der API in Javadoc, die als PDF zum Download bereitgestellt wird. Teilweise ist durch die kurzen Ausführungen nicht immer klar ob man bei der Implementierung richtig vorgegangen ist oder nicht. Leider fehlt es auch fast vollkommen an Implementierungsbeispielen. Das vorhandene Supportforum ist kaum frequentiert und enthält seit der Einführung im zweiten Quartal 2011 kaum mehr als 80 Einträge, was auf eine sehr kleine Community rund um DEX schließen lässt. Immerhin scheinen die Entwickler bemüht und beantworten Fragen im Forum zeitnah, ausreichend hilfreich und umfangreich. Auch unsere Erfahrungen mit dem direkten Support via E-Mail sind zumindest nicht negativ.
 
 \subsection{Einschränkungen}
+
 Die APIs stellen die einzigen Schnittstellen zur Datenbank dar. Eine Unterstützung für den Einsatz als Netzwerkdatenbank ist nicht gegeben und ein Einsatz in einem Netzwerkcluster ist ausgeschlossen, da die Persistierung durch das Abspeichern der Daten in einer einzelnen Datei umgesetzt wurde.
 
-Die Brücke, die durch die APIs zum C++-Kern genommen wird, erschwert die Implementierung einzelner von DEX-Funktionalitäten. Fehler bzw. falsches Vorgehen in der Implementierung enden nicht selten im Absturz der gesamten Java Virtual Machine, ohne dass sich explizite Programm-Exceptions abfangen und behandeln lassen. Dabei sind die Fehlermeldungen nur tendenziell aber nicht konkret einzuordnen, da im Vergleich zu den anderen eingesetzten Datenbanken, der Einblick in den Quellcode und eine gute Dokumentation fehlt. 
+Die Brücke, die durch die APIs zum C++-Kern genommen wird, erschwert die Implementierung einzelner DEX-Funktionalitäten. Fehler bzw. falsches Vorgehen in der Implementierung enden nicht selten im Absturz der gesamten Java Virtual Machine, ohne dass sich explizite Programm-Exceptions abfangen und behandeln lassen. Dabei sind die Fehlermeldungen nur tendenziell aber nicht konkret einzuordnen, da im Vergleich zu den anderen eingesetzten Datenbanken, der Einblick in den Quellcode und eine gute Dokumentation fehlt. 
 
 Ein anderer Nachteil der C++-Implementierung des Kerns ist die unschöne Integration der API in die Sprache Java. So müssen Java-unüblich zum Beispiel Iteratoren auf einer Knotenmenge oder Listen von Kanten explizit geschlossen bzw. freigegeben werden. Das kennt man so zwar aus der C++-Welt, führt bei Nichteinhaltung aber zu den angesprochenen Programm-Exceptions, deren Fehlermeldung einen DEX-Einsteiger nicht auf die Ursache hinweisen.
 
-Weiter sei zu erwähnen, dass die Evaluierungslizenz lediglich die Datenhaltung von zusammen einer Million Kanten und Knoten erlaubt, was eine aussagekräftige Evaluierung des Verhaltens bei großen Datenmengen enorm einschränkt.
+Weiter sei zu erwähnen, dass die Evaluierungslizenz lediglich die Datenhaltung von insgesamt einer Million Kanten und Knoten erlaubt, was eine aussagekräftige Evaluierung des Verhaltens bei großen Datenmengen enorm einschränkt.
 
 \subsection{Aussicht}
-DEX unterliegt einer ständigen Weiterentwicklung. Alleine während unseres Praktikums gab die Veröffentlichung der Versionen 4.3 und 4.4, die jeweils einige umfangreiche Änderungen \footnote{\url{http://www.sparsity-technologies.com/dex_releases}}mit sich brachten. Eine öffentlich verfügbarer Fahrplan für die Zukunft von DEX ist uns nicht bekannt. Wir wünschen uns vor allem mehr Stabilität und eine bessere Dokumentation.
+
+DEX unterliegt einer ständigen Weiterentwicklung. Alleine während unseres Praktikums wurden die Versionen 4.3 und 4.4 veröffentlicht, die jeweils einige umfangreiche Änderungen umfassten \footnote{\url{http://www.sparsity-technologies.com/dex_releases}}. Eine öffentlich verfügbare Roadmap für die Zukunft von DEX ist uns nicht bekannt. Insgesamt erhofft man sich vor allem mehr Stabilität und eine bessere Dokumentation.
 
 \section{Evaluation}
 
