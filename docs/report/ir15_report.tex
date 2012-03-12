@@ -292,7 +292,7 @@ for (Path p : td.traverse(startNode)) { (*@\label{NeoTraversal_run}@*)
 
 \subsubsection{Cypher}
 
-Eine dritte Möglichkeit, Anfragen an die Graphdatenbank zu stellen, stellt die deklarative Sprache \textit{Cypher} dar. Sollen beispielsweise alle Nachbarn eines Knotens mit der ID 3  abgefragt werden, die über eine ausgehende Kante mit diesem Knoten verbunden sind, bietet sich folgende Query an:
+Eine dritte Möglichkeit, Anfragen an die Graphdatenbank zu stellen, bietet die deklarative Sprache \textit{Cypher}. Sollen beispielsweise alle Nachbarn eines Knotens mit der ID 3  abgefragt werden, die über eine ausgehende Kante mit diesem Knoten verbunden sind, bietet sich folgende Query an:
 \begin{lstlisting}
 START n=node(3) MATCH (n)-->(x) RETURN x
 \end{lstlisting}
@@ -327,14 +327,21 @@ engine.execute(cypherQuery);
 
 \subsection{Einschränkungen}
 
-Cypher, Traverser Speicherprobs, keine Optimierung
+Wie im vorhergehenden Abschnitt gezeigt, ist Cypher eine einfache Möglichkeit, Abfragen auf Graphen zu formulieren. Da es sich bei der Sprache jedoch um ein noch junges Feature in Neo4j handelt, wird der Schwerpunkt momentan noch auf korrekte Funktionalität und weniger auf optimierte Ausführung gelegt. Dies führte dazu, dass bei umfangreichen Graphen die Performance im Vergleich zur nativen API deutlich geringer war und es darüber hinaus oft zu Speicherüberläufen kam. Letzteres trat auch bei der Verwendung der Traverser API auf. Wie bereits beschrieben, werden Knoten standardmäßig nur einmal besucht. Für verschiedene Graphen ist das Erkennen von Zyklen jedoch entscheidend, weswegen das mehrmalige Besuchen von Knoten erlaubt werden muss. In diesem Fall kam es häufig zu Speicherüberläufen, was vermutlich auf die Implementierung der Traverser API zurückzuführen ist.
 
 \subsection{Dokumentation}
 
+Von den verglichenen Graphdatenbanken weist Neo4j die mit Abstand beste und aktuellste Dokumentation auf. Neben grundlegenden Tutorials wird auf alle Features der Datenbank im Detail eingegangen. Darüber hinaus finden sich in der Dokumentation Hinweise zur Optimierung der Performanz.
+
+Neben der Dokumentation bietet Neo4j eine Mailing Liste, sowie einen IRC Channel an. Letzterer ist jedoch nur mäßig frequentiert, aktuelle Informationen und Support erhält man vorrangig über die aktive Mailing Liste. Von uns gestellte Fragen wurden umgehend beantwortet.
+
+Es zeigt sich deutlich, dass Neo Technologies an einer aktiven Beteiligung der Community interessiert ist: Auf Feature-Wünsche wird eingegangen, externe Blog-Beiträge werden auf der Website verlinkt und die Nutzer werden nach Meinungen und Erfahrungen mit neuen Features wie bspw. Cypher gefragt.
+
 \subsection{Aussicht}
 
+Wie auch OrientDB und DEX unterliegt Neo4j einer ständigen Weiterentwicklung. Während der Durchführung des Praktikums wurden zwei neue Versionen der Datenbank veröffentlicht, in denen neben Fehlerbehebungen auch verschiedene Optimierungen Einzug in die Software hielten.
 
-
+Durch die kurzen Relase-Zyklen wird zum Einen eine permanente, stetige Entwicklung suggeriert, zum Anderen empfiehlt es sich, wie bei jedem anderen Softwareprodukt auch, ausschließlich die als final deklarierten Versionsstände in Produktivumgebungen einzusetzen. Neo4j bietet neben der Community Version auch kommerzielle Versionen der Datenbank an, welche zusätzliche Features zur Replikation und der damit verbundenen Hochverfügbarkeit anbieten.
 
 \section{OrientDB}
 
