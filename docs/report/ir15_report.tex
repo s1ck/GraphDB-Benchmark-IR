@@ -188,7 +188,7 @@ Für die Leistungsmessung wurde die eingebettete Variante der Datenbank genutzt.
 
 \subsection{Anfragemöglichkeiten}
 
-Neo4j bietet verschiedene Möglichkeiten an, den gespeicherten Graphen zu traversieren bzw. abzufragen. Neben der nativen Java API und der ebenfalls in Java entwickelten Traversal API steht seit Version 1.5 mit Cypher eine deklarative Abfragesprache zur Verfügung. Die drei genannten Abfragemöglichkeiten werden im Folgenden kurz vorgestellt und anhand kurzer Beispiele erläutert.
+Neo4j bietet verschiedene Möglichkeiten an, den gespeicherten Graphen zu traversieren bzw. abzufragen. Neben der nativen Java-API und der ebenfalls in Java entwickelten Traversal API steht seit Version 1.5 mit Cypher eine deklarative Abfragesprache zur Verfügung. Die drei genannten Abfragemöglichkeiten werden im Folgenden kurz vorgestellt und anhand kurzer Beispiele erläutert.
 
 \subsubsection{Native API}
 
@@ -347,38 +347,31 @@ Durch die kurzen Relase-Zyklen wird zum Einen eine permanente, stetige Entwicklu
 
 OrientDB\footnote{\url{http://www.orientechnologies.com/}} ist eine eingebettete, persistente, transaktionale Dokumenten- und Graphdatenbank. OrientDB wird seit 1998 von Luca Garulli entwickelt. OrientDB ist zu 100\% in Java implementiert und steht quelloffen unter Apache Lizenz 2.0 zur Verfügung.\footnote{\url{http://code.google.com/p/orient/}}
 
-
-
 \subsection{Anbindung}
 
-OrientDB lässt sich innerhalb von Java Applikationen nativ über eine Java API nutzen.\footnote{\url{http://code.google.com/p/orient/wiki/JavaAPI}} Neben einer Java-API bietet OrientDB auch die Möglichkeit der Steuerung des Datenbanksystems über eine eigene Konsole. Dies hat den Vorteil, dass man das Datenbanksystem, auch ohne den Umweg über Java, erkunden und kennen lernen kann. In der Konsole können Befehle in einer SQL-artigen Syntax\footnote{\url{http://code.google.com/p/orient/wiki/ConsoleCommands}} an das Datenbanksystem geschickt und ausgewertet werden.
-
-
+OrientDB lässt sich innerhalb von Java Applikationen nativ über eine Java-API nutzen.\footnote{\url{http://code.google.com/p/orient/wiki/JavaAPI}} Darüber hinaus bietet OrientDB auch die Möglichkeit der Steuerung des Datenbanksystems über eine eigene Konsole. Dies hat den Vorteil, dass man das Datenbanksystem, auch ohne den Umweg über Java, erkunden und kennenlernen kann. In der Konsole können Befehle in einer SQL-artigen Syntax\footnote{\url{http://code.google.com/p/orient/wiki/ConsoleCommands}} an das Datenbanksystem geschickt und ausgewertet werden.
 
 \subsection{Anfragemöglichkeiten}
-Auf die in OrientDB gespeicherten Daten kann auf drei verschiedene Arten zugegriffen werden. Die erste und performanteste Art ist der Zugriff mittels der nativen Java API. Diese kam auch in den Benchmarks zum Einsatz. \\
-Weiterhin können Anfragen in einer SQL-artigen Syntax\footnote{\url{http://code.google.com/p/orient/wiki/SQL}} gestellt werden. Allerdings gibt es hier noch gewisse Einschränkungen laut des Autors: "Sub-selects are not yet implemented." Dies hatte zur Folge, dass diese Anfragemöglichkeit nicht für das in diesem Projekt beschriebene Problem genutzt werden kann. \\
-Die Dritte Art der Zugriff kann mittels Gremlin\footnote{\url{https://github.com/tinkerpop/gremlin/wiki}} geschehen. Gremlin bietet eine an XPath angelehnte Syntax um Graphen zu traversieren.
 
-
+Auf die in OrientDB gespeicherten Daten kann auf drei verschiedene Arten zugegriffen werden. Die erste und gleichzeitig performanteste Art ist der Zugriff mittels nativer Java-API. Diese kam auch im Rahmen der Benchmarks zum Einsatz.\\
+Weiterhin können Anfragen in einer SQL-artigen Syntax\footnote{\url{http://code.google.com/p/orient/wiki/SQL}} gestellt werden. Allerdings existieren an dieser Stelle laut Autor noch gewisse Einschränkungen: "Sub-selects are not yet implemented." Daraus ergab sich, dass diese Anfragemöglichkeit nicht für das in diesem Projekt beschriebene Problem genutzt werden kann.\\
+Die dritte Zugriffsvariante ist Gremlin\footnote{\url{https://github.com/tinkerpop/gremlin/wiki}}, eine imperative, an XPath angelehnte Sprache zur Traversierung des Graphen.
 
 \subsection{Einschränkungen}
-Ein großes Bottleneck bei OrientDB ist der Import von Daten aus einer SQL-Datenbank. Auch nach dem Befolgen der "Performance Hints" und dem Optimieren diverser JVM Parameter, stieg die Zeit für den Import der Kookurrenz-Kanten exponentiell zur Anzahl der einzufügenden Kanten an (siehe Abbildung~\ref{fig:orientdb_import}). Dies hat zur Folge, dass große Datenmengen (ab 1M Datensatz mit 3349314 CO\_{}S Kanten) nicht mehr importiert werden konnten. Mittels JProfiler konnte der Persistierungsprozess von OrientDB als HotSpot ausgemacht werden. Ein Kontaktaufnahme mit dem Autor bezüglich dieses Performanzverlustes ist durch uns erfolgt, führte aber zu keiner Lösung des Problems.\\
-Auch konnte die SQL-artige Abfragesprache OrientSQL nicht genutzt werden, da diese noch nicht alle Funktionalitäten von MySQL bereitstellt.
 
-
+Im Rahmen des Praktikums stellte sich der Import von Kanten als ein wesentliches Bottleneck heraus. Auch unter Berücksichtigung der "Performance Hints"\footnote{\url{http://code.google.com/p/orient/wiki/PerformanceTuning}} und dem Optimieren diverser JVM Parameter, stieg die Zeit für den Import der Kookkurrenzen exponentiell mit der Anzahl bereits eingefügter Kanten an (siehe Abbildung~\ref{fig:orientdb_import}). Dies hat zur Folge, dass große Datenmengen (ab 1M Datensatz mit 3349314 CO\_{}S Kanten) nicht mehr importiert werden konnten. Mittels JProfiler konnte der Persistierungsprozess von OrientDB als HotSpot ausgemacht werden. Ein Kontaktaufnahme mit dem Autor bezüglich dieses Problems ist durch uns erfolgt, führte aber zu keiner Lösung des Problems.\\
+Auch konnte die SQL-artige Abfragesprache OrientSQL nicht genutzt werden, da diese nicht die benötigten Funktionalitäten bereitstellt.
 
 \subsection{Dokumentation}
-OrientDB ist gut und ausführlich dokumentiert\footnote{\url{http://code.google.com/p/orient/wiki/Main}}, was das Arbeiten mit OrientDB einfach gestaltet. Es liegt sowohl eine komplette und ausführliche Javadoc der API\footnote{\url{http://www.orientechnologies.com/releases/latest/javadoc/index.html}} vor, als auch Informationsseiten zu grundlegenden und weiterführenden Aspekten. Auf diesen Webseiten lassen sich Informationen zu fast allen Fragen finden. Allerdings ist das Finden einer Antwort auf eine konkrete Frage teilweise schwierig. Dies ist unter Umständen dem Fakt geschuldet, dass OrientDB sowohl eine Dokumentendatenbank, als auch ein Key-Value-Store, als auch eine Graphdatenbank ist. Oft werden in der Dokumentation diese drei Konzepte vermischt, was zu Verwirrungen führen kann. Weiterhin hat das Fehlen eines ausführlichen und kompletten Einstiegbeispiels die Einarbeitung erschwert. Auch fehlen Beispiele für komplexe Anwendungsfälle. Allerdings war der Autor bei speziellen Fragen per E-Mail zu erreichen, wobei man auf eine Antwort lediglich eine angemessene Zeit warten muss.
 
-
+OrientDB ist gut und ausführlich dokumentiert\footnote{\url{http://code.google.com/p/orient/wiki/Main}}, was das Arbeiten mit OrientDB einfach gestaltet. Es liegt sowohl eine komplette und ausführliche Javadoc der API\footnote{\url{http://www.orientechnologies.com/releases/latest/javadoc/index.html}} vor, als auch Informationsseiten zu grundlegenden und weiterführenden Aspekten. Auf diesen Webseiten lassen sich Informationen zu fast allen Fragen finden. Allerdings ist das Finden einer Antwort auf eine konkrete Frage teilweise schwierig. Dies ist unter Umständen dem Fakt geschuldet, dass OrientDB sowohl eine Dokumentendatenbank, als auch ein Key-Value-Store, als auch eine Graphdatenbank ist. Oft werden in der Dokumentation diese drei Konzepte vermischt, was zu Verwirrungen führen kann. Weiterhin hat das Fehlen eines ausführlichen und kompletten Einstiegsbeispiels die Einarbeitung erschwert. Auch fehlen Beispiele für komplexe Anwendungsfälle. Allerdings war der Autor bei speziellen Fragen per E-Mail zu erreichen, wobei man auf eine Antwort lediglich eine angemessene Zeit warten muss.
 
 \subsection{Aussicht}
-OrientDB stellt bezüglich seiner Graphdatenbankenfunktionalität einige interssante Features in Aussicht. OrientDB stellt seit Kurzem eine Implementation der Tinkerpop Blueprints APIs\footnote{\url{https://github.com/tinkerpop/blueprints/wiki/}} zur Verfügung. Somit steht auch die einfache und leicht lesbare Highlevel-Abfragesprache Gremlin zur Verfügung. Mit dieser Abfragesprache ist es möglich auch komplexe und vielseitige Abfragen verständlich zu formulieren.
 
-
+OrientDB stellt bezüglich seiner Graphdatenbankenfunktionalität einige interessante Features in Aussicht. OrientDB stellt seit Kurzem eine Implementation der Tinkerpop Blueprints APIs\footnote{\url{https://github.com/tinkerpop/blueprints/wiki/}} zur Verfügung. Somit steht auch die einfache und leicht lesbare Highlevel-Abfragesprache Gremlin zur Verfügung. Mit dieser Abfragesprache ist es möglich auch komplexe und vielseitige Abfragen verständlich zu formulieren.
 
 \subsection{Benutzung}
+
 In diesem Abschnitt werden konkrete Arbeitsschritte für OrientDB anhand von Quelltext angegeben.
 
 \subsubsection{Datenbank erstellen, öffnen und schließen}
@@ -401,12 +394,12 @@ orientdb.open("admin", "admin");(*@\label{Oopen2}@*)
 // Datenbank schließen
 orientdb.close();(*@\label{Oclose}@*)
 \end{lstlisting}
-In diesem Codeausschnitt wird zuerst eine neue Datenbank angelegt (Zeile \ref{Ocreate}). Dazu muss ein bereits existierender Ordner als Parameter angegeben werden. OrientDB speichert verschiedene Dateien in diesem Ordner. Danach wird eine existierende Datenbank geöffnet (Zeile \ref{Oopen1}) und stellt danach ein Objekt bereit, welches die OrientDB Datenbank repräsentiert. Auch hierbei wird der Ordner, welcher die Datenbankdateien beinhaltet, als Parameter angegeben. Zeile \ref{Oopen2} stellt eine (hier lokale) Verbindung zu der Datenbank her. In Zeile \ref{Oclose} wird die Datenbank geschlossen.
+
+In diesem Codeausschnitt wird zuerst eine neue Datenbank angelegt (Zeile \ref{Ocreate}). Dazu muss ein bereits existierender Ordner als Parameter angegeben werden. OrientDB speichert verschiedene Dateien in diesem Ordner. Danach wird eine existierende Datenbank geöffnet (Zeile \ref{Oopen1}) und stellt danach ein Objekt bereit, welches die OrientDB Datenbank repräsentiert. Auch hier wird der Ordner, welcher die Datenbankdateien beinhaltet, als Parameter angegeben. Zeile \ref{Oopen2} stellt eine (hier lokale) Verbindung zu der Datenbank her. In Zeile \ref{Oclose} wird die Datenbank geschlossen.
 Ausführlichere Informationen finden sich in der Dokumentation.\footnote{\url{http://code.google.com/p/orient/wiki/GraphDatabaseRaw}}
 
-
-
 \subsubsection{Indizes erstellen}
+
 \begin{lstlisting}[caption={OrientDB - Indizes erstellen}]
 // benoetigte imports
 import com.orientechnologies.orient.core.metadata.schema.OClass;
@@ -423,11 +416,12 @@ cWord.createProperty("w_id", OType.INTEGER);(*@\label{OProp}@*)
 index = (OIndexUnique) cWord.createIndex("word_id_index",
 	OClass.INDEX_TYPE.UNIQUE, "w_id");(*@\label{OIndex}@*)
 \end{lstlisting}
-In diesem Codeausschnitt wird zuerst ein Knotentyp deklariert (Zeilt \ref{OVer}), für welchen später ein Index auf ein bestimmtes Attribut erstellt werden soll. In der darauffolgenden Anweisung in Zeile \ref{OProp} wird ein Attribut mit einem bestimmten Typen für den Knoten festgelegt. Der Index auf diesem Attribut wird in Zeile \ref{OIndex} erstellt. 
+
+In diesem Codeausschnitt wird zuerst ein Knotentyp deklariert (Zeile \ref{OVer}), für welchen später ein Index auf ein bestimmtes Attribut erstellt werden soll. In der darauffolgenden Anweisung (Zeile \ref{OProp}) wird ein Attribut mit einem bestimmten Typen für den Knoten festgelegt. Der Index auf diesem Attribut wird in Zeile \ref{OIndex} erstellt. 
 Ausführlichere Informationen finden sich in der Dokumentation.\footnote{\url{http://code.google.com/p/orient/wiki/Indexes}}
 
-
 \subsubsection{Daten einfügen}
+
 \begin{lstlisting}[caption={OrientDB - Daten einfügen}]
 // benoetigte imports
 import com.orientechnologies.orient.core.record.impl.ODocument;
@@ -452,10 +446,11 @@ edge.field("sig", "13.37");
 edge.save();
 \end{lstlisting}
 
-In diesem Codeausschnitt werden zwei Knoten erstellt welche anschließend durch eine Kante verbunden werden. Ein Knoten wird mit dem Befehl in Zeile \ref{OKnoten} erstellt. Der Parameter bei diesem Befehl bestimmt den Typen des Knotens. Anschließend, ab Zeile \ref{OKnotenWerte}, werden diesem Knoten Attribute mit Werten zugewiesen. Mit dem Befehl in Zeile \ref{OSave} wird der Knoten auf der Festplatte persistent gespeichert. In Zeile \ref{OKante} wird eine Kante zwischen den zuvor angelegten Knoten erstellt. Der letzte Parameter bestimmt den Typen der Kante.
+In diesem Codeausschnitt werden zwei Knoten erstellt, welche anschließend durch eine Kante verbunden werden. Ein Knoten wird mit dem Befehl in Zeile \ref{OKnoten} erstellt. Der Parameter bei diesem Befehl bestimmt den Typ des Knotens. Anschließend, ab Zeile \ref{OKnotenWerte}, werden diesem Knoten Attribute mit Werten zugewiesen. Mit dem Befehl in Zeile \ref{OSave} wird der Knoten in der Datenbank persistiert. In Zeile \ref{OKante} wird eine Kante zwischen den zuvor angelegten Knoten erstellt. Der letzte Parameter bestimmt den Typ der Kante.
 Ausführlichere Informationen finden sich in der Dokumentation.\footnote{\url{http://code.google.com/p/orient/wiki/GraphDatabaseRaw}}
 
 \subsubsection{Daten abfragen}
+
 \begin{lstlisting}[caption={OrientDB - Daten abfragen}]
 Integer lookupID = 137
 source = (ODocument) index.get( lookupID.intValue() ).getRecord();(*@\label{OByIndex}@*)
@@ -464,13 +459,14 @@ Iterable<ODocument> vall = browseVertices()(*@\label{OByBrowse}@*)
 Set<OIdentifiable> outEdges = orientdb.getOutEdges(startVertex); (*@\label{OFromVert}@*)
 Set<OIdentifiable> inEdges = orientdb.getInEdges(startVertex);
 (ODocument) vin = orientdb.getInVertex(edge)(*@\label{OFromEdge}@*)
-(ODocument) vout = orientdb.getOutVertex(edge)
-
+(ODocument) vout = orientdb.getOutVertex(edge) (*@\label{OFromEdge2}@*)
 \end{lstlisting}
-In diesem Codeausschnitt wird erläuert, in welcher Form man auf die gespeicherten Daten nativ mittels der Java API zugreifen kann. Hat man einen Index mit dem namen "index" auf ein bestimmtes Attribut von Knoten oder Kanten erstellt, so kann man mittels diesem performant auf das dahinter liegende Objekt zugreifen. In Zeile \ref{OByIndex} wird der Index, welcher im vorangegangenen Quelltext erstellt wurde, wieder verwendet. In Zeile \ref{OGetAttr} wird von dem Knoten ein bestimmter Attributwert eingeholt. Eine andere Art des Zugriffs in in Zeile \ref{OByBrowse} beschrieben. Hier werden alle Knoten des Graphs zurückgegeben. In Zeile \ref{OFromVert} wird aufgezeigt, wie Zugriff auf alle ausgehenden Kanten erhält. In Zeile \ref{OFromEdge} führt der weg ausgehend von einer Kante zu einem Knoten.
-Ausführlichere Informationen finden sich in der Dokumentation.\footnote{\url{http://www.orientechnologies.com/releases/latest/javadoc/index.html?com/orientechnologies/orient/core/db/graph/OGraphDatabase.html}}
+
+In diesem Codeausschnitt wird gezeigt, in welcher Form man auf die gespeicherten Daten nativ mittels Java-API zugreifen kann. Hat man einen Index mit dem Namen "index" auf ein bestimmtes Attribut von Knoten oder Kanten erstellt, so kann man mittels diesem performant auf das dahinter liegende Objekt zugreifen. In Zeile \ref{OByIndex} wird der Index, welcher im vorangegangenen Quelltext erstellt wurde, wieder verwendet. In Zeile \ref{OGetAttr} wird ein Attribut des Knotens geladen. 
+Eine zweite Art des Zugriffs ist in Zeile \ref{OByBrowse} beschrieben. Hier werden alle Knoten des Graphen zurückgegeben. In Zeile \ref{OFromVert} wird aufgezeigt, wie der Zugriff auf alle ausgehenden Kanten eines Knotens durchgeführt wird. In den Zeilen \ref{OFromEdge} und \ref{OFromEdge2} werden Start- und Endknoten einer Kante abgefragt. Ausführlichere Informationen finden sich in der Dokumentation.\footnote{\url{http://www.orientechnologies.com/releases/latest/javadoc/index.html?com/orientechnologies/orient/core/db/graph/OGraphDatabase.html}}
 
 \section{DEX}
+
 DEX ist eine persistente, transaktionale Graphdatenbank, die ihren Schwerpunkt auf Performance festgelegt hat. DEX ist in Java und C++ implementiert und bietet APIs für Java, .NET und C++. Entwickelt wird DEX von der Firma sparsity technologies\footnote{\url{http://www.sparsity-technologies.com/dex}} und ist unter einer Mehrfachlizensierung verfügbar, die es Entwicklern erlaubt DEX zunächst zu evaluieren, bevor für den Produktiveinsatz eine kostenpflichtige Lizenz erworben werden muss. Für akademische Zwecke, wie in unserem Fall, sind die Entwickler aber großzügig und vergeben kostenfreie Lizenzen unter der Bedingung der Namensnennung. Der Quellcode von DEX steht bei der Entwicklung nicht zur Verfügung.
 
 \subsection{Anbindung, Anfragemöglichkeiten und Benutzung}
@@ -667,7 +663,7 @@ Community & ++ & + & $--$ \\
 \hline 
 Dokumentation & ++ & ++ & $-$ \\
 \hline 
-Anfrage & Java API, Cypher, Gremlin & Java API, SQL, Gremlin & Java API \\
+Anfrage & Java-API, Cypher, Gremlin & Java-API, SQL, Gremlin & Java-API \\
 \hline
 Implementiert in & Java & Java & C++ (Core), Java (API) \\
 \hline 
