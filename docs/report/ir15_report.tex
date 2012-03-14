@@ -19,6 +19,7 @@
 \usepackage{lscape}					% landscape
 \usepackage{pdflscape}				% landscape, if using PDFLaTeX
 \usepackage{geometry}
+\usepackage{array}					% zentrierte Spalten fester breite
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -81,12 +82,16 @@
 % Abstract
 \begin{abstract}
 	Dieser Bericht ist die Zusammenfassung der Praktikumsergebnisse im Rahmen des Moduls \dq Fortgeschrittene Methoden des Information Retrieval\dq~im WS 2010/11 der Universität Leipzig. Inhalt des Praktikums war die Evaluation verschiedener Graphdatenbanken und die Gegenüberstellung von relationalen Datenbanken. Als Vertreter der Graphdatenbanken wurden Neo4j, DEX und OrientDB näher betrachtet, MySQL wurde als relationale Datenbank in den Vergleich einbezogen.\\
-Konkrete Ziele des Praktikums waren das Kennenlernen der verschiedenen Graphdatenbanken, der zu Grunde liegenden Datenmodelle und deren Abfragetechniken. Für den experimentellen Vergleich sollten verschiedene Kookkurrenzgraphen des Wortschatz Leipzig Projektes in die jeweilige Datenbanken importiert und mit den individuell angebotenen Möglichkeiten abgefragt werden. Dabei wurden ausgewählte SQL-Anfragen in API-Anfragen, aber auch in deklarative Anfragesprachen des jeweiligen Herstellers umformuliert und hinsichtlich ihrer Ausführungszeit verglichen.\\
-Um die gemessenen Ausführungszeiten besser vergleichen zu können wurden die Messergebnisse mittels genuplot\footnote{\url{http://http://www.gnuplot.info/}} visualisiert.
+Konkrete Ziele des Praktikums waren das Kennenlernen der verschiedenen Graphdatenbanken, der zu Grunde liegenden Datenmodelle und deren Abfragetechniken. Für den experimentellen Vergleich sollten verschiedene Kookkurrenzgraphen des Wort"-schatz Leipzig Projektes in die jeweilige Datenbanken importiert und mit den individuell angebotenen Möglichkeiten abgefragt werden. Dabei wurden ausgewählte SQL-Anfragen in API-Anfragen, aber auch in deklarative Anfragesprachen des jeweiligen Herstellers umformuliert und hinsichtlich ihrer Ausführungszeit verglichen.\\
+%Um die gemessenen Ausführungszeiten besser vergleichen zu können wurden die Mess"-ergebnisse mittels genuplot\footnote{\url{http://http://www.gnuplot.info/}} visualisiert.
 \end{abstract}
 
+
+\tableofcontents 
+\newpage
+
 \section{Projektbeschreibung}
-Als Ergebnis des Praktikums ergaben sich zum Einen konkrete und vergleichbare Messergebnisse der einzelnen Datenbanken. Zum Anderen ist ein minimales, einfach konfigurierbares und auf den Anwendungsfall des Vergleichs von Datenbanken angepasstes Benchmark-Framework entstanden. Das Framework unterstützte uns beim Aggregieren der Messergebnisse einzelner Datenbanken und erleichterte wiederkehrende Aufgaben. 
+Als Ergebnis des Praktikums ergaben sich zum Einen konkrete und vergleichbare Mess"-ergebnisse der einzelnen Datenbanken. Zum Anderen ist ein minimales, einfach konfigurierbares und auf den Anwendungsfall des Vergleichs von Datenbanken angepasstes Benchmark-Framework entstanden. Das Framework unterstützte uns beim Aggregieren der Messergebnisse einzelner Datenbanken und erleichterte wiederkehrende Aufgaben. 
 	
 \subsection{Softwarearchitektur}
 Das Framework besteht aus sechs Komponenten, durch deren Ableitung und Kombination sich ein einzelner Benchmarkvorgang durchführen lässt. Die einzelnen Komponenten werden im Folgenden kurz vorgestellt. 
@@ -102,7 +107,7 @@ Innerhalb eines Benchmarks wird durch das Implementieren einer abstrakten Run Me
 
 \subsubsection{Benchmark-Suite}
 Benchmarks werden mittels Benchmark-Suiten ausgeführt. Dabei besteht die Möglichkeit, mehrere Benchmarks mit dem Ziel zusammenzufassen, diese in einer definierten Abfolge auszuführen. Durch eine Main-Methode bietet die Benchmark-Suite einen Einstiegspunkt in die Ausführung der Benchmarks.\\
-Neben den Methoden zur Ausführung von Benchmarks und der damit verbundenen Zeitmessung bieten Benchmark-Suiten die Möglichkeit, Aggregation und Persistierung von Messergebnissen durchzuführen. Diese Methoden können verwendet, oder in einer konkreten Implementierung erweitert werden.
+Neben den Methoden zur Ausführung von Benchmarks und der damit verbundenen Zeit"-messung bieten Benchmark-Suiten die Möglichkeit, Aggregation und Persistierung von Mess"-ergebnissen durchzuführen. Diese Methoden können verwendet, oder in einer kon"-kreten Implementierung erweitert werden.
 
 \subsubsection{Konfigurationsdateien}
 Bezüglich geeigneter Parameter ist die Konfiguration der einzelnen Datenbanken oder des Frameworks selbst über sogenannte properties-Dateien möglich (siehe dazu den Abschnitt \ref{subsubsec:benchmarks_conf}).
@@ -111,16 +116,16 @@ Bezüglich geeigneter Parameter ist die Konfiguration der einzelnen Datenbanken 
 \label{subsec:bedienungsanleitung}
 
 \subsubsection{Voraussetzungen}
-Um das Benchmark-Framework und die von uns implementierten Beispielabfragen ausführen zu können, ist die Installation der Java Runtime Environment 1.6\footnote{\url{http://www.java.com/en/download/manual.jsp}} und Apache Maven 2\footnote{\url{http://maven.apache.org/docs/2.2.1/release-notes.html}} notwendig. Alle weiteren genutzten Bibliotheken, wie bspw. jene der verwendeten Datenbanken, werden durch die Ausführung des entsprechenden Maven-Kommandos heruntergeladen und installiert.
+Um das Benchmark-Framework und die von uns implementierten Beispielabfragen aus"-führen zu können, ist die Installation der Java Runtime Environment 1.6\footnote{\url{http://www.java.com/en/download/manual.jsp}} und Apache Maven 2\footnote{\url{http://maven.apache.org/docs/2.2.1/release-notes.html}} notwendig. Alle weiteren genutzten Bibliotheken, wie bspw. jene der verwendeten Datenbanken, werden durch die Ausführung des entsprechenden Maven-Kommandos heruntergeladen und installiert.
 
 Das Framework inklusive aller Benchmarks ist als Git-Versionsarchiv bei github\footnote{\url{https://github.com/s1ck/IR15}} öffentlich verfügbar. Das Versionsarchiv lässt sich als gepacktes Zip-Archiv herunterladen\footnote{\url{https://github.com/s1ck/IR15/zipball/master}}. Alternativ kann das Versionsarchiv auch mittels \texttt{git clone \url{git://github.com/s1ck/IR15.git}} ausgecheckt werden. Für einen Überblick bzgl. der Benutzung von Git als Versionsverwaltungssystem empfehlen wir das Git User´s Manual 
 \footnote{\url{http://schacon.github.com/git/user-manual.html}} oder die Gitcasts\footnote{\url{http://gitcasts.com/}}.
 
-Nachdem das Zip-Archiv entpackt wurde, werden mit Hilfe des Maven-Kommando \texttt{mvn clean install} alle Abhängigkeiten zu Bibliotheken, die durch das Framework verwendet werden, aufgelöst und dies entsprechenden Bibliotheken installiert.
+Nachdem das Zip-Archiv entpackt wurde, werden mit Hilfe des Maven-Kommando \texttt{mvn clean install} alle Abhängigkeiten zu Bibliotheken, die durch das Framework verwendet werden, aufgelöst und die entsprechenden Bibliotheken installiert.
 
 \subsubsection{Benchmarks konfigurieren}
 \label{subsubsec:benchmarks_conf}
-Wie bereits erwähnt, lässt sich das Framework mittels properties-Dateien konfigurieren. Listing \ref{lst:inst_conf} zeigt die Konfiguration am Beispiel DEX. Dem Versionsarchiv liegen entsprechende Beispielkonfigurationen bei, die entsprechend umbenannt und angepasst werden müssen. 
+Wie bereits erwähnt lässt sich das Framework mittels properties-Dateien konfigurieren. Listing \ref{lst:inst_conf} zeigt die Konfiguration am Beispiel DEX. Dem Versionsarchiv liegen ent"-sprech"-ende Beispielkonfigurationen bei, die entsprechend umbenannt und angepasst werden müssen. 
 
 \lstinputlisting
     [caption={Konfigurations der DEX-Benchmarksuite}
@@ -144,10 +149,10 @@ mvn exec:java -Dexec.mainClass="de.uni.leipzig.IR15.Benchmark.suites.Neo4JBenchm
 mvn exec:java -Dexec.mainClass="de.uni.leipzig.IR15.Benchmark.suites.MySQLBenchmarkSuite"
 \end{lstlisting}
 
-\subsubsection{zusätzliche Benchmarks}
-Das Framework lässt sich sehr leicht um zusätzliche Benchmarks für bereits existierende Datenbanken erweitern. Dazu muss eine der Klassen \texttt{DEXBenchmark}, \texttt{MySQLBenchmark}, \texttt{Neo4jBenchmark} oder \texttt{OrientDBBenchmark} abgeleitet und die entsprechenden Methoden implementiert werden. Dabei sollte man sich an den vorhandenen Benchmarks orientieren. Als nächstes muss der zusätzliche Benchmark in die entsprechende Benchmarksuite (\texttt{DEXBenchmarkSuite}, \linebreak\texttt{MySQLBenchmarkSuite}, \texttt{Neo4JBenchmarkSuite} oder \texttt{OrientBenchmarkSuite}) aufgenommen werden, damit dieser auch ausgeführt wird. Als letztes empfiehlt sich, ein zusätzliches property in der zugehörigen properties-Datei einzuführen, damit auch das ergänzte Benchmark wie alle anderen ein- bzw. ausgeschaltet werden kann.
+\subsubsection{Zusätzliche Benchmarks}
+Das Framework lässt sich sehr leicht um zusätzliche Benchmarks für bereits existierende Datenbanken erweitern. Dazu muss eine der Klassen \texttt{DEXBenchmark}, \texttt{MySQLBenchmark}, \texttt{Neo4jBenchmark} oder \texttt{OrientDBBenchmark} abgeleitet und die entsprechenden Methoden implementiert werden. Dabei sollte man sich an den vorhandenen Benchmarks orientieren. Als nächstes muss der zusätzliche Benchmark in die entsprechende Benchmarksuite (\texttt{DEXBenchmarkSuite}, \linebreak\texttt{MySQLBenchmarkSuite}, \texttt{Neo4JBenchmarkSuite} oder \texttt{OrientBenchmarkSuite}) aufgenommen werden, damit dieser auch ausgeführt wird. Als letztes empfiehlt sich, ein zusätzliches property in der zugehörigen properties-Datei einzuführen, damit auch der ergänzte Benchmark wie alle anderen ein- bzw. ausgeschaltet werden kann.
 
-\subsubsection{zusätzliche Datenbank}
+\subsubsection{Zusätzliche Datenbank}
 Um das Framework um Benchmarks für eine zusätzliche Datenbank zu erweitern sind mehrere Schritte notwendig. Diese sollen im Folgenden nur genannt und nicht im Detail beschrieben werden. Der vorhandene Quellcode ist umfangreich dokumentiert und kommentiert, so dass man sich an den Implementierungen für die bereits genutzten Datenbanken orientieren kann. 
 
 Es empfiehlt sich dabei stets alle datenbank-, system- oder benchmarkabhängigen Einstellungen in eine properties-Datei auszulagern um diese besser anpassen zu können, ohne dass der Quellcode vor der Ausführung neu kompiliert werden muss.
@@ -156,15 +161,15 @@ Im ersten Schritt muss für eine neue zusätzliche Datenbank ein Konnektor imple
 
 Damit die zusätzliche Datenbank mit einer Datenbasis gefüllt werden kann, muss ein Importierer implementiert werden. Dieser leitet sich von der Klasse \texttt{Importer} ab und implementiert mindestens die Methoden \texttt{setUp}, \texttt{tearDown} und \texttt{importData}.
 
-Einzelne Benchmarks werden, wie schon erwähnt, in einer Benchmark-Suite zusammengefasst und durch diese ausgeführt. Eine Benchmark-Suite wird von der Klasse \texttt{AbstractBenchmarkSuite} abgeleitet und ist das eigentliche ausführbare Java-Programm, in dessen \texttt{main}-Methode, die einzelnen Benchmarks initialisiert und ausgeführt werden.
+Einzelne Benchmarks werden, wie schon erwähnt, in einer Benchmark-Suite zusammengefasst und durch diese ausgeführt. Eine Benchmark-Suite wird von der Klasse  \linebreak \texttt{AbstractBenchmarkSuite} abgeleitet und ist das eigentliche ausführbare Java-Programm, in dessen \texttt{main}-Methode, die einzelnen Benchmarks initialisiert und ausgeführt werden.
 
 Angenommen, das Framework soll um die Datenbank MongoDB\footnote{\url{http://www.mongodb.org/}} erweitert werden, dann sollten mindestens die Klassen \texttt{MongoDBConnector}, \texttt{MongoDBImporter}, \texttt{MongoDBBenchmarkSuite} und \texttt{MongoDBBenchmark} implementiert werden. Abbildung \ref{fig:class_diagramm_neo4j} zeigt das Klassendiagramm am Beispiel der Implementierungen für Neo4j, dort sind die Zusammenhänge der einzelnen Klassen zu erkennen. Die Klassendiagramme der Implementierungen von DEX und OrientDB sind äquivalent.
 
 \subsection{Einschränkungen}
 
-Vorhandene Einschränkungen Datenbank-spezifischer Natur sind im jeweiligen Abschnitt dokumentiert.
+Vorhandene Einschränkungen datenbankspezifischer Natur sind im jeweiligen Abschnitt dokumentiert.
 
-An dieser Stelle sei darauf hingewiesen, dass im Rahmen des Praktikums keine überdurchschnittliche Expertise bezüglich der verwendeten Datenbanken ausgebildet werden konnte und somit die Aussagekraft der Messergebnisse unter folgenden Bedingungen zu betrachten sind: Es ist durchaus möglich, dass weitere Optimierungen der Datenbankoperationen im Rahmen der Benchmarks möglich sind. Dabei kann es sein, dass eine Optimierung nur hinsichtlich bestimmter Operationen von Vorteil ist und sich bei anderen Operationen nachteilig auswirken kann.
+An dieser Stelle sei darauf hingewiesen, dass im Rahmen des Praktikums keine ü"-ber"-durch"-schnitt"-liche Expertise bezüglich der verwendeten Datenbanken ausgebildet werden konnte und somit die Aussagekraft der Messergebnisse unter folgenden Bedingungen zu betrachten sind: Es ist durchaus möglich, dass weitere Optimierungen der Datenbankoperationen im Rahmen der Benchmarks möglich sind. Dabei kann es sein, dass eine Optimierung nur hinsichtlich bestimmter Operationen von Vorteil ist und sich bei anderen Operationen nachteilig auswirken kann.
 
 \subsection{Erweiterungsmöglichkeiten}
 
@@ -341,38 +346,29 @@ Es zeigt sich deutlich, dass Neo Technologies an einer aktiven Beteiligung der C
 
 Wie auch OrientDB und DEX unterliegt Neo4j einer ständigen Weiterentwicklung. Während der Durchführung des Praktikums wurden zwei neue Versionen der Datenbank veröffentlicht, in denen neben Fehlerbehebungen auch verschiedene Optimierungen Einzug in die Software hielten.
 
-Durch die kurzen Relase-Zyklen wird zum Einen eine permanente, stetige Entwicklung suggeriert, zum Anderen empfiehlt es sich, wie bei jedem anderen Softwareprodukt auch, ausschließlich die als final deklarierten Versionsstände in Produktivumgebungen einzusetzen. Neo4j bietet neben der Community Version auch kommerzielle Versionen der Datenbank an, welche zusätzliche Features zur Replikation und der damit verbundenen Hochverfügbarkeit anbieten.
+Durch die kurzen Relase-Zyklen wird zum Einen eine permanente, stetige Entwicklung suggeriert, zum Anderen empfiehlt es sich, wie bei jedem anderen Softwareprodukt auch, ausschließlich die als final deklarierten Versionsstände in Produktivumgebungen einzusetzen. Neo4j bietet neben der Community Version auch kommerzielle Versionen der Datenbank an, welche zusätzliche Features zur Replikation und der damit verbundenen Hoch"-ver"-füg"-bar"-keit anbieten.
 
 \section{OrientDB}
 
-OrientDB\footnote{\url{http://www.orientechnologies.com/}} ist eine eingebettete, persistente, transaktionale Dokumenten- und Graphdatenbank. OrientDB wird seit 1998 von Luca Garulli entwickelt. OrientDB ist zu 100\% in Java implementiert und steht quelloffen unter Apache Lizenz 2.0 zur Verfügung.\footnote{\url{http://code.google.com/p/orient/}}
+OrientDB\footnote{\url{http://www.orientechnologies.com/}} ist eine eingebettete, persistente, transaktionale Dokumenten- und Graphdatenbank. Sie wird seit 1998 von Luca Garulli entwickelt. OrientDB ist vollständig in Java implementiert und steht quelloffen unter der Apache Lizenz 2.0 zur Verfügung.\footnote{\url{http://code.google.com/p/orient/}}
 
 \subsection{Anbindung}
 
-OrientDB lässt sich innerhalb von Java Applikationen nativ über eine Java-API nutzen.\footnote{\url{http://code.google.com/p/orient/wiki/JavaAPI}} Darüber hinaus bietet OrientDB auch die Möglichkeit der Steuerung des Datenbanksystems über eine eigene Konsole. Dies hat den Vorteil, dass man das Datenbanksystem, auch ohne den Umweg über Java, erkunden und kennenlernen kann. In der Konsole können Befehle in einer SQL-artigen Syntax\footnote{\url{http://code.google.com/p/orient/wiki/ConsoleCommands}} an das Datenbanksystem geschickt und ausgewertet werden.
+OrientDB lässt sich innerhalb von Java Applikationen nativ über eine Java-API nutzen.\footnote{\url{http://code.google.com/p/orient/wiki/JavaAPI}} \\
+Darüber hinaus bietet OrientDB auch die Möglichkeit der Steuerung des Datenbanksystems über eine eigene Konsole. Dies hat den Vorteil, dass man das Datenbanksystem, auch ohne den Umweg über Java, erkunden und kennenlernen kann. In der Konsole können Befehle in einer SQL-artigen Syntax\footnote{\url{http://code.google.com/p/orient/wiki/ConsoleCommands}} an das Datenbanksystem geschickt und ausgewertet werden.
+
 
 \subsection{Anfragemöglichkeiten}
 
-Auf die in OrientDB gespeicherten Daten kann auf drei verschiedene Arten zugegriffen werden. Die erste und gleichzeitig performanteste Art ist der Zugriff mittels nativer Java-API. Diese kam auch im Rahmen der Benchmarks zum Einsatz.\\
-Weiterhin können Anfragen in einer SQL-artigen Syntax\footnote{\url{http://code.google.com/p/orient/wiki/SQL}} gestellt werden. Allerdings existieren an dieser Stelle laut Autor noch gewisse Einschränkungen: "Sub-selects are not yet implemented." Daraus ergab sich, dass diese Anfragemöglichkeit nicht für das in diesem Projekt beschriebene Problem genutzt werden kann.\\
-Die dritte Zugriffsvariante ist Gremlin\footnote{\url{https://github.com/tinkerpop/gremlin/wiki}}, eine imperative, an XPath angelehnte Sprache zur Traversierung des Graphen.
+Auf die in OrientDB gespeicherten Daten kann auf drei verschiedene Arten zugegriffen werden. Die erste und gleichzeitig performanteste Art ist der Zugriff mittels nativer Java-API. Diese kam auch im Rahmen der Benchmarks zum Einsatz und wird im nächsten Kapitel näher beschrieben.
 
-\subsection{Einschränkungen}
+Weiterhin können Anfragen in einer SQL-artigen Syntax\footnote{\url{http://code.google.com/p/orient/wiki/SQL}} gestellt werden. Allerdings existieren an dieser Stelle laut Autor noch gewisse Einschränkungen: \glqq{}Sub-selects are not yet implemented.\grqq{} Daraus ergab sich, dass diese Anfragemöglichkeit nicht für das in diesem Projekt beschriebene Problem genutzt werden konnte.
 
-Im Rahmen des Praktikums stellte sich der Import von Kanten als ein wesentliches Bottleneck heraus. Auch unter Berücksichtigung der "Performance Hints"\footnote{\url{http://code.google.com/p/orient/wiki/PerformanceTuning}} und dem Optimieren diverser JVM Parameter, stieg die Zeit für den Import der Kookkurrenzen exponentiell mit der Anzahl bereits eingefügter Kanten an (siehe Abbildung~\ref{fig:orientdb_import}). Dies hat zur Folge, dass große Datenmengen (ab 1M Datensatz mit 3349314 CO\_{}S Kanten) nicht mehr importiert werden konnten. Mittels JProfiler konnte der Persistierungsprozess von OrientDB als HotSpot ausgemacht werden. Ein Kontaktaufnahme mit dem Autor bezüglich dieses Problems ist durch uns erfolgt, führte aber zu keiner Lösung des Problems.\\
-Auch konnte die SQL-artige Abfragesprache OrientSQL nicht genutzt werden, da diese nicht die benötigten Funktionalitäten bereitstellt.
-
-\subsection{Dokumentation}
-
-OrientDB ist gut und ausführlich dokumentiert\footnote{\url{http://code.google.com/p/orient/wiki/Main}}, was das Arbeiten mit OrientDB einfach gestaltet. Es liegt sowohl eine komplette und ausführliche Javadoc der API\footnote{\url{http://www.orientechnologies.com/releases/latest/javadoc/index.html}} vor, als auch Informationsseiten zu grundlegenden und weiterführenden Aspekten. Auf diesen Webseiten lassen sich Informationen zu fast allen Fragen finden. Allerdings ist das Finden einer Antwort auf eine konkrete Frage teilweise schwierig. Dies ist unter Umständen dem Fakt geschuldet, dass OrientDB sowohl eine Dokumentendatenbank, als auch ein Key-Value-Store, als auch eine Graphdatenbank ist. Oft werden in der Dokumentation diese drei Konzepte vermischt, was zu Verwirrungen führen kann. Weiterhin hat das Fehlen eines ausführlichen und kompletten Einstiegsbeispiels die Einarbeitung erschwert. Auch fehlen Beispiele für komplexe Anwendungsfälle. Allerdings war der Autor bei speziellen Fragen per E-Mail zu erreichen, wobei man auf eine Antwort lediglich eine angemessene Zeit warten muss.
-
-\subsection{Aussicht}
-
-OrientDB stellt bezüglich seiner Graphdatenbankenfunktionalität einige interessante Features in Aussicht. OrientDB stellt seit Kurzem eine Implementation der Tinkerpop Blueprints APIs\footnote{\url{https://github.com/tinkerpop/blueprints/wiki/}} zur Verfügung. Somit steht auch die einfache und leicht lesbare Highlevel-Abfragesprache Gremlin zur Verfügung. Mit dieser Abfragesprache ist es möglich auch komplexe und vielseitige Abfragen verständlich zu formulieren.
+Eine dritte Zugriffsvariante besteht mittels  Gremlin\footnote{\url{https://github.com/tinkerpop/gremlin/wiki}}, einer imperativen, an XPath angelehnten Sprache zur Traversierung von Graphen.
 
 \subsection{Benutzung}
 
-In diesem Abschnitt werden konkrete Arbeitsschritte für OrientDB anhand von Quelltext angegeben.
+In diesem Abschnitt wird die native Java-API von OrientDB näher erläutert. Dabei werden konkrete Arbeitsschritte mit Hilfe von Quelltextauszügen beschrieben.
 
 \subsubsection{Datenbank erstellen, öffnen und schließen}
 \begin{lstlisting}[caption={OrientDB - Datenbank erstellen, öffnen und schließen}]
@@ -395,12 +391,12 @@ orientdb.open("admin", "admin");(*@\label{Oopen2}@*)
 orientdb.close();(*@\label{Oclose}@*)
 \end{lstlisting}
 
-In diesem Codeausschnitt wird zuerst eine neue Datenbank angelegt (Zeile \ref{Ocreate}). Dazu muss ein bereits existierender Ordner als Parameter angegeben werden. OrientDB speichert verschiedene Dateien in diesem Ordner. Danach wird eine existierende Datenbank geöffnet (Zeile \ref{Oopen1}) und stellt danach ein Objekt bereit, welches die OrientDB Datenbank repräsentiert. Auch hier wird der Ordner, welcher die Datenbankdateien beinhaltet, als Parameter angegeben. Zeile \ref{Oopen2} stellt eine (hier lokale) Verbindung zu der Datenbank her. In Zeile \ref{Oclose} wird die Datenbank geschlossen.
+In diesem Codeausschnitt wird zuerst eine neue Datenbank angelegt (Zeile \ref{Ocreate}). Dazu muss ein bereits existierender Ordner als Parameter angegeben werden. OrientDB speichert verschiedene Dateien in diesem Ordner, welche die Daten und Indexstrukturen der Datenbank enthalten. Danach wird eine existierende Datenbank geöffnet (Zeile \ref{Oopen1}). Nun steht eine Instanz dieser OrientDB Datenbank bereit. Auch hier wird der Ordner, welcher die Datenbankdateien beinhaltet, als Parameter übergegeben. Zeile \ref{Oopen2} stellt eine (hier lokale) Verbindung zu der Datenbank her. In Zeile \ref{Oclose} wird die Datenbank geschlossen.
 Ausführlichere Informationen finden sich in der Dokumentation.\footnote{\url{http://code.google.com/p/orient/wiki/GraphDatabaseRaw}}
 
 \subsubsection{Indizes erstellen}
 
-\begin{lstlisting}[caption={OrientDB - Indizes erstellen}]
+\begin{lstlisting}[caption={OrientDB - Indizes erstellen}, label=lstIndiz]
 // benoetigte imports
 import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.index.OIndexUnique;
@@ -462,8 +458,22 @@ Set<OIdentifiable> inEdges = orientdb.getInEdges(startVertex);
 (ODocument) vout = orientdb.getOutVertex(edge) (*@\label{OFromEdge2}@*)
 \end{lstlisting}
 
-In diesem Codeausschnitt wird gezeigt, in welcher Form man auf die gespeicherten Daten nativ mittels Java-API zugreifen kann. Hat man einen Index mit dem Namen "index" auf ein bestimmtes Attribut von Knoten oder Kanten erstellt, so kann man mittels diesem performant auf das dahinter liegende Objekt zugreifen. In Zeile \ref{OByIndex} wird der Index, welcher im vorangegangenen Quelltext erstellt wurde, wieder verwendet. In Zeile \ref{OGetAttr} wird ein Attribut des Knotens geladen. 
+In diesem Codeausschnitt wird gezeigt, wie man auf die gespeicherten Daten zugreifen kann. Hat man einen Index mit dem Namen \glqq{}index\grqq{} auf ein bestimmtes Attribut von Knoten oder Kanten erstellt, so kann man mittels diesem performant auf das dahinter liegende Objekt zugreifen. In Zeile \ref{OByIndex} wird der Index, welcher im vorangegangenen Quelltext erstellt wurde (siehe Listing~\ref{lstIndiz}), wieder verwendet. In Zeile \ref{OGetAttr} wird ein Attribut des Knotens geladen. 
 Eine zweite Art des Zugriffs ist in Zeile \ref{OByBrowse} beschrieben. Hier werden alle Knoten des Graphen zurückgegeben. In Zeile \ref{OFromVert} wird aufgezeigt, wie der Zugriff auf alle ausgehenden Kanten eines Knotens durchgeführt wird. In den Zeilen \ref{OFromEdge} und \ref{OFromEdge2} werden Start- und Endknoten einer Kante abgefragt. Ausführlichere Informationen finden sich in der Dokumentation.\footnote{\url{http://www.orientechnologies.com/releases/latest/javadoc/index.html?com/orientechnologies/orient/core/db/graph/OGraphDatabase.html}}
+
+
+\subsection{Einschränkungen}
+
+Im Rahmen des Praktikums stellte sich der Import von Kanten als ein wesentliches Bottleneck heraus. Auch unter Berücksichtigung der \glqq{}Performance Hints\grqq{}\footnote{\url{http://code.google.com/p/orient/wiki/PerformanceTuning}} und dem Optimieren diverser JVM Parameter, stieg die Zeit für den Import der Kookkurrenzen exponentiell mit der Anzahl bereits eingefügter Kanten an (siehe Abbildung~\ref{fig:orientdb_import}). Dies hatte zur Folge, dass große Datenmengen (ab 1M Datensatz mit 3349314 CO\_{}S Kanten) nicht mehr importiert werden konnten. Mittels JProfiler konnte der Persistierungsprozess von OrientDB als HotSpot ausgemacht werden. Ein Kontaktaufnahme mit dem Autor bezüglich dieses Problems ist durch uns erfolgt, führte aber zu keiner Lösung des Problems.\\
+Auch konnte die SQL-artige Abfragesprache OrientSQL nicht genutzt werden, da diese nicht alle benötigten Funktionalitäten bereitstellt.
+
+\subsection{Dokumentation}
+
+OrientDB ist gut und ausführlich dokumentiert\footnote{\url{http://code.google.com/p/orient/wiki/Main}}, was das Arbeiten mit OrientDB einfach gestaltet. Es liegt sowohl eine komplette und ausführliche Javadoc der API\footnote{\url{http://www.orientechnologies.com/releases/latest/javadoc/index.html}} vor, als auch Informationsseiten zu grundlegenden und weiterführenden Aspekten. Auf diesen Webseiten lassen sich Informationen zu fast allen Fragen finden. Allerdings ist das Finden einer Antwort auf eine konkrete Frage teilweise schwierig. Dies ist unter Umständen dem Fakt geschuldet, dass OrientDB sowohl eine Dokumentendatenbank, als auch ein Key-Value-Store, als auch eine Graphdatenbank ist. Oft werden in der Dokumentation diese drei Konzepte vermischt, was zu Verwirrungen führen kann. Weiterhin hat das Fehlen eines ausführlichen und kompletten Einstiegsbeispiels die Einarbeitung erschwert. Auch fehlen Beispiele für komplexe Anwendungsfälle. Allerdings war der Autor bei speziellen Fragen per E-Mail zu erreichen, wobei man auf eine Antwort lediglich eine angemessene Zeit warten musste.
+
+\subsection{Aussicht}
+
+OrientDB stellt bezüglich seiner Graphdatenbankenfunktionalität einige interessante Features in Aussicht. OrientDB stellt seit Kurzem eine Implementation der Tinkerpop Blue"-prints APIs\footnote{\url{https://github.com/tinkerpop/blueprints/wiki/}} zur Verfügung. Somit steht auch die einfache und leicht lesbare Highlevel-Ab"-frage"-spra"-che Gremlin zur Verfügung. Mit dieser Abfragesprache ist es möglich auch komplexe und vielseitige Abfragen verständlich zu formulieren.
 
 \section{DEX}
 
@@ -537,7 +547,7 @@ dexConnector.close();
 
 Nachfolgend ein paar kurze Beispiele, wie man in DEX-Datenbanken nach Knoten oder Kanten mit bestimmten Eigenschaften suchen kann.
 
-In Listing\ref{lst:dex_select1} wird ein Knoten eines bestimmten Typs anhand eines bestimmten Attributwerts in der Datenbank gesucht (Zeilen \ref{DEXFindNodeStart}-\ref{DEXFindNodeEnd}) und ein anderes Attribut ausgelesen (Zeilen \ref{DEXReadAttributeStart}-\ref{DEXReadAttributeEnd}).
+In Listing\ref{lst:dex_select1} wird ein Knoten eines bestimmten Typs anhand eines bestimmten At"-tri"-but"-werts in der Datenbank gesucht (Zeilen \ref{DEXFindNodeStart}-\ref{DEXFindNodeEnd}) und ein anderes Attribut ausgelesen (Zeilen \ref{DEXReadAttributeStart}-\ref{DEXReadAttributeEnd}).
 
 \begin{lstlisting}[caption={DEX - Daten abfragen - Knoten wiederfinden},label={lst:dex_select1},language=Java]
 int wordNodeType = graph.findType("word");(*@\label{DEXFindNodeStart}@*)
@@ -640,42 +650,38 @@ Nachfolgend werden die Startparameter der Java Virtual Machine angegeben. Diese 
 -XX:CompileThreshold=200
 \end{lstlisting}
 
-
-Hardware Fakten
-Datensätze (Anzahl Knoten, Kanten, evtl. Gradverteilung)
-cold caches / warm caches
-JVM settings
-versionen
-
 \subsection{Ergebnisse}
 
 In Tabelle \ref{tab:compare} werden die Erkenntnisse aus dem Praktikum zusammengefasst. Es hat sich gezeigt, dass Neo4j insgesamt am Besten für den Anwendungsfall geeignet ist. Dies ist nicht nur auf die gute bis sehr gute Performance zurückzuführen, sondern auch auf die umfangreiche Dokumentation und den Community Support. Mit Cypher steht eine mächtige Anfragesprache zur Verfügung, welche stetig weiterentwickelt und optimiert wird. Wir empfehlen daher Neo4j für eine weiterführende Evaluation im Zusammenhang mit Kookkurrenzgraphen.
 
 \renewcommand{\arraystretch}{1.5}
 
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
 \begin{table}[ht]
-\begin{tabular}{|l||p{2.5cm}|p{2.5cm}|p{2.5cm}|}
-\hline 
- & \textbf{Neo4j} & \textbf{OrientDB} & \textbf{DEX} \\ 
-\hline
-Performance Import & $++$ & $--$ & ++ \\ 
-\hline 
-Performance Query 1 & ++ & ++* & ++ \\ 
-\hline 
-Performance Query 2 & ++ & +* & + \\ 
-\hline 
-Performance Query 3 & + & +* & ++ \\ 
-\hline
-Community & ++ & + & $--$ \\ 
-\hline 
-Dokumentation & ++ & ++ & $-$ \\
-\hline 
-Anfrage & Java-API, Cypher, Gremlin & Java-API, SQL, Gremlin & Java-API \\
-\hline
-Implementiert in & Java & Java & C++ (Core), Java (API) \\
-\hline 
-Lizenz & GPL (Community Edition) & Apache License 2.0 & Mehrfach-lizensierung (kostenfreie Evaluation, kommerzielle Nutzungslizens)	 \\ 
-\hline 
+\begin{tabular}{|l||C{3.2cm}|C{3.2cm}|C{3.3cm}|}
+
+	\hline 
+	 & \textbf{Neo4j} & \textbf{OrientDB} & \textbf{DEX} \\ 
+	\hline
+	Performance Import & $++$ & $--$ & ++ \\ 
+	\hline 
+	Performance Query 1 & ++ & ++* & ++ \\ 
+	\hline 
+	Performance Query 2 & ++ & +* & + \\ 
+	\hline 
+	Performance Query 3 & + & +* & ++ \\ 
+	\hline
+	Community & ++ & + & $--$ \\ 
+	\hline 
+	Dokumentation & ++ & ++ & $-$ \\
+	\hline 
+	Anfrage & Java-API, Cypher, Gremlin & Java-API, SQL, Gremlin & Java-API \\
+	\hline
+	Implementiert in & Java & Java & C++ (Core), Java (API) \\
+	\hline 
+	Lizenz & GPL (Community Edition) & Apache License 2.0 & Mehr"-fach"-li"-zen"-sie"-rung (kos"-ten"-freie E"-va"-lu"-a"-tion, kom"-mer"-ziel"-le Nut"-zungs"-li"-zens)	 \\ 
+	\hline 
 \end{tabular}
 \caption{Gegenüberstellung der verwendeten Graphdatenbanken (* bis einschließlich deu\textunderscore news\textunderscore 300K)}
 \label{tab:compare}
