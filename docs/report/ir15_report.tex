@@ -82,12 +82,13 @@
 % Abstract
 \begin{abstract}
 	Dieser Bericht ist die Zusammenfassung der Praktikumsergebnisse im Rahmen des Moduls \dq Fortgeschrittene Methoden des Information Retrieval\dq~im WS 2010/11 der Universität Leipzig. Inhalt des Praktikums war die Evaluation verschiedener Graphdatenbanken und die Gegenüberstellung von relationalen Datenbanken. Als Vertreter der Graphdatenbanken wurden Neo4j, DEX und OrientDB näher betrachtet, MySQL wurde als relationale Datenbank in den Vergleich einbezogen.\\
-Konkrete Ziele des Praktikums waren das Kennenlernen der verschiedenen Graphdatenbanken, der zu Grunde liegenden Datenmodelle und deren Abfragetechniken. Für den experimentellen Vergleich sollten verschiedene Kookkurrenzgraphen des Wort"-schatz Leipzig Projektes in die jeweilige Datenbanken importiert und mit den individuell angebotenen Möglichkeiten abgefragt werden. Dabei wurden ausgewählte SQL-Anfragen in API-Anfragen, aber auch in deklarative Anfragesprachen des jeweiligen Herstellers umformuliert und hinsichtlich ihrer Ausführungszeit verglichen.\\
+Konkrete Ziele des Praktikums waren das Kennenlernen der verschiedenen Graphdatenbanken, der zu Grunde liegenden Datenmodelle und deren Abfragetechniken. Für den experimentellen Vergleich sollten verschiedene Kookkurrenzgraphen des Wort"-schatz Leipzig Projektes in die jeweilige Datenbank importiert und mit den individuell angebotenen Möglichkeiten abgefragt werden. Dabei wurden ausgewählte SQL-Anfragen in API-Anfragen, aber auch in deklarative Anfragesprachen des jeweiligen Herstellers umformuliert und hinsichtlich ihrer Ausführungszeit verglichen.\\
 %Um die gemessenen Ausführungszeiten besser vergleichen zu können wurden die Mess"-ergebnisse mittels genuplot\footnote{\url{http://http://www.gnuplot.info/}} visualisiert.
 \end{abstract}
 
-
+\newpage
 \tableofcontents 
+
 \newpage
 
 \section{Projektbeschreibung}
@@ -97,16 +98,16 @@ Als Ergebnis des Praktikums ergaben sich zum Einen konkrete und vergleichbare Me
 Das Framework besteht aus sechs Komponenten, durch deren Ableitung und Kombination sich ein einzelner Benchmarkvorgang durchführen lässt. Die einzelnen Komponenten werden im Folgenden kurz vorgestellt. 
 
 \subsubsection{Konnektoren}
-Ein Konnektor (Connector) dient den einzelnen Benchmarks oder Importierern zur Verwaltung der  Verbindung zu einer konkreten Datenbank. Die Verwaltung umfasst dabei den Verbindungsaufbau unter Angabe verschiedener Parameter, wie bspw. Hostnamen, Ports und Nutzerinformationen. Darüber hinaus stellen die Konnektoren auch den korrekten Abbau einer Verbindung sicher. Für jede Datenbank muss nur ein Konnektor implementiert werden.
+Ein Konnektor (Connector) dient den einzelnen Benchmarks und Importierern zur Verwaltung der  Verbindung zu einer konkreten Datenbank. Die Verwaltung umfasst dabei den Verbindungsaufbau unter Angabe verschiedener Parameter, wie bspw. Hostname, Port und Anmeldeinformationen. Darüber hinaus stellen die Konnektoren auch den korrekten Abbau einer Verbindung sicher. Für jede Datenbank muss ein Konnektor implementiert werden.
 
 \subsubsection{Importierer}
-Ein Importierer (Importer) dient dem Laden einer Datenbasis in eine konkrete Datenbank. Im Rahmen des Praktikums wurde die Datenbasis aus einer MySQL Datenbank geladen. Eine Erweiterung des Frameworks zur Unterstützung verschiedener Datenquellen wie bspw. CSV-Dateien ist jedoch ebenfalls möglich. Für den möglichen Fall, dass Benchmarks nicht auf einer existierenden Datenbasis operieren, ist die Implementierung eines Importierers nicht notwendig. Durch den Importierer lässt sich eine Datenbank auch in den Urzustand zurücksetzen wodurch alle zuvor importierten Daten entfernt werden.
+Ein Importierer (Importer) dient dem Laden einer Datenbasis in eine konkrete Datenbank. Im Rahmen des Praktikums wurde die Datenbasis aus einer MySQL Datenbank geladen. Eine Erweiterung des Frameworks zur Unterstützung verschiedener Datenquellen wie bspw. CSV-Dateien ist jedoch ebenfalls realisierbar. Für den möglichen Fall, dass Benchmarks nicht auf einer existierenden Datenbasis operieren, ist die Implementierung eines Importierers nicht notwendig. Durch den Importierer lässt sich eine Datenbank auch in den Urzustand zurücksetzen wodurch alle zuvor importierten Daten entfernt werden.
 
 \subsubsection{Benchmark}
 Innerhalb eines Benchmarks wird durch das Implementieren einer abstrakten Run Methode die eigentliche Ausführungslogik definiert. Vor- und Nachbedingungen werden in Setup und TearDown Methoden festgelegt. Die Sicherstellung dieser Bedingungen spiegelt sich somit nicht in der Ausführungszeit des Benchmarks wieder. Die Methoden werden zum Beispiel zum Parsen eines SQL- oder Cypher-Statements verwendet oder zur Auswahl des nächsten Startknotens.
 
 \subsubsection{Benchmark-Suite}
-Benchmarks werden mittels Benchmark-Suiten ausgeführt. Dabei besteht die Möglichkeit, mehrere Benchmarks mit dem Ziel zusammenzufassen, diese in einer definierten Abfolge auszuführen. Durch eine Main-Methode bietet die Benchmark-Suite einen Einstiegspunkt in die Ausführung der Benchmarks.\\
+Benchmarks werden mittels Benchmark-Suiten ausgeführt. Dabei besteht die Möglichkeit, mehrere Benchmarks mit dem Ziel zusammenzufassen, diese in einer definierten Abfolge auszuführen. Durch eine \texttt{main}-Methode bietet die Benchmark-Suite einen Einstiegspunkt in die Ausführung der Benchmarks.\\
 Neben den Methoden zur Ausführung von Benchmarks und der damit verbundenen Zeit"-messung bieten Benchmark-Suiten die Möglichkeit, Aggregation und Persistierung von Mess"-ergebnissen durchzuführen. Diese Methoden können verwendet, oder in einer kon"-kreten Implementierung erweitert werden.
 
 \subsubsection{Konfigurationsdateien}
@@ -150,7 +151,7 @@ mvn exec:java -Dexec.mainClass="de.uni.leipzig.IR15.Benchmark.suites.MySQLBenchm
 \end{lstlisting}
 
 \subsubsection{Zusätzliche Benchmarks}
-Das Framework lässt sich sehr leicht um zusätzliche Benchmarks für bereits existierende Datenbanken erweitern. Dazu muss eine der Klassen \texttt{DEXBenchmark}, \texttt{MySQLBenchmark}, \texttt{Neo4jBenchmark} oder \texttt{OrientDBBenchmark} abgeleitet und die entsprechenden Methoden implementiert werden. Dabei sollte man sich an den vorhandenen Benchmarks orientieren. Als nächstes muss der zusätzliche Benchmark in die entsprechende Benchmarksuite (\texttt{DEXBenchmarkSuite}, \linebreak\texttt{MySQLBenchmarkSuite}, \texttt{Neo4JBenchmarkSuite} oder \texttt{OrientBenchmarkSuite}) aufgenommen werden, damit dieser auch ausgeführt wird. Als letztes empfiehlt sich, ein zusätzliches property in der zugehörigen properties-Datei einzuführen, damit auch der ergänzte Benchmark wie alle anderen ein- bzw. ausgeschaltet werden kann.
+Das Framework lässt sich sehr leicht um zusätzliche Benchmarks für bereits existierende Datenbanken erweitern. Dazu muss eine der Klassen \texttt{DEXBenchmark}, \texttt{MySQLBenchmark}, \texttt{Neo4jBenchmark} oder \texttt{OrientDBBenchmark} abgeleitet und die entsprechenden Methoden implementiert werden. Dabei sollte man sich an den vorhandenen Benchmarks orientieren. Anschließend muss der zusätzliche Benchmark in die entsprechende Benchmarksuite (\texttt{DEXBenchmarkSuite}, \linebreak\texttt{MySQLBenchmarkSuite}, \texttt{Neo4JBenchmarkSuite} oder \texttt{OrientBenchmarkSuite}) aufgenommen werden, damit dieser auch ausgeführt wird. Abschließend empfiehlt es sich, ein zusätzliches property in der zugehörigen properties-Datei anzulegen, damit auch der neue Benchmark wie alle anderen ein- bzw. ausgeschaltet werden kann.
 
 \subsubsection{Zusätzliche Datenbank}
 Um das Framework um Benchmarks für eine zusätzliche Datenbank zu erweitern sind mehrere Schritte notwendig. Diese sollen im Folgenden nur genannt und nicht im Detail beschrieben werden. Der vorhandene Quellcode ist umfangreich dokumentiert und kommentiert, so dass man sich an den Implementierungen für die bereits genutzten Datenbanken orientieren kann. 
@@ -193,8 +194,8 @@ Für die Leistungsmessung wurde die eingebettete Variante der Datenbank genutzt.
 
 \subsection{Anfragemöglichkeiten}
 
-Neo4j bietet verschiedene Möglichkeiten an, den gespeicherten Graphen zu traversieren bzw. abzufragen. Neben der nativen Java-API und der ebenfalls in Java entwickelten Traversal API steht seit Version 1.5 mit Cypher eine deklarative Abfragesprache zur Verfügung. Die drei genannten Abfragemöglichkeiten werden im Folgenden kurz vorgestellt und anhand kurzer Beispiele erläutert.
-
+Neo4j bietet verschiedene Möglichkeiten, den gespeicherten Graphen zu traversieren bzw. abzufragen. Neben der nativen Java-API und der ebenfalls in Java entwickelten Traversal API steht seit Version 1.5 mit Cypher eine deklarative Abfragesprache zur Verfügung. Die drei genannten Abfragemöglichkeiten werden im Folgenden kurz vorgestellt und anhand kurzer Beispiele erläutert.
+\newpage
 \subsubsection{Native API}
 
 \begin{lstlisting}[caption={Erstellen, Öffnen und Schließen einer Datenbank},label={lst:neo_create}]
@@ -364,7 +365,7 @@ Auf die in OrientDB gespeicherten Daten kann auf drei verschiedene Arten zugegri
 
 Weiterhin können Anfragen in einer SQL-artigen Syntax\footnote{\url{http://code.google.com/p/orient/wiki/SQL}} gestellt werden. Allerdings existieren an dieser Stelle laut Autor noch gewisse Einschränkungen: \glqq{}Sub-selects are not yet implemented.\grqq{} Daraus ergab sich, dass diese Anfragemöglichkeit nicht für das in diesem Projekt beschriebene Problem genutzt werden konnte.
 
-Eine dritte Zugriffsvariante besteht mittels  Gremlin\footnote{\url{https://github.com/tinkerpop/gremlin/wiki}}, einer imperativen, an XPath angelehnten Sprache zur Traversierung von Graphen.
+Eine dritte Zugriffsvariante besteht mit  Gremlin\footnote{\url{https://github.com/tinkerpop/gremlin/wiki}}, einer imperativen, an XPath angelehnten Sprache zur Traversierung von Graphen.
 
 \subsection{Benutzung}
 
@@ -415,7 +416,7 @@ index = (OIndexUnique) cWord.createIndex("word_id_index",
 
 In diesem Codeausschnitt wird zuerst ein Knotentyp deklariert (Zeile \ref{OVer}), für welchen später ein Index auf ein bestimmtes Attribut erstellt werden soll. In der darauffolgenden Anweisung (Zeile \ref{OProp}) wird ein Attribut mit einem bestimmten Typen für den Knoten festgelegt. Der Index auf diesem Attribut wird in Zeile \ref{OIndex} erstellt. 
 Ausführlichere Informationen finden sich in der Dokumentation.\footnote{\url{http://code.google.com/p/orient/wiki/Indexes}}
-
+\newpage
 \subsubsection{Daten einfügen}
 
 \begin{lstlisting}[caption={OrientDB - Daten einfügen}]
@@ -464,7 +465,7 @@ Eine zweite Art des Zugriffs ist in Zeile \ref{OByBrowse} beschrieben. Hier werd
 
 \subsection{Einschränkungen}
 
-Im Rahmen des Praktikums stellte sich der Import von Kanten als ein wesentliches Bottleneck heraus. Auch unter Berücksichtigung der \glqq{}Performance Hints\grqq{}\footnote{\url{http://code.google.com/p/orient/wiki/PerformanceTuning}} und dem Optimieren diverser JVM Parameter, stieg die Zeit für den Import der Kookkurrenzen exponentiell mit der Anzahl bereits eingefügter Kanten an (siehe Abbildung~\ref{fig:orientdb_import}). Dies hatte zur Folge, dass große Datenmengen (ab 1M Datensatz mit 3349314 CO\_{}S Kanten) nicht mehr importiert werden konnten. Mittels JProfiler konnte der Persistierungsprozess von OrientDB als HotSpot ausgemacht werden. Ein Kontaktaufnahme mit dem Autor bezüglich dieses Problems ist durch uns erfolgt, führte aber zu keiner Lösung des Problems.\\
+Im Rahmen des Praktikums stellte sich der Import von Kanten als ein wesentliches Bottleneck heraus. Auch unter Berücksichtigung der \glqq{}Performance Hints\grqq{}\footnote{\url{http://code.google.com/p/orient/wiki/PerformanceTuning}} und dem Optimieren diverser JVM Parameter, stieg die Zeit für den Import der Kookkurrenzen exponentiell mit der Anzahl bereits eingefügter Kanten an (siehe Anhang~\ref{anh:orientimport}). Dies hatte zur Folge, dass große Datenmengen (ab 1M Datensatz mit 3349314 CO\_{}S Kanten) nicht mehr importiert werden konnten. Mittels JProfiler konnte der Persistierungsprozess von OrientDB als HotSpot ausgemacht werden. Ein Kontaktaufnahme mit dem Autor bezüglich dieses Problems ist durch uns erfolgt, führte aber zu keiner Lösung des Problems.\\
 Auch konnte die SQL-artige Abfragesprache OrientSQL nicht genutzt werden, da diese nicht alle benötigten Funktionalitäten bereitstellt.
 
 \subsection{Dokumentation}
@@ -588,10 +589,6 @@ iterator.close();
 neighbors.close();(*@\label{DEXFindNeighborsEnd}@*)
 \end{lstlisting}
 
-\subsection{Dokumentation}
-
-Die Dokumentation von DEX beschränkt sich auf eine schmale Dokumentation der API in Javadoc, die als PDF zum Download bereitgestellt wird. Teilweise ist durch die kurzen Ausführungen nicht immer klar ob man bei der Implementierung richtig vorgegangen ist oder nicht. Leider fehlt es auch fast vollkommen an Implementierungsbeispielen. Das vorhandene Supportforum ist kaum frequentiert und enthält seit der Einführung im zweiten Quartal 2011 kaum mehr als 80 Einträge, was auf eine sehr kleine Community rund um DEX schließen lässt. Immerhin scheinen die Entwickler bemüht und beantworten Fragen im Forum zeitnah, ausreichend hilfreich und umfangreich. Auch unsere Erfahrungen mit dem direkten Support via E-Mail sind zumindest nicht negativ.
-
 \subsection{Einschränkungen}
 
 Die APIs stellen die einzigen Schnittstellen zur Datenbank dar. Eine Unterstützung für den Einsatz als Netzwerkdatenbank ist nicht gegeben und ein Einsatz in einem Netzwerkcluster ist ausgeschlossen, da die Persistierung durch das Abspeichern der Daten in einer einzelnen Datei umgesetzt wurde.
@@ -601,6 +598,10 @@ Die Brücke, die durch die APIs zum C++-Kern genommen wird, erschwert die Implem
 Ein anderer Nachteil der C++-Implementierung des Kerns ist die unschöne Integration der API in die Sprache Java. So müssen Java-unüblich zum Beispiel Iteratoren auf einer Knotenmenge oder Listen von Kanten explizit geschlossen bzw. freigegeben werden. Das kennt man so zwar aus der C++-Welt, führt bei Nichteinhaltung aber zu den angesprochenen Programm-Exceptions, deren Fehlermeldung einen DEX-Einsteiger nicht auf die Ursache hinweisen.
 
 Weiter sei zu erwähnen, dass die Evaluierungslizenz lediglich die Datenhaltung von insgesamt einer Million Kanten und Knoten erlaubt, was eine aussagekräftige Evaluierung des Verhaltens bei großen Datenmengen enorm einschränkt.
+
+\subsection{Dokumentation}
+
+Die Dokumentation von DEX beschränkt sich auf eine schmale Dokumentation der API in Javadoc, die als PDF zum Download bereitgestellt wird. Teilweise ist durch die kurzen Ausführungen nicht immer klar ob man bei der Implementierung richtig vorgegangen ist oder nicht. Leider fehlt es auch fast vollkommen an Implementierungsbeispielen. Das vorhandene Supportforum ist kaum frequentiert und enthält seit der Einführung im zweiten Quartal 2011 kaum mehr als 80 Einträge, was auf eine sehr kleine Community rund um DEX schließen lässt. Immerhin scheinen die Entwickler bemüht und beantworten Fragen im Forum zeitnah, ausreichend hilfreich und umfangreich. Auch unsere Erfahrungen mit dem direkten Support via E-Mail sind zumindest nicht negativ.
 
 \subsection{Aussicht}
 
@@ -693,17 +694,19 @@ In Tabelle \ref{tab:compare} werden die Erkenntnisse aus dem Praktikum zusammeng
 \begin{appendix}
 \section{Abbildungen}
 \subsection{OrientDB Import}
-\begin{figure*}[htbp]
+\label{anh:orientimport}
+
+\begin{figure}[ht] 
 	\centering
-	\includegraphics[width=10cm]{OrientImporter.png} 
+		\includegraphics[scale=.3]{OrientImporter.png}
 	\caption{OrientDB-Importer Zeiten für Kookurenzen CO\_{}S}
 	\label{fig:orientdb_import}
-\end{figure*}
+\end{figure}
 
 \subsection{Vergleich zwischen den Graphdatenbanken}
 Auf den folgenden Seiten sind die Ergebnisse der Benchmarks dargestellt. Es gibt zwei unterschiedliche Arten von Diagrammen, die den Fokus auf verschiedene Aspekte legen. \\
 Die \textbf{Boxplots} vergleichen die Datenbanken hinsichtlich durchschnittlicher Performanz, welche über 100 Einzelabfragen ermittelt wurde. Die X-Achse beschriftet dabei ein konkretes Datenbanksystem und die Y-Achse stellt die Zeit in Millisekunden dar. Pro Datensatz und Query gibt es ein Boxplotdiagramm. Der Hauptfokus bei diesem Diagrammtyp liegt auf dem Vergleich der Datenbanken mit Hinblick auf die durchschnittliche Dauer von Abfragen sowie auf die Varianz der Abfragezeiten.\\
-Die \textbf{Lineplots} vergleichen die Datenbanken hinsichtlich jeder Einzelabfrage. Die X-Achse beschriftet hierbei eine einzelene Abfrage und die Y-Achse stellt die Zeit in Millisekunden dar. In jedem Diagramm sind die verschiedenen Datenbanksysteme als verschiedene Linien mit verschiedenen Farben dargestellt. Pro Datensatz und Query gibt es ein Boxplotdiagramm. Der Hauptfokus bei diesem Diagrammtyp liegt auf dem Verhalten von den Datenbanksystemen bei einzelnen Queries. Hierbei fällt auf, dass Peaks sehr häufig bei allen Graphdatenbanken bei der selben Abfrage entstehen.
+Die \textbf{Lineplots} vergleichen die Datenbanken hinsichtlich jeder Einzelabfrage. Die X-Achse beschriftet hierbei eine einzelene Abfrage und die Y-Achse stellt die Zeit in Millisekunden dar. In jedem Diagramm sind die verschiedenen Datenbanksysteme als verschiedene Linien mit verschiedenen Farben dargestellt. Pro Datensatz und Query gibt es ein Boxplotdiagramm. Der Hauptfokus bei diesem Diagrammtyp liegt auf dem Verhalten der Datenbanksysteme bei einzelnen Queries. Hierbei fällt auf, dass Peaks sehr häufig bei allen Graphdatenbanken bei der selben Abfrage entstehen, was auf Knoten in einem stark vernetzen Subgraphen hinweist.
 
 \begin{landscape} 
 	\newpage

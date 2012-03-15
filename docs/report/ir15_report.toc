@@ -1,50 +1,50 @@
 \select@language {ngerman}
-\contentsline {section}{\numberline {1}Projektbeschreibung}{3}{section.1}
-\contentsline {subsection}{\numberline {1.1}Softwarearchitektur}{3}{subsection.1.1}
-\contentsline {subsubsection}{\numberline {1.1.1}Konnektoren}{3}{subsubsection.1.1.1}
-\contentsline {subsubsection}{\numberline {1.1.2}Importierer}{3}{subsubsection.1.1.2}
-\contentsline {subsubsection}{\numberline {1.1.3}Benchmark}{3}{subsubsection.1.1.3}
-\contentsline {subsubsection}{\numberline {1.1.4}Benchmark-Suite}{3}{subsubsection.1.1.4}
-\contentsline {subsubsection}{\numberline {1.1.5}Konfigurationsdateien}{4}{subsubsection.1.1.5}
-\contentsline {subsection}{\numberline {1.2}Bedienungsanleitung}{4}{subsection.1.2}
-\contentsline {subsubsection}{\numberline {1.2.1}Voraussetzungen}{4}{subsubsection.1.2.1}
-\contentsline {subsubsection}{\numberline {1.2.2}Benchmarks konfigurieren}{4}{subsubsection.1.2.2}
-\contentsline {subsubsection}{\numberline {1.2.3}Benchmarks ausf\IeC {\"u}hren}{5}{subsubsection.1.2.3}
-\contentsline {subsubsection}{\numberline {1.2.4}Zus\IeC {\"a}tzliche Benchmarks}{5}{subsubsection.1.2.4}
-\contentsline {subsubsection}{\numberline {1.2.5}Zus\IeC {\"a}tzliche Datenbank}{6}{subsubsection.1.2.5}
-\contentsline {subsection}{\numberline {1.3}Einschr\IeC {\"a}nkungen}{6}{subsection.1.3}
-\contentsline {subsection}{\numberline {1.4}Erweiterungsm\IeC {\"o}glichkeiten}{6}{subsection.1.4}
-\contentsline {section}{\numberline {2}Neo4j}{7}{section.2}
-\contentsline {subsection}{\numberline {2.1}Anbindung}{7}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Anfragem\IeC {\"o}glichkeiten}{7}{subsection.2.2}
-\contentsline {subsubsection}{\numberline {2.2.1}Native API}{7}{subsubsection.2.2.1}
-\contentsline {subsubsection}{\numberline {2.2.2}Traversal API}{9}{subsubsection.2.2.2}
-\contentsline {subsubsection}{\numberline {2.2.3}Cypher}{10}{subsubsection.2.2.3}
-\contentsline {subsection}{\numberline {2.3}Einschr\IeC {\"a}nkungen}{11}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Dokumentation}{11}{subsection.2.4}
-\contentsline {subsection}{\numberline {2.5}Aussicht}{11}{subsection.2.5}
-\contentsline {section}{\numberline {3}OrientDB}{12}{section.3}
-\contentsline {subsection}{\numberline {3.1}Anbindung}{12}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Anfragem\IeC {\"o}glichkeiten}{12}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Benutzung}{12}{subsection.3.3}
-\contentsline {subsubsection}{\numberline {3.3.1}Datenbank erstellen, \IeC {\"o}ffnen und schlie\IeC {\ss }en}{12}{subsubsection.3.3.1}
-\contentsline {subsubsection}{\numberline {3.3.2}Indizes erstellen}{13}{subsubsection.3.3.2}
-\contentsline {subsubsection}{\numberline {3.3.3}Daten einf\IeC {\"u}gen}{13}{subsubsection.3.3.3}
-\contentsline {subsubsection}{\numberline {3.3.4}Daten abfragen}{14}{subsubsection.3.3.4}
-\contentsline {subsection}{\numberline {3.4}Einschr\IeC {\"a}nkungen}{15}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Dokumentation}{15}{subsection.3.5}
-\contentsline {subsection}{\numberline {3.6}Aussicht}{15}{subsection.3.6}
-\contentsline {section}{\numberline {4}DEX}{15}{section.4}
-\contentsline {subsection}{\numberline {4.1}Anbindung, Anfragem\IeC {\"o}glichkeiten und Benutzung}{16}{subsection.4.1}
-\contentsline {subsubsection}{\numberline {4.1.1}Datenbank erstellen und Verbindung herstellen}{16}{subsubsection.4.1.1}
-\contentsline {subsubsection}{\numberline {4.1.2}Daten einf\IeC {\"u}gen}{16}{subsubsection.4.1.2}
-\contentsline {subsubsection}{\numberline {4.1.3}Daten abfragen}{17}{subsubsection.4.1.3}
-\contentsline {subsection}{\numberline {4.2}Dokumentation}{18}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Einschr\IeC {\"a}nkungen}{18}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Aussicht}{19}{subsection.4.4}
-\contentsline {section}{\numberline {5}Evaluation}{19}{section.5}
-\contentsline {subsection}{\numberline {5.1}Testbed}{19}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Ergebnisse}{20}{subsection.5.2}
-\contentsline {section}{\numberline {A}Abbildungen}{21}{appendix.A}
-\contentsline {subsection}{\numberline {A.1}OrientDB Import}{21}{subsection.A.1}
-\contentsline {subsection}{\numberline {A.2}Vergleich zwischen den Graphdatenbanken}{21}{subsection.A.2}
+\contentsline {section}{\numberline {1}Projektbeschreibung}{4}{section.1}
+\contentsline {subsection}{\numberline {1.1}Softwarearchitektur}{4}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}Konnektoren}{4}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}Importierer}{4}{subsubsection.1.1.2}
+\contentsline {subsubsection}{\numberline {1.1.3}Benchmark}{4}{subsubsection.1.1.3}
+\contentsline {subsubsection}{\numberline {1.1.4}Benchmark-Suite}{4}{subsubsection.1.1.4}
+\contentsline {subsubsection}{\numberline {1.1.5}Konfigurationsdateien}{5}{subsubsection.1.1.5}
+\contentsline {subsection}{\numberline {1.2}Bedienungsanleitung}{5}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}Voraussetzungen}{5}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}Benchmarks konfigurieren}{5}{subsubsection.1.2.2}
+\contentsline {subsubsection}{\numberline {1.2.3}Benchmarks ausf\IeC {\"u}hren}{6}{subsubsection.1.2.3}
+\contentsline {subsubsection}{\numberline {1.2.4}Zus\IeC {\"a}tzliche Benchmarks}{6}{subsubsection.1.2.4}
+\contentsline {subsubsection}{\numberline {1.2.5}Zus\IeC {\"a}tzliche Datenbank}{7}{subsubsection.1.2.5}
+\contentsline {subsection}{\numberline {1.3}Einschr\IeC {\"a}nkungen}{7}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Erweiterungsm\IeC {\"o}glichkeiten}{7}{subsection.1.4}
+\contentsline {section}{\numberline {2}Neo4j}{8}{section.2}
+\contentsline {subsection}{\numberline {2.1}Anbindung}{8}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Anfragem\IeC {\"o}glichkeiten}{8}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Native API}{9}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Traversal API}{10}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Cypher}{11}{subsubsection.2.2.3}
+\contentsline {subsection}{\numberline {2.3}Einschr\IeC {\"a}nkungen}{12}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Dokumentation}{12}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Aussicht}{12}{subsection.2.5}
+\contentsline {section}{\numberline {3}OrientDB}{13}{section.3}
+\contentsline {subsection}{\numberline {3.1}Anbindung}{13}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Anfragem\IeC {\"o}glichkeiten}{13}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Benutzung}{13}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Datenbank erstellen, \IeC {\"o}ffnen und schlie\IeC {\ss }en}{13}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Indizes erstellen}{14}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.3}Daten einf\IeC {\"u}gen}{15}{subsubsection.3.3.3}
+\contentsline {subsubsection}{\numberline {3.3.4}Daten abfragen}{15}{subsubsection.3.3.4}
+\contentsline {subsection}{\numberline {3.4}Einschr\IeC {\"a}nkungen}{16}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Dokumentation}{16}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Aussicht}{16}{subsection.3.6}
+\contentsline {section}{\numberline {4}DEX}{16}{section.4}
+\contentsline {subsection}{\numberline {4.1}Anbindung, Anfragem\IeC {\"o}glichkeiten und Benutzung}{17}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Datenbank erstellen und Verbindung herstellen}{17}{subsubsection.4.1.1}
+\contentsline {subsubsection}{\numberline {4.1.2}Daten einf\IeC {\"u}gen}{17}{subsubsection.4.1.2}
+\contentsline {subsubsection}{\numberline {4.1.3}Daten abfragen}{18}{subsubsection.4.1.3}
+\contentsline {subsection}{\numberline {4.2}Einschr\IeC {\"a}nkungen}{19}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Dokumentation}{20}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Aussicht}{20}{subsection.4.4}
+\contentsline {section}{\numberline {5}Evaluation}{20}{section.5}
+\contentsline {subsection}{\numberline {5.1}Testbed}{20}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Ergebnisse}{21}{subsection.5.2}
+\contentsline {section}{\numberline {A}Abbildungen}{22}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}OrientDB Import}{22}{subsection.A.1}
+\contentsline {subsection}{\numberline {A.2}Vergleich zwischen den Graphdatenbanken}{22}{subsection.A.2}
