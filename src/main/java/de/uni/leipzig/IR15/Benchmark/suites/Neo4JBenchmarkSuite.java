@@ -88,12 +88,12 @@ public class Neo4JBenchmarkSuite extends AbstractBenchmarkSuite {
 			query_1_native.setRuns(100);
 			benchmarks.add(query_1_native);
 		}
-		if (neoCfg.getPropertyAsBoolean("query1_native")) {
+		if (neoCfg.getPropertyAsBoolean("query2_native")) {
 			Benchmark query_2_native = new de.uni.leipzig.IR15.Benchmark.neo4j.Query2_Native_Benchmark();
 			query_2_native.setRuns(100);
 			benchmarks.add(query_2_native);
 		}
-		if (neoCfg.getPropertyAsBoolean("query1_native")) {
+		if (neoCfg.getPropertyAsBoolean("query3_native")) {
 			Benchmark query_3_native = new de.uni.leipzig.IR15.Benchmark.neo4j.Query3_Native_Benchmark();
 			query_3_native.setRuns(100);
 			benchmarks.add(query_3_native);

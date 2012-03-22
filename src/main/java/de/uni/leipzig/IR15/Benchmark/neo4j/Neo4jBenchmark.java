@@ -57,8 +57,7 @@ public abstract class Neo4jBenchmark extends Benchmark {
 	 */
 	@Override
 	public void beforeRun() {
-		startNode = getRandomNode(minOutDegree);
-		System.out.println(startNode);
+		startNode = getRandomNode(minOutDegree);		
 	}
 
 	@Override
