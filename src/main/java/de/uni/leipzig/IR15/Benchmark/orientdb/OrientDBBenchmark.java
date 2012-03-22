@@ -123,4 +123,9 @@ public abstract class OrientDBBenchmark extends Benchmark {
 	@Override
 	public void warmup() {
 	}
+	
+	@Override
+	public String getDatabaseName() {
+		return "OrientDB";
+	}
 }

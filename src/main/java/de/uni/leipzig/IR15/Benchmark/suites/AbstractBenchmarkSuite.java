@@ -58,7 +58,7 @@ public class AbstractBenchmarkSuite {
 	 *            true to turn on logging.
 	 */
 	public static void runBenchmark(Benchmark benchmark, boolean log2file,
-			boolean doWarmup) {		
+			boolean doWarmup) {
 		int runs = benchmark.getRuns();
 
 		long[] totalResults = new long[runs];
@@ -68,18 +68,17 @@ public class AbstractBenchmarkSuite {
 
 		long[] results = new long[runs];
 
-		log.info(String.format(
-				"Starting Benchmark: %s with %d runs",
+		log.info(String.format("Starting Benchmark: %s with %d runs",
 				benchmark.getName(), runs));
 
 		benchmark.setUp();
 
-		if(doWarmup) {
+		if (doWarmup) {
 			log.info("starting warmup...");
 			benchmark.warmup();
 			log.info("done");
 		}
-		
+
 		// do measurement
 		for (int i = 0; i < runs; i++) {
 			log.info(String.format("Starting run %d ...", i));
@@ -116,7 +115,8 @@ public class AbstractBenchmarkSuite {
 	 * @param benchmark
 	 */
 	private static void storeResults(long[] results, Benchmark benchmark) {
-		Configuration mysqlConf = Configuration.getInstance("mysql");
+		Configuration mysqlConf = Configuration.getInstance(benchmark
+				.getDatabaseName().toLowerCase());
 
 		String dirString = "out/benchmarks/"
 				+ mysqlConf.getPropertyAsString("database")

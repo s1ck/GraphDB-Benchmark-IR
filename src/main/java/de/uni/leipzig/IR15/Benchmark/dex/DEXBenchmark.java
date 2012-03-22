@@ -131,4 +131,9 @@ public abstract class DEXBenchmark extends Benchmark {
 			}
 		}
 	}
+	
+	@Override
+	public String getDatabaseName() {
+		return "DEX";
+	}
 }

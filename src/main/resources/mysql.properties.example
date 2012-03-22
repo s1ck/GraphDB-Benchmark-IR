@@ -1,18 +1,22 @@
-# connection properties
+# connection settings
 host=localhost
 port=3306
-database=deu_news_2009_1M
+database=deu_news_2009_10k
 username=root
-password=
+password=######
 
-# table where the nodes (words) are stored
+# table definitions
 table_words=words
-
-# table where the edges (neighbourhood co-occurrences) are stored
 table_co_n=co_n
-
-# table where the edges (sentence co-occurrences) are stored
 table_co_s=co_s
 
 # sets the treshold for number of outgoing edges
 min_outdegree=20
+
+# perform a warmup before running a benchmark
+warmup=true
+
+# select the queries to run 
+query1=true
+query2=true
+query3=true

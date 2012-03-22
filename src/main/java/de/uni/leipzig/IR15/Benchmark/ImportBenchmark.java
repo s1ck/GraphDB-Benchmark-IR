@@ -42,4 +42,9 @@ public class ImportBenchmark extends Benchmark {
 	@Override
 	public void warmup() {
 	}
+	
+	@Override
+	public String getDatabaseName() {
+		return importer.getName();
+	}
 }

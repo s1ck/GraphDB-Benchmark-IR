@@ -17,7 +17,7 @@ log=true
 import=true
 
 # dataset which will be imported from mysql
-dataset=deu_news_2009_1M
+database=deu_news_2009_1M
 
 # perform a warmup before running a benchmark
 warmup=true

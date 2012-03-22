@@ -20,6 +20,8 @@
 \usepackage{pdflscape}				% landscape, if using PDFLaTeX
 \usepackage{geometry}
 \usepackage{array}					% zentrierte Spalten fester breite
+\usepackage{multirow}
+\usepackage{multicol}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -651,6 +653,16 @@ Nachfolgend werden die Startparameter der Java Virtual Machine angegeben. Diese 
 -XX:CompileThreshold=200
 \end{lstlisting}
 
+\subsection{Abfragen}
+
+An die Kookkurrenzgraphen wurden drei verschiedene Abfragen gestellt, welche nachfolgend kurz beschrieben werden.
+
+Abfrage 1 (Query 1) fragt alle Nachbarschafts- / Satzkookkurrenzen eines gegebenen Wortes ab. Dabei werden sowohl die kookkurrenten Wörter, als auch Signifikanz und Frequenz der entsprechenden Kookkurrenzen aus der Datenbank geladen.
+
+Abfrage 2 (Query 2) ähnelt Abfrage 1, wählt jedoch nicht die direkten Kookkurrenzen eines Wortes aus, sondern solche mit Abstand Zwei zum Ausgangswort. Auch hier werden die Wörter, sowie Signifikanz und Frequenz der Kookkurrenzen ausgeben. Die Abfrage entspricht einer Breitensuche im Graphen.
+
+Abfrage 3 (Query 3) fragt nach der Menge kookkurrenter Wörter eines Wortes, welche untereinander ebenfalls kookkurrent sind. Hierbei interessieren im Ergebnis die an einer Kookkurrenz beteiligten Wörter und ebenfalls Signifikanz und Frequenz der Kookkurrenzen.
+
 \subsection{Ergebnisse}
 
 In Tabelle \ref{tab:compare} werden die Erkenntnisse aus dem Praktikum zusammengefasst. Es hat sich gezeigt, dass Neo4j insgesamt am Besten für den Anwendungsfall geeignet ist. Dies ist nicht nur auf die gute bis sehr gute Performance zurückzuführen, sondern auch auf die umfangreiche Dokumentation und den Community Support. Mit Cypher steht eine mächtige Anfragesprache zur Verfügung, welche stetig weiterentwickelt und optimiert wird. Wir empfehlen daher Neo4j für eine weiterführende Evaluation im Zusammenhang mit Kookkurrenzgraphen.
@@ -706,7 +718,8 @@ In Tabelle \ref{tab:compare} werden die Erkenntnisse aus dem Praktikum zusammeng
 \subsection{Vergleich zwischen den Graphdatenbanken}
 Auf den folgenden Seiten sind die Ergebnisse der Benchmarks dargestellt. Es gibt zwei unterschiedliche Arten von Diagrammen, die den Fokus auf verschiedene Aspekte legen. \\
 Die \textbf{Boxplots} vergleichen die Datenbanken hinsichtlich durchschnittlicher Performanz, welche über 100 Einzelabfragen ermittelt wurde. Die X-Achse beschriftet dabei ein konkretes Datenbanksystem und die Y-Achse stellt die Zeit in Millisekunden dar. Pro Datensatz und Query gibt es ein Boxplotdiagramm. Der Hauptfokus bei diesem Diagrammtyp liegt auf dem Vergleich der Datenbanken mit Hinblick auf die durchschnittliche Dauer von Abfragen sowie auf die Varianz der Abfragezeiten.\\
-Die \textbf{Lineplots} vergleichen die Datenbanken hinsichtlich jeder Einzelabfrage. Die X-Achse beschriftet hierbei eine einzelene Abfrage und die Y-Achse stellt die Zeit in Millisekunden dar. In jedem Diagramm sind die verschiedenen Datenbanksysteme als verschiedene Linien mit verschiedenen Farben dargestellt. Pro Datensatz und Query gibt es ein Boxplotdiagramm. Der Hauptfokus bei diesem Diagrammtyp liegt auf dem Verhalten der Datenbanksysteme bei einzelnen Queries. Hierbei fällt auf, dass Peaks sehr häufig bei allen Graphdatenbanken bei der selben Abfrage entstehen, was auf Knoten in einem stark vernetzen Subgraphen hinweist.
+Die \textbf{Lineplots} vergleichen die Datenbanken hinsichtlich jeder Einzelabfrage. Die X-Achse beschriftet hierbei eine einzelene Abfrage und die Y-Achse stellt die Zeit in Millisekunden dar. In jedem Diagramm sind die verschiedenen Datenbanksysteme als verschiedene Linien mit verschiedenen Farben dargestellt. Pro Datensatz und Query gibt es ein Boxplotdiagramm. Der Hauptfokus bei diesem Diagrammtyp liegt auf dem Verhalten der Datenbanksysteme bei einzelnen Queries. Hierbei fällt auf, dass Peaks sehr häufig bei allen Graphdatenbanken bei der selben Abfrage entstehen, was auf Knoten in einem stark vernetzen Subgraphen hinweist.\\
+Tabelle \ref{tab:mem_time} in Anhang \ref{anh:mem_time} stellt zusätzlich den für die jeweiligen Datensätze benötigten Speicherplatz und die für den Datenimport benötigte Zeit der einzelnen Datenbanken gegenüber. Durch das bereits beschriebene Defizit von OrientDB werden die Werte für den 1M und 10M Datensatz ausgelassen.
 
 \begin{landscape} 
 	\newpage
@@ -892,5 +905,30 @@ Die \textbf{Lineplots} vergleichen die Datenbanken hinsichtlich jeder Einzelabfr
 	\end{figure}
 \end{landscape}
 
+\subsection{Speicherverbrauch und Importdauer}
+\label{anh:mem_time}
+
+\begin{table}[ht]
+\begin{tabular}{|l|l|r|r|r|r|}
+\hline
+& & 10K & 100K & 1M & 10M \\
+\hline
+\hline
+\multirow{2}{*}{Neo4j} & Importdauer [ms] & 7790 & 59677 & 480684 & 11785007 \\
+\cline{2-6}
+ & Speicherverbrauch [Byte] & 5.961.534 & 46.440.567 & 376.228.699 & 3.442.036.600 \\
+\hline
+\multirow{2}{*}{DEX} & Importdauer [ms] & 1448 & 9668 & 95580 & 7537510 \\
+\cline{2-6}
+ & Speicherverbrauch [Byte] & 9.240.576 & 56.295.424 & 429.260.800 & 4.120.901.036 \\
+\hline
+\multirow{2}{*}{OrientDB} & Importdauer [ms] & 8505 & 115708 & - & - \\
+\cline{2-6}
+ & Speicherverbrauch [Byte] & 22.907.396 & 97.806.390 & - & - \\
+\hline
+\end{tabular}
+\caption{Speicherverbrauch und Importdauer der einzelnen Datensätze in den jeweiligen Datenbanken.}
+\label{tab:mem_time}
+\end{table}
 \end{appendix}
 \end{document}

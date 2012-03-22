@@ -132,4 +132,9 @@ public abstract class Neo4jBenchmark extends Benchmark {
 		}
 		return maxWordID;
 	}
+	
+	@Override
+	public String getDatabaseName() {
+		return "Neo4j";
+	}
 }

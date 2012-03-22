@@ -157,6 +157,10 @@ public abstract class MySQLBenchmark extends Benchmark {
 		} catch (SQLException ex) {
 			log.error(ex.getMessage());
 		}
-
+	}
+	
+	@Override
+	public String getDatabaseName() {
+		return "MySQL";
 	}
 }

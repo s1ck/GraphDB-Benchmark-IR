@@ -106,6 +106,12 @@ public abstract class Benchmark {
 	 * @return name of the benchmark
 	 */
 	public abstract String getName();
+	
+	/**
+	 * Returns the Database Name
+	 * @return
+	 */
+	public abstract String getDatabaseName();
 
 	/**
 	 * This method calculates some default measurement results: average,

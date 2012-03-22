@@ -44,7 +44,9 @@
 \contentsline {subsection}{\numberline {4.4}Aussicht}{20}{subsection.4.4}
 \contentsline {section}{\numberline {5}Evaluation}{20}{section.5}
 \contentsline {subsection}{\numberline {5.1}Testbed}{20}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Ergebnisse}{21}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.2}Abfragen}{21}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Ergebnisse}{21}{subsection.5.3}
 \contentsline {section}{\numberline {A}Abbildungen}{22}{appendix.A}
 \contentsline {subsection}{\numberline {A.1}OrientDB Import}{22}{subsection.A.1}
 \contentsline {subsection}{\numberline {A.2}Vergleich zwischen den Graphdatenbanken}{22}{subsection.A.2}
+\contentsline {subsection}{\numberline {A.3}Speicherverbrauch und Importdauer}{29}{subsection.A.3}
